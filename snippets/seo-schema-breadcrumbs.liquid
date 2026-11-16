@@ -1,0 +1,86 @@
+{%- doc -%}
+  Global BreadcrumbList SEO Structured Data (JSON-LD) for all inner templates.
+  Automatically generates Home > Collection/Blog > Product/Article/Page hierarchy in Google Search.
+
+  @example
+  {% render 'seo-schema-breadcrumbs' %}
+{%- enddoc -%}
+
+{%- unless request.page_type == 'index' or request.page_type == '404' -%}
+  {%- assign home_name = 'pet_cro.seo.home' | t -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": {{ home_name | json }},
+          "item": {{ request.origin | append: routes.root_url | json }}
+        }
+        {%- case request.page_type -%}
+          {%- when 'collection' -%}
+            {%- if collection.url != blank -%},
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": {{ collection.title | json }},
+              "item": {{ request.origin | append: collection.url | json }}
+            }
+            {%- endif -%}
+          {%- when 'product' -%}
+            {%- assign prod_col = collection | default: product.collections.first -%}
+            {%- if prod_col != blank -%},
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": {{ prod_col.title | json }},
+              "item": {{ request.origin | append: prod_col.url | json }}
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": {{ product.title | json }},
+              "item": {{ request.origin | append: product.url | json }}
+            }
+            {%- else -%},
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": {{ product.title | json }},
+              "item": {{ request.origin | append: product.url | json }}
+            }
+            {%- endif -%}
+          {%- when 'blog' -%},
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": {{ blog.title | json }},
+              "item": {{ request.origin | append: blog.url | json }}
+            }
+          {%- when 'article' -%},
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": {{ blog.title | json }},
+              "item": {{ request.origin | append: blog.url | json }}
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": {{ article.title | json }},
+              "item": {{ request.origin | append: article.url | json }}
+            }
+          {%- when 'page' -%},
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": {{ page.title | json }},
+              "item": {{ request.origin | append: page.url | json }}
+            }
+        {%- endcase -%}
+      ]
+    }
+  </script>
+{%- endunless -%}

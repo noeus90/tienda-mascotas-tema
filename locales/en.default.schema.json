@@ -460,11 +460,11 @@
           "label": "Change every"
         },
         "heading_utilities": {
-         "content": "Utilities"
+          "content": "Utilities"
         },
         "paragraph": {
           "content": "Appear only on large screens"
-        },                     
+        },
         "show_social": {
           "label": "Social media icons",
           "info": "[Manage social accounts](/editor?context=theme&category=social%20media)"
@@ -528,7 +528,7 @@
         },
         "header_layout": {
           "content": "Layout"
-        },            
+        },
         "desktop_layout": {
           "label": "Layout",
           "options__1": {
@@ -619,9 +619,9 @@
           "default": "Collections",
           "label": "Heading"
         },
-         "header_layout": {
-        "content": "Layout"
-        },        
+        "header_layout": {
+          "content": "Layout"
+        },
         "image_ratio": {
           "label": "Image ratio",
           "options__1": {
@@ -703,17 +703,17 @@
           "label": "Heading"
         },
         "layout_header": {
-        "content": "Layout"
+          "content": "Layout"
         },
         "text_header": {
-        "content": "Text"
-        },        
+          "content": "Text"
+        },
         "blog": {
           "label": "Blog"
         },
         "post_limit": {
           "label": "Post count"
-        }, 
+        },
         "columns_desktop": {
           "label": "Columns"
         },
@@ -739,7 +739,7 @@
       "name": "Featured collection",
       "settings": {
         "header_text": {
-        "content": "Text"
+          "content": "Text"
         },
         "title": {
           "label": "Heading",
@@ -767,8 +767,8 @@
           "content": "Collection layout"
         },
         "header_mobile": {
-        "content": "Mobile layout"
-        },                 
+          "content": "Mobile layout"
+        },
         "collection": {
           "label": "Collection"
         },
@@ -1187,7 +1187,7 @@
           "options__4": {
             "label": "Large"
           }
-          },
+        },
         "content": {
           "content": "Content"
         },
@@ -1292,9 +1292,9 @@
         "buttons": {
           "name": "Buttons",
           "settings": {
-          "header_1":{
-          "content": "Button 1"
-          },
+            "header_1": {
+              "content": "Button 1"
+            },
             "button_label_1": {
               "label": "Label",
               "info": "Leave blank to hide",
@@ -1306,7 +1306,7 @@
             "button_style_secondary_1": {
               "label": "Outline style"
             },
-            "header_2":{
+            "header_2": {
               "content": "Button 2"
             },
             "button_label_2": {
@@ -1330,12 +1330,12 @@
     "image-with-text": {
       "name": "Image with text",
       "settings": {
-      "header": {
-      "content": "Content"
-      },
-      "header_colors": {
-      "content": "Colors" 
-      },
+        "header": {
+          "content": "Content"
+        },
+        "header_colors": {
+          "content": "Colors"
+        },
         "image": {
           "label": "Image"
         },
@@ -1506,15 +1506,15 @@
         "image": {
           "label": "Image"
         },
-        "header":{
-        "content": "Image"
+        "header": {
+          "content": "Image"
         },
-        "header_2":{
-        "content": "Content"
+        "header_2": {
+          "content": "Content"
         },
-        "header_3":{
-        "content": "Colors"
-        },        
+        "header_3": {
+          "content": "Colors"
+        },
         "image_height": {
           "options__1": {
             "label": "Adapt to image"
@@ -2287,7 +2287,7 @@
             },
             "pairing_2": {
               "label": "Pairing 2"
-            },            
+            },
             "icon_2": {
               "label": "Icon"
             },
@@ -2299,8 +2299,8 @@
               "default": "Heading"
             },
             "pairing_3": {
-            "label": "Pairing 3"
-            },             
+              "label": "Pairing 3"
+            },
             "icon_3": {
               "label": "Icon"
             },
@@ -2415,7 +2415,7 @@
           "options__2": {
             "label": "2"
           }
-        },        
+        },
         "image_ratio": {
           "label": "Image ratio",
           "options__1": {
@@ -2467,10 +2467,10 @@
         },
         "header_layout": {
           "content": "Layout"
-        },                            
+        },
         "header_button": {
           "content": "Button"
-        }, 
+        },
         "image_width": {
           "label": "Width",
           "options__1": {
@@ -2677,7 +2677,7 @@
         },
         "content_header": {
           "content": "Content"
-        },        
+        },
         "desktop_content_alignment": {
           "options__1": {
             "label": "Left"
@@ -2909,8 +2909,8 @@
           "name": "Buttons",
           "settings": {
             "header_button1": {
-            "content": "Button 1"
-            }, 
+              "content": "Button 1"
+            },
             "button_label_1": {
               "label": "Label",
               "info": "Leave blank to hide",
@@ -2924,7 +2924,7 @@
             },
             "header_button2": {
               "content": "Button 2"
-            },             
+            },
             "button_label_2": {
               "label": "Label",
               "info": "Leave label blank to hide"
@@ -3064,7 +3064,7 @@
               "default": "Tell your brand's story through images"
             },
             "header_button": {
-            "content": "Button"      
+              "content": "Button"
             },
             "button_label": {
               "label": "Label",
@@ -3078,7 +3078,7 @@
               "label": "Outline style"
             },
             "box_align": {
-              "label": "Content position",              
+              "label": "Content position",
               "options__1": {
                 "label": "Top left"
               },
@@ -3108,7 +3108,7 @@
               }
             },
             "header_layout": {
-            "content": "Layout"                 
+              "content": "Layout"
             },
             "show_text_box": {
               "label": "Container"
@@ -3129,11 +3129,11 @@
               "label": "Overlay opacity"
             },
             "header_text": {
-            "content": "Text"      
+              "content": "Text"
             },
             "header_colors": {
-            "content": "Colors"                 
-            },            
+              "content": "Colors"
+            },
             "text_alignment_mobile": {
               "label": "Mobile content alignment",
               "options__1": {
@@ -3194,8 +3194,8 @@
           "label": "Container color scheme"
         },
         "section_color_scheme": {
-        "label": "Section color scheme"
-        },        
+          "label": "Section color scheme"
+        },
         "open_first_collapsible_row": {
           "label": "Open first row"
         },
@@ -3394,6 +3394,283 @@
         },
         "open_by_default": {
           "label": "Open by default"
+        }
+      }
+    },
+    "pet_grooming_steps": {
+      "name": "Pet Grooming Routine",
+      "blocks": {
+        "step": {
+          "name": "Grooming Step",
+          "settings": {
+            "category": {
+              "label": "Step function (e.g. 1. Brushing / 2. Bath)"
+            },
+            "application_time": {
+              "label": "Recommended frequency"
+            },
+            "product": {
+              "label": "Linked product"
+            },
+            "step_image": {
+              "label": "Custom image (optional, replaces the product image)"
+            },
+            "short_description": {
+              "label": "Key benefit of this step"
+            }
+          }
+        }
+      },
+      "settings": {
+        "kicker": {
+          "label": "Kicker label"
+        },
+        "heading": {
+          "label": "Section heading"
+        },
+        "subheading": {
+          "label": "Explanatory subheading"
+        },
+        "header__1": {
+          "content": "Bottom Pack / Grooming Banner (CRO)"
+        },
+        "show_bundle_banner": {
+          "label": "Show bottom promotional banner"
+        },
+        "bundle_heading": {
+          "label": "Banner heading"
+        },
+        "bundle_subheading": {
+          "label": "Banner subheading"
+        },
+        "bundle_button_label": {
+          "label": "Button label"
+        },
+        "bundle_link": {
+          "label": "Button link"
+        },
+        "header__2": {
+          "content": "Section spacing"
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
+        }
+      }
+    },
+    "pet_bundle_builder": {
+      "name": "Pet Bundle Builder",
+      "settings": {
+        "kicker": {
+          "label": "Top label"
+        },
+        "heading": {
+          "label": "Section heading"
+        },
+        "subheading": {
+          "label": "Subheading"
+        },
+        "collection": {
+          "label": "Product collection for the pack (optional)"
+        },
+        "goal_units": {
+          "label": "Units for maximum discount"
+        },
+        "discount_tier_1": {
+          "label": "Discount when choosing 2 products"
+        },
+        "discount_tier_2": {
+          "label": "Discount when reaching the goal (3+ units)"
+        },
+        "header__1": {
+          "content": "Spacing"
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
+        }
+      }
+    },
+    "pet_trust_badges": {
+      "name": "Pet Trust & Reviews",
+      "blocks": {
+        "badge": {
+          "name": "Trust Badge",
+          "settings": {
+            "icon": {
+              "label": "Badge icon",
+              "options__1": {
+                "label": "100% Natural (Leaf)"
+              },
+              "options__2": {
+                "label": "Animal Welfare (Paw)"
+              },
+              "options__3": {
+                "label": "Vet Approved (Shield)"
+              },
+              "options__4": {
+                "label": "Neutral pH / Grain Free (Drop)"
+              },
+              "options__5": {
+                "label": "Premium Quality (Medal)"
+              }
+            },
+            "certificate_tag": {
+              "label": "Certification label"
+            },
+            "heading": {
+              "label": "Badge heading"
+            },
+            "description": {
+              "label": "Description"
+            }
+          }
+        }
+      },
+      "settings": {
+        "header__1": {
+          "content": "Dynamic Reviews Badge"
+        },
+        "show_review_badge": {
+          "label": "Show top reviews badge"
+        },
+        "review_score": {
+          "label": "Average rating"
+        },
+        "review_text": {
+          "label": "Review volume text"
+        },
+        "verified_label": {
+          "label": "Verification label"
+        },
+        "header__2": {
+          "content": "Header Texts"
+        },
+        "heading": {
+          "label": "Section heading"
+        },
+        "subheading": {
+          "label": "Subheading"
+        },
+        "header__3": {
+          "content": "Spacing"
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
+        }
+      }
+    },
+    "grooming_booking": {
+      "name": "Dog Grooming Booking",
+      "settings": {
+        "heading": {
+          "label": "Section heading"
+        },
+        "subheading": {
+          "label": "Subheading"
+        },
+        "whatsapp_number": {
+          "label": "Reception WhatsApp phone",
+          "info": "International format phone number to receive bookings (e.g. +34 612 345 678)"
+        },
+        "salon_address": {
+          "label": "Salon address or location"
+        },
+        "enable_sync_agenda": {
+          "label": "Sync with internal calendar",
+          "info": "Automatically adds completed appointments to the internal store calendar."
+        },
+        "header__1": {
+          "content": "Spacing"
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
+        }
+      }
+    },
+    "collection_showcase": {
+      "name": "Pet Collection Showcase",
+      "settings": {
+        "heading": {
+          "label": "Showcase heading"
+        },
+        "collection": {
+          "label": "Collection to display"
+        },
+        "products_limit": {
+          "label": "Maximum number of products"
+        },
+        "padding_y": {
+          "label": "Vertical spacing"
+        }
+      }
+    },
+    "promo_banner": {
+      "name": "Pet Promo Banner",
+      "settings": {
+        "show_icon": {
+          "label": "Show paw icon (🐾)"
+        },
+        "heading": {
+          "label": "Main heading"
+        },
+        "subheading": {
+          "label": "Descriptive text"
+        },
+        "button_label": {
+          "label": "Button label"
+        },
+        "button_link": {
+          "label": "Button link"
+        }
+      }
+    },
+    "grooming_calendar": {
+      "name": "Dog Grooming Calendar",
+      "settings": {
+        "heading": {
+          "label": "Calendar heading"
+        },
+        "subheading": {
+          "label": "Calendar subheading"
+        },
+        "default_view": {
+          "label": "Initial default view",
+          "options": {
+            "day": "Day View",
+            "week": "Week View",
+            "month": "Month View"
+          }
+        },
+        "color_scheme": {
+          "label": "Color scheme"
+        },
+        "header_access": {
+          "content": "Access Control (Staff / Admin)"
+        },
+        "require_pin": {
+          "label": "Protect calendar with staff PIN",
+          "info": "When enabled, prompts for a PIN before displaying appointments and client details."
+        },
+        "admin_pin": {
+          "label": "Access PIN",
+          "info": "4 to 6 digit numerical code (default: 1234)."
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
         }
       }
     }

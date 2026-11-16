@@ -1,3 +1,20 @@
+# Tema Shopify CRO: Tienda Animal & Peluquería Canina (Basado en Dawn)
+
+> 📚 **Documentación Técnica Completa del Proyecto:**  
+> Consulta [**`docs/pet-store-architecture.md`**](./docs/pet-store-architecture.md) para ver la guía detallada de Metafields, parámetros Liquid y configuración en el Personalizador de todos los módulos CRO desarrollados (con nomenclatura de archivos en inglés siguiendo las buenas prácticas de Shopify Dawn):
+> 1. **Pestañas de Producto para Mascotas (Beneficios, Composición y Guía de Ración/Uso):** [`snippets/pet-product-tabs.liquid`](./snippets/pet-product-tabs.liquid)
+> 2. **Rutina de Higiene y Cuidado del Pelaje Paso a Paso:** [`sections/pet-grooming-steps.liquid`](./sections/pet-grooming-steps.liquid)
+> 3. **Badge Dinámico de Reseñas y Garantías Veterinarias / Pet-Friendly:** [`snippets/pet-product-trust.liquid`](./snippets/pet-product-trust.liquid) y [`sections/pet-trust-badges.liquid`](./sections/pet-trust-badges.liquid)
+> 4. **Constructor de Packs ("Crea el Pack de tu Peludo"):** [`sections/pet-bundle-builder.liquid`](./sections/pet-bundle-builder.liquid)
+> 5. **Selector "Compra Única vs. Autopedido Recurrente y Ahorra":** [`snippets/subscription-selector.liquid`](./snippets/subscription-selector.liquid)
+> 6. **Barra de Envío Gratis + Snack Natural de Regalo (2 Escalones):** [`snippets/free-shipping-bar.liquid`](./snippets/free-shipping-bar.liquid)
+> 7. **Widget de Stock en Tiempo Real + Entrega Estimada 24h:** [`snippets/stock-urgency-widget.liquid`](./snippets/stock-urgency-widget.liquid)
+> 8. **Reserva de Cita de Peluquería Canina con Calendly:** [`sections/grooming-booking.liquid`](./sections/grooming-booking.liquid)
+> 9. **SEO Estructurado `JSON-LD` (`Product` + `aggregateRating`, `BreadcrumbList`, `ItemList`, `HowTo`):** [`snippets/seo-schema-product.liquid`](./snippets/seo-schema-product.liquid) y [`snippets/seo-schema-breadcrumbs.liquid`](./snippets/seo-schema-breadcrumbs.liquid)
+> 10. **Internacionalización (ES / EN) y Arquitectura Modular `assets/`:** [`locales/es.json`](./locales/es.json), [`locales/en.default.json`](./locales/en.default.json), [`assets/component-pet-cro.css`](./assets/component-pet-cro.css) y [`assets/pet-cro.js`](./assets/pet-cro.js)
+
+---
+
 # Dawn
 
 [![Build status](https://github.com/shopify/dawn/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Shopify/dawn/actions/workflows/ci.yml?query=branch%3Amain)

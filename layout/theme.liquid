@@ -78,6 +78,7 @@
       {{ body_font_bold_italic | font_face: font_display: 'swap' }}
       {{ settings.type_header_font | font_face: font_display: 'swap' }}
 
+      {% assign scheme_classes = '' %}
       {% for scheme in settings.color_schemes -%}
         {% assign scheme_classes = scheme_classes | append: ', .color-' | append: scheme.id %}
         {% if forloop.index == 1 -%}
@@ -319,9 +320,20 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
+
+    {%- render 'seo-schema-breadcrumbs' -%}
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+    
+    <div
+      class="dev-mode-banner"
+      data-i18n-es="Modo Desarrollo Activo: {{ shop.name | escape }}"
+      data-i18n-en="Active Development Mode: {{ shop.name | escape }}"
+    >
+      {{ 'pet_cro.general.dev_mode_banner' | t: shop_name: shop.name }}
+    </div>
+
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>

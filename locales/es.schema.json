@@ -3396,6 +3396,283 @@
           "label": "Abrir de forma predeterminada"
         }
       }
+    },
+    "pet_grooming_steps": {
+      "name": "Rutina Higiene Mascota",
+      "blocks": {
+        "step": {
+          "name": "Paso de Cuidado",
+          "settings": {
+            "category": {
+              "label": "Función del paso (ej. 1. Cepillado / 2. Baño)"
+            },
+            "application_time": {
+              "label": "Frecuencia recomendada"
+            },
+            "product": {
+              "label": "Producto vinculado"
+            },
+            "step_image": {
+              "label": "Imagen personalizada (opcional, sustituye la del producto)"
+            },
+            "short_description": {
+              "label": "Beneficio clave en este paso"
+            }
+          }
+        }
+      },
+      "settings": {
+        "kicker": {
+          "label": "Etiqueta superior (Kicker)"
+        },
+        "heading": {
+          "label": "Título de la sección"
+        },
+        "subheading": {
+          "label": "Subtítulo explicativo"
+        },
+        "header__1": {
+          "content": "Banner Inferior de Pack / Peluquería (CRO)"
+        },
+        "show_bundle_banner": {
+          "label": "Mostrar banner promocional inferior"
+        },
+        "bundle_heading": {
+          "label": "Título del banner"
+        },
+        "bundle_subheading": {
+          "label": "Subtítulo del banner"
+        },
+        "bundle_button_label": {
+          "label": "Texto del botón"
+        },
+        "bundle_link": {
+          "label": "Enlace del botón"
+        },
+        "header__2": {
+          "content": "Espaciado de la sección"
+        },
+        "padding_top": {
+          "label": "Espaciado superior"
+        },
+        "padding_bottom": {
+          "label": "Espaciado inferior"
+        }
+      }
+    },
+    "pet_bundle_builder": {
+      "name": "Constructor Pack Mascota",
+      "settings": {
+        "kicker": {
+          "label": "Etiqueta superior"
+        },
+        "heading": {
+          "label": "Título de la sección"
+        },
+        "subheading": {
+          "label": "Subtítulo"
+        },
+        "collection": {
+          "label": "Colección de productos para el pack (opcional)"
+        },
+        "goal_units": {
+          "label": "Unidades para descuento máximo"
+        },
+        "discount_tier_1": {
+          "label": "Descuento al elegir 2 productos"
+        },
+        "discount_tier_2": {
+          "label": "Descuento al completar la meta (3+ uds)"
+        },
+        "header__1": {
+          "content": "Espaciado"
+        },
+        "padding_top": {
+          "label": "Espaciado superior"
+        },
+        "padding_bottom": {
+          "label": "Espaciado inferior"
+        }
+      }
+    },
+    "pet_trust_badges": {
+      "name": "Garantías y Reseñas Pet",
+      "blocks": {
+        "badge": {
+          "name": "Sello de Garantía",
+          "settings": {
+            "icon": {
+              "label": "Icono del sello",
+              "options__1": {
+                "label": "100% Natural (Hoja)"
+              },
+              "options__2": {
+                "label": "Bienestar Animal (Huella)"
+              },
+              "options__3": {
+                "label": "Aval Veterinario (Escudo)"
+              },
+              "options__4": {
+                "label": "pH Neutro / Sin Cereales (Gota)"
+              },
+              "options__5": {
+                "label": "Calidad Premium (Medalla)"
+              }
+            },
+            "certificate_tag": {
+              "label": "Etiqueta de certificación"
+            },
+            "heading": {
+              "label": "Título del sello"
+            },
+            "description": {
+              "label": "Descripción"
+            }
+          }
+        }
+      },
+      "settings": {
+        "header__1": {
+          "content": "Badge Dinámico de Reseñas"
+        },
+        "show_review_badge": {
+          "label": "Mostrar badge superior de reseñas"
+        },
+        "review_score": {
+          "label": "Puntuación media"
+        },
+        "review_text": {
+          "label": "Texto de volumen de reseñas"
+        },
+        "verified_label": {
+          "label": "Etiqueta de verificación"
+        },
+        "header__2": {
+          "content": "Textos de Cabecera"
+        },
+        "heading": {
+          "label": "Título de la sección"
+        },
+        "subheading": {
+          "label": "Subtítulo"
+        },
+        "header__3": {
+          "content": "Espaciado"
+        },
+        "padding_top": {
+          "label": "Espaciado superior"
+        },
+        "padding_bottom": {
+          "label": "Espaciado inferior"
+        }
+      }
+    },
+    "grooming_booking": {
+      "name": "Reserva Peluquería Canina",
+      "settings": {
+        "heading": {
+          "label": "Título de la sección"
+        },
+        "subheading": {
+          "label": "Subtítulo"
+        },
+        "whatsapp_number": {
+          "label": "Teléfono de WhatsApp de recepción",
+          "info": "Número con prefijo internacional para recibir las solicitudes (ej: +34 612 345 678)"
+        },
+        "salon_address": {
+          "label": "Dirección o ubicación del centro"
+        },
+        "enable_sync_agenda": {
+          "label": "Sincronizar con agenda interna",
+          "info": "Añade automáticamente las reservas completadas al calendario interno de la tienda."
+        },
+        "header__1": {
+          "content": "Espaciado"
+        },
+        "padding_top": {
+          "label": "Espaciado superior"
+        },
+        "padding_bottom": {
+          "label": "Espaciado inferior"
+        }
+      }
+    },
+    "collection_showcase": {
+      "name": "Vitrina de Mascotas",
+      "settings": {
+        "heading": {
+          "label": "Título de la vitrina"
+        },
+        "collection": {
+          "label": "Colección a mostrar"
+        },
+        "products_limit": {
+          "label": "Cantidad máxima de productos"
+        },
+        "padding_y": {
+          "label": "Espaciado vertical"
+        }
+      }
+    },
+    "promo_banner": {
+      "name": "Banner Promo Mascotas",
+      "settings": {
+        "show_icon": {
+          "label": "Mostrar icono huella (🐾)"
+        },
+        "heading": {
+          "label": "Título principal"
+        },
+        "subheading": {
+          "label": "Texto descriptivo"
+        },
+        "button_label": {
+          "label": "Texto del botón"
+        },
+        "button_link": {
+          "label": "Enlace del botón"
+        }
+      }
+    },
+    "grooming_calendar": {
+      "name": "Agenda de Peluquería Canina",
+      "settings": {
+        "heading": {
+          "label": "Título del calendario"
+        },
+        "subheading": {
+          "label": "Subtítulo explicativo"
+        },
+        "default_view": {
+          "label": "Vista inicial predeterminada",
+          "options": {
+            "day": "Vista de Día",
+            "week": "Vista de Semana",
+            "month": "Vista de Mes"
+          }
+        },
+        "color_scheme": {
+          "label": "Esquema de color"
+        },
+        "header_access": {
+          "content": "Control de Acceso (Personal / Admin)"
+        },
+        "require_pin": {
+          "label": "Proteger agenda con PIN de personal",
+          "info": "Si está activado, solicita un PIN antes de mostrar las citas y datos de clientes."
+        },
+        "admin_pin": {
+          "label": "PIN de acceso",
+          "info": "Código numérico de 4 a 6 dígitos (por defecto: 1234)."
+        },
+        "padding_top": {
+          "label": "Espaciado superior"
+        },
+        "padding_bottom": {
+          "label": "Espaciado inferior"
+        }
+      }
     }
   }
 }
