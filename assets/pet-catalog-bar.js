@@ -83,6 +83,17 @@
       this.statusBar = section.querySelector('[data-pet-status-bar]');
       this.statusText = section.querySelector('[data-pet-status-text]');
 
+      // Textos ya traducidos por Liquid (locales/*.json)
+      this.i18n = {};
+      const i18nNode = section.querySelector('[data-pet-catalog-i18n]');
+      if (i18nNode) {
+        try {
+          this.i18n = JSON.parse(i18nNode.textContent);
+        } catch (e) {
+          this.i18n = {};
+        }
+      }
+
       // State
       this.activeMascot = 'all';
       this.activeCategory = 'all';
@@ -207,7 +218,6 @@
       if (productWrappers.length === 0) return;
 
       let visibleCount = 0;
-      const isEn = document.documentElement.lang === 'en';
 
       productWrappers.forEach((wrapper) => {
         const tags = (wrapper.dataset.petTags || '').toLowerCase();
@@ -351,7 +361,7 @@
       this.updateEmptyGridState(visibleCount);
 
       // Update status bar
-      this.updateStatusText(visibleCount, isEn);
+      this.updateStatusText(visibleCount);
     }
 
     updateEmptyGridState(visibleCount) {
@@ -366,11 +376,10 @@
           emptyEl.className = 'product-grid-empty-filter';
           grid.appendChild(emptyEl);
         }
-        const isEn = document.documentElement.lang === 'en';
         emptyEl.innerHTML = `
-          <h3>${isEn ? '🐾 No products found with this filter' : '🐾 No encontramos productos con esta combinación'}</h3>
-          <p>${isEn ? 'Try selecting another category or clear filters to view all products.' : 'Prueba a seleccionar otra categoría o limpia los filtros para ver todo el catálogo.'}</p>
-          <button type="button" class="pet-catalog-btn-reset-inline button button--secondary">${isEn ? 'View all products' : 'Ver todos los productos'}</button>
+          <h3>${this.i18n.empty_title || ''}</h3>
+          <p>${this.i18n.empty_text || ''}</p>
+          <button type="button" class="pet-catalog-btn-reset-inline button button--secondary">${this.i18n.empty_button || ''}</button>
         `;
         const inlineReset = emptyEl.querySelector('.pet-catalog-btn-reset-inline');
         if (inlineReset) {
@@ -381,7 +390,7 @@
       }
     }
 
-    updateStatusText(visibleCount, isEn) {
+    updateStatusText(visibleCount) {
       if (!this.statusBar || !this.statusText) return;
 
       const isFiltered = this.activeMascot !== 'all' || this.activeCategory !== 'all';
@@ -390,9 +399,9 @@
       if (!isFiltered) return;
 
       let mascotLabel = '';
-      if (this.activeMascot === 'perro') mascotLabel = isEn ? 'Dogs 🐶' : 'Perros 🐶';
-      else if (this.activeMascot === 'gato') mascotLabel = isEn ? 'Cats 🐱' : 'Gatos 🐱';
-      else mascotLabel = isEn ? 'All Pets ✨' : 'Todos los Peludos ✨';
+      if (this.activeMascot === 'perro') mascotLabel = this.i18n.status_dogs || '';
+      else if (this.activeMascot === 'gato') mascotLabel = this.i18n.status_cats || '';
+      else mascotLabel = this.i18n.status_all || '';
 
       let catLabel = '';
       if (this.activeCategory !== 'all') {
@@ -402,9 +411,11 @@
         }
       }
 
-      this.statusText.innerHTML = isEn
-        ? `Showing <strong>${visibleCount}</strong> product${visibleCount === 1 ? '' : 's'} for <strong>${mascotLabel}</strong>${catLabel}`
-        : `Mostrando <strong>${visibleCount}</strong> producto${visibleCount === 1 ? '' : 's'} para <strong>${mascotLabel}</strong>${catLabel}`;
+      const template = (visibleCount === 1 ? this.i18n.status_one_html : this.i18n.status_other_html) || '';
+      this.statusText.innerHTML = template
+        .replace('__COUNT__', String(visibleCount))
+        .replace('__PET__', mascotLabel)
+        .replace('__CATEGORY__', catLabel);
     }
 
     resetFilters() {

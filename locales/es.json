@@ -832,7 +832,15 @@
       "walk": "Paseo & Accesorios",
       "clear_filters": "Limpiar filtros",
       "aria_species": "Filtrar por tipo de mascota",
-      "aria_category": "Filtrar por categoría de producto"
+      "aria_category": "Filtrar por categoría de producto",
+      "empty_title": "🐾 No encontramos productos con esta combinación",
+      "empty_text": "Prueba a seleccionar otra categoría o limpia los filtros para ver todo el catálogo.",
+      "empty_button": "Ver todos los productos",
+      "status_dogs": "Perros 🐶",
+      "status_cats": "Gatos 🐱",
+      "status_all": "Todos los Peludos ✨",
+      "status_one_html": "Mostrando <strong>__COUNT__</strong> producto para <strong>__PET__</strong>__CATEGORY__",
+      "status_other_html": "Mostrando <strong>__COUNT__</strong> productos para <strong>__PET__</strong>__CATEGORY__"
     }
   }
 }

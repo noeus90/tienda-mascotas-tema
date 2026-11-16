@@ -20,6 +20,19 @@
   id="pet-catalog-bar-{{ section.id }}"
 >
   <div class="pet-catalog-bar-container page-width">
+    <script type="application/json" data-pet-catalog-i18n>
+      {
+        "empty_title": {{ 'pet_cro.catalog_bar.empty_title' | t | json }},
+        "empty_text": {{ 'pet_cro.catalog_bar.empty_text' | t | json }},
+        "empty_button": {{ 'pet_cro.catalog_bar.empty_button' | t | json }},
+        "status_dogs": {{ 'pet_cro.catalog_bar.status_dogs' | t | json }},
+        "status_cats": {{ 'pet_cro.catalog_bar.status_cats' | t | json }},
+        "status_all": {{ 'pet_cro.catalog_bar.status_all' | t | json }},
+        "status_one_html": {{ 'pet_cro.catalog_bar.status_one_html' | t | json }},
+        "status_other_html": {{ 'pet_cro.catalog_bar.status_other_html' | t | json }}
+      }
+    </script>
+
 
     {%- if section.settings.show_mascot_switcher -%}
       <!-- Level 1: Mascot Switcher -->

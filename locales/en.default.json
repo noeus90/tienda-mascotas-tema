@@ -820,7 +820,15 @@
       "walk": "Walk & Accessories",
       "clear_filters": "Clear filters",
       "aria_species": "Filter by pet type",
-      "aria_category": "Filter by product category"
+      "aria_category": "Filter by product category",
+      "empty_title": "🐾 No products found with this filter",
+      "empty_text": "Try selecting another category or clear filters to view all products.",
+      "empty_button": "View all products",
+      "status_dogs": "Dogs 🐶",
+      "status_cats": "Cats 🐱",
+      "status_all": "All Pets ✨",
+      "status_one_html": "Showing <strong>__COUNT__</strong> product for <strong>__PET__</strong>__CATEGORY__",
+      "status_other_html": "Showing <strong>__COUNT__</strong> products for <strong>__PET__</strong>__CATEGORY__"
     }
   }
 }
