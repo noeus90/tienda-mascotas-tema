@@ -823,7 +823,12 @@
   border-radius: 999px;
   cursor: pointer;
   letter-spacing: 0.04em;
+  text-decoration: none;
   transition: all 0.2s ease;
+}
+
+.header-lang-btn.is-active {
+  cursor: default;
 }
 
 .header-lang-btn:hover {

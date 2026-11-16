@@ -268,17 +268,8 @@ function initBundleBuilder(rootEl) {
     }, 4000);
   }
 
-  rootEl.__refreshBundleUI = updateBundleUI;
   updateBundleUI();
 }
-
-window.refreshAllBundleBuilders = function () {
-  document.querySelectorAll('.bundle-builder-root').forEach((el) => {
-    if (typeof el.__refreshBundleUI === 'function') {
-      el.__refreshBundleUI();
-    }
-  });
-};
 
 function initAllBundleBuilders(scope = document) {
   scope.querySelectorAll('.bundle-builder-root').forEach((el) => initBundleBuilder(el));
