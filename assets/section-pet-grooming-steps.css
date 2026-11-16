@@ -1,0 +1,308 @@
+/* ==========================================================================
+   CRO Section: Step-by-Step Pet Grooming & Hygiene Routine
+   File: assets/section-pet-grooming-steps.css
+   ========================================================================== */
+
+.grooming-steps-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  font-family: inherit;
+}
+
+.grooming-steps-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 3rem auto;
+}
+
+.grooming-steps-header .grooming-steps-kicker {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #059669;
+  background: #ecfdf5;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  margin-bottom: 0.75rem;
+}
+
+.grooming-steps-header h2 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: rgb(var(--color-foreground, 15, 23, 42));
+  margin: 0 0 0.75rem 0;
+  line-height: 1.2;
+}
+
+.grooming-steps-header p {
+  color: rgba(var(--color-foreground, 15, 23, 42), 0.7);
+  font-size: 1.05rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Top Timeline Bar */
+.grooming-steps-timeline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto 2.5rem auto;
+  padding: 0 1rem;
+}
+
+.grooming-steps-timeline::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 2rem;
+  right: 2rem;
+  height: 2px;
+  background: rgba(var(--color-foreground, 15, 23, 42), 0.14);
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.grooming-steps-timeline-node {
+  position: relative;
+  z-index: 2;
+  background: rgb(var(--color-background, 255, 255, 255));
+  border: 2px solid #059669;
+  color: #065f46;
+  font-weight: 700;
+  font-size: 0.9rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 4px rgb(var(--color-background, 255, 255, 255)), 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* Grooming Steps Grid */
+.grooming-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 768px) {
+  .grooming-steps-timeline {
+    display: none;
+  }
+  .grooming-steps-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+}
+
+.grooming-steps-card {
+  background: rgb(var(--color-background, 255, 255, 255));
+  border: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.12);
+  border-radius: 14px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.grooming-steps-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -6px rgba(var(--color-shadow, 15, 23, 42), 0.08);
+  border-color: rgba(var(--color-foreground, 15, 23, 42), 0.24);
+}
+
+/* Step Header Meta */
+.grooming-steps-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+
+.grooming-steps-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #065f46;
+  background: #d1fae5;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+}
+
+.grooming-steps-timing-tag {
+  font-size: 0.7rem;
+  color: rgba(var(--color-foreground, 15, 23, 42), 0.65);
+  font-weight: 500;
+}
+
+/* Step Product Image */
+.grooming-steps-card-media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: rgba(var(--color-foreground, 15, 23, 42), 0.04);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grooming-steps-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.grooming-steps-card:hover .grooming-steps-card-media img {
+  transform: scale(1.05);
+}
+
+.grooming-steps-placeholder-svg {
+  width: 60%;
+  height: 60%;
+  opacity: 0.4;
+}
+
+/* Step Product Body */
+.grooming-steps-card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.grooming-steps-category-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(var(--color-foreground, 15, 23, 42), 0.65);
+  margin-bottom: 0.25rem;
+}
+
+.grooming-steps-product-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: rgb(var(--color-foreground, 15, 23, 42));
+  margin: 0 0 0.4rem 0;
+  line-height: 1.3;
+}
+
+.grooming-steps-product-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.grooming-steps-product-title a:hover {
+  color: #059669;
+}
+
+.grooming-steps-desc {
+  font-size: 0.85rem;
+  color: rgba(var(--color-foreground, 15, 23, 42), 0.7);
+  line-height: 1.45;
+  margin: 0 0 1rem 0;
+}
+
+/* Step Card Footer */
+.grooming-steps-card-footer {
+  margin-top: auto;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.grooming-steps-card-price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: rgb(var(--color-foreground, 15, 23, 42));
+}
+
+.grooming-steps-btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #059669;
+  text-decoration: none;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  background: #ecfdf5;
+  transition: all 0.2s ease;
+}
+
+.grooming-steps-btn-link:hover {
+  background: #059669;
+  color: #ffffff;
+}
+
+/* Bottom Bundle CTA Banner */
+.grooming-steps-bundle-banner {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  border-radius: 16px;
+  padding: 2rem 2.5rem;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .grooming-steps-bundle-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.75rem 1.25rem;
+  }
+}
+
+.grooming-steps-bundle-info h3 {
+  color: #ffffff;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0 0 0.35rem 0;
+}
+
+.grooming-steps-bundle-info p {
+  color: #94a3b8;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.grooming-steps-bundle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #059669;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+  transition: all 0.2s ease;
+}
+
+.grooming-steps-bundle-btn:hover {
+  background: #10b981;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(5, 150, 105, 0.4);
+}
+

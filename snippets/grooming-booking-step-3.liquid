@@ -1,0 +1,160 @@
+      <div class="booking-step-panel" data-step-panel="3" hidden>
+        <div class="step-panel-header">
+          <h3 class="step-panel-title" data-i18n-es="3. Cuéntanos sobre tu peludo y contacto" data-i18n-en="3. Tell us about your dog & contact info">
+            3. Cuéntanos sobre tu peludo y contacto
+          </h3>
+          <p class="step-panel-desc" data-i18n-es="Adaptamos los productos, el ritmo de secado y el cepillado a sus necesidades individuales." data-i18n-en="We tailor cosmetics, drying rhythm, and brushing to their unique needs.">
+            Adaptamos los productos, el ritmo de secado y el cepillado a sus necesidades individuales.
+          </p>
+        </div>
+
+        <div class="booking-form-sections">
+          <!-- Datos del Perro -->
+          <fieldset class="booking-fieldset">
+            <legend class="booking-legend" data-i18n-es="🐾 Datos del Perro" data-i18n-en="🐾 Dog Details">🐾 Datos del Perro</legend>
+            <div class="booking-form-grid">
+              <div class="booking-form-field">
+                <label for="booking-pet-name-{{ section.id }}" class="booking-field-label" data-i18n-es="Nombre del perro *" data-i18n-en="Dog name *">Nombre del perro *</label>
+                <input type="text" id="booking-pet-name-{{ section.id }}" class="booking-form-input" data-booking-input="petName" placeholder="Ej: Coco" required>
+              </div>
+              <div class="booking-form-field">
+                <label for="booking-pet-breed-{{ section.id }}" class="booking-field-label" data-i18n-es="Raza o cruce *" data-i18n-en="Breed or mix *">Raza o cruce *</label>
+                <input
+                  type="text"
+                  id="booking-pet-breed-{{ section.id }}"
+                  class="booking-form-input"
+                  data-booking-input="petBreed"
+                  list="booking-breeds-list-{{ section.id }}"
+                  placeholder="Ej: Mestizo, Yorkshire, Beagle, Golden..."
+                  autocomplete="off"
+                  required
+                >
+              </div>
+              <div class="booking-form-field">
+                <label for="booking-pet-age-{{ section.id }}" class="booking-field-label" data-i18n-es="Edad aproximada" data-i18n-en="Approximate age">Edad aproximada</label>
+                <input type="text" id="booking-pet-age-{{ section.id }}" class="booking-form-input" data-booking-input="petAge" placeholder="Ej: 2 años / Cachorro 5 meses">
+              </div>
+            </div>
+
+            <!-- Necesidades Especiales Checkboxes -->
+            <div class="booking-special-needs">
+              <span class="booking-field-label" data-i18n-es="Particularidades caninas a tener en cuenta:" data-i18n-en="Special care requirements:">
+                Particularidades caninas a tener en cuenta:
+              </span>
+              <div class="booking-tags-grid">
+                <label class="booking-tag-pill">
+                  <input type="checkbox" name="special_needs" value="Piel sensible / Alergias" data-booking-tag>
+                  <span>🌿 Piel sensible / Alergias</span>
+                </label>
+                <label class="booking-tag-pill">
+                  <input type="checkbox" name="special_needs" value="Tiene nudos en el manto" data-booking-tag>
+                  <span>✂️ Tiene nudos en el manto</span>
+                </label>
+                <label class="booking-tag-pill">
+                  <input type="checkbox" name="special_needs" value="Inseguro / Miedo al secador" data-booking-tag>
+                  <span>🌬️ Inseguro / Miedo al secador</span>
+                </label>
+                <label class="booking-tag-pill">
+                  <input type="checkbox" name="special_needs" value="Primera vez en peluquería" data-booking-tag>
+                  <span>🐾 Primera vez en peluquería</span>
+                </label>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Datos del Tutor -->
+          <fieldset class="booking-fieldset">
+            <legend class="booking-legend" data-i18n-es="👤 Datos del Tutor / Contacto" data-i18n-en="👤 Pet Parent / Contact Info">👤 Datos del Tutor / Contacto</legend>
+            <div class="booking-form-grid">
+              <div class="booking-form-field">
+                <label for="booking-cust-name-{{ section.id }}" class="booking-field-label" data-i18n-es="Tu nombre y apellidos *" data-i18n-en="Your full name *">Tu nombre y apellidos *</label>
+                <input type="text" id="booking-cust-name-{{ section.id }}" class="booking-form-input" data-booking-input="customerName" placeholder="Ej: Laura Gómez" required>
+              </div>
+              <div class="booking-form-field">
+                <label for="booking-cust-phone-{{ section.id }}" class="booking-field-label" data-i18n-es="Teléfono móvil (WhatsApp) *" data-i18n-en="Mobile phone (WhatsApp) *">Teléfono móvil (WhatsApp) *</label>
+                <input type="tel" id="booking-cust-phone-{{ section.id }}" class="booking-form-input" data-booking-input="customerPhone" placeholder="Ej: 612 345 678" required>
+              </div>
+              <div class="booking-form-field">
+                <label for="booking-cust-email-{{ section.id }}" class="booking-field-label" data-i18n-es="Correo electrónico (opcional)" data-i18n-en="Email address (optional)">Correo electrónico (opcional)</label>
+                <input type="email" id="booking-cust-email-{{ section.id }}" class="booking-form-input" data-booking-input="customerEmail" placeholder="laura@ejemplo.com">
+              </div>
+            </div>
+            <div class="booking-form-field" style="margin-top: 1rem;">
+              <label for="booking-notes-{{ section.id }}" class="booking-field-label" data-i18n-es="Notas o indicaciones adicionales" data-i18n-en="Additional notes or requests">Notas o indicaciones adicionales</label>
+              <textarea id="booking-notes-{{ section.id }}" class="booking-form-textarea" data-booking-input="notes" rows="2" placeholder="Cualquier detalle que nuestro equipo deba conocer..."></textarea>
+            </div>
+          </fieldset>
+
+          <!-- Protección de Datos (RGPD / LOPD-GDD) -->
+          <div class="booking-privacy-card">
+            <label class="booking-privacy-checkbox-label" for="booking-privacy-{{ section.id }}">
+              <input
+                type="checkbox"
+                id="booking-privacy-{{ section.id }}"
+                class="booking-privacy-checkbox"
+                data-booking-input="privacyConsent"
+                required
+              >
+              <span class="booking-privacy-text-wrap">
+                <span data-i18n-es="He leído y acepto la " data-i18n-en="I have read and accept the ">He leído y acepto la </span>
+                <a
+                  href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="booking-privacy-link"
+                  data-i18n-es="Política de Privacidad"
+                  data-i18n-en="Privacy Policy"
+                >Política de Privacidad</a>
+                <span data-i18n-es=" y el tratamiento de mis datos para gestionar la cita y la ficha de mi peludo. *" data-i18n-en=" and the processing of my data to manage the appointment and my pet file. *"> y el tratamiento de mis datos para gestionar la cita y la ficha de mi peludo. *</span>
+              </span>
+            </label>
+
+            <!-- Información básica por capas (AEPD) -->
+            <details class="booking-rgpd-accordion">
+              <summary class="booking-rgpd-summary">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                <span data-i18n-es="Información básica sobre protección de datos (RGPD / LOPD-GDD)" data-i18n-en="Basic information on data protection (GDPR)">Información básica sobre protección de datos (RGPD / LOPD-GDD)</span>
+              </summary>
+              <div class="booking-rgpd-content">
+                <dl class="booking-rgpd-dl">
+                  <div class="booking-rgpd-row">
+                    <dt data-i18n-es="Responsable:" data-i18n-en="Controller:">Responsable:</dt>
+                    <dd>{{ shop.name }}</dd>
+                  </div>
+                  <div class="booking-rgpd-row">
+                    <dt data-i18n-es="Finalidad:" data-i18n-en="Purpose:">Finalidad:</dt>
+                    <dd data-i18n-es="Gestión de la reserva de cita de peluquería canina y ficha técnica de la mascota para el servicio." data-i18n-en="Management of the dog grooming appointment and pet profile for the service.">Gestión de la reserva de cita de peluquería canina y ficha técnica de la mascota para el servicio.</dd>
+                  </div>
+                  <div class="booking-rgpd-row">
+                    <dt data-i18n-es="Legitimación:" data-i18n-en="Legal basis:">Legitimación:</dt>
+                    <dd data-i18n-es="Ejecución de la solicitud de servicio y consentimiento expreso del tutor." data-i18n-en="Performance of the requested service and express consent of the pet owner.">Ejecución de la solicitud de servicio y consentimiento expreso del tutor.</dd>
+                  </div>
+                  <div class="booking-rgpd-row">
+                    <dt data-i18n-es="Destinatarios:" data-i18n-en="Recipients:">Destinatarios:</dt>
+                    <dd data-i18n-es="No se cederán datos a terceros salvo obligación legal o encargados de tratamiento del servicio." data-i18n-en="Data will not be transferred to third parties except under legal obligation or processors.">No se cederán datos a terceros salvo obligación legal o encargados de tratamiento del servicio.</dd>
+                  </div>
+                  <div class="booking-rgpd-row">
+                    <dt data-i18n-es="Derechos:" data-i18n-en="Rights:">Derechos:</dt>
+                    <dd data-i18n-es="Acceso, rectificación, supresión y demás derechos explicados en la política de privacidad." data-i18n-en="Access, rectification, erasure, and other rights detailed in the privacy policy.">Acceso, rectificación, supresión y demás derechos explicados en la política de privacidad.</dd>
+                  </div>
+                </dl>
+              </div>
+            </details>
+
+            <div class="booking-privacy-error" data-booking-privacy-error hidden>
+              ⚠️ <span data-i18n-es="Debes aceptar la política de privacidad para poder tramitar la cita." data-i18n-en="You must accept the privacy policy to book the appointment.">Debes aceptar la política de privacidad para poder tramitar la cita.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="booking-panel-nav">
+          <button type="button" class="grooming-booking-btn-secondary" data-wizard-action="prev">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            <span data-i18n-es="Atrás" data-i18n-en="Back">Atrás</span>
+          </button>
+          <button type="button" class="grooming-booking-btn-primary" data-wizard-action="next">
+            <span data-i18n-es="Revisar Cita" data-i18n-en="Review Appointment">Revisar Cita</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+      </div>

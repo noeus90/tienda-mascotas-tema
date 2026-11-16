@@ -1,0 +1,440 @@
+      <div class="booking-step-panel is-active" data-step-panel="1">
+        <div class="step-panel-header">
+          <h3 class="step-panel-title" data-i18n-es="1. Selecciona el servicio principal" data-i18n-en="1. Select the main grooming service">
+            1. Selecciona el servicio principal
+          </h3>
+          <p class="step-panel-desc" data-i18n-es="Todos nuestros servicios incluyen cosmética natural y trato individual sin jaulas." data-i18n-en="All our services feature natural cosmetics and 1-on-1 care without cages.">
+            Todos nuestros servicios incluyen cosmética natural y trato individual sin jaulas.
+          </p>
+        </div>
+
+        <div class="booking-services-grid" role="radiogroup" aria-label="Servicios de peluquería">
+          {%- if has_custom_services -%}
+            {%- for service in meta_services -%}
+              {%- assign is_active = true -%}
+              {%- if service.active.value == false or service.active == false -%}{%- assign is_active = false -%}{%- endif -%}
+              {%- if is_active -%}
+                {%- assign s_id = service.system.handle | default: service.id | default: forloop.index -%}
+                {%- assign s_name = service.name.value | default: service.name -%}
+                {%- assign s_icon = service.icon.value | default: service.icon | default: '🐾' -%}
+                {%- assign s_desc = service.description.value | default: service.description -%}
+                {%- assign s_dur = service.duration.value | default: service.duration | default: '1 hora' -%}
+                {%- assign s_mini = service.price_mini.value | default: service.price_mini | default: 28 -%}
+                {%- assign s_med = service.price_medium.value | default: service.price_medium | default: 34 -%}
+                {%- assign s_lar = service.price_large.value | default: service.price_large | default: 42 -%}
+
+                <label class="booking-service-card{% if forloop.first %} is-selected{% endif %}">
+                  <input type="radio" name="grooming_service" value="{{ s_id }}" {% if forloop.first %}checked{% endif %} class="visually-hidden">
+                  <span class="service-card-check" aria-hidden="true"></span>
+                  <div class="service-card-icon">{{ s_icon }}</div>
+                  <div class="service-card-content">
+                    <h4 class="service-card-name">{{ s_name }}</h4>
+                    {%- if s_desc != blank -%}
+                      <p class="service-card-desc">{{ s_desc }}</p>
+                    {%- endif -%}
+                    <div class="service-card-meta">
+                      <span class="service-duration">{{ s_dur }}</span>
+                      <span class="service-base-price" data-price-mini="{{ s_mini }}" data-price-medium="{{ s_med }}" data-price-large="{{ s_lar }}">
+                        Desde {{ s_mini }} €
+                      </span>
+                    </div>
+                  </div>
+                </label>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- else -%}
+            <!-- Servicio 1: Baño Dermoprotector -->
+            <label class="booking-service-card is-selected">
+              <input type="radio" name="grooming_service" value="bath_hygiene" checked class="visually-hidden">
+              <span class="service-card-check" aria-hidden="true"></span>
+              <div class="service-card-icon">🛁</div>
+              <div class="service-card-content">
+                <h4 class="service-card-name" data-i18n-es="Baño Dermoprotector & Oídos" data-i18n-en="Dermoprotective Bath & Ears">
+                  Baño Dermoprotector & Oídos
+                </h4>
+                <p class="service-card-desc" data-i18n-es="Champú natural de avena y aloe, hidratación profunda, limpieza de oídos y corte de uñas." data-i18n-en="Natural oatmeal & aloe shampoo, deep hydration, ear cleaning, and nail trim.">
+                  Champú natural de avena y aloe, hidratación profunda, limpieza de oídos y corte de uñas.
+                </p>
+                <div class="service-card-meta">
+                  <span class="service-duration" data-i18n-es="⏱️ 1 hora" data-i18n-en="⏱️ 1 hour">⏱️ 1 hora</span>
+                  <span class="service-base-price" data-price-mini="28" data-price-medium="34" data-price-large="42">Desde 28 €</span>
+                </div>
+              </div>
+            </label>
+
+            <!-- Servicio 2: Corte a Tijera -->
+            <label class="booking-service-card">
+              <input type="radio" name="grooming_service" value="scissor_cut" class="visually-hidden">
+              <span class="service-card-check" aria-hidden="true"></span>
+              <div class="service-card-icon">✂️</div>
+              <div class="service-card-content">
+                <h4 class="service-card-name" data-i18n-es="Corte a Tijera de Raza & Peinado" data-i18n-en="Breed Scissor Cut & Styling">
+                  Corte a Tijera de Raza & Peinado
+                </h4>
+                <p class="service-card-desc" data-i18n-es="Corte estilizado a tijera respetando el estándar de la raza, baño nutritivo, peinado y retoque." data-i18n-en="Breed standard scissor styling, nourishing bath, blow-out, and detailing.">
+                  Corte estilizado a tijera respetando el estándar de la raza, baño nutritivo, peinado y retoque.
+                </p>
+                <div class="service-card-meta">
+                  <span class="service-duration" data-i18n-es="⏱️ 1 hora" data-i18n-en="⏱️ 1 hour">⏱️ 1 hora</span>
+                  <span class="service-base-price" data-price-mini="38" data-price-medium="46" data-price-large="58">Desde 38 €</span>
+                </div>
+              </div>
+            </label>
+
+            <!-- Servicio 3: Deslanado Completo -->
+            <label class="booking-service-card">
+              <input type="radio" name="grooming_service" value="deshedding" class="visually-hidden">
+              <span class="service-card-check" aria-hidden="true"></span>
+              <div class="service-card-icon">🐕</div>
+              <div class="service-card-content">
+                <h4 class="service-card-name" data-i18n-es="Deslanado Completo & Baño" data-i18n-en="Full Deshedding & Bath">
+                  Deslanado Completo & Baño
+                </h4>
+                <p class="service-card-desc" data-i18n-es="Elimina hasta el 90% de pelo muerto de subpelo. Ideal para Golden, Husky, Pastor Alemán o mestizos." data-i18n-en="Removes up to 90% undercoat dead fur. Perfect for Golden, Husky, German Shepherd, or mixes.">
+                  Elimina hasta el 90% de pelo muerto de subpelo. Ideal para Golden, Husky, Pastor Alemán o mestizos.
+                </p>
+                <div class="service-card-meta">
+                  <span class="service-duration" data-i18n-es="⏱️ 1 hora" data-i18n-en="⏱️ 1 hour">⏱️ 1 hora</span>
+                  <span class="service-base-price" data-price-mini="35" data-price-medium="42" data-price-large="52">Desde 35 €</span>
+                </div>
+              </div>
+            </label>
+
+            <!-- Servicio 4: Spa Ozono -->
+            <label class="booking-service-card">
+              <input type="radio" name="grooming_service" value="spa_ozone" class="visually-hidden">
+              <span class="service-card-check" aria-hidden="true"></span>
+              <div class="service-card-icon">🫧</div>
+              <div class="service-card-content">
+                <h4 class="service-card-name" data-i18n-es="Spa Ozonoterapia & Mascarilla" data-i18n-en="Ozone Spa Therapy & Mask">
+                  Spa Ozonoterapia & Mascarilla
+                </h4>
+                <p class="service-card-desc" data-i18n-es="Terapia de hidromasaje con microburbujas de ozono. Alivia dermatitis, picores y regenera la piel." data-i18n-en="Hydromassage therapy with ozone microbubbles. Relieves dermatitis, itching, and heals skin.">
+                  Terapia de hidromasaje con microburbujas de ozono. Alivia dermatitis, picores y regenera la piel.
+                </p>
+                <div class="service-card-meta">
+                  <span class="service-duration" data-i18n-es="⏱️ 1 hora" data-i18n-en="⏱️ 1 hour">⏱️ 1 hora</span>
+                  <span class="service-base-price" data-price-mini="42" data-price-medium="50" data-price-large="62">Desde 42 €</span>
+                </div>
+              </div>
+            </label>
+          {%- endif -%}
+        </div>
+
+        <!-- Selector de Tamaño / Peso & Buscador de Raza -->
+        <div class="booking-size-section">
+          <div class="booking-breed-header">
+            <div>
+              <h4 class="step-section-subtitle" data-i18n-es="Tamaño y peso aproximado de tu perro" data-i18n-en="Approximate dog size & weight">
+                Tamaño y peso aproximado de tu perro
+              </h4>
+              <p class="booking-breed-help" data-i18n-es="Elige el tamaño por peso o busca su raza para sugerirlo automáticamente." data-i18n-en="Choose size by weight or search breed to auto-suggest it.">
+                Elige el tamaño por peso o busca su raza para sugerirlo automáticamente.
+              </p>
+            </div>
+          </div>
+
+          <!-- Buscador Predictivo de Raza / Mestizo -->
+          <div class="booking-breed-search-box">
+            <label for="booking-quick-breed-{{ section.id }}" class="booking-breed-search-label" data-i18n-es="¿De qué raza es tu peludo? (Opcional)" data-i18n-en="What breed is your dog? (Optional)">
+              ¿De qué raza es tu peludo? (Opcional)
+            </label>
+            <div class="booking-breed-input-wrap">
+              <input
+                type="text"
+                id="booking-quick-breed-{{ section.id }}"
+                class="booking-form-input booking-breed-quick-input"
+                data-booking-input="quickBreed"
+                list="booking-breeds-list-{{ section.id }}"
+                placeholder="Ej: Mestizo, Yorkshire, Beagle, Golden..."
+                autocomplete="off"
+              >
+              <button
+                type="button"
+                class="booking-breed-clear-btn"
+                data-breed-action="clear"
+                aria-label="Borrar raza"
+                hidden
+              >
+                &times;
+              </button>
+            </div>
+
+            <!-- Datalist accesible nativo con Mestizos y Razas -->
+            <datalist id="booking-breeds-list-{{ section.id }}" data-breeds-datalist>
+              <option value="Mestizo / Sin raza"></option>
+              <option value="Cruce / Mezcla"></option>
+              <option value="Chihuahua"></option>
+              <option value="Yorkshire Terrier"></option>
+              <option value="Bichón Maltés"></option>
+              <option value="Caniche Toy / Enano"></option>
+              <option value="Pomerania (Lulú)"></option>
+              <option value="Teckel Miniatura (Dachshund)"></option>
+              <option value="Pinscher Miniatura"></option>
+              <option value="Shih Tzu"></option>
+              <option value="Bichón Frisé"></option>
+              <option value="Papillón"></option>
+              <option value="Pekinés"></option>
+              <option value="Bichón Habanero"></option>
+              <option value="Beagle"></option>
+              <option value="Bulldog Francés"></option>
+              <option value="Cocker Spaniel"></option>
+              <option value="Border Collie"></option>
+              <option value="Schnauzer Miniatura / Mediano"></option>
+              <option value="Bodeguero Andaluz"></option>
+              <option value="Carlino (Pug)"></option>
+              <option value="Jack Russell Terrier"></option>
+              <option value="West Highland White Terrier (Westie)"></option>
+              <option value="Bulldog Inglés"></option>
+              <option value="Bull Terrier"></option>
+              <option value="Caniche Mediano"></option>
+              <option value="Basset Hound"></option>
+              <option value="Shiba Inu"></option>
+              <option value="Corgi (Pembroke / Cardigan)"></option>
+              <option value="Perro de Agua Español"></option>
+              <option value="Podenco (Pequeño / Mediano)"></option>
+              <option value="Whippet"></option>
+              <option value="Boston Terrier"></option>
+              <option value="Staffordshire Bull Terrier"></option>
+              <option value="Labrador Retriever"></option>
+              <option value="Golden Retriever"></option>
+              <option value="Pastor Alemán"></option>
+              <option value="Pastor Belga (Malinois)"></option>
+              <option value="Pastor Australiano (Aussie)"></option>
+              <option value="Boxer"></option>
+              <option value="Husky Siberiano"></option>
+              <option value="Dóberman"></option>
+              <option value="Rottweiler"></option>
+              <option value="Boyero de Berna"></option>
+              <option value="Galgo Español / Lebrel"></option>
+              <option value="Mastín Español / Pirineo"></option>
+              <option value="Gran Danés (Dogo Alemán)"></option>
+              <option value="San Bernardo"></option>
+              <option value="Terranova"></option>
+              <option value="Samoyedo"></option>
+              <option value="Weimaraner (Braco de Weimar)"></option>
+              <option value="Dálmata"></option>
+              <option value="Akita Inu"></option>
+              <option value="Cane Corso"></option>
+              <option value="Setter Irlandés / Inglés"></option>
+            </datalist>
+
+            <!-- Feedback Contextual Inteligente -->
+            <div class="booking-breed-feedback" data-breed-feedback hidden aria-live="polite">
+              <span class="breed-feedback-text" data-breed-feedback-text></span>
+            </div>
+          </div>
+
+          <div class="booking-size-grid" role="radiogroup" aria-label="Tamaño del perro">
+            <label class="booking-size-card is-selected">
+              <input type="radio" name="dog_size" value="mini" checked class="visually-hidden">
+              <span class="size-badge">Mini / Toy</span>
+              <strong class="size-name" data-i18n-es="Menos de 5 kg" data-i18n-en="Under 5 kg">Menos de 5 kg</strong>
+              <small class="size-hint">Chihuahua, Bichón, Yorkshire, Caniche Toy</small>
+            </label>
+            <label class="booking-size-card">
+              <input type="radio" name="dog_size" value="medium" class="visually-hidden">
+              <span class="size-badge">Mediano</span>
+              <strong class="size-name" data-i18n-es="5 a 15 kg" data-i18n-en="5 to 15 kg">5 a 15 kg</strong>
+              <small class="size-hint">Cocker, Beagle, Bulldog Francés, Schnauzer</small>
+            </label>
+            <label class="booking-size-card">
+              <input type="radio" name="dog_size" value="large" class="visually-hidden">
+              <span class="size-badge">Grande</span>
+              <strong class="size-name" data-i18n-es="Más de 15 kg" data-i18n-en="Over 15 kg">Más de 15 kg</strong>
+              <small class="size-hint">Golden Retriever, Labrador, Pastor Alemán</small>
+            </label>
+          </div>
+        </div>
+
+        <!-- Selector de Cuidados Extra / Add-ons -->
+        <div class="booking-addons-section">
+          <div class="booking-addons-header">
+            <div>
+              <h4 class="step-section-subtitle" data-i18n-es="✨ Mima a tu peludo con cuidados extra (opcional)" data-i18n-en="✨ Pamper your dog with extra care (optional)">
+                ✨ Mima a tu peludo con cuidados extra (opcional)
+              </h4>
+              <p class="booking-addons-subtitle" data-i18n-es="Añade tratamientos exclusivos en 1 clic para una experiencia spa completa." data-i18n-en="Add exclusive treatments in 1 click for a complete spa experience.">
+                Añade tratamientos exclusivos en 1 clic para una experiencia spa completa.
+              </p>
+            </div>
+            <span class="booking-addons-pill-badge" data-i18n-es="En 1 clic" data-i18n-en="In 1 click">En 1 clic</span>
+          </div>
+
+          <div class="booking-addons-grid" role="group" aria-label="Cuidados extra">
+            {%- if has_custom_addons -%}
+              {%- for addon in meta_addons -%}
+                {%- assign is_active = true -%}
+                {%- if addon.active.value == false or addon.active == false -%}{%- assign is_active = false -%}{%- endif -%}
+                {%- if is_active -%}
+                  {%- assign a_id = addon.system.handle | default: addon.id | default: forloop.index -%}
+                  {%- assign a_name = addon.name.value | default: addon.name -%}
+                  {%- assign a_price = addon.price.value | default: addon.price | default: 5 -%}
+                  {%- assign a_mini = addon.price_mini.value | default: addon.price_mini | default: a_price -%}
+                  {%- assign a_med = addon.price_medium.value | default: addon.price_medium | default: a_price -%}
+                  {%- assign a_lar = addon.price_large.value | default: addon.price_large | default: a_price -%}
+                  {%- assign a_icon = addon.icon.value | default: addon.icon | default: '✨' -%}
+                  {%- assign a_desc = addon.description.value | default: addon.description | default: '' -%}
+                  {%- assign a_dur = addon.duration_mins.value | default: addon.duration_mins | default: 0 -%}
+                  <label class="booking-addon-card" data-addon-card="{{ a_id }}">
+                    <input
+                      type="checkbox"
+                      name="grooming_addon"
+                      value="{{ a_id }}"
+                      class="visually-hidden booking-addon-input"
+                      data-addon-id="{{ a_id }}"
+                      data-price="{{ a_price }}"
+                      data-price-mini="{{ a_mini }}"
+                      data-price-medium="{{ a_med }}"
+                      data-price-large="{{ a_lar }}"
+                      data-duration-mins="{{ a_dur }}"
+                    >
+                    <span class="booking-addon-toggle" aria-hidden="true"></span>
+                    <div class="booking-addon-icon">{{ a_icon }}</div>
+                    <div class="booking-addon-content">
+                      <div class="booking-addon-top">
+                        <span class="booking-addon-name">{{ a_name }}</span>
+                        <span class="booking-addon-price" data-addon-price-display>+{{ a_mini }},00 €</span>
+                      </div>
+                      {%- if a_desc != blank -%}
+                        <p class="booking-addon-desc">{{ a_desc }}</p>
+                      {%- endif -%}
+                      {%- if a_dur > 0 -%}
+                        <span class="booking-addon-duration">+{{ a_dur }} min</span>
+                      {%- endif -%}
+                    </div>
+                  </label>
+                {%- endif -%}
+              {%- endfor -%}
+            {%- else -%}
+              <!-- Extra 1: Mascarilla Ozonoterapia & Argán -->
+              <label class="booking-addon-card" data-addon-card="addon_ozone_mask">
+                <input
+                  type="checkbox"
+                  name="grooming_addon"
+                  value="addon_ozone_mask"
+                  class="visually-hidden booking-addon-input"
+                  data-addon-id="addon_ozone_mask"
+                  data-price="8"
+                  data-price-mini="6"
+                  data-price-medium="8"
+                  data-price-large="10"
+                  data-duration-mins="10"
+                >
+                <span class="booking-addon-toggle" aria-hidden="true"></span>
+                <div class="booking-addon-icon">🫧</div>
+                <div class="booking-addon-content">
+                  <div class="booking-addon-top">
+                    <span class="booking-addon-name" data-i18n-es="Mascarilla Ozonoterapia & Argán" data-i18n-en="Ozone & Argan Nourishing Mask">Mascarilla Ozonoterapia & Argán</span>
+                    <span class="booking-addon-price" data-addon-price-display>+6,00 €</span>
+                  </div>
+                  <p class="booking-addon-desc" data-i18n-es="Nutrición profunda, brillo sedoso y alivio anti-picores para piel sensible." data-i18n-en="Deep nourishment, silky shine, and anti-itch relief for sensitive skin.">
+                    Nutrición profunda, brillo sedoso y alivio anti-picores para piel sensible.
+                  </p>
+                  <span class="booking-addon-duration" data-i18n-es="+10 min" data-i18n-en="+10 min">+10 min</span>
+                </div>
+              </label>
+
+              <!-- Extra 2: Higiene Bucal Enzimática -->
+              <label class="booking-addon-card" data-addon-card="addon_dental_clean">
+                <input
+                  type="checkbox"
+                  name="grooming_addon"
+                  value="addon_dental_clean"
+                  class="visually-hidden booking-addon-input"
+                  data-addon-id="addon_dental_clean"
+                  data-price="6"
+                  data-price-mini="6"
+                  data-price-medium="6"
+                  data-price-large="6"
+                  data-duration-mins="5"
+                >
+                <span class="booking-addon-toggle" aria-hidden="true"></span>
+                <div class="booking-addon-icon">🦷</div>
+                <div class="booking-addon-content">
+                  <div class="booking-addon-top">
+                    <span class="booking-addon-name" data-i18n-es="Higiene Bucal Enzimática" data-i18n-en="Enzymatic Oral Care">Higiene Bucal Enzimática</span>
+                    <span class="booking-addon-price" data-addon-price-display>+6,00 €</span>
+                  </div>
+                  <p class="booking-addon-desc" data-i18n-es="Cepillado con gel bioenzimático. Reduce sarro, previene placa y deja aliento fresco." data-i18n-en="Bio-enzymatic brush. Reduces tartar, prevents plaque, and leaves fresh breath.">
+                    Cepillado con gel bioenzimático. Reduce sarro, previene placa y deja aliento fresco.
+                  </p>
+                  <span class="booking-addon-duration" data-i18n-es="+5 min" data-i18n-en="+5 min">+5 min</span>
+                </div>
+              </label>
+
+              <!-- Extra 3: Corte de Uñas & Bálsamo Almohadillas -->
+              <label class="booking-addon-card" data-addon-card="addon_paws_balsam">
+                <input
+                  type="checkbox"
+                  name="grooming_addon"
+                  value="addon_paws_balsam"
+                  class="visually-hidden booking-addon-input"
+                  data-addon-id="addon_paws_balsam"
+                  data-price="5"
+                  data-price-mini="5"
+                  data-price-medium="5"
+                  data-price-large="5"
+                  data-duration-mins="5"
+                >
+                <span class="booking-addon-toggle" aria-hidden="true"></span>
+                <div class="booking-addon-icon">🐾</div>
+                <div class="booking-addon-content">
+                  <div class="booking-addon-top">
+                    <span class="booking-addon-name" data-i18n-es="Corte de Uñas & Bálsamo Almohadillas" data-i18n-en="Nail Trim & Paw Pad Balm">Corte de Uñas & Bálsamo Almohadillas</span>
+                    <span class="booking-addon-price" data-addon-price-display>+5,00 €</span>
+                  </div>
+                  <p class="booking-addon-desc" data-i18n-es="Pedicura canina delicada y cera hidratante protectora contra asfalto y grietas." data-i18n-en="Delicate pet pedicure and moisturizing protective wax against pavement cracks.">
+                    Pedicura canina delicada y cera hidratante protectora contra asfalto y grietas.
+                  </p>
+                  <span class="booking-addon-duration" data-i18n-es="+5 min" data-i18n-en="+5 min">+5 min</span>
+                </div>
+              </label>
+
+              <!-- Extra 4: Champú Repelente Antiparasitario -->
+              <label class="booking-addon-card" data-addon-card="addon_antiparasitic">
+                <input
+                  type="checkbox"
+                  name="grooming_addon"
+                  value="addon_antiparasitic"
+                  class="visually-hidden booking-addon-input"
+                  data-addon-id="addon_antiparasitic"
+                  data-price="4"
+                  data-price-mini="3"
+                  data-price-medium="4"
+                  data-price-large="6"
+                  data-duration-mins="0"
+                >
+                <span class="booking-addon-toggle" aria-hidden="true"></span>
+                <div class="booking-addon-icon">🛡️</div>
+                <div class="booking-addon-content">
+                  <div class="booking-addon-top">
+                    <span class="booking-addon-name" data-i18n-es="Champú Repelente Antiparasitario" data-i18n-en="Antiparasitic Protective Shampoo">Champú Repelente Antiparasitario</span>
+                    <span class="booking-addon-price" data-addon-price-display>+3,00 €</span>
+                  </div>
+                  <p class="booking-addon-desc" data-i18n-es="Lavado con extractos naturales de citronela y árbol de té para repeler pulgas y garrapatas." data-i18n-en="Bath with natural citronella and tea tree extracts to repel fleas and ticks.">
+                    Lavado con extractos naturales de citronela y árbol de té para repeler pulgas y garrapatas.
+                  </p>
+                </div>
+              </label>
+            {%- endif -%}
+          </div>
+        </div>
+
+        <!-- Live Estimate Bar -->
+        <div class="booking-estimate-summary">
+          <div class="estimate-info">
+            <span class="estimate-label" data-i18n-es="Tarifa estimada para este servicio:" data-i18n-en="Estimated fee for this service:">
+              Tarifa estimada para este servicio:
+            </span>
+            <div class="estimate-numbers">
+              <span class="estimate-price" data-booking-estimate-price>28,00 €</span>
+              <span class="estimate-duration" data-booking-estimate-duration data-i18n-es="(⏱️ 1 hora)" data-i18n-en="(⏱️ 1 hour)">(⏱️ 1 hora)</span>
+            </div>
+          </div>
+          <button type="button" class="grooming-booking-btn-primary" data-wizard-action="next">
+            <span data-i18n-es="Continuar a Fecha y Hora" data-i18n-en="Continue to Date & Time">Continuar a Fecha y Hora</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+      </div>

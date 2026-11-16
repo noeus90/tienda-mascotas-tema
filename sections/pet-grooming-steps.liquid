@@ -1,0 +1,537 @@
+{% comment %}
+  CRO Section: Step-by-Step Pet Grooming & Hygiene Routine (sections/pet-grooming-steps.liquid)
+  CRO Goal: Educate pet parents on the ideal 5-step grooming & care routine with a visual timeline and cross-sell products or salon booking.
+  Full documentation: docs/pet-store-architecture.md
+{% endcomment %}
+
+{{ 'section-pet-grooming-steps.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .grooming-steps-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign raw_gs_kicker = section.settings.kicker | strip
+  assign is_default_gs_kicker = false
+  if raw_gs_kicker == 'Guía de Peluquería Canina' or raw_gs_kicker == 'Dog Grooming Guide'
+    assign is_default_gs_kicker = true
+  endif
+
+  assign raw_gs_heading = section.settings.heading | strip
+  assign is_default_gs_heading = false
+  if raw_gs_heading == 'Su Rutina de Higiene y Manto en 4 Pasos' or raw_gs_heading == 'Their 4-Step Coat & Hygiene Routine'
+    assign is_default_gs_heading = true
+  endif
+
+  assign raw_gs_sub = section.settings.subheading | strip
+  assign is_default_gs_sub = false
+  if raw_gs_sub == 'Sigue el orden recomendado por nuestros peluqueros caninos y veterinarios para mantener su pelo sano, limpio y brillante.' or raw_gs_sub == 'Follow the order recommended by our dog groomers and veterinarians to keep their coat healthy, clean, and shiny.'
+    assign is_default_gs_sub = true
+  endif
+
+  assign gs_locale = request.locale.iso_code | downcase | slice: 0, 2
+-%}
+
+<section class="grooming-steps-section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient">
+  <div class="grooming-steps-container">
+    
+    <!-- Section Header -->
+    <div class="grooming-steps-header">
+      {%- if section.settings.kicker != blank -%}
+        <span
+          class="grooming-steps-kicker"
+          {% if is_default_gs_kicker %}
+            data-i18n-es="Guía de Peluquería Canina"
+            data-i18n-en="Dog Grooming Guide"
+          {% endif %}
+        >
+          {%- if is_default_gs_kicker and gs_locale == 'en' -%}
+            Dog Grooming Guide
+          {%- else -%}
+            {{ section.settings.kicker }}
+          {%- endif -%}
+        </span>
+      {%- endif -%}
+      <h2
+        {% if is_default_gs_heading %}
+          data-i18n-es="Su Rutina de Higiene y Manto en 4 Pasos"
+          data-i18n-en="Their 4-Step Coat & Hygiene Routine"
+        {% endif %}
+      >
+        {%- if is_default_gs_heading and gs_locale == 'en' -%}
+          Their 4-Step Coat & Hygiene Routine
+        {%- else -%}
+          {{ section.settings.heading }}
+        {%- endif -%}
+      </h2>
+      {%- if section.settings.subheading != blank -%}
+        <p
+          {% if is_default_gs_sub %}
+            data-i18n-es="Sigue el orden recomendado por nuestros peluqueros caninos y veterinarios para mantener su pelo sano, limpio y brillante."
+            data-i18n-en="Follow the order recommended by our dog groomers and veterinarians to keep their coat healthy, clean, and shiny."
+          {% endif %}
+        >
+          {%- if is_default_gs_sub and gs_locale == 'en' -%}
+            Follow the order recommended by our dog groomers and veterinarians to keep their coat healthy, clean, and shiny.
+          {%- else -%}
+            {{ section.settings.subheading }}
+          {%- endif -%}
+        </p>
+      {%- endif -%}
+    </div>
+
+    <!-- Top Timeline Bar -->
+    {%- if section.blocks.size > 1 -%}
+      <div class="grooming-steps-timeline" aria-hidden="true">
+        {%- for block in section.blocks -%}
+          <div class="grooming-steps-timeline-node">
+            {{ forloop.index }}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    <!-- Grooming Steps Grid -->
+    <div class="grooming-steps-grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign default_step_cat = 'pet_cro.grooming_steps.default_category' | t
+          assign step_product = block.settings.product
+          assign step_category = block.settings.category | default: default_step_cat
+          assign step_desc = block.settings.short_description
+          assign step_timing = block.settings.application_time
+
+          assign timing_es = step_timing
+          assign timing_en = timing_es
+          if timing_es == '🐾 2-3 veces por semana'
+            assign timing_en = '🐾 2-3 times per week'
+          elsif timing_es == '🛁 Cada 3-4 semanas'
+            assign timing_en = '🛁 Every 3-4 weeks'
+          elsif timing_es == '✨ Tras el aclarado'
+            assign timing_en = '✨ After rinsing'
+          elsif timing_es == '🛡️ Cuidado semanal'
+            assign timing_en = '🛡️ Weekly care'
+          endif
+
+          assign cat_es = step_category
+          assign cat_en = cat_es
+          if cat_es == 'Paso 1: Cepillado y Deslanado'
+            assign cat_en = 'Step 1: Brushing & Deshedding'
+          elsif cat_es == 'Paso 2: Champú pH Neutro'
+            assign cat_en = 'Step 2: Neutral pH Shampoo'
+          elsif cat_es == 'Paso 3: Mascarilla & Brillo'
+            assign cat_en = 'Step 3: Mask & Shine'
+          elsif cat_es == 'Paso 4: Almohadillas y Oídos'
+            assign cat_en = 'Step 4: Paws & Ears'
+          endif
+
+          assign desc_es = step_desc
+          assign desc_en = desc_es
+          if desc_es == 'Elimina pelo muerto y nudos antes del baño sin irritar la piel de tu perro.'
+            assign desc_en = "Removes dead hair and mats before bath time without irritating your dog's skin."
+          elsif desc_es == 'Limpia en profundidad respetando el pH canino (7.0) con avena y aloe vera.'
+            assign desc_en = 'Deep cleans while respecting canine skin pH (7.0) with soothing oatmeal and aloe vera.'
+          elsif desc_es == 'Hidrata el manto, facilita el peinado sin tirones y aporta suavidad duradera.'
+            assign desc_en = 'Deeply hydrates the coat, detangles without pulling, and leaves long-lasting softness.'
+          elsif desc_es == 'Protege trufa y almohadillas frente al asfalto y mantiene oídos limpios y sanos.'
+            assign desc_en = 'Protects nose and paw pads from rough asphalt while keeping ears clean and healthy.'
+          endif
+        -%}
+
+        <div class="grooming-steps-card" {{ block.shopify_attributes }}>
+          <div class="grooming-steps-meta">
+            <span
+              class="grooming-steps-badge"
+              data-i18n-es="Paso {{ forloop.index }}"
+              data-i18n-en="Step {{ forloop.index }}"
+            >
+              {{- 'pet_cro.grooming_steps.step_num' | t: number: forloop.index -}}
+            </span>
+            {%- if step_timing != blank -%}
+              <span
+                class="grooming-steps-timing-tag"
+                data-i18n-es="{{ timing_es | escape }}"
+                data-i18n-en="{{ timing_en | escape }}"
+              >
+                {%- if gs_locale == 'en' -%}{{ timing_en }}{%- else -%}{{ timing_es }}{%- endif -%}
+              </span>
+            {%- endif -%}
+          </div>
+
+          <div class="grooming-steps-card-media">
+            {%- assign step_image = block.settings.step_image | default: step_product.featured_image -%}
+            {%- if step_image != blank -%}
+              {%- liquid
+                assign img_loading = 'lazy'
+                assign img_priority = 'auto'
+                if section.index == 1 and forloop.index <= 2
+                  assign img_loading = 'eager'
+                  assign img_priority = 'high'
+                endif
+                assign img_alt = step_image.alt | default: step_product.title | default: step_category | escape
+              -%}
+              {{
+                step_image
+                | image_url: width: 940
+                | image_tag:
+                  loading: img_loading,
+                  fetchpriority: img_priority,
+                  widths: '165, 360, 533, 720, 940',
+                  sizes: '(min-width: 1200px) 270px, (min-width: 990px) calc((100vw - 6rem) / 4), (min-width: 750px) calc((100vw - 4rem) / 2), calc(100vw - 3rem)',
+                  alt: img_alt,
+                  width: step_image.width,
+                  height: step_image.height
+              }}
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag: 'grooming-steps-placeholder-svg' }}
+            {%- endif -%}
+          </div>
+
+          <div class="grooming-steps-card-body">
+            <span
+              class="grooming-steps-category-title"
+              data-i18n-es="{{ cat_es | escape }}"
+              data-i18n-en="{{ cat_en | escape }}"
+            >
+              {%- if gs_locale == 'en' -%}{{ cat_en }}{%- else -%}{{ cat_es }}{%- endif -%}
+            </span>
+            
+            <h3 class="grooming-steps-product-title">
+              {%- if step_product != blank -%}
+                <a href="{{ step_product.url }}">{{ step_product.title }}</a>
+              {%- else -%}
+                {%- case forloop.index -%}
+                  {%- when 1 -%}{{ 'pet_cro.grooming_steps.demo_title_1' | t }}
+                  {%- when 2 -%}{{ 'pet_cro.grooming_steps.demo_title_2' | t }}
+                  {%- when 3 -%}{{ 'pet_cro.grooming_steps.demo_title_3' | t }}
+                  {%- when 4 -%}{{ 'pet_cro.grooming_steps.demo_title_4' | t }}
+                  {%- else -%}{{ 'pet_cro.grooming_steps.demo_title_5' | t }}
+                {%- endcase -%}
+              {%- endif -%}
+            </h3>
+
+            {%- if step_desc != blank -%}
+              <p
+                class="grooming-steps-desc"
+                data-i18n-es="{{ desc_es | escape }}"
+                data-i18n-en="{{ desc_en | escape }}"
+              >
+                {%- if gs_locale == 'en' -%}{{ desc_en }}{%- else -%}{{ desc_es }}{%- endif -%}
+              </p>
+            {%- else -%}
+              <p class="grooming-steps-desc">
+                {%- case forloop.index -%}
+                  {%- when 1 -%}{{ 'pet_cro.grooming_steps.demo_desc_1' | t }}
+                  {%- when 2 -%}{{ 'pet_cro.grooming_steps.demo_desc_2' | t }}
+                  {%- when 3 -%}{{ 'pet_cro.grooming_steps.demo_desc_3' | t }}
+                  {%- when 4 -%}{{ 'pet_cro.grooming_steps.demo_desc_4' | t }}
+                  {%- else -%}{{ 'pet_cro.grooming_steps.demo_desc_5' | t }}
+                {%- endcase -%}
+              </p>
+            {%- endif -%}
+
+            <div class="grooming-steps-card-footer">
+              <span class="grooming-steps-card-price">
+                {%- if step_product != blank -%}
+                  {{ step_product.price | money }}
+                {%- else -%}
+                  {%- case forloop.index -%}
+                    {%- when 1 -%}14,90 €
+                    {%- when 2 -%}16,50 €
+                    {%- when 3 -%}18,00 €
+                    {%- when 4 -%}12,90 €
+                    {%- else -%}13,50 €
+                  {%- endcase -%}
+                {%- endif -%}
+              </span>
+
+              <a
+                href="{% if step_product != blank %}{{ step_product.url }}{% else %}#{% endif %}"
+                class="grooming-steps-btn-link"
+              >
+                <span
+                  data-i18n-es="Ver producto"
+                  data-i18n-en="View product"
+                >
+                  {{- 'pet_cro.grooming_steps.view_step' | t -}}
+                </span>
+                <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <!-- Bottom Bundle / Grooming CTA Banner -->
+    {%- if section.settings.show_bundle_banner -%}
+      {%- liquid
+        assign raw_b_h = section.settings.bundle_heading | strip
+        assign is_default_b_h = false
+        if raw_b_h == 'Pack Rutina Completa de Manto' or raw_b_h == 'Complete Coat Routine Bundle'
+          assign is_default_b_h = true
+        endif
+
+        assign raw_b_sub = section.settings.bundle_subheading | strip
+        assign is_default_b_sub = false
+        if raw_b_sub contains 'Lleva los 4 pasos juntos y ahorra un 15%' or raw_b_sub contains 'Get all 4 steps together'
+          assign is_default_b_sub = true
+        endif
+
+        assign raw_b_btn = section.settings.bundle_button_label | strip
+        assign is_default_b_btn = false
+        if raw_b_btn == 'Comprar rutina completa (-15%)' or raw_b_btn == 'Shop complete routine (-15%)'
+          assign is_default_b_btn = true
+        endif
+      -%}
+      <div class="grooming-steps-bundle-banner">
+        <div class="grooming-steps-bundle-info">
+          <h3
+            {% if is_default_b_h %}
+              data-i18n-es="Pack Rutina Completa de Manto"
+              data-i18n-en="Complete Coat Routine Bundle"
+            {% endif %}
+          >
+            {%- if is_default_b_h and gs_locale == 'en' -%}
+              Complete Coat Routine Bundle
+            {%- else -%}
+              {{ section.settings.bundle_heading }}
+            {%- endif -%}
+          </h3>
+          <p
+            {% if is_default_b_sub %}
+              data-i18n-es="Lleva los 4 pasos juntos y ahorra un 15% en el cuidado diario de tu peludo."
+              data-i18n-en="Get all 4 steps together and save 15% on your pet's daily care."
+            {% endif %}
+          >
+            {%- if is_default_b_sub and gs_locale == 'en' -%}
+              Get all 4 steps together and save 15% on your pet's daily care.
+            {%- else -%}
+              {{ section.settings.bundle_subheading }}
+            {%- endif -%}
+          </p>
+        </div>
+        {%- if section.settings.bundle_link != blank -%}
+          <a
+            href="{{ section.settings.bundle_link }}"
+            class="grooming-steps-bundle-btn"
+            {% if is_default_b_btn %}
+              data-i18n-es="Comprar rutina completa (-15%) &rarr;"
+              data-i18n-en="Shop complete routine (-15%) &rarr;"
+            {% endif %}
+          >
+            {%- if is_default_b_btn and gs_locale == 'en' -%}
+              Shop complete routine (-15%)
+            {%- else -%}
+              {{ section.settings.bundle_button_label }}
+            {%- endif %} &rarr;
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+
+  {%- if section.blocks.size > 0 -%}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": {{ section.settings.heading | json }},
+        {%- if section.settings.subheading != blank -%}
+          "description": {{ section.settings.subheading | json }},
+        {%- endif -%}
+        "step": [
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign default_step_cat = 'pet_cro.grooming_steps.default_category' | t
+              assign step_prod = block.settings.product
+              assign step_cat = block.settings.category | default: default_step_cat
+              assign step_name = step_prod.title | default: step_cat
+              assign step_desc = block.settings.short_description | default: step_cat
+            -%}
+            {
+              "@type": "HowToStep",
+              "position": {{ forloop.index }},
+              "name": {{ step_name | json }},
+              "text": {{ step_desc | json }}{%- if step_prod != blank -%},
+              "url": {{ request.origin | append: step_prod.url | json }}{%- endif -%}
+            }{%- unless forloop.last -%},{%- endunless -%}
+          {%- endfor -%}
+        ]
+      }
+    </script>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.pet_grooming_steps.name",
+  "tag": "section",
+  "class": "section-pet-grooming-steps",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "t:sections.pet_grooming_steps.settings.kicker.label",
+      "default": "Guía de Peluquería Canina en Casa"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.pet_grooming_steps.settings.heading.label",
+      "default": "Tu Rutina de Higiene y Manto en 4 Pasos"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "t:sections.pet_grooming_steps.settings.subheading.label",
+      "default": "Sigue el orden recomendado por nuestros estilistas caninos y veterinarios para mantener su pelo brillante, sin nudos y su piel protegida."
+    },
+    {
+      "type": "header",
+      "content": "t:sections.pet_grooming_steps.settings.header__1.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bundle_banner",
+      "label": "t:sections.pet_grooming_steps.settings.show_bundle_banner.label",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "bundle_heading",
+      "label": "t:sections.pet_grooming_steps.settings.bundle_heading.label",
+      "default": "¿Quieres llevarte el Pack de Baño Completo o reservar cita en Peluquería?"
+    },
+    {
+      "type": "text",
+      "id": "bundle_subheading",
+      "label": "t:sections.pet_grooming_steps.settings.bundle_subheading.label",
+      "default": "Ahorra un 15% creando el pack de higiene de tu peludo o agenda su sesión de baño y corte con nuestros expertos."
+    },
+    {
+      "type": "text",
+      "id": "bundle_button_label",
+      "label": "t:sections.pet_grooming_steps.settings.bundle_button_label.label",
+      "default": "Crear Pack con 15% DTO"
+    },
+    {
+      "type": "url",
+      "id": "bundle_link",
+      "label": "t:sections.pet_grooming_steps.settings.bundle_link.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.pet_grooming_steps.settings.header__2.content"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.pet_grooming_steps.settings.padding_top.label",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.pet_grooming_steps.settings.padding_bottom.label",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "t:sections.pet_grooming_steps.blocks.step.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "category",
+          "label": "t:sections.pet_grooming_steps.blocks.step.settings.category.label",
+          "default": "Baño Dermoprotector"
+        },
+        {
+          "type": "text",
+          "id": "application_time",
+          "label": "t:sections.pet_grooming_steps.blocks.step.settings.application_time.label",
+          "default": "🐾 Semanal / Quincenal"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "t:sections.pet_grooming_steps.blocks.step.settings.product.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "step_image",
+          "label": "t:sections.pet_grooming_steps.blocks.step.settings.step_image.label"
+        },
+        {
+          "type": "textarea",
+          "id": "short_description",
+          "label": "t:sections.pet_grooming_steps.blocks.step.settings.short_description.label",
+          "default": "Limpia suavemente respetando el pH canino y dejando el manto suelto y perfumado."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.pet_grooming_steps.name",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "category": "1. Cepillado Previo",
+            "application_time": "🐾 2-3 veces/semana",
+            "short_description": "Desenreda y retira el subpelo muerto antes del agua para que el champú penetre mejor."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "category": "2. Baño pH Neutro",
+            "application_time": "🛁 Cada 3-4 semanas",
+            "short_description": "Champú natural con avena y aloe vera que calma picores y elimina el mal olor."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "category": "3. Acondicionador & Brillo",
+            "application_time": "✨ Tras el aclarado",
+            "short_description": "Nutre el manto, facilita el peinado sin tirones y protege frente a la suciedad."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "category": "4. Almohadillas y Oídos",
+            "application_time": "🛡️ Cuidado final",
+            "short_description": "Repara las almohadillas agrietadas e higieniza pabellones auditivos y lagrimales."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

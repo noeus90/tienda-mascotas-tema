@@ -1,0 +1,210 @@
+{% comment %}
+  Dog Grooming Appointments Calendar (sections/grooming-calendar.liquid)
+  Purpose: Interactive 30-day schedule dashboard (Day, Week, Month views) for the store owner and grooming staff.
+  Architecture: Vanilla JS, WAI-ARIA tablist & dialog, responsive grid, zero inline handlers, dual i18n support.
+{% endcomment %}
+
+{{ 'section-grooming-calendar.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'grooming-calendar.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  .grooming-calendar-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign raw_gc_h = section.settings.heading | strip
+  assign is_default_gc_h = false
+  if raw_gc_h == 'Agenda de Citas de Peluquería Canina' or raw_gc_h == 'Dog Grooming Schedule'
+    assign is_default_gc_h = true
+  endif
+
+  assign raw_gc_sub = section.settings.subheading | strip
+  assign is_default_gc_sub = false
+  if raw_gc_sub contains 'Panel de control y gestión de citas programadas' or raw_gc_sub contains 'Appointment dashboard & booking management'
+    assign is_default_gc_sub = true
+  endif
+
+  assign gc_locale = request.locale.iso_code | downcase | slice: 0, 2
+
+  assign meta_services = shop.metaobjects['grooming_service'].values
+  if meta_services == blank or meta_services.size == 0
+    assign meta_services = shop.metaobjects.grooming_service.values
+  endif
+  assign has_custom_services = false
+  if meta_services.size > 0
+    assign has_custom_services = true
+  endif
+-%}
+
+<section
+  class="grooming-calendar-section grooming-calendar-section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient"
+  id="grooming-calendar-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  data-default-view="{{ section.settings.default_view | default: 'month' }}"
+  data-require-pin="{% if section.settings.require_pin %}true{% else %}false{% endif %}"
+  data-admin-pin="{{ section.settings.admin_pin | default: '1234' | escape }}"
+  data-design-mode="{% if request.design_mode %}true{% else %}false{% endif %}"
+>
+  <div class="grooming-calendar-container page-width">
+    
+{% render 'grooming-calendar-pin-gate', section: section %}
+
+    <!-- Main Calendar Content (Protected by PIN) -->
+    <div class="grooming-calendar-main-content" data-calendar-main-content>
+      {% render 'grooming-calendar-header',
+        section: section,
+        is_default_gc_h: is_default_gc_h,
+        is_default_gc_sub: is_default_gc_sub,
+        gc_locale: gc_locale
+      %}
+
+      {% render 'grooming-calendar-toolbar', section: section %}
+
+      <!-- Active Calendar Grid View Container -->
+      <div
+        class="grooming-calendar-view-container"
+        id="grooming-calendar-view-{{ section.id }}"
+        role="region"
+        aria-labelledby="grooming-calendar-label-{{ section.id }}"
+      >
+        <!-- Rendered dynamically by assets/grooming-calendar.js -->
+      </div>
+    </div> <!-- /.grooming-calendar-main-content -->
+  </div>
+
+  {% render 'grooming-calendar-modal', section: section %}
+
+  <!-- Services Dataset from Metaobjects (Fallback defaults) -->
+  <script type="application/json" data-grooming-calendar-services>
+    [
+      {%- if has_custom_services -%}
+        {%- for service in meta_services -%}
+          {%- assign is_active = true -%}
+          {%- if service.active.value == false or service.active == false -%}{%- assign is_active = false -%}{%- endif -%}
+          {%- if is_active -%}
+            {%- assign s_id = service.system.handle | default: service.id | default: forloop.index -%}
+            {%- assign s_name = service.name.value | default: service.name -%}
+            {%- assign s_mini = service.price_mini.value | default: service.price_mini | default: 28 -%}
+            {%- assign s_med = service.price_medium.value | default: service.price_medium | default: 34 -%}
+            {%- assign s_lar = service.price_large.value | default: service.price_large | default: 42 -%}
+            {
+              "id": {{ s_id | json }},
+              "name": {{ s_name | json }},
+              "priceMini": {{ s_mini | plus: 0 }},
+              "priceMedium": {{ s_med | plus: 0 }},
+              "priceLarge": {{ s_lar | plus: 0 }}
+            }{%- unless forloop.last -%},{%- endunless -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        { "id": "bath_hygiene", "name": "Baño Dermoprotector & Oídos", "priceMini": 28, "priceMedium": 34, "priceLarge": 42 },
+        { "id": "scissor_cut", "name": "Corte a Tijera de Raza & Peinado", "priceMini": 38, "priceMedium": 46, "priceLarge": 58 },
+        { "id": "deshedding", "name": "Deslanado Completo & Baño", "priceMini": 35, "priceMedium": 42, "priceLarge": 52 },
+        { "id": "spa_ozone", "name": "Spa Ozonoterapia & Mascarilla", "priceMini": 42, "priceMedium": 50, "priceLarge": 62 }
+      {%- endif -%}
+    ]
+  </script>
+
+  <!-- 30-Day Appointments Dataset (Empty: no demo data) -->
+  <script type="application/json" data-grooming-calendar-data>
+    {
+      "appointments": []
+    }
+  </script>
+</section>
+
+
+{% schema %}
+{
+  "name": "t:sections.grooming_calendar.name",
+  "tag": "section",
+  "class": "section-grooming-calendar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.grooming_calendar.settings.heading.label",
+      "default": "Agenda de Citas de Peluquería Canina"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "t:sections.grooming_calendar.settings.subheading.label",
+      "default": "Panel de control y gestión de citas programadas para los próximos 30 días."
+    },
+    {
+      "type": "select",
+      "id": "default_view",
+      "label": "t:sections.grooming_calendar.settings.default_view.label",
+      "options": [
+        {
+          "value": "day",
+          "label": "t:sections.grooming_calendar.settings.default_view.options.day"
+        },
+        {
+          "value": "week",
+          "label": "t:sections.grooming_calendar.settings.default_view.options.week"
+        },
+        {
+          "value": "month",
+          "label": "t:sections.grooming_calendar.settings.default_view.options.month"
+        }
+      ],
+      "default": "month"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.grooming_calendar.settings.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.grooming_calendar.settings.header_access.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "require_pin",
+      "label": "t:sections.grooming_calendar.settings.require_pin.label",
+      "info": "t:sections.grooming_calendar.settings.require_pin.info",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "admin_pin",
+      "label": "t:sections.grooming_calendar.settings.admin_pin.label",
+      "info": "t:sections.grooming_calendar.settings.admin_pin.info",
+      "default": "1234"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.grooming_calendar.settings.padding_top.label",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.grooming_calendar.settings.padding_bottom.label",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.grooming_calendar.name"
+    }
+  ]
+}
+{% endschema %}
+

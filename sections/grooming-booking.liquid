@@ -1,0 +1,343 @@
+{% comment %}
+  Native Dog Grooming Appointment Booking Wizard (sections/grooming-booking.liquid)
+  Purpose: 4-step interactive booking wizard customized for dogs, sizes, and specific care needs.
+  Architecture: Clean Vanilla JS, WAI-ARIA states, zero external iframes, direct WhatsApp & Email confirmation.
+{% endcomment %}
+
+{{ 'section-grooming-booking.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'grooming-booking.js' | asset_url }}" defer="defer"></script>
+
+
+{%- style -%}
+  .grooming-booking-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign meta_services = shop.metaobjects['grooming_service'].values
+  if meta_services == blank or meta_services.size == 0
+    assign meta_services = shop.metaobjects.grooming_service.values
+  endif
+
+  assign meta_addons = shop.metaobjects['grooming_addon'].values
+  if meta_addons == blank or meta_addons.size == 0
+    assign meta_addons = shop.metaobjects['extra_peluqueria'].values
+  endif
+  if meta_addons == blank or meta_addons.size == 0
+    assign meta_addons = shop.metaobjects.grooming_addon.values
+  endif
+
+  assign meta_schedule = null
+  for item in shop.metaobjects['grooming_schedule'].values
+    assign meta_schedule = item
+    break
+  endfor
+  if meta_schedule == blank
+    for item in shop.metaobjects.grooming_schedule.values
+      assign meta_schedule = item
+      break
+    endfor
+  endif
+
+  # Schedule defaults
+  assign raw_days_open = '1,2,3,4,5,6'
+  assign morning_slots_str = '10:00, 11:00, 12:00, 13:00'
+  assign afternoon_slots_str = '17:00, 18:00'
+  assign closed_dates_str = ''
+  assign slot_duration_mins = 60
+
+  if meta_schedule != blank
+    if meta_schedule.days_open.value != blank
+      assign raw_days_open = meta_schedule.days_open.value
+    elsif meta_schedule.days_open != blank
+      assign raw_days_open = meta_schedule.days_open
+    endif
+
+    if meta_schedule.morning_slots.value != blank
+      assign morning_slots_str = meta_schedule.morning_slots.value
+    elsif meta_schedule.morning_slots != blank
+      assign morning_slots_str = meta_schedule.morning_slots
+    endif
+
+    if meta_schedule.afternoon_slots.value != blank
+      assign afternoon_slots_str = meta_schedule.afternoon_slots.value
+    elsif meta_schedule.afternoon_slots != blank
+      assign afternoon_slots_str = meta_schedule.afternoon_slots
+    endif
+
+    # Optional Saturday custom schedule from Metaobjects
+    assign saturday_morning_slots_str = morning_slots_str
+    if meta_schedule.saturday_morning_slots.value != blank
+      assign saturday_morning_slots_str = meta_schedule.saturday_morning_slots.value
+    elsif meta_schedule.saturday_morning_slots != blank
+      assign saturday_morning_slots_str = meta_schedule.saturday_morning_slots
+    endif
+
+    assign saturday_afternoon_slots_str = ''
+    if meta_schedule.saturday_afternoon_slots.value != blank
+      assign saturday_afternoon_slots_str = meta_schedule.saturday_afternoon_slots.value
+    elsif meta_schedule.saturday_afternoon_slots != blank
+      assign saturday_afternoon_slots_str = meta_schedule.saturday_afternoon_slots
+    endif
+
+    if meta_schedule.closed_dates.value != blank
+      assign closed_dates_str = meta_schedule.closed_dates.value
+    elsif meta_schedule.closed_dates != blank
+      assign closed_dates_str = meta_schedule.closed_dates
+    endif
+
+    if meta_schedule.slot_duration_mins.value != blank
+      assign slot_duration_mins = meta_schedule.slot_duration_mins.value | plus: 0
+    elsif meta_schedule.slot_duration_mins != blank
+      assign slot_duration_mins = meta_schedule.slot_duration_mins | plus: 0
+    endif
+  endif
+
+  # Ensure days_open is a clean JSON array of strings/numbers
+  assign days_open_string = raw_days_open | join: ','
+  if days_open_string == blank
+    assign days_open_string = raw_days_open | append: ''
+  endif
+  assign days_open_arr = days_open_string | replace: ' ', '' | split: ','
+  assign days_open_json = days_open_arr | json
+
+  assign morning_slots_arr = morning_slots_str | replace: ';', ',' | split: ','
+  assign afternoon_slots_arr = afternoon_slots_str | replace: ';', ',' | split: ','
+  assign saturday_morning_slots_arr = saturday_morning_slots_str | replace: ';', ',' | split: ','
+  if saturday_afternoon_slots_str != blank
+    assign saturday_afternoon_slots_arr = saturday_afternoon_slots_str | replace: ';', ',' | split: ','
+  else
+    assign saturday_afternoon_slots_arr = '' | split: ','
+  endif
+
+  if closed_dates_str != blank
+    assign closed_dates_arr = closed_dates_str | replace: ' ', '' | split: ','
+    assign closed_dates_json = closed_dates_arr | json
+  else
+    assign closed_dates_json = '[]'
+  endif
+
+  assign has_custom_services = false
+  if meta_services.size > 0
+    assign has_custom_services = true
+  endif
+
+  assign has_custom_addons = false
+  if meta_addons.size > 0
+    assign has_custom_addons = true
+  endif
+-%}
+
+<section
+  class="grooming-booking-section grooming-booking-{{ section.id }} color-{{ section.settings.color_scheme }} gradient"
+  id="grooming-booking-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  data-whatsapp-number="{{ section.settings.whatsapp_number | default: '+34 612 345 678' | escape }}"
+  data-salon-address="{{ section.settings.salon_address | default: 'Calle Amor de Mascota 12, Madrid' | escape }}"
+  data-salon-email="{{ section.settings.salon_email | default: shop.email | escape }}"
+  data-sync-agenda="{% if section.settings.enable_sync_agenda != false %}true{% else %}false{% endif %}"
+>
+  <script type="application/json" data-grooming-config>
+    {
+      "slotDurationMins": {{ slot_duration_mins | default: 60 }},
+      "daysOpen": {{ days_open_json }},
+      "closedDates": {{ closed_dates_json }},
+      "morningSlots": {{ morning_slots_arr | json }},
+      "afternoonSlots": {{ afternoon_slots_arr | json }},
+      "saturdayMorningSlots": {{ saturday_morning_slots_arr | json }},
+      "saturdayAfternoonSlots": {{ saturday_afternoon_slots_arr | json }},
+      "services": [
+        {%- if has_custom_services -%}
+          {%- for service in meta_services -%}
+            {%- assign is_active = true -%}
+            {%- if service.active.value == false or service.active == false -%}{%- assign is_active = false -%}{%- endif -%}
+            {%- if is_active -%}
+              {%- assign s_id = service.system.handle | default: service.id | default: forloop.index -%}
+              {%- assign s_name = service.name.value | default: service.name -%}
+              {%- assign s_dur = service.duration.value | default: service.duration | default: '1 hora' -%}
+              {%- assign s_mini = service.price_mini.value | default: service.price_mini | default: 28 -%}
+              {%- assign s_med = service.price_medium.value | default: service.price_medium | default: 34 -%}
+              {%- assign s_lar = service.price_large.value | default: service.price_large | default: 42 -%}
+              {
+                "id": {{ s_id | json }},
+                "name": {{ s_name | json }},
+                "duration": {{ s_dur | json }},
+                "mini": {{ s_mini | plus: 0 }},
+                "medium": {{ s_med | plus: 0 }},
+                "large": {{ s_lar | plus: 0 }}
+              }{%- unless forloop.last -%},{%- endunless -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+          { "id": "bath_hygiene", "name": "Baño Dermoprotector & Oídos", "duration": "1 hora", "mini": 28, "medium": 34, "large": 42 },
+          { "id": "scissor_cut", "name": "Corte a Tijera de Raza & Peinado", "duration": "1 hora", "mini": 38, "medium": 46, "large": 58 },
+          { "id": "deshedding", "name": "Deslanado Completo & Baño", "duration": "1 hora", "mini": 35, "medium": 42, "large": 52 },
+          { "id": "spa_ozone", "name": "Spa Ozonoterapia & Mascarilla", "duration": "1 hora", "mini": 42, "medium": 50, "large": 62 }
+        {%- endif -%}
+      ],
+      "addons": [
+        {%- if has_custom_addons -%}
+          {%- for addon in meta_addons -%}
+            {%- assign is_active = true -%}
+            {%- if addon.active.value == false or addon.active == false -%}{%- assign is_active = false -%}{%- endif -%}
+            {%- if is_active -%}
+              {%- assign a_id = addon.system.handle | default: addon.id | default: forloop.index -%}
+              {%- assign a_name = addon.name.value | default: addon.name -%}
+              {%- assign a_price = addon.price.value | default: addon.price | default: 5 -%}
+              {%- assign a_mini = addon.price_mini.value | default: addon.price_mini | default: a_price -%}
+              {%- assign a_med = addon.price_medium.value | default: addon.price_medium | default: a_price -%}
+              {%- assign a_lar = addon.price_large.value | default: addon.price_large | default: a_price -%}
+              {%- assign a_icon = addon.icon.value | default: addon.icon | default: '✨' -%}
+              {%- assign a_desc = addon.description.value | default: addon.description | default: '' -%}
+              {%- assign a_dur = addon.duration_mins.value | default: addon.duration_mins | default: 0 -%}
+              {
+                "id": {{ a_id | json }},
+                "name": {{ a_name | json }},
+                "price": {{ a_price | plus: 0 }},
+                "price_mini": {{ a_mini | plus: 0 }},
+                "price_medium": {{ a_med | plus: 0 }},
+                "price_large": {{ a_lar | plus: 0 }},
+                "icon": {{ a_icon | json }},
+                "description": {{ a_desc | json }},
+                "durationMins": {{ a_dur | plus: 0 }}
+              }{%- unless forloop.last -%},{%- endunless -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+          { "id": "addon_ozone_mask", "name": "Mascarilla Ozonoterapia & Argán", "price": 8, "price_mini": 6, "price_medium": 8, "price_large": 10, "icon": "🫧", "description": "Nutrición intensa y reparación profunda del manto seco o dañado", "durationMins": 10 },
+          { "id": "addon_dental_clean", "name": "Higiene Bucal Enzimática", "price": 6, "price_mini": 6, "price_medium": 6, "price_large": 6, "icon": "🦷", "description": "Aliento fresco y prevención de sarro y placa bacteriana", "durationMins": 5 },
+          { "id": "addon_paws_balsam", "name": "Corte de Uñas & Bálsamo Almohadillas", "price": 5, "price_mini": 5, "price_medium": 5, "price_large": 5, "icon": "🐾", "description": "Pedicura canina con crema nutritiva reparadora de grietas", "durationMins": 5 },
+          { "id": "addon_antiparasitic", "name": "Champú Repelente Antiparasitario", "price": 4, "price_mini": 3, "price_medium": 4, "price_large": 6, "icon": "🛡️", "description": "Protección natural preventiva con árbol de té y citronela", "durationMins": 0 }
+        {%- endif -%}
+      ]
+    }
+  </script>
+  <div class="grooming-booking-container page-width">
+
+    <!-- Header -->
+    <header class="grooming-booking-header">
+      <span
+        class="grooming-booking-badge"
+        data-i18n-es="🐾 Peluquería Canina Sin Estrés"
+        data-i18n-en="🐾 Stress-Free Dog Grooming"
+      >
+        🐾 Peluquería Canina Sin Estrés
+      </span>
+      <h2
+        class="grooming-booking-title"
+        data-i18n-es="Reserva Cita de Peluquería Canina & Spa"
+        data-i18n-en="Book a Dog Grooming & Spa Appointment"
+      >
+        {{ section.settings.heading | default: 'Reserva Cita de Peluquería Canina & Spa' }}
+      </h2>
+      {%- if section.settings.subheading != blank -%}
+        <p class="grooming-booking-subtitle">
+          {{ section.settings.subheading }}
+        </p>
+      {%- endif -%}
+    </header>
+
+{% render 'grooming-booking-stepper' %}
+
+    <!-- Wizard Form Card -->
+    <div class="grooming-booking-card">
+      {% render 'grooming-booking-step-1',
+        section: section,
+        has_custom_services: has_custom_services,
+        meta_services: meta_services,
+        has_custom_addons: has_custom_addons,
+        meta_addons: meta_addons
+      %}
+      {% render 'grooming-booking-step-2', section: section %}
+      {% render 'grooming-booking-step-3', section: section %}
+      {% render 'grooming-booking-step-4', section: section %}
+    </div>
+  </div>
+
+  {% render 'grooming-booking-customer-sync', section: section %}
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.grooming_booking.name",
+  "tag": "section",
+  "class": "section-grooming-booking",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.grooming_booking.settings.heading.label",
+      "default": "Reserva Cita de Peluquería Canina & Spa"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "t:sections.grooming_booking.settings.subheading.label",
+      "default": "Asistente guiado: personaliza la sesión para tu peludo y confirma tu cita en 1 minuto."
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_number",
+      "label": "t:sections.grooming_booking.settings.whatsapp_number.label",
+      "info": "t:sections.grooming_booking.settings.whatsapp_number.info",
+      "default": "+34 612 345 678"
+    },
+    {
+      "type": "text",
+      "id": "salon_address",
+      "label": "t:sections.grooming_booking.settings.salon_address.label",
+      "default": "Calle Amor de Mascota 12, Madrid"
+    },
+    {
+      "type": "text",
+      "id": "salon_email",
+      "label": "Email de contacto del salón",
+      "info": "Si se deja en blanco se utilizará el correo principal de la tienda."
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sync_agenda",
+      "label": "t:sections.grooming_booking.settings.enable_sync_agenda.label",
+      "info": "t:sections.grooming_booking.settings.enable_sync_agenda.info",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.grooming_booking.settings.header__1.content"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.grooming_booking.settings.padding_top.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.grooming_booking.settings.padding_bottom.label",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.grooming_booking.name"
+    }
+  ]
+}
+{% endschema %}

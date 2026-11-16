@@ -1,0 +1,13 @@
+  {%- comment -%}
+    Paso 1: Formulario nativo de cliente de Shopify (oculto)
+    Permite crear/actualizar la ficha del cliente en Shopify Admin > Clientes con la ficha del perro
+  {%- endcomment -%}
+  {%- form 'customer', class: 'visually-hidden', id: 'grooming-customer-sync-form' -%}
+    <input type="hidden" name="contact[tags]" data-sync-customer="contactTags" value="peluqueria-canina">
+    <input type="hidden" name="customer[first_name]" data-sync-customer="firstName">
+    <input type="hidden" name="customer[last_name]" data-sync-customer="lastName">
+    <input type="hidden" name="customer[email]" data-sync-customer="email">
+    <input type="hidden" name="customer[phone]" data-sync-customer="phone">
+    <input type="hidden" name="customer[tags]" data-sync-customer="customerTags" value="peluqueria-canina">
+    <input type="hidden" name="customer[note]" data-sync-customer="note">
+  {%- endform -%}

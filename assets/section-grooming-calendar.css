@@ -1,0 +1,1413 @@
+/**
+ * Dog Grooming Appointments Calendar Stylesheet
+ * File: assets/section-grooming-calendar.css
+ * BEM-style clean CSS, responsive layout, WAI-ARIA states.
+ */
+
+.grooming-calendar-section {
+  position: relative;
+  width: 100%;
+}
+
+.grooming-calendar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* Header & Badges */
+.grooming-calendar-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+  padding-bottom: 1.5rem;
+}
+
+@media screen and (min-width: 750px) {
+  .grooming-calendar-header {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+.grooming-calendar-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: rgba(16, 185, 129, 0.12);
+  color: #047857;
+  margin-bottom: 0.75rem;
+}
+
+.grooming-calendar-heading {
+  margin: 0 0 0.5rem 0;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.grooming-calendar-subheading {
+  margin: 0;
+  font-size: 0.95rem;
+  opacity: 0.8;
+  max-width: 580px;
+}
+
+/* Quick Metrics Bar */
+.grooming-calendar-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  width: 100%;
+}
+
+@media screen and (min-width: 750px) {
+  .grooming-calendar-metrics {
+    width: auto;
+    min-width: 320px;
+  }
+}
+
+.grooming-calendar-metric-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(var(--color-foreground), 0.08);
+  background: rgba(var(--color-foreground), 0.03);
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.grooming-calendar-metric-card:hover {
+  transform: translateY(-2px);
+}
+
+.grooming-calendar-metric-card.metric-confirmed {
+  border-color: rgba(16, 185, 129, 0.25);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.grooming-calendar-metric-card.metric-confirmed .metric-value {
+  color: #059669;
+}
+
+.grooming-calendar-metric-card.metric-pending {
+  border-color: rgba(245, 158, 11, 0.25);
+  background: rgba(245, 158, 11, 0.05);
+}
+
+.grooming-calendar-metric-card.metric-pending .metric-value {
+  color: #d97706;
+}
+
+.grooming-calendar-metric-card.metric-completed {
+  border-color: rgba(59, 130, 246, 0.25);
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.grooming-calendar-metric-card.metric-completed .metric-value {
+  color: #2563eb;
+}
+
+.metric-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.metric-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  opacity: 0.85;
+}
+
+/* Toolbar Controls */
+.grooming-calendar-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  background: rgba(var(--color-foreground), 0.02);
+  border: 1px solid rgba(var(--color-foreground), 0.08);
+  border-radius: 14px;
+  padding: 1rem;
+}
+
+@media screen and (min-width: 900px) {
+  .grooming-calendar-toolbar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.grooming-calendar-nav-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.grooming-calendar-btn-today {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 8px;
+  border: 1px solid rgba(var(--color-foreground), 0.2);
+  background: #ffffff;
+  color: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.grooming-calendar-btn-today:hover,
+.grooming-calendar-btn-today:focus-visible {
+  border-color: rgba(var(--color-foreground), 0.6);
+  background: rgba(var(--color-foreground), 0.06);
+}
+
+.grooming-calendar-nav-arrows {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(var(--color-foreground), 0.2);
+  border-radius: 8px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.grooming-calendar-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+  transition: background 0.2s ease;
+}
+
+.grooming-calendar-icon-btn:hover,
+.grooming-calendar-icon-btn:focus-visible {
+  background: rgba(var(--color-foreground), 0.08);
+}
+
+.grooming-calendar-current-label {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-transform: capitalize;
+  min-width: 220px;
+}
+
+/* View Switcher Tabs */
+.grooming-calendar-view-tabs {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(var(--color-foreground), 0.06);
+  padding: 0.25rem;
+  border-radius: 10px;
+  gap: 0.25rem;
+}
+
+.grooming-calendar-view-tab {
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.45rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.grooming-calendar-view-tab.is-active {
+  background: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.grooming-calendar-view-tab:hover:not(.is-active),
+.grooming-calendar-view-tab:focus-visible:not(.is-active) {
+  background: rgba(var(--color-foreground), 0.08);
+}
+
+/* Controls Right (Search, Filters, Actions) */
+.grooming-calendar-controls-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.grooming-calendar-search-wrap {
+  position: relative;
+  min-width: 180px;
+}
+
+.grooming-calendar-search-input {
+  width: 100%;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.825rem;
+  border-radius: 8px;
+  border: 1px solid rgba(var(--color-foreground), 0.2);
+  background: #ffffff;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+.grooming-calendar-search-input:focus-visible {
+  outline: 2px solid #047857;
+  outline-offset: 1px;
+}
+
+/* Filters */
+.grooming-calendar-filters {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.grooming-calendar-select {
+  padding: 0.45rem 0.85rem;
+  font-size: 0.825rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid rgba(var(--color-foreground), 0.2);
+  background: #ffffff;
+  color: inherit;
+  cursor: pointer;
+  min-width: 140px;
+}
+
+.grooming-calendar-select:focus-visible {
+  outline: 2px solid #047857;
+  outline-offset: 1px;
+}
+
+/* Action Buttons (New Appointment & Print) */
+.grooming-calendar-actions-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.grooming-calendar-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.95rem;
+  font-size: 0.825rem;
+  font-weight: 700;
+  border-radius: 8px;
+  border: none;
+  background: #047857;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.grooming-calendar-btn-primary:hover,
+.grooming-calendar-btn-primary:focus-visible {
+  background: #065f46;
+}
+
+.grooming-calendar-btn-action.is-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.825rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid rgba(var(--color-foreground), 0.2);
+  background: #ffffff;
+  color: inherit;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.grooming-calendar-btn-action.is-secondary:hover,
+.grooming-calendar-btn-action.is-secondary:focus-visible {
+  background: rgba(var(--color-foreground), 0.06);
+}
+
+/* ==========================================================================
+   STAFF PIN PROTECTION GATE
+   ========================================================================== */
+.grooming-calendar-section[data-require-pin="true"]:not(.is-unlocked):not([data-design-mode="true"]) .grooming-calendar-main-content,
+.grooming-calendar-section.is-locked .grooming-calendar-main-content {
+  display: none !important;
+}
+
+.grooming-calendar-section[data-require-pin="false"] .grooming-calendar-pin-gate,
+.grooming-calendar-section[data-design-mode="true"] .grooming-calendar-pin-gate,
+.grooming-calendar-section.is-unlocked .grooming-calendar-pin-gate {
+  display: none !important;
+}
+
+.grooming-calendar-pin-gate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 480px;
+  padding: 3rem 1.5rem;
+}
+
+.grooming-calendar-pin-card {
+  position: relative;
+  max-width: 460px;
+  width: 100%;
+  padding: 2.75rem 2rem;
+  background: #ffffff;
+  border: 1px solid rgba(var(--color-foreground), 0.12);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.grooming-calendar-pin-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #eff6ff;
+  color: #2563eb;
+  margin-bottom: 1rem;
+}
+
+.grooming-calendar-pin-heading {
+  margin: 0.5rem 0 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.grooming-calendar-pin-desc {
+  margin: 0 0 1.75rem 0;
+  font-size: 0.95rem;
+  color: rgba(var(--color-foreground), 0.75);
+  line-height: 1.45;
+}
+
+.grooming-calendar-pin-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.grooming-calendar-pin-input-wrap {
+  width: 100%;
+  max-width: 220px;
+}
+
+.grooming-calendar-pin-input {
+  width: 100%;
+  text-align: center;
+  font-size: 1.75rem;
+  font-family: inherit;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  padding: 0.65rem 0.75rem;
+  border-radius: 12px;
+  border: 2px solid rgba(var(--color-foreground), 0.2);
+  background: rgba(var(--color-foreground), 0.02);
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+.grooming-calendar-pin-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.grooming-calendar-pin-error {
+  color: #dc2626;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 0.5rem 0.85rem;
+  width: 100%;
+  max-width: 320px;
+}
+
+.grooming-calendar-pin-submit {
+  width: 100%;
+  max-width: 220px;
+}
+
+.grooming-calendar-pin-hint {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px dashed rgba(var(--color-foreground), 0.15);
+  font-size: 0.825rem;
+  color: rgba(var(--color-foreground), 0.65);
+}
+
+.grooming-calendar-pin-hint strong {
+  color: #047857;
+  font-weight: 700;
+}
+
+@keyframes pinShake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-10px); }
+  40%, 80% { transform: translateX(10px); }
+}
+
+.grooming-calendar-pin-card.is-shaking {
+  animation: pinShake 0.4s ease-in-out;
+}
+
+/* ==========================================================================
+   VIEW CONTAINER & EMPTY STATE
+   ========================================================================== */
+.grooming-calendar-view-container {
+  min-height: 520px;
+  border: 1px solid rgba(var(--color-foreground), 0.1);
+  border-radius: 16px;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.calendar-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+  gap: 1rem;
+}
+
+.calendar-empty-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(var(--color-foreground), 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  color: rgba(var(--color-foreground), 0.5);
+}
+
+.calendar-empty-text {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: rgba(var(--color-foreground), 0.7);
+  max-width: 360px;
+  margin: 0;
+}
+
+/* ==========================================================================
+   1. MONTH VIEW
+   ========================================================================== */
+.grooming-calendar-month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  width: 100%;
+}
+
+.calendar-month-day-header {
+  padding: 0.85rem 0.5rem;
+  background: rgba(var(--color-foreground), 0.03);
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.calendar-month-day-cell {
+  min-height: 110px;
+  padding: 0.5rem;
+  border-right: 1px solid rgba(var(--color-foreground), 0.06);
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition: background 0.15s ease;
+  position: relative;
+}
+
+.calendar-month-day-cell:nth-child(7n) {
+  border-right: none;
+}
+
+.calendar-month-day-cell.is-other-month {
+  background: rgba(var(--color-foreground), 0.015);
+  opacity: 0.45;
+}
+
+.calendar-month-day-cell.is-today {
+  background: rgba(16, 185, 129, 0.04);
+}
+
+.calendar-cell-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
+.calendar-day-number {
+  font-size: 0.85rem;
+  font-weight: 700;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.calendar-month-day-cell.is-today .calendar-day-number {
+  background: #047857;
+  color: #ffffff;
+}
+
+.calendar-day-count-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.1rem 0.4rem;
+  border-radius: 9999px;
+  background: rgba(var(--color-foreground), 0.08);
+}
+
+.calendar-events-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.calendar-event-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.725rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-align: left;
+  line-height: 1.2;
+  transition: all 0.15s ease;
+}
+
+.calendar-event-pill:hover,
+.calendar-event-pill:focus-visible {
+  transform: scale(1.02);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.calendar-event-pill.status-confirmed {
+  background: #ecfdf5;
+  color: #065f46;
+  border-color: #a7f3d0;
+}
+
+.calendar-event-pill.status-pending {
+  background: #fffbeb;
+  color: #92400e;
+  border-color: #fde68a;
+}
+
+.calendar-event-pill.status-completed {
+  background: #eff6ff;
+  color: #1e40af;
+  border-color: #bfdbfe;
+}
+
+.calendar-event-pill.status-cancelled {
+  background: #fef2f2;
+  color: #991b1b;
+  border-color: #fecaca;
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.calendar-event-pill-time {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.calendar-event-pill-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.calendar-more-btn {
+  border: none;
+  background: transparent;
+  color: #047857;
+  font-size: 0.725rem;
+  font-weight: 700;
+  padding: 0.15rem 0.25rem;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 4px;
+}
+
+.calendar-more-btn:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   2. WEEK VIEW
+   ========================================================================== */
+.grooming-calendar-week-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  width: 100%;
+}
+
+.calendar-week-col {
+  border-right: 1px solid rgba(var(--color-foreground), 0.08);
+  min-height: 520px;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-week-col:last-child {
+  border-right: none;
+}
+
+.calendar-week-header-cell {
+  padding: 0.85rem 0.5rem;
+  background: rgba(var(--color-foreground), 0.03);
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+  text-align: center;
+}
+
+.calendar-week-col.is-today .calendar-week-header-cell {
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.calendar-week-day-name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.65);
+}
+
+.calendar-week-day-num {
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin-top: 0.2rem;
+}
+
+.calendar-week-col.is-today .calendar-week-day-num {
+  color: #047857;
+}
+
+.calendar-week-body {
+  padding: 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  flex: 1;
+}
+
+.calendar-week-card {
+  padding: 0.65rem;
+  border-radius: 10px;
+  border: 1px solid rgba(var(--color-foreground), 0.1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition: all 0.2s ease;
+  background: #ffffff;
+}
+
+.calendar-week-card:hover,
+.calendar-week-card:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  outline: none;
+}
+
+.calendar-week-card.status-confirmed {
+  border-left: 4px solid #059669;
+  background: #f0fdf4;
+}
+
+.calendar-week-card.status-pending {
+  border-left: 4px solid #d97706;
+  background: #fffbeb;
+}
+
+.calendar-week-card.status-completed {
+  border-left: 4px solid #2563eb;
+  background: #eff6ff;
+}
+
+.calendar-week-card.status-cancelled {
+  border-left: 4px solid #dc2626;
+  background: #fef2f2;
+  opacity: 0.7;
+}
+
+.calendar-week-card-time {
+  font-size: 0.725rem;
+  font-weight: 800;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.calendar-week-card-pet {
+  font-size: 0.85rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.calendar-week-card-service {
+  font-size: 0.75rem;
+  color: rgba(var(--color-foreground), 0.7);
+  line-height: 1.2;
+}
+
+/* ==========================================================================
+   3. DAY VIEW
+   ========================================================================== */
+.grooming-calendar-day-view {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.calendar-day-summary-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-radius: 12px;
+  background: rgba(var(--color-foreground), 0.03);
+  border: 1px solid rgba(var(--color-foreground), 0.08);
+}
+
+@media screen and (min-width: 750px) {
+  .calendar-day-summary-bar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.calendar-day-summary-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.calendar-day-summary-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.calendar-day-summary-pill {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 1px solid rgba(var(--color-foreground), 0.12);
+}
+
+.calendar-day-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.calendar-day-item {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 1.5rem;
+  align-items: flex-start;
+  padding: 1.25rem;
+  border-radius: 12px;
+  border: 1px solid rgba(var(--color-foreground), 0.1);
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+@media screen and (max-width: 600px) {
+  .calendar-day-item {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+.calendar-day-item:hover,
+.calendar-day-item:focus-visible {
+  border-color: rgba(var(--color-foreground), 0.3);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+  outline: none;
+}
+
+.calendar-day-item.status-confirmed {
+  border-left: 5px solid #059669;
+}
+
+.calendar-day-item.status-pending {
+  border-left: 5px solid #d97706;
+}
+
+.calendar-day-item.status-completed {
+  border-left: 5px solid #2563eb;
+}
+
+.calendar-day-item.status-cancelled {
+  border-left: 5px solid #dc2626;
+  opacity: 0.7;
+}
+
+.calendar-day-time-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.calendar-day-time-start {
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.calendar-day-time-end {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(var(--color-foreground), 0.6);
+}
+
+.calendar-day-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.calendar-day-pet-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.calendar-day-pet-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.calendar-day-breed-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  background: rgba(var(--color-foreground), 0.06);
+}
+
+.calendar-day-status-pill {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.calendar-day-status-pill.status-confirmed {
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.calendar-day-status-pill.status-pending {
+  background: #fffbeb;
+  color: #92400e;
+}
+
+.calendar-day-status-pill.status-completed {
+  background: #eff6ff;
+  color: #1e40af;
+}
+
+.calendar-day-status-pill.status-cancelled {
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+.calendar-day-service-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(var(--color-foreground), 0.85);
+}
+
+.calendar-day-customer-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.825rem;
+  color: rgba(var(--color-foreground), 0.7);
+  flex-wrap: wrap;
+}
+
+.calendar-day-notes {
+  font-size: 0.825rem;
+  font-style: italic;
+  padding: 0.5rem 0.75rem;
+  background: rgba(var(--color-foreground), 0.03);
+  border-radius: 6px;
+  border-left: 2px solid rgba(var(--color-foreground), 0.2);
+}
+
+/* ==========================================================================
+   4. MODAL DIALOG
+   ========================================================================== */
+.grooming-calendar-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  padding: 1.5rem;
+}
+
+.grooming-calendar-modal-backdrop[hidden] {
+  display: none !important;
+}
+
+.grooming-calendar-modal-card {
+  width: 100%;
+  max-width: 600px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.grooming-calendar-modal-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.grooming-modal-header-info {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.grooming-modal-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.grooming-modal-close-btn {
+  border: none;
+  background: transparent;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: inherit;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+}
+
+.grooming-modal-close-btn:hover {
+  background: rgba(var(--color-foreground), 0.08);
+}
+
+.grooming-calendar-modal-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.grooming-modal-grid-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media screen and (max-width: 500px) {
+  .grooming-modal-grid-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grooming-modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.grooming-modal-field-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.6);
+}
+
+.grooming-modal-field-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.grooming-modal-notes-box {
+  background: #f8fafc;
+  padding: 0.85rem;
+  border-radius: 8px;
+  border: 1px solid rgba(var(--color-foreground), 0.08);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.grooming-calendar-modal-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid rgba(var(--color-foreground), 0.08);
+  background: rgba(var(--color-foreground), 0.02);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.grooming-modal-actions-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.grooming-modal-btn {
+  padding: 0.45rem 0.85rem;
+  font-size: 0.825rem;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.grooming-modal-btn.btn-confirm {
+  background: #059669;
+  color: #ffffff;
+}
+.grooming-modal-btn.btn-confirm:hover {
+  background: #047857;
+}
+
+.grooming-modal-btn.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #25D366;
+  color: #ffffff;
+  text-decoration: none;
+}
+.grooming-modal-btn.btn-whatsapp:hover,
+.grooming-modal-btn.btn-whatsapp:focus-visible {
+  background: #128C7E;
+  color: #ffffff;
+}
+
+.grooming-modal-whatsapp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #047857;
+  text-decoration: none;
+  margin-left: 0.5rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  background: rgba(37, 211, 102, 0.15);
+  transition: all 0.15s ease;
+}
+.grooming-modal-whatsapp-link:hover {
+  background: #25D366;
+  color: #ffffff;
+}
+
+.grooming-modal-btn.btn-complete {
+  background: #2563eb;
+  color: #ffffff;
+}
+.grooming-modal-btn.btn-complete:hover {
+  background: #1d4ed8;
+}
+
+.grooming-modal-btn.btn-cancel {
+  background: #ef4444;
+  color: #ffffff;
+}
+.grooming-modal-btn.btn-cancel:hover {
+  background: #dc2626;
+}
+
+.grooming-modal-btn.btn-delete {
+  background: #991b1b;
+  color: #ffffff;
+}
+.grooming-modal-btn.btn-delete:hover {
+  background: #7f1d1d;
+}
+
+.grooming-modal-btn.btn-secondary {
+  background: #ffffff;
+  border: 1px solid rgba(var(--color-foreground), 0.2);
+  color: inherit;
+}
+.grooming-modal-btn.btn-secondary:hover {
+  background: rgba(var(--color-foreground), 0.06);
+}
+
+/* Form in Modal */
+.grooming-modal-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+@media screen and (max-width: 500px) {
+  .grooming-modal-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grooming-modal-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: 8px;
+  border: 1px solid rgba(var(--color-foreground), 0.2);
+  background: #ffffff;
+  color: inherit;
+}
+
+.grooming-modal-input:focus-visible {
+  outline: 2px solid #047857;
+  outline-offset: 1px;
+}
+
+/* Mobile Responsiveness for Month/Week grids */
+@media screen and (max-width: 749px) {
+  .grooming-calendar-month-grid,
+  .grooming-calendar-week-grid {
+    overflow-x: auto;
+    min-width: 650px;
+  }
+}
+
+/* ==========================================================================
+   PRINT MEDIA STYLES (Clean Daily & Weekly Dispatch Sheet - Zero Blank Pages)
+   ========================================================================== */
+@media print {
+  /* 1. Reset document canvas to collapse phantom whitespace */
+  html,
+  body {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  /* 2. Completely collapse external Shopify layout elements from document flow */
+  header,
+  footer,
+  #shopify-section-header-group,
+  #shopify-section-footer-group,
+  .announcement-bar-section,
+  .shopify-section-header,
+  .header-wrapper,
+  cart-drawer,
+  .cart-drawer,
+  body > *:not(#MainContent):not(main) {
+    display: none !important;
+  }
+
+  body #MainContent {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: 0 !important;
+  }
+
+  body #MainContent > *:not(.section-grooming-calendar):not([id*="grooming-calendar"]) {
+    display: none !important;
+  }
+
+  body .section-grooming-calendar {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* 3. Keep calendar in natural flow (static) so document height matches calendar height exactly */
+  .grooming-calendar-section {
+    position: static !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .grooming-calendar-container {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .grooming-calendar-header {
+    margin-bottom: 0.75rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  /* 4. Hide interactive controls that make no sense on printed paper */
+  .grooming-calendar-btn-today,
+  .grooming-calendar-nav-arrows,
+  .grooming-calendar-view-tabs,
+  .grooming-calendar-controls-right,
+  .grooming-calendar-modal-backdrop,
+  .grooming-calendar-pin-gate,
+  .grooming-calendar-metrics,
+  .calendar-more-btn,
+  .grooming-calendar-badge,
+  .calendar-empty-state button {
+    display: none !important;
+  }
+
+  .grooming-calendar-toolbar {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 0 0.75rem 0 !important;
+    box-shadow: none !important;
+  }
+
+  .grooming-calendar-current-label {
+    font-size: 1.25rem !important;
+    font-weight: 800 !important;
+    margin: 0.25rem 0 !important;
+    color: #000000 !important;
+  }
+
+  .grooming-calendar-view-container {
+    min-height: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* 5. Print Layout, borders & anti-page-break optimization */
+  .calendar-day-item,
+  .calendar-week-card,
+  .calendar-month-day-cell,
+  .calendar-day-summary-bar {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+
+  .calendar-day-item {
+    border: 1px solid #777777 !important;
+    margin-bottom: 0.75rem !important;
+    padding: 1rem !important;
+  }
+
+  .calendar-week-card {
+    border: 1px solid #999999 !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .calendar-month-day-cell {
+    border: 1px solid #bbbbbb !important;
+    min-height: 80px !important;
+  }
+
+  .calendar-day-status-pill,
+  .calendar-event-pill {
+    border: 1px solid currentColor !important;
+    box-shadow: none !important;
+  }
+}

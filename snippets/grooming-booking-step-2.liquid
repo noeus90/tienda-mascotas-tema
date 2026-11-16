@@ -1,0 +1,157 @@
+      <div class="booking-step-panel" data-step-panel="2" hidden>
+        <div class="step-panel-header">
+          <h3 class="step-panel-title" data-i18n-es="2. Elige el día y la franja horaria" data-i18n-en="2. Choose date and preferred time slot">
+            2. Elige el día y la franja horaria
+          </h3>
+          <p class="step-panel-desc" data-i18n-es="Selecciona el día que mejor se adapte a tu agenda. Abrimos de Lunes a Sábado." data-i18n-en="Select the day that best fits your schedule. Open Monday to Saturday.">
+            Selecciona el día que mejor se adapte a tu agenda. Abrimos de Lunes a Sábado.
+          </p>
+        </div>
+
+        <div class="booking-datetime-grid">
+          <!-- Direct 30-Day Visual Calendar -->
+          <div class="booking-calendar-widget" data-booking-calendar-widget>
+            <div class="booking-calendar-header">
+              <span
+                class="booking-calendar-badge"
+                data-i18n-es="Próximos 30 días disponibles"
+                data-i18n-en="Next 30 days available"
+              >
+                Próximos 30 días disponibles
+              </span>
+              <div class="booking-calendar-nav">
+                <button
+                  type="button"
+                  class="booking-cal-nav-btn"
+                  data-cal-nav="prev"
+                  aria-label="Mes anterior"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <h4 class="booking-cal-month-label" data-cal-month-label aria-live="polite">
+                  <!-- Filled by JS -->
+                </h4>
+                <button
+                  type="button"
+                  class="booking-cal-nav-btn"
+                  data-cal-nav="next"
+                  aria-label="Mes siguiente"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Weekday Headers -->
+            <div class="booking-cal-weekdays" aria-hidden="true">
+              <span data-i18n-es="Lun" data-i18n-en="Mon">Lun</span>
+              <span data-i18n-es="Mar" data-i18n-en="Tue">Mar</span>
+              <span data-i18n-es="Mié" data-i18n-en="Wed">Mié</span>
+              <span data-i18n-es="Jue" data-i18n-en="Thu">Jue</span>
+              <span data-i18n-es="Vie" data-i18n-en="Fri">Vie</span>
+              <span data-i18n-es="Sáb" data-i18n-en="Sat">Sáb</span>
+              <span data-i18n-es="Dom" data-i18n-en="Sun">Dom</span>
+            </div>
+
+            <!-- Days Grid (filled dynamically by grooming-booking.js) -->
+            <div class="booking-cal-days-grid" data-cal-days-grid role="grid">
+              <!-- Rendered by grooming-booking.js -->
+            </div>
+
+            <div class="booking-cal-selected-notice">
+              <span class="cal-notice-icon">📅</span>
+              <span class="cal-notice-text">
+                <span data-i18n-es="Día seleccionado:" data-i18n-en="Selected date:">Día seleccionado:</span>
+                <strong data-cal-selected-display>Selecciona un día en el calendario</strong>
+              </span>
+            </div>
+
+            <div class="booking-cal-legend">
+              <span class="cal-legend-pill is-open" data-i18n-es="🟢 Lunes a Sábado: Disponible" data-i18n-en="🟢 Monday to Saturday: Available">🟢 Lunes a Sábado: Disponible</span>
+              <span class="cal-legend-pill is-closed" data-i18n-es="🔴 Domingos: Cerrado" data-i18n-en="🔴 Sundays: Closed">🔴 Domingos: Cerrado</span>
+            </div>
+          </div>
+
+          <!-- Shifts & Hours Selector -->
+          <div class="booking-shift-picker-wrap">
+            <span class="booking-field-label" data-i18n-es="Turno y franja horaria preferida (1 hora) *" data-i18n-en="Preferred shift & 1-hour time slot *">
+              Turno y franja horaria preferida (1 hora) *
+            </span>
+            <div class="booking-shifts-container">
+              <div class="shift-group" data-shift-group="morning">
+                <span class="shift-group-title" data-i18n-es="☀️ Turno de Mañana" data-i18n-en="☀️ Morning Shift">☀️ Turno de Mañana</span>
+                <div class="shift-slots-grid" data-slots-grid="morning">
+                  {%- for slot in morning_slots_arr -%}
+                    {%- assign s_time = slot | strip -%}
+                    {%- if s_time != blank -%}
+                      <label class="booking-slot-card{% if forloop.first %} is-selected{% endif %}">
+                        <input type="radio" name="grooming_slot" value="{{ s_time }}" {% if forloop.first %}checked{% endif %} class="visually-hidden">
+                        <span class="slot-time">{{ s_time }}</span>
+                      </label>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+              </div>
+
+              <div class="shift-group" data-shift-group="afternoon">
+                <span class="shift-group-title" data-i18n-es="🌆 Turno de Tarde" data-i18n-en="🌆 Afternoon Shift">🌆 Turno de Tarde</span>
+                <div class="shift-slots-grid" data-slots-grid="afternoon">
+                  {%- for slot in afternoon_slots_arr -%}
+                    {%- assign s_time = slot | strip -%}
+                    {%- if s_time != blank -%}
+                      <label class="booking-slot-card">
+                        <input type="radio" name="grooming_slot" value="{{ s_time }}" class="visually-hidden">
+                        <span class="slot-time">{{ s_time }}</span>
+                      </label>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+              </div>
+            </div>
+
+            <div class="booking-shift-special-notice" data-shift-saturday-notice hidden>
+              <span class="notice-icon">☀️</span>
+              <span
+                class="notice-text"
+                data-i18n-es="Horario especial de sábados: servicio exclusivo en turno de mañana (tardes cerrado)."
+                data-i18n-en="Special Saturday schedule: morning shift only (afternoon closed)."
+              >
+                Horario especial de sábados: servicio exclusivo en turno de mañana (tardes cerrado).
+              </span>
+            </div>
+
+            <div class="booking-shift-fully-booked-notice" data-shift-fully-booked-notice hidden>
+              <span class="notice-icon">⚠️</span>
+              <span
+                class="notice-text"
+                data-i18n-es="Todos los turnos de este día están ocupados. Por favor, selecciona otra fecha disponible en el calendario."
+                data-i18n-en="All time slots for this date are fully booked. Please select another available date in the calendar."
+              >
+                Todos los turnos de este día están ocupados. Por favor, selecciona otra fecha disponible en el calendario.
+              </span>
+            </div>
+
+            <div class="booking-shift-info-box">
+              <span class="shift-info-icon">💡</span>
+              <p
+                class="shift-info-text"
+                data-i18n-es="Cada reserva tiene una duración completa de 1 hora reservada en exclusiva para tu perro. Si necesitas otro horario especial, indícalo en el siguiente paso."
+                data-i18n-en="Each appointment has an exclusive 1-hour slot reserved for your dog. For custom times, mention it in the next step."
+              >
+                Cada reserva tiene una duración completa de 1 hora reservada en exclusiva para tu perro. Si necesitas otro horario especial, indícalo en el siguiente paso.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="booking-panel-nav">
+          <button type="button" class="grooming-booking-btn-secondary" data-wizard-action="prev">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            <span data-i18n-es="Atrás" data-i18n-en="Back">Atrás</span>
+          </button>
+          <button type="button" class="grooming-booking-btn-primary" data-wizard-action="next">
+            <span data-i18n-es="Continuar a Ficha del Peludo" data-i18n-en="Continue to Pet Details">Continuar a Ficha del Peludo</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+      </div>
