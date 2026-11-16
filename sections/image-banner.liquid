@@ -120,17 +120,45 @@
       {%- for block in section.blocks -%}
         {%- case block.type -%}
           {%- when 'heading' -%}
+            {%- liquid
+              assign raw_banner_h = block.settings.heading | strip
+              assign is_default_pet_banner = false
+              if raw_banner_h == 'Nutrición Natural y Peluquería Canina sin Estrés' or raw_banner_h == 'Natural Nutrition & Stress-Free Dog Grooming'
+                assign is_default_pet_banner = true
+              endif
+              assign banner_locale = request.locale.iso_code | downcase | slice: 0, 2
+            -%}
             <h2
               class="banner__heading inline-richtext {{ block.settings.heading_size }}"
+              {% if is_default_pet_banner %}
+                data-i18n-es="Nutrición Natural y Peluquería Canina sin Estrés"
+                data-i18n-en="Natural Nutrition & Stress-Free Dog Grooming"
+              {% endif %}
               {{ block.shopify_attributes }}
             >
-              {{ block.settings.heading }}
+              {%- if is_default_pet_banner -%}
+                {%- if banner_locale == 'en' -%}
+                  Natural Nutrition & Stress-Free Dog Grooming
+                {%- else -%}
+                  Nutrición Natural y Peluquería Canina sin Estrés
+                {%- endif -%}
+              {%- else -%}
+                {{ block.settings.heading }}
+              {%- endif -%}
             </h2>
           {%- when 'text' -%}
             <div class="banner__text rte {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
               <p>{{ block.settings.text }}</p>
             </div>
           {%- when 'buttons' -%}
+            {%- liquid
+              assign raw_btn_1 = block.settings.button_label_1 | strip
+              assign is_default_pet_btn = false
+              if raw_btn_1 == 'Ver Tienda Animal' or raw_btn_1 == 'Shop Pet Store'
+                assign is_default_pet_btn = true
+              endif
+              assign btn_locale = request.locale.iso_code | downcase | slice: 0, 2
+            -%}
             <div
               class="banner__buttons{% if block.settings.button_label_1 != blank and block.settings.button_label_2 != blank %} banner__buttons--multiple{% endif %}"
               {{ block.shopify_attributes }}
@@ -143,8 +171,16 @@
                     href="{{ block.settings.button_link_1 }}"
                   {% endif %}
                   class="button{% if block.settings.button_style_secondary_1 %} button--secondary{% else %} button--primary{% endif %}"
+                  {% if is_default_pet_btn %}
+                    data-i18n-es="Ver Tienda Animal"
+                    data-i18n-en="Shop Pet Store"
+                  {% endif %}
                 >
-                  {{- block.settings.button_label_1 | escape -}}
+                  {%- if is_default_pet_btn -%}
+                    {%- if btn_locale == 'en' -%}Shop Pet Store{%- else -%}Ver Tienda Animal{%- endif -%}
+                  {%- else -%}
+                    {{- block.settings.button_label_1 | escape -}}
+                  {%- endif -%}
                 </a>
               {%- endif -%}
               {%- if block.settings.button_label_2 != blank -%}

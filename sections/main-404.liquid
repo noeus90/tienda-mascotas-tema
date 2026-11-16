@@ -14,10 +14,19 @@
   <p>
     {{ 'templates.404.subtext' | t }}
   </p>
-  <h1 class="title">
+  <h1
+    class="title"
+    data-i18n-es="Página no encontrada"
+    data-i18n-en="Page not found"
+  >
     {{ 'templates.404.title' | t }}
   </h1>
-  <a href="{{ routes.all_products_collection_url }}" class="button">
+  <a
+    href="{{ routes.all_products_collection_url }}"
+    class="button"
+    data-i18n-es="Seguir comprando"
+    data-i18n-en="Continue shopping"
+  >
     {{ 'general.continue_shopping' | t }}
   </a>
 </div>

@@ -6,14 +6,14 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Browse our latest products",
+            "heading": "Nutrición Natural y Peluquería Canina sin Estrés",
             "heading_size": "h0"
           }
         },
         "button": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Shop all",
+            "button_label_1": "Ver Tienda Animal",
             "button_link_1": "shopify://collections/all",
             "button_style_secondary_1": true,
             "button_label_2": "",
@@ -42,7 +42,7 @@
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
-        "title": "Featured products",
+        "title": "Favoritos para tu Mascota",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
@@ -66,10 +66,135 @@
         "padding_top": 44,
         "padding_bottom": 36
       }
+    },
+    "grooming_booking": {
+      "type": "grooming-booking",
+      "settings": {
+        "heading": "Reserva Cita de Peluquería Canina & Spa",
+        "subheading": "Elige servicio (Baño Dermoprotector, Corte a Tijera, Stripping o Deslanado) y selecciona el día y hora que mejor se adapte a tu agenda."
+      }
+    },
+    "pet_grooming_steps": {
+      "type": "pet-grooming-steps",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "category": "Paso 1: Cepillado y Deslanado",
+            "short_description": "Elimina pelo muerto y nudos antes del baño sin irritar la piel de tu perro.",
+            "application_time": "🐾 2-3 veces por semana"
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "category": "Paso 2: Champú pH Neutro",
+            "short_description": "Limpia en profundidad respetando el pH canino (7.0) con avena y aloe vera.",
+            "application_time": "🛁 Cada 3-4 semanas"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "category": "Paso 3: Mascarilla & Brillo",
+            "short_description": "Hidrata el manto, facilita el peinado sin tirones y aporta suavidad duradera.",
+            "application_time": "✨ Tras el aclarado"
+          }
+        },
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "category": "Paso 4: Almohadillas y Oídos",
+            "short_description": "Protege trufa y almohadillas frente al asfalto y mantiene oídos limpios y sanos.",
+            "application_time": "🛡️ Cuidado semanal"
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4"
+      ],
+      "settings": {
+        "kicker": "Guía de Peluquería Canina",
+        "heading": "Su Rutina de Higiene y Manto en 4 Pasos",
+        "subheading": "Sigue el orden recomendado por nuestros peluqueros caninos y veterinarios para mantener su pelo sano, limpio y brillante."
+      }
+    },
+    "pet_trust_badges": {
+      "type": "pet-trust-badges",
+      "blocks": {
+        "badge_1": {
+          "type": "badge",
+          "settings": {
+            "icon": "natural",
+            "certificate_tag": "Grain-Free",
+            "heading": "Nutrición 100% Natural",
+            "description": "Ingredientes frescos de alta palatabilidad sin cereales, subproductos ni conservantes artificiales."
+          }
+        },
+        "badge_2": {
+          "type": "badge",
+          "settings": {
+            "icon": "cruelty_free",
+            "certificate_tag": "Zero Stress",
+            "heading": "Peluquería Amable",
+            "description": "Sesiones de baño, corte y deslanado adaptadas al ritmo de tu perro, sin jaulas de secado."
+          }
+        },
+        "badge_3": {
+          "type": "badge",
+          "settings": {
+            "icon": "vet_approved",
+            "certificate_tag": "Aval Clínico",
+            "heading": "Revisado por Veterinarios",
+            "description": "Fórmulas hipoalergénicas diseñadas para cuidar articulaciones, digestión y pieles sensibles."
+          }
+        },
+        "badge_4": {
+          "type": "badge",
+          "settings": {
+            "icon": "grain_free",
+            "certificate_tag": "pH 7.0 Canino",
+            "heading": "Sin Sulfatos ni Siliconas",
+            "description": "Champús y bálsamos de peluquería profesional que respetan la barrera cutánea de tu mascota."
+          }
+        }
+      },
+      "block_order": [
+        "badge_1",
+        "badge_2",
+        "badge_3",
+        "badge_4"
+      ],
+      "settings": {
+        "show_review_badge": true,
+        "review_score": "4.9 / 5",
+        "review_text": "+2.400 familias perrunas felices",
+        "verified_label": "Peluquería & Tienda Verificada",
+        "heading": "Alimentación Natural y Peluquería Canina Respaldada por Expertos",
+        "subheading": "Todo lo que tu compañero necesita para estar sano por dentro y radiante por fuera."
+      }
+    },
+    "pet_bundle_builder": {
+      "type": "pet-bundle-builder",
+      "settings": {
+        "kicker": "Ahorra Combinando sus Favoritos",
+        "heading": "Crea el Pack de tu Peludo y Ahorra hasta un 15%",
+        "subheading": "Elige 2 productos para obtener un 10% DTO o combina 3 o más (pienso, snacks, champú o cuidados) para desbloquear el 15% de descuento directo.",
+        "goal_units": 3,
+        "discount_tier_1": 10,
+        "discount_tier_2": 15
+      }
     }
   },
   "order": [
     "image_banner",
-    "featured_collection"
+    "pet_trust_badges",
+    "pet_grooming_steps",
+    "pet_bundle_builder",
+    "featured_collection",
+    "grooming_booking"
   ]
 }
