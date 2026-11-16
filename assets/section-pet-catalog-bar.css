@@ -1,0 +1,221 @@
+/* Pet Catalog Navigation & Quick Filters Bar
+ * File: assets/section-pet-catalog-bar.css
+ * Fully responsive, accessible tablist with smooth scrollable chips & subtle gradients
+ */
+
+.pet-catalog-bar-section {
+  width: 100%;
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+  background: rgb(var(--color-background));
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  transition: all 0.2s ease;
+}
+
+.pet-catalog-bar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Level 1: Mascot Switcher (Perros / Gatos / Todos) */
+.pet-mascot-switcher {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.pet-mascot-label {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(var(--color-foreground), 0.65);
+  margin-right: 0.25rem;
+}
+
+.pet-mascot-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.15rem;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(var(--color-foreground), 0.15);
+  background: #ffffff;
+  color: rgb(var(--color-foreground));
+  font-size: 0.925rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.pet-mascot-btn:hover {
+  border-color: rgba(var(--color-foreground), 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.pet-mascot-btn.is-active {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.18);
+}
+
+.pet-mascot-icon {
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.pet-mascot-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: 9999px;
+  background: rgba(var(--color-foreground), 0.08);
+  color: inherit;
+  margin-left: 0.25rem;
+}
+
+.pet-mascot-btn.is-active .pet-mascot-count {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+/* Level 2: Category Chips / Subcollection Pills */
+.pet-categories-scroll-wrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.pet-categories-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  padding: 0.25rem 0;
+  width: 100%;
+}
+
+.pet-categories-pills::-webkit-scrollbar {
+  display: none; /* Chrome / Safari */
+}
+
+.pet-category-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: 8px;
+  border: 1px solid rgba(var(--color-foreground), 0.12);
+  background: rgba(var(--color-foreground), 0.03);
+  color: rgb(var(--color-foreground));
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.pet-category-pill:hover {
+  background: rgba(var(--color-foreground), 0.08);
+  border-color: rgba(var(--color-foreground), 0.25);
+}
+
+.pet-category-pill.is-active {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+}
+
+.pet-category-pill.is-active .pet-category-icon {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+/* Active Filter Banner & Status */
+.pet-catalog-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.5rem;
+  font-size: 0.825rem;
+  color: rgba(var(--color-foreground), 0.7);
+  border-top: 1px dashed rgba(var(--color-foreground), 0.1);
+}
+
+.pet-catalog-status-text strong {
+  color: rgb(var(--color-foreground));
+}
+
+.pet-catalog-reset-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: none;
+  color: #dc2626;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+}
+
+.pet-catalog-reset-btn:hover {
+  background: #fef2f2;
+}
+
+/* Hidden elements during filter */
+.product-card-wrapper.is-hidden-by-pet-filter {
+  display: none !important;
+}
+
+.product-grid-empty-filter {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: rgba(var(--color-foreground), 0.02);
+  border-radius: 12px;
+  border: 1px dashed rgba(var(--color-foreground), 0.15);
+  margin-top: 1rem;
+}
+
+.product-grid-empty-filter p {
+  margin: 0.5rem 0 1rem;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 749px) {
+  .pet-mascot-switcher {
+    gap: 0.5rem;
+  }
+  .pet-mascot-btn {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.85rem;
+  }
+  .pet-catalog-status-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+}
+

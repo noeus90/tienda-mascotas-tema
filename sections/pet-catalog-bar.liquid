@@ -1,0 +1,215 @@
+{% comment %}
+  Pet Catalog Navigation & Quick Filters Bar (sections/pet-catalog-bar.liquid)
+  Purpose: 2-level instant visual filtering (By Pet: Dogs/Cats, By Category: Kibble/Wet/Snacks/Toys/Grooming)
+  Architecture: Vanilla JS, WAI-ARIA states, URL sync, instant live filter on #product-grid
+{% endcomment %}
+
+{{ 'section-pet-catalog-bar.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pet-catalog-bar.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  .pet-catalog-bar-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{%- endstyle -%}
+
+<div
+  class="pet-catalog-bar-section pet-catalog-bar-{{ section.id }} color-{{ section.settings.color_scheme }} gradient"
+  data-pet-catalog-bar
+  id="pet-catalog-bar-{{ section.id }}"
+>
+  <div class="pet-catalog-bar-container page-width">
+
+    {%- if section.settings.show_mascot_switcher -%}
+      <!-- Level 1: Mascot Switcher -->
+      <div class="pet-mascot-switcher" role="tablist" aria-label="Filtrar por tipo de mascota">
+        <span class="pet-mascot-label" data-i18n-es="Tu Peludo:" data-i18n-en="Your Pet:">Tu Peludo:</span>
+
+        <button
+          type="button"
+          class="pet-mascot-btn is-active"
+          data-pet-mascot="all"
+          role="tab"
+          aria-selected="true"
+        >
+          <span class="pet-mascot-icon">✨</span>
+          <span data-i18n-es="Todos" data-i18n-en="All Pets">Todos</span>
+        </button>
+
+        <button
+          type="button"
+          class="pet-mascot-btn"
+          data-pet-mascot="perro"
+          role="tab"
+          aria-selected="false"
+        >
+          <span class="pet-mascot-icon">🐶</span>
+          <span data-i18n-es="Perros" data-i18n-en="Dogs">Perros</span>
+        </button>
+
+        <button
+          type="button"
+          class="pet-mascot-btn"
+          data-pet-mascot="gato"
+          role="tab"
+          aria-selected="false"
+        >
+          <span class="pet-mascot-icon">🐱</span>
+          <span data-i18n-es="Gatos" data-i18n-en="Cats">Gatos</span>
+        </button>
+      </div>
+    {%- endif -%}
+
+    <!-- Level 2: Category Chips / Subcollection Pills -->
+    <div class="pet-categories-scroll-wrap">
+      <div class="pet-categories-pills" role="tablist" aria-label="Filtrar por categoría de producto">
+        <button
+          type="button"
+          class="pet-category-pill is-active"
+          data-pet-category="all"
+          role="tab"
+          aria-selected="true"
+        >
+          <span class="pet-category-icon">🐾</span>
+          <span data-i18n-es="Ver Todo" data-i18n-en="View All">Ver Todo</span>
+        </button>
+
+        <button
+          type="button"
+          class="pet-category-pill"
+          data-pet-category="pienso"
+          role="tab"
+          aria-selected="false"
+        >
+          <span class="pet-category-icon">🥩</span>
+          <span data-i18n-es="Pienso Seco" data-i18n-en="Dry Kibble">Pienso Seco</span>
+        </button>
+
+        <button
+          type="button"
+          class="pet-category-pill"
+          data-pet-category="humeda"
+          role="tab"
+          aria-selected="false"
+        >
+          <span class="pet-category-icon">🥫</span>
+          <span data-i18n-es="Comida Húmeda" data-i18n-en="Wet Food">Comida Húmeda</span>
+        </button>
+
+        <button
+          type="button"
+          class="pet-category-pill"
+          data-pet-category="snacks"
+          role="tab"
+          aria-selected="false"
+        >
+          <span class="pet-category-icon">🦴</span>
+          <span data-i18n-es="Snacks Naturales" data-i18n-en="Natural Treats">Snacks Naturales</span>
+        </button>
+
+        <button
+          type="button"
+          class="pet-category-pill"
+          data-pet-category="juguetes"
+          role="tab"
+          aria-selected="false"
+        >
+          <span class="pet-category-icon">🎾</span>
+          <span data-i18n-es="Juguetes" data-i18n-en="Toys">Juguetes</span>
+        </button>
+
+        <button
+          type="button"
+          class="pet-category-pill"
+          data-pet-category="higiene"
+          role="tab"
+          aria-selected="false"
+        >
+          <span class="pet-category-icon">🧴</span>
+          <span data-i18n-es="Higiene & Cuidados" data-i18n-en="Grooming & Hygiene">Higiene & Cuidados</span>
+        </button>
+
+        <button
+          type="button"
+          class="pet-category-pill"
+          data-pet-category="suplementos"
+          role="tab"
+          aria-selected="false"
+        >
+          <span class="pet-category-icon">💊</span>
+          <span data-i18n-es="Suplementos" data-i18n-en="Supplements">Suplementos</span>
+        </button>
+
+        <button
+          type="button"
+          class="pet-category-pill"
+          data-pet-category="accesorios"
+          role="tab"
+          aria-selected="false"
+        >
+          <span class="pet-category-icon">🦮</span>
+          <span data-i18n-es="Paseo & Accesorios" data-i18n-en="Walk & Accessories">Paseo & Accesorios</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Active Filter Status & Reset Action -->
+    <div class="pet-catalog-status-bar" data-pet-status-bar hidden>
+      <div class="pet-catalog-status-text" data-pet-status-text></div>
+      <button type="button" class="pet-catalog-reset-btn" data-pet-reset>
+        <span>✕</span>
+        <span data-i18n-es="Limpiar filtros" data-i18n-en="Clear filters">Limpiar filtros</span>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Barra de Filtros Mascotas",
+  "tag": "section",
+  "class": "section-pet-catalog-bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_mascot_switcher",
+      "label": "Mostrar selector de mascota (Perros / Gatos)",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 16
+    }
+  ],
+  "presets": [
+    {
+      "name": "Barra de Filtros Mascotas"
+    }
+  ]
+}
+{% endschema %}
+
