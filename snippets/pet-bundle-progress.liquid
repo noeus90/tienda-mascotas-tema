@@ -1,0 +1,38 @@
+    <!-- Gamified Progress Bar -->
+    <div class="bundle-progress-card">
+      <div class="bundle-progress-top">
+        <span class="bundle-progress-msg" id="bundle-msg-{{ section.id }}" aria-live="polite" aria-atomic="true">
+          {{ 'pet_cro.bundle.msg_initial' | t: goal: goal_units, discount: discount_tier_2 }}
+        </span>
+        <div class="bundle-progress-tiers">
+          <span
+            class="bundle-tier-pill"
+            id="tier-1-{{ section.id }}"
+            data-i18n-es="2 uds = {{ discount_tier_1 }}% DTO"
+            data-i18n-en="2 pcs = {{ discount_tier_1 }}% OFF"
+          >
+            {{- 'pet_cro.bundle.tier_1_label' | t: discount: discount_tier_1 -}}
+          </span>
+          <span aria-hidden="true">•</span>
+          <span
+            class="bundle-tier-pill"
+            id="tier-2-{{ section.id }}"
+            data-i18n-es="{{ goal_units }}+ uds = {{ discount_tier_2 }}% DTO"
+            data-i18n-en="{{ goal_units }}+ pcs = {{ discount_tier_2 }}% OFF"
+          >
+            {{- 'pet_cro.bundle.tier_2_label' | t: goal: goal_units, discount: discount_tier_2 -}}
+          </span>
+        </div>
+      </div>
+      <div
+        class="bundle-bar-track"
+        id="bundle-track-{{ section.id }}"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="{{ goal_units }}"
+        aria-valuenow="0"
+        aria-label="{{ section.settings.heading | escape }}"
+      >
+        <div class="bundle-bar-fill" id="bundle-bar-{{ section.id }}"></div>
+      </div>
+    </div>

@@ -1,0 +1,396 @@
+/* ==========================================================================
+   CRO Section: Pet Bundle Builder ("Crea el Pack de tu Peludo")
+   File: assets/section-pet-bundle-builder.css
+   ========================================================================== */
+
+.bundle-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  font-family: inherit;
+}
+
+.bundle-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 2.5rem auto;
+}
+
+.bundle-kicker {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #065f46;
+  background: #d1fae5;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  margin-bottom: 0.75rem;
+}
+
+.bundle-header h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: rgb(var(--color-foreground, 15, 23, 42));
+  margin: 0 0 0.6rem 0;
+  line-height: 1.2;
+}
+
+.bundle-header p {
+  font-size: 1.05rem;
+  color: rgba(var(--color-foreground, 15, 23, 42), 0.7);
+  margin: 0;
+}
+
+/* Barra de Progreso de Descuento (Gamificación CRO) */
+.bundle-progress-card {
+  background: rgb(var(--color-background, 255, 255, 255));
+  border: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.12);
+  border-radius: 14px;
+  padding: 1.25rem 1.75rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(var(--color-shadow, 15, 23, 42), 0.03);
+}
+
+.bundle-progress-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.bundle-progress-msg {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgb(var(--color-foreground, 15, 23, 42));
+}
+
+.bundle-progress-tiers {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(var(--color-foreground, 15, 23, 42), 0.68);
+}
+
+.bundle-tier-pill.is-unlocked {
+  color: #059669;
+  font-weight: 700;
+}
+
+.bundle-bar-track {
+  width: 100%;
+  height: 10px;
+  background: rgba(var(--color-foreground, 15, 23, 42), 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.bundle-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+  border-radius: 999px;
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Layout Principal: Catálogo a la izquierda + Resumen del Pack a la derecha */
+.bundle-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .bundle-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Grid de Productos Elegibles */
+.bundle-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+.bundle-prod-card {
+  background: rgb(var(--color-background, 255, 255, 255));
+  border: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.12);
+  border-radius: 14px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.bundle-prod-card:hover {
+  border-color: rgba(var(--color-foreground, 15, 23, 42), 0.24);
+  box-shadow: 0 10px 20px -5px rgba(var(--color-shadow, 15, 23, 42), 0.06);
+}
+
+.bundle-prod-card.is-in-bundle {
+  border-color: #059669;
+  box-shadow: 0 0 0 1px #059669;
+}
+
+.bundle-prod-tag {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 2;
+  background: rgba(15, 23, 42, 0.85);
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+.bundle-prod-media {
+  aspect-ratio: 1 / 1;
+  background: rgba(var(--color-foreground, 15, 23, 42), 0.04);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bundle-prod-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bundle-prod-media svg {
+  width: 55%;
+  height: 55%;
+  opacity: 0.45;
+}
+
+.bundle-prod-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: rgb(var(--color-foreground, 15, 23, 42));
+  margin: 0 0 0.25rem 0;
+}
+
+.bundle-prod-benefit {
+  font-size: 0.8rem;
+  color: rgba(var(--color-foreground, 15, 23, 42), 0.7);
+  margin: 0 0 0.85rem 0;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+.bundle-prod-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.08);
+  gap: 0.5rem;
+}
+
+.bundle-prod-price {
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgb(var(--color-foreground, 15, 23, 42));
+}
+
+.bundle-add-btn {
+  background: rgb(var(--color-button, 15, 23, 42));
+  color: rgb(var(--color-button-text, 255, 255, 255));
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bundle-add-btn:hover {
+  background: #059669;
+  color: #ffffff;
+}
+
+.bundle-prod-card.is-in-bundle .bundle-add-btn {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+/* Right Column: Sticky Pack Summary Panel */
+.bundle-summary-panel {
+  background: rgb(var(--color-background, 255, 255, 255));
+  border: 2px solid rgb(var(--color-foreground, 15, 23, 42));
+  border-radius: 16px;
+  padding: 1.5rem;
+  position: sticky;
+  top: 1.5rem;
+  box-shadow: 0 12px 25px -6px rgba(var(--color-shadow, 15, 23, 42), 0.08);
+}
+
+.bundle-summary-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: rgb(var(--color-foreground, 15, 23, 42));
+  margin: 0 0 0.25rem 0;
+}
+
+.bundle-summary-sub {
+  font-size: 0.82rem;
+  color: rgba(var(--color-foreground, 15, 23, 42), 0.7);
+  border-bottom: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.12);
+  padding-bottom: 1rem;
+  margin: 0 0 1rem 0;
+}
+
+/* Pack Slots */
+.bundle-slots-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+  min-height: 180px;
+}
+
+.bundle-slot-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.85rem;
+  border-radius: 10px;
+  border: 1px dashed rgba(var(--color-foreground, 15, 23, 42), 0.22);
+  background: rgba(var(--color-foreground, 15, 23, 42), 0.03);
+  font-size: 0.85rem;
+  color: rgba(var(--color-foreground, 15, 23, 42), 0.68);
+}
+
+.bundle-slot-item.is-filled {
+  border-style: solid;
+  border-color: #a7f3d0;
+  background: #ecfdf5;
+  color: #0f172a;
+}
+
+.bundle-slot-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.bundle-slot-name {
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 0.85rem;
+}
+
+.bundle-slot-price {
+  font-size: 0.75rem;
+  color: #059669;
+  font-weight: 600;
+}
+
+.bundle-slot-remove {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+}
+
+.bundle-slot-remove:hover {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Real-Time Pricing Breakdown */
+.bundle-totals {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 1rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.bundle-total-row {
+  display: flex;
+  justify-content: space-between;
+  color: #475569;
+}
+
+.bundle-total-row.is-discount {
+  color: #059669;
+  font-weight: 600;
+}
+
+.bundle-total-row.is-final {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0f172a;
+  padding-top: 0.5rem;
+  border-top: 1px dashed #cbd5e1;
+}
+
+.bundle-old-total {
+  text-decoration: line-through;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-right: 0.4rem;
+  display: none;
+}
+.bundle-submit-btn {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  border: none;
+  border-radius: 10px;
+  background: #059669;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bundle-submit-btn:hover:not(:disabled) {
+  background: #047857;
+  transform: translateY(-1px);
+}
+
+.bundle-submit-btn:disabled {
+  background: #cbd5e1;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+.bundle-feedback {
+  margin-top: 0.75rem;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #065f46;
+  background: #d1fae5;
+  padding: 0.5rem;
+  border-radius: 8px;
+  display: none;
+}
+
+.bundle-feedback.is-visible {
+  display: block;
+}
+

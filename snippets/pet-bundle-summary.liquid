@@ -1,0 +1,73 @@
+      <!-- Sticky Summary Panel -->
+      <aside class="bundle-summary-panel">
+        <h3
+          class="bundle-summary-title"
+          data-i18n-es="El Pack de tu Peludo"
+          data-i18n-en="Your Pet's Custom Pack"
+        >
+          {{- 'pet_cro.bundle.your_pack' | t -}}
+        </h3>
+        <p
+          class="bundle-summary-sub"
+          data-i18n-es="Combina alimentación, snacks o higiene y ahorra al instante"
+          data-i18n-en="Mix & match food, treats, or grooming care and save instantly"
+        >
+          {{- 'pet_cro.bundle.your_pack_sub' | t -}}
+        </p>
+
+        <!-- Dynamic Slots -->
+        <div class="bundle-slots-list" id="bundle-slots-{{ section.id }}"></div>
+
+        <!-- Financial Breakdown -->
+        <div class="bundle-totals">
+          <div class="bundle-total-row">
+            <span
+              data-i18n-es="Subtotal productos:"
+              data-i18n-en="Products subtotal:"
+            >
+              {{- 'pet_cro.bundle.subtotal' | t -}}
+            </span>
+            <span id="bundle-subtotal-{{ section.id }}">0,00 €</span>
+          </div>
+          <div class="bundle-total-row is-discount">
+            <span id="bundle-discount-label-{{ section.id }}">{{ 'pet_cro.bundle.discount_label' | t: percent: 0 }}</span>
+            <span id="bundle-discount-amount-{{ section.id }}">-0,00 €</span>
+          </div>
+          <div class="bundle-total-row is-final">
+            <span
+              data-i18n-es="Total Pack:"
+              data-i18n-en="Pack Total:"
+            >
+              {{- 'pet_cro.bundle.total_pack' | t -}}
+            </span>
+            <div>
+              <span
+                class="bundle-old-total"
+                id="bundle-old-total-{{ section.id }}"
+              ></span>
+              <span id="bundle-final-total-{{ section.id }}">0,00 €</span>
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="bundle-submit-btn"
+          id="bundle-submit-{{ section.id }}"
+          disabled
+        >
+          {{ 'pet_cro.bundle.select_at_least' | t }}
+        </button>
+
+        <div
+          class="bundle-feedback"
+          id="bundle-feedback-{{ section.id }}"
+          role="status"
+          aria-live="polite"
+          data-i18n-es="¡Pack para tu mascota añadido correctamente a tu cesta!"
+          data-i18n-en="Pet pack successfully added to your cart!"
+        >
+          {{ 'pet_cro.bundle.confirmation' | t }}
+        </div>
+      </aside>
+

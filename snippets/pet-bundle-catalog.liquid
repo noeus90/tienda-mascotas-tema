@@ -1,0 +1,120 @@
+      <!-- Eligible Pet Products Catalog -->
+      <div class="bundle-products-grid">
+        {%- if collection_obj != blank and collection_obj.products_count > 0 -%}
+          {%- for product_item in collection_obj.products limit: 6 -%}
+            {%- assign current_variant = product_item.selected_or_first_available_variant -%}
+            <div
+              class="bundle-prod-card"
+              data-id="{{ current_variant.id }}"
+              data-title="{{ product_item.title | escape }}"
+              data-price="{{ current_variant.price }}"
+            >
+              <span class="bundle-prod-tag">{{ 'pet_cro.bundle.pure_tag' | t }}</span>
+              <div class="bundle-prod-media">
+                {%- if product_item.featured_image != blank -%}
+                  {%- liquid
+                    assign img_loading = 'lazy'
+                    assign img_priority = 'auto'
+                    if section.index == 1 and forloop.index <= 2
+                      assign img_loading = 'eager'
+                      assign img_priority = 'high'
+                    endif
+                    assign img_alt = product_item.featured_image.alt | default: product_item.title | escape
+                  -%}
+                  {{
+                    product_item.featured_image
+                    | image_url: width: 720
+                    | image_tag:
+                      loading: img_loading,
+                      fetchpriority: img_priority,
+                      widths: '165, 360, 533, 720',
+                      sizes: '(min-width: 1200px) 260px, (min-width: 960px) calc((100vw - 420px) / 3), (min-width: 750px) calc((100vw - 4rem) / 2), calc(100vw - 3rem)',
+                      alt: img_alt,
+                      width: product_item.featured_image.width,
+                      height: product_item.featured_image.height
+                  }}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag }}
+                {%- endif -%}
+              </div>
+              <h3 class="bundle-prod-title">{{ product_item.title }}</h3>
+              {%- assign default_bundle_benefit = 'pet_cro.bundle.default_benefit' | t -%}
+              <p class="bundle-prod-benefit">
+                {{ product_item.metafields.custom.pet_suitability.value | default: product_item.metafields.custom.tipo_piel.value | default: default_bundle_benefit }}
+              </p>
+              <div class="bundle-prod-footer">
+                <span class="bundle-prod-price">{{ current_variant.price | money }}</span>
+                <button
+                  type="button"
+                  class="bundle-add-btn"
+                  data-i18n-es="+ Añadir al Pack"
+                  data-i18n-en="+ Add to Pack"
+                >
+                  {{ 'pet_cro.bundle.add_btn' | t }}
+                </button>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          <!-- Demo Pet Store Products (Localized via locales/es.json & locales/en.default.json) -->
+          {%- assign demo_names = 'pet_cro.bundle.demo_names' | t | split: '|' -%}
+          {%- assign demo_benefits = 'pet_cro.bundle.demo_benefits' | t | split: '|' -%}
+          {%- assign demo_tags = 'pet_cro.bundle.demo_tags' | t | split: '|' -%}
+          {%- assign names_es = 'Pienso Salmón & Boniato Grain-Free (3 kg)|Snacks Dentales Naturales de Ciervo|Champú Dermoprotector Avena & Aloe|Aceite de Salmón Puro Omega 3-6|Bálsamo Reparador Trufa y Almohadillas|Juguete Mordedor Caucho Natural' | split: '|' -%}
+          {%- assign names_en = 'Salmon & Sweet Potato Grain-Free Kibble (3 kg)|Natural Deer Dental Chews|Dermoprotective Oatmeal & Aloe Shampoo|Pure Omega 3-6 Salmon Oil|Nose & Paw Pad Repair Balm|Natural Rubber Chew Toy' | split: '|' -%}
+          {%- assign benefits_es = 'Alta digestibilidad, pelo brillante y articulaciones fuertes|Limpia el sarro y refuerza las encías de forma natural|Calma el picor y respeta el pH neutro (7.0) de su piel|Reduce la caída del pelo y refuerza el sistema inmune|Hidrata y protege las patas frente al asfalto y el frío|Resistente, interactivo y rellenable con premios' | split: '|' -%}
+          {%- assign benefits_en = 'High digestibility, shiny coat, and strong joints|Naturally cleans tartar and strengthens gums|Soothes itching and respects their skin’s neutral pH (7.0)|Reduces shedding and strengthens the immune system|Moisturizes and protects paws from hot pavement and cold|Durable, interactive, and treat-dispensing' | split: '|' -%}
+          {%- assign tags_es = 'Nutrición|Snacks|Higiene|Suplemento|Cuidado Patas|Enriquecimiento' | split: '|' -%}
+          {%- assign tags_en = 'Nutrition|Snacks|Grooming|Supplement|Paw Care|Enrichment' | split: '|' -%}
+          {%- assign demo_prices = '2690|990|1650|1890|1350|1490' | split: '|' -%}
+
+          {%- for demo_name in demo_names -%}
+            {%- assign idx = forloop.index0 -%}
+            {%- assign price_cents = demo_prices[idx] | plus: 0 -%}
+            <div
+              class="bundle-prod-card"
+              data-id="demo-{{ forloop.index }}"
+              data-title="{{ demo_name }}"
+              data-title-es="{{ names_es[idx] }}"
+              data-title-en="{{ names_en[idx] }}"
+              data-price="{{ price_cents }}"
+            >
+              <span
+                class="bundle-prod-tag"
+                data-i18n-es="{{ tags_es[idx] }}"
+                data-i18n-en="{{ tags_en[idx] }}"
+              >
+                {{- demo_tags[idx] -}}
+              </span>
+              <div class="bundle-prod-media">
+                {{ 'product-' | append: forloop.index | placeholder_svg_tag }}
+              </div>
+              <h3
+                class="bundle-prod-title"
+                data-i18n-es="{{ names_es[idx] }}"
+                data-i18n-en="{{ names_en[idx] }}"
+              >
+                {{- demo_name -}}
+              </h3>
+              <p
+                class="bundle-prod-benefit"
+                data-i18n-es="{{ benefits_es[idx] }}"
+                data-i18n-en="{{ benefits_en[idx] }}"
+              >
+                {{- demo_benefits[idx] -}}
+              </p>
+              <div class="bundle-prod-footer">
+                <span class="bundle-prod-price">{{ price_cents | money }}</span>
+                <button
+                  type="button"
+                  class="bundle-add-btn"
+                  data-i18n-es="+ Añadir al Pack"
+                  data-i18n-en="+ Add to Pack"
+                >
+                  {{ 'pet_cro.bundle.add_btn' | t }}
+                </button>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
