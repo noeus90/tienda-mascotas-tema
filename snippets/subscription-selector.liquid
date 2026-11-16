@@ -1,0 +1,221 @@
+{%- doc -%}
+  CRO Subscription Selector ("One-Time Purchase vs. Auto-Delivery & Save") for Pet Food & Grooming Supplies.
+  Calculates the discounted price in real time and binds the selected mode and delivery frequency to the product form.
+
+  @param {product} product - (Required) Shopify product object.
+  @param {string} product_form_id - (Required) Main product form ID in the section.
+  @param {number} [discount_percentage] - (Optional) Subscription discount percentage (default: 15).
+
+  @example
+  {% render 'subscription-selector', product: product, product_form_id: product_form_id %}
+{%- enddoc -%}
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign single_price = current_variant.price
+  assign discount_pct = discount_percentage | default: 15
+  assign pay_factor = 100 | minus: discount_pct
+  assign sub_price = single_price | times: pay_factor | divided_by: 100.0 | round
+  assign savings_money = single_price | minus: sub_price
+  assign formatted_savings = savings_money | money
+  assign prop_mode_name = 'pet_cro.subscription.prop_mode' | t
+  assign prop_freq_name = 'pet_cro.subscription.prop_frequency' | t
+-%}
+
+<div
+  class="cro-sub-widget"
+  id="sub-widget-{{ section.id }}"
+  role="radiogroup"
+  aria-labelledby="sub-heading-{{ section.id }}"
+  data-label-sub="{{ 'pet_cro.subscription.sub_title' | t }} ({{ discount_pct }}%)"
+  data-label-onetime="{{ 'pet_cro.subscription.onetime_title' | t }}"
+>
+  <!-- Hidden line item properties linked to the native Shopify product form -->
+  <input
+    type="hidden"
+    name="properties[{{ prop_mode_name }}]"
+    id="sub-prop-mode-{{ section.id }}"
+    value="{{ 'pet_cro.subscription.sub_title' | t }} ({{ discount_pct }}%)"
+    form="{{ product_form_id }}"
+  >
+  <input
+    type="hidden"
+    name="properties[{{ prop_freq_name }}]"
+    id="sub-prop-frequency-{{ section.id }}"
+    value="{{ 'pet_cro.subscription.every_30' | t }}"
+    form="{{ product_form_id }}"
+  >
+
+  <span
+    class="cro-sub-heading"
+    id="sub-heading-{{ section.id }}"
+    data-i18n-es="Elige tu modalidad de compra:"
+    data-i18n-en="Choose your purchase option:"
+  >
+    {{- 'pet_cro.subscription.heading' | t -}}
+  </span>
+
+  <!-- OPTION 1: AUTO-DELIVERY & SAVE (Selected by default to maximize LTV) -->
+  <div
+    class="cro-sub-option is-selected"
+    id="sub-opt-recurring-{{ section.id }}"
+    role="radio"
+    aria-checked="true"
+    tabindex="0"
+    data-sub-option
+    data-section-id="{{ section.id }}"
+    data-mode="sub"
+    data-discount="{{ discount_pct }}"
+  >
+    <div
+      class="cro-sub-badge-popular"
+      data-i18n-es="Más Popular · Ahorra {{ discount_pct }}%"
+      data-i18n-en="Most Popular · Save {{ discount_pct }}%"
+    >
+      {{- 'pet_cro.subscription.most_popular' | t: percent: discount_pct -}}
+    </div>
+
+    <div class="cro-sub-row-main">
+      <div class="cro-sub-radio-group">
+        <span class="cro-sub-radio-circle" aria-hidden="true"></span>
+        <div>
+          <span
+            class="cro-sub-title"
+            data-i18n-es="Autopedido Recurrente y Ahorra"
+            data-i18n-en="Auto-Delivery & Save"
+          >
+            {{- 'pet_cro.subscription.sub_title' | t -}}
+          </span>
+          <span
+            class="cro-sub-subtitle"
+            data-i18n-es="Recibe su comida o higiene a tiempo sin quedarte nunca sin stock"
+            data-i18n-en="Automatic refills so your pet never runs out of food or grooming essentials"
+          >
+            {{- 'pet_cro.subscription.sub_subtitle' | t -}}
+          </span>
+        </div>
+      </div>
+
+      <div class="cro-sub-price-box">
+        <span class="cro-sub-price-old">{{ single_price | money }}</span>
+        <span class="cro-sub-price-final">{{ sub_price | money }}</span>
+      </div>
+    </div>
+
+    <!-- Expandable subscription details -->
+    <div class="cro-sub-details" id="sub-details-{{ section.id }}">
+      <div class="cro-sub-freq-wrapper">
+        <label
+          for="sub-freq-select-{{ section.id }}"
+          data-i18n-es="Frecuencia de entrega:"
+          data-i18n-en="Delivery frequency:"
+        >
+          {{- 'pet_cro.subscription.frequency_label' | t -}}
+        </label>
+        <select
+          id="sub-freq-select-{{ section.id }}"
+          class="cro-sub-select"
+          data-sub-freq-select
+          data-section-id="{{ section.id }}"
+        >
+          <option
+            value="{{ 'pet_cro.subscription.every_30' | t }}"
+            data-i18n-es="Cada 30 días (Recomendado)"
+            data-i18n-en="Every 30 days (Recommended)"
+          >
+            {{- 'pet_cro.subscription.every_30' | t -}}
+          </option>
+          <option
+            value="{{ 'pet_cro.subscription.every_45' | t }}"
+            data-i18n-es="Cada 45 días"
+            data-i18n-en="Every 45 days"
+          >
+            {{- 'pet_cro.subscription.every_45' | t -}}
+          </option>
+          <option
+            value="{{ 'pet_cro.subscription.every_60' | t }}"
+            data-i18n-es="Cada 60 días"
+            data-i18n-en="Every 60 days"
+          >
+            {{- 'pet_cro.subscription.every_60' | t -}}
+          </option>
+        </select>
+      </div>
+
+      <ul class="cro-sub-perks">
+        <li>
+          <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span
+            data-i18n-html-es="Ahorras <strong>{{ formatted_savings }}</strong> en cada entrega automática"
+            data-i18n-html-en="You save <strong>{{ formatted_savings }}</strong> on every automatic delivery"
+          >
+            {{- 'pet_cro.subscription.perk_savings_html' | t: amount: formatted_savings -}}
+          </span>
+        </li>
+        <li>
+          <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span
+            data-i18n-es="Pausa, cambia de fecha o cancela online en 1 clic sin permanencia"
+            data-i18n-en="Pause, skip a month, or cancel online in 1 click anytime"
+          >
+            {{- 'pet_cro.subscription.perk_cancel' | t -}}
+          </span>
+        </li>
+        <li>
+          <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span
+            data-i18n-es="Envío prioritario gratuito y snack de regalo en cada pedido"
+            data-i18n-en="Free priority shipping & free natural dog treat with every order"
+          >
+            {{- 'pet_cro.subscription.perk_shipping' | t -}}
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- OPTION 2: ONE-TIME PURCHASE -->
+  <div
+    class="cro-sub-option"
+    id="sub-opt-onetime-{{ section.id }}"
+    role="radio"
+    aria-checked="false"
+    tabindex="0"
+    data-sub-option
+    data-section-id="{{ section.id }}"
+    data-mode="onetime"
+    data-discount="{{ discount_pct }}"
+  >
+    <div class="cro-sub-row-main">
+      <div class="cro-sub-radio-group">
+        <span class="cro-sub-radio-circle" aria-hidden="true"></span>
+        <div>
+          <span
+            class="cro-sub-title"
+            data-i18n-es="Compra única"
+            data-i18n-en="One-time purchase"
+          >
+            {{- 'pet_cro.subscription.onetime_title' | t -}}
+          </span>
+          <span
+            class="cro-sub-subtitle"
+            data-i18n-es="Pedido puntual sin entregas periódicas"
+            data-i18n-en="Single order without recurring deliveries"
+          >
+            {{- 'pet_cro.subscription.onetime_subtitle' | t -}}
+          </span>
+        </div>
+      </div>
+
+      <div class="cro-sub-price-box">
+        <span class="cro-sub-price-final">{{ single_price | money }}</span>
+      </div>
+    </div>
+  </div>
+</div>

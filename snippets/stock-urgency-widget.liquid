@@ -1,0 +1,115 @@
+{%- doc -%}
+  Real-Time Stock & 24h Estimated Delivery CRO Widget for Pet Store products.
+  Evaluates Shopify's 4 inventory properties (available, inventory_management, inventory_quantity, inventory_policy)
+  and calculates the same-day dispatch cutoff time and estimated delivery date.
+
+  @param {product} product - (Required) Shopify product object.
+  @param {number} [low_stock_threshold] - (Optional) Quantity threshold for low-stock alert (default: 10).
+
+  @example
+  {% render 'stock-urgency-widget', product: product %}
+{%- enddoc -%}
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign scarcity_limit = low_stock_threshold | default: 10
+  assign qty = current_variant.inventory_quantity | default: 0
+
+  assign stock_state = 'in_stock'
+  if current_variant.available == false
+    assign stock_state = 'sold_out'
+  elsif current_variant.inventory_management == 'shopify'
+    if qty <= 0 and current_variant.inventory_policy == 'continue'
+      assign stock_state = 'preorder'
+    elsif qty > 0 and qty <= scarcity_limit
+      assign stock_state = 'low_stock'
+    endif
+  endif
+
+  assign scarcity_bar_pct = qty | times: 100.0 | divided_by: scarcity_limit | round
+  if scarcity_bar_pct > 100 or scarcity_bar_pct < 15
+    assign scarcity_bar_pct = 25
+  endif
+-%}
+
+<div class="cro-stock-widget" id="stock-widget-{{ section.id }}" role="status" aria-live="polite">
+  <!-- Row 1: Real-Time Inventory Status Indicator -->
+  <div class="cro-stock-status-row is-{{ stock_state }}">
+    <span class="cro-stock-dot"></span>
+
+    {%- case stock_state -%}
+      {%- when 'low_stock' -%}
+        {%- if qty == 1 -%}
+          {%- assign low_es = '🔥 ¡Alta demanda! Solo queda <strong>1 unidad</strong> fresca en almacén' -%}
+          {%- assign low_en = '🔥 High demand! Only <strong>1 unit</strong> left in warehouse' -%}
+        {%- else -%}
+          {%- assign low_es = '🔥 ¡Alta demanda! Solo quedan <strong>' | append: qty | append: ' unidades</strong> frescas en almacén' -%}
+          {%- assign low_en = '🔥 High demand! Only <strong>' | append: qty | append: ' units</strong> left in warehouse' -%}
+        {%- endif -%}
+        <span
+          class="cro-stock-text"
+          data-i18n-html-es="{{ low_es | escape }}"
+          data-i18n-html-en="{{ low_en | escape }}"
+        >
+          {{ 'pet_cro.stock.low_stock_html' | t: count: qty }}
+        </span>
+      {%- when 'preorder' -%}
+        <span
+          class="cro-stock-text"
+          data-i18n-html-es="📦 Lote agotado · Disponible bajo <strong>reserva prioritaria</strong> (envío en 5 días)"
+          data-i18n-html-en="📦 Batch sold out · Available for <strong>priority pre-order</strong> (ships in 5 days)"
+        >
+          {{ 'pet_cro.stock.preorder_html' | t }}
+        </span>
+      {%- when 'sold_out' -%}
+        <span
+          class="cro-stock-text"
+          data-i18n-es="Agotado temporalmente · Reponiendo nuevo lote fresco de fábrica"
+          data-i18n-en="Temporarily out of stock · Fresh batch arriving from manufacturer"
+        >
+          {{ 'pet_cro.stock.sold_out' | t }}
+        </span>
+      {%- else -%}
+        <span
+          class="cro-stock-text"
+          data-i18n-html-es="<strong>En stock</strong> · Lote fresco listo para envío inmediato 24h"
+          data-i18n-html-en="<strong>In stock</strong> · Fresh batch ready for immediate 24h dispatch"
+        >
+          {{ 'pet_cro.stock.in_stock_html' | t }}
+        </span>
+    {%- endcase -%}
+  </div>
+
+  <!-- Visual scarcity bar (only when few units remain) -->
+  {%- if stock_state == 'low_stock' -%}
+    <div class="cro-scarcity-track">
+      <div class="cro-scarcity-fill" style="width: {{ scarcity_bar_pct }}%;"></div>
+    </div>
+  {%- endif -%}
+
+  <!-- Row 2: Dynamic 24/48h Delivery Estimation (only when available) -->
+  {%- if current_variant.available -%}
+    <div class="cro-delivery-row">
+      <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="1" y="3" width="15" height="13"></rect>
+        <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+        <circle cx="5.5" cy="18.5" r="2.5"></circle>
+        <circle cx="18.5" cy="18.5" r="2.5"></circle>
+      </svg>
+      <span
+        id="cro-delivery-text-{{ section.id }}"
+        data-cro-delivery
+        data-tpl-cutoff="{{ 'pet_cro.stock.order_within_html' | t: time: '__TIME__', date: '__DATE__' | escape }}"
+        data-tpl-express="{{ 'pet_cro.stock.express_shipping_html' | t: date: '__DATE__' | escape }}"
+        data-tpl-cutoff-es="Pídelo en <strong>__TIME__</strong> y recíbelo el <strong>__DATE__</strong>"
+        data-tpl-cutoff-en="Order within <strong>__TIME__</strong> to receive it on <strong>__DATE__</strong>"
+        data-tpl-express-es="Envío urgente 24h · Recíbelo el <strong>__DATE__</strong>"
+        data-tpl-express-en="Express 24h shipping · Receive it on <strong>__DATE__</strong>"
+        data-i18n-html-es="Pídelo hoy y recíbelo en <strong>24/48h laborables</strong>"
+        data-i18n-html-en="Order today and receive it in <strong>24/48 business hours</strong>"
+      >
+        {{ 'pet_cro.stock.delivery_default_html' | t }}
+      </span>
+    </div>
+  {%- endif -%}
+</div>

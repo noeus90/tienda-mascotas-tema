@@ -1,0 +1,281 @@
+{%- doc -%}
+  CRO Product Tabs for Pet Shop & Dog Grooming products.
+  Displays Benefits, Composition & Nutrients, and Feeding / Grooming Usage Guide via Metafields.
+
+  @param {product} product - (Required) Shopify product object.
+  @param {string} [extra_class] - (Optional) Additional CSS classes for the wrapper.
+
+  @example
+  {% render 'pet-product-tabs', product: product %}
+{%- enddoc -%}
+
+{%- liquid
+  assign default_pet_type = 'pet_cro.tabs.pet_type_default' | t
+  assign mf_benefits = product.metafields.custom.key_benefits.value | default: product.metafields.custom.beneficios_clave.value
+  assign mf_ingredients = product.metafields.custom.active_ingredients.value | default: product.metafields.custom.ingredientes_activos.value
+  assign mf_usage = product.metafields.custom.usage_guide.value | default: product.metafields.custom.modo_de_uso.value
+  assign mf_pet_type = product.metafields.custom.pet_suitability.value | default: product.metafields.custom.tipo_piel.value | default: default_pet_type
+  assign mf_composition = product.metafields.custom.analytical_composition.value | default: product.metafields.custom.lista_inci.value
+  assign tab_uid = section.id | default: product.id | default: 'main'
+-%}
+
+<div class="cro-tabs-wrapper {{ extra_class }}">
+  <!-- Tab Buttons (WAI-ARIA Tablist) -->
+  <div
+    class="cro-tabs-nav"
+    role="tablist"
+    aria-label="{{ 'pet_cro.tabs.aria_label' | t }}"
+    data-i18n-aria-es="Información del producto para mascotas"
+    data-i18n-aria-en="Pet product information"
+  >
+    <button
+      type="button"
+      class="cro-tab-btn is-active"
+      role="tab"
+      aria-selected="true"
+      tabindex="0"
+      aria-controls="tab-panel-benefits-{{ tab_uid }}"
+      id="tab-btn-benefits-{{ tab_uid }}"
+      data-tab-target="tab-panel-benefits-{{ tab_uid }}"
+    >
+      <!-- Heart / Health Icon -->
+      <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+      </svg>
+      <span data-i18n-es="Beneficios" data-i18n-en="Benefits">{{ 'pet_cro.tabs.tab_benefits' | t }}</span>
+    </button>
+
+    <button
+      type="button"
+      class="cro-tab-btn"
+      role="tab"
+      aria-selected="false"
+      tabindex="-1"
+      aria-controls="tab-panel-ingredients-{{ tab_uid }}"
+      id="tab-btn-ingredients-{{ tab_uid }}"
+      data-tab-target="tab-panel-ingredients-{{ tab_uid }}"
+    >
+      <!-- Natural Leaf / Nutrition Icon -->
+      <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+        <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+      </svg>
+      <span data-i18n-es="Composición & Nutrientes" data-i18n-en="Composition & Nutrients">{{ 'pet_cro.tabs.tab_ingredients' | t }}</span>
+    </button>
+
+    <button
+      type="button"
+      class="cro-tab-btn"
+      role="tab"
+      aria-selected="false"
+      tabindex="-1"
+      aria-controls="tab-panel-usage-{{ tab_uid }}"
+      id="tab-btn-usage-{{ tab_uid }}"
+      data-tab-target="tab-panel-usage-{{ tab_uid }}"
+    >
+      <!-- Guide / Clock Icon -->
+      <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 16 14"/>
+      </svg>
+      <span data-i18n-es="Guía de Uso / Ración" data-i18n-en="Feeding / Usage Guide">{{ 'pet_cro.tabs.tab_usage' | t }}</span>
+    </button>
+  </div>
+
+  <!-- Tab Panels -->
+  <div class="cro-tabs-content">
+    
+    <!-- TAB 1: BENEFITS -->
+    <div
+      class="cro-tab-panel is-active"
+      id="tab-panel-benefits-{{ tab_uid }}"
+      role="tabpanel"
+      tabindex="0"
+      aria-labelledby="tab-btn-benefits-{{ tab_uid }}"
+    >
+      <div class="cro-skin-type-badge">
+        <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 6L9 17l-5-5"/>
+        </svg>
+        <span>
+          <strong data-i18n-es="Ideal para:" data-i18n-en="Ideal for:">{{ 'pet_cro.tabs.ideal_for' | t }}</strong>
+          {%- if mf_pet_type == default_pet_type -%}
+            <span
+              data-i18n-es="Perros y cachorros de todas las razas, incluso con piel o digestión sensible"
+              data-i18n-en="Dogs and puppies of all breeds, including sensitive skin or digestion"
+            >
+              {{ mf_pet_type }}
+            </span>
+          {%- else -%}
+            {{ mf_pet_type }}
+          {%- endif -%}
+        </span>
+      </div>
+
+      {%- if mf_benefits != blank -%}
+        <div class="cro-panel-text">
+          {{ mf_benefits }}
+        </div>
+      {%- else -%}
+        <ul class="cro-benefits-list">
+          <li>
+            <div class="cro-check-icon" aria-hidden="true">✓</div>
+            <div
+              data-i18n-html-es="<strong>Pelo brillante y piel sana:</strong> Rico en ácidos grasos Omega 3 y 6 que calman el picor y reducen la caída."
+              data-i18n-html-en="<strong>Shiny coat & healthy skin:</strong> Rich in Omega 3 & 6 fatty acids to soothe itching and reduce shedding."
+            >
+              {{ 'pet_cro.tabs.benefit_1_html' | t }}
+            </div>
+          </li>
+          <li>
+            <div class="cro-check-icon" aria-hidden="true">✓</div>
+            <div
+              data-i18n-html-es="<strong>Alta digestibilidad e hipoalergénico:</strong> Formulado sin cereales ni subproductos para estómagos delicados."
+              data-i18n-html-en="<strong>Highly digestible & hypoallergenic:</strong> Grain-free formula without by-products for sensitive stomachs."
+            >
+              {{ 'pet_cro.tabs.benefit_2_html' | t }}
+            </div>
+          </li>
+          <li>
+            <div class="cro-check-icon" aria-hidden="true">✓</div>
+            <div
+              data-i18n-html-es="<strong>Refuerzo articular e inmunitario:</strong> Con condroprotectores naturales y antioxidantes para mayor vitalidad."
+              data-i18n-html-en="<strong>Joint & immune support:</strong> Enriched with natural chondroprotectors and antioxidants for daily vitality."
+            >
+              {{ 'pet_cro.tabs.benefit_3_html' | t }}
+            </div>
+          </li>
+        </ul>
+      {%- endif -%}
+    </div>
+
+    <!-- TAB 2: COMPOSITION & NUTRIENTS -->
+    <div
+      class="cro-tab-panel"
+      id="tab-panel-ingredients-{{ tab_uid }}"
+      role="tabpanel"
+      tabindex="0"
+      aria-labelledby="tab-btn-ingredients-{{ tab_uid }}"
+      hidden
+    >
+      {%- if mf_ingredients != blank -%}
+        <div class="cro-panel-text">
+          {{ mf_ingredients }}
+        </div>
+      {%- else -%}
+        <div class="cro-actives-grid">
+          <div class="cro-active-card">
+            <span class="cro-active-pill" data-i18n-es="65% Ingrediente Principal" data-i18n-en="65% Main Ingredient">{{ 'pet_cro.tabs.ing_1_tag' | t }}</span>
+            <h4 data-i18n-es="Salmón Fresco & Proteína Noble" data-i18n-en="Fresh Salmon & Noble Protein">{{ 'pet_cro.tabs.ing_1_title' | t }}</h4>
+            <p
+              data-i18n-es="Fuente de proteína de alto valor biológico y Omega-3 para nutrir el folículo piloso y las articulaciones."
+              data-i18n-en="High biological value protein and Omega-3 source to nourish hair follicles and support joints."
+            >
+              {{ 'pet_cro.tabs.ing_1_desc' | t }}
+            </p>
+          </div>
+          <div class="cro-active-card">
+            <span class="cro-active-pill" data-i18n-es="Complejo Dermoprotector" data-i18n-en="Dermoprotective Complex">{{ 'pet_cro.tabs.ing_2_tag' | t }}</span>
+            <h4 data-i18n-es="Biotina, Zinc & Aloe Vera" data-i18n-en="Biotin, Zinc & Aloe Vera">{{ 'pet_cro.tabs.ing_2_title' | t }}</h4>
+            <p
+              data-i18n-es="Hidrata en profundidad la barrera cutánea canina, manteniendo el pH neutro (7.0) y evitando descamaciones."
+              data-i18n-en="Deeply hydrates the canine skin barrier while maintaining a balanced pH (7.0) and preventing flaking."
+            >
+              {{ 'pet_cro.tabs.ing_2_desc' | t }}
+            </p>
+          </div>
+          <div class="cro-active-card">
+            <span class="cro-active-pill" data-i18n-es="Prebióticos Naturales" data-i18n-en="Natural Prebiotics">{{ 'pet_cro.tabs.ing_3_tag' | t }}</span>
+            <h4 data-i18n-es="Calabaza, Arándanos & Condroitina" data-i18n-en="Pumpkin, Blueberries & Chondroitin">{{ 'pet_cro.tabs.ing_3_title' | t }}</h4>
+            <p
+              data-i18n-es="Favorece la flora intestinal saludable y protege cartílagos en perros activos o senior."
+              data-i18n-en="Supports healthy gut flora and protects cartilage in active or senior dogs."
+            >
+              {{ 'pet_cro.tabs.ing_3_desc' | t }}
+            </p>
+          </div>
+        </div>
+
+        <details class="cro-inci-accordion">
+          <summary
+            data-i18n-es="Ver composición analítica completa y aditivos"
+            data-i18n-en="View full analytical constituents & additives"
+          >
+            {{ 'pet_cro.tabs.view_composition' | t }}
+          </summary>
+          {%- assign default_comp = 'pet_cro.tabs.composition_default' | t -%}
+          <div
+            class="cro-inci-text"
+            {% if mf_composition == blank %}
+              data-i18n-es="Salmón fresco deshuesado (40%), proteína deshidratada de pescado (25%), boniato, aceite de salmón (fuente de EPA/DHA), pulpa de manzana, glucosamina (900 mg/kg), sulfato de condroitina (700 mg/kg), extracto de yuca, biotina, quelato de zinc. Componentes analíticos: Proteína bruta 30%, Grasa bruta 16%, Fibra bruta 2,8%, Ceniza bruta 7,5%, Omega-3 1,4%."
+              data-i18n-en="Fresh deboned salmon (40%), dehydrated fish protein (25%), sweet potato, salmon oil (source of EPA/DHA), apple pulp, glucosamine (900 mg/kg), chondroitin sulfate (700 mg/kg), yucca extract, biotin, zinc chelate. Analytical constituents: Crude protein 30%, Crude fat 16%, Crude fiber 2.8%, Crude ash 7.5%, Omega-3 1.4%."
+            {% endif %}
+          >
+            {{ mf_composition | default: default_comp }}
+          </div>
+        </details>
+      {%- endif -%}
+    </div>
+
+    <!-- TAB 3: FEEDING / USAGE GUIDE -->
+    <div
+      class="cro-tab-panel"
+      id="tab-panel-usage-{{ tab_uid }}"
+      role="tabpanel"
+      tabindex="0"
+      aria-labelledby="tab-btn-usage-{{ tab_uid }}"
+      hidden
+    >
+      {%- if mf_usage != blank -%}
+        <div class="cro-panel-text">
+          {{ mf_usage }}
+        </div>
+      {%- else -%}
+        <div class="cro-routine-timing">
+          <span class="cro-timing-tag" data-i18n-es="🐾 Uso Diario / Mantenimiento" data-i18n-en="🐾 Daily Care / Maintenance">{{ 'pet_cro.tabs.daily_use' | t }}</span>
+          <span class="cro-timing-tag" data-i18n-es="🛁 Día de Baño & Peluquería" data-i18n-en="🛁 Bath & Grooming Day">{{ 'pet_cro.tabs.grooming_day' | t }}</span>
+        </div>
+
+        <ol class="cro-routine-steps">
+          <li>
+            <span class="cro-step-num" aria-hidden="true">1</span>
+            <div
+              data-i18n-html-es="<strong>Ajusta según peso y actividad:</strong> Consulta el tamaño de tu peludo (Mini, Mediano o Maxi) antes de dosificar."
+              data-i18n-html-en="<strong>Adjust by weight & activity:</strong> Check your dog's size (Mini, Medium, or Maxi) before dosing."
+            >
+              {{ 'pet_cro.tabs.step_1_html' | t }}
+            </div>
+          </li>
+          <li>
+            <span class="cro-step-num" aria-hidden="true">2</span>
+            <div
+              data-i18n-html-es="<strong>Sirve o aplica gradualmente:</strong> En alimentación divide en 2 tomas diarias; en champú aplica sobre el manto húmedo."
+              data-i18n-html-en="<strong>Serve or apply gradually:</strong> For food, split into 2 daily meals; for shampoo, apply onto a wet coat."
+            >
+              {{ 'pet_cro.tabs.step_2_html' | t }}
+            </div>
+          </li>
+          <li>
+            <span class="cro-step-num" aria-hidden="true">3</span>
+            <div
+              data-i18n-html-es="<strong>Tiempo de acción / asimilación:</strong> Masajea suavemente de 3 a 5 minutos hasta la raíz o acompaña siempre con agua fresca."
+              data-i18n-html-en="<strong>Action / absorption time:</strong> Gently massage for 3–5 minutes down to the roots, or always serve with fresh water."
+            >
+              {{ 'pet_cro.tabs.step_3_html' | t }}
+            </div>
+          </li>
+          <li>
+            <span class="cro-step-num" aria-hidden="true">4</span>
+            <div
+              data-i18n-html-es="<strong>Completa su rutina:</strong> Combina con cepillado regular y visita nuestra peluquería canina cada 4-6 semanas."
+              data-i18n-html-en="<strong>Complete their routine:</strong> Pair with regular brushing and book a professional grooming session every 4–6 weeks."
+            >
+              {{ 'pet_cro.tabs.step_4_html' | t }}
+            </div>
+          </li>
+        </ol>
+      {%- endif -%}
+    </div>
+
+  </div>
+</div>

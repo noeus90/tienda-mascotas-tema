@@ -16,6 +16,7 @@
 >
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
   {{ 'section-featured-product.css' | asset_url | stylesheet_tag }}
+  {{ 'component-pet-cro.css' | asset_url | stylesheet_tag }}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
   {{ 'component-price.css' | asset_url | stylesheet_tag }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
@@ -44,6 +45,7 @@
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'pet-cro.js' | asset_url }}" defer="defer"></script>
 
   {% comment %} TODO: assign `product.selected_or_first_available_variant` to variable and replace usage to reduce verbosity {% endcomment %}
 
@@ -125,6 +127,10 @@
                       show_badges: true,
                       price_class: 'price--large'
                     -%}
+                    {%- unless placeholder -%}
+                      {% render 'savings-badge', product: product %}
+                      {% render 'stock-urgency-widget', product: product %}
+                    {%- endunless -%}
                   </div>
                   {%- if product.quantity_price_breaks_configured? -%}
                     <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
@@ -134,11 +140,11 @@
                   {%- if cart.taxes_included or cart.duties_included or shop.shipping_policy.body != blank -%}
                     <div class="product__tax caption rte">
                       {%- if cart.duties_included and cart.taxes_included -%}
-                        {{ 'products.product.duties_and_taxes_included' | t }}
+                        <span data-i18n-es="Aranceles e impuestos incluidos." data-i18n-en="Duties and taxes included.">{{- 'products.product.duties_and_taxes_included' | t -}}</span>
                       {%- elsif cart.taxes_included -%}
-                        {{ 'products.product.taxes_included' | t }}
+                        <span data-i18n-es="Impuestos incluidos." data-i18n-en="Tax included.">{{- 'products.product.taxes_included' | t -}}</span>
                       {%- elsif cart.duties_included -%}
-                        {{ 'products.product.duties_included' | t }}
+                        <span data-i18n-es="Aranceles incluidos." data-i18n-en="Duties included.">{{- 'products.product.duties_included' | t -}}</span>
                       {%- endif -%}
                       {%- if shop.shipping_policy.body != blank -%}
                         {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
@@ -187,7 +193,7 @@
                       for="Quantity-{{ section.id }}"
                       aria-labelledby="quantity-label-{{ section.id }}"
                     >
-                      <span aria-hidden="true">{{ 'products.product.quantity.label' | t }}</span>
+                      <span aria-hidden="true" data-i18n-es="Cantidad" data-i18n-en="Quantity">{{ 'products.product.quantity.label' | t }}</span>
                       <span class="quantity__rules-cart{% if cart_qty == 0 %} hidden{% endif %}" aria-hidden="true">
                         {%- render 'loading-spinner' -%}
                         <span
@@ -412,12 +418,19 @@
                     product_form_id: product_form_id
                   %}
                 {%- when 'buy_buttons' -%}
+                  {%- unless placeholder -%}
+                    {% render 'free-shipping-bar' %}
+                    {% render 'subscription-selector', product: product, product_form_id: product_form_id %}
+                  {%- endunless -%}
                   {%- render 'buy-buttons',
                     block: block,
                     product: product,
                     product_form_id: product_form_id,
                     section_id: section.id
                   -%}
+                  {%- unless placeholder -%}
+                    {% render 'pet-product-trust', product: product %}
+                  {%- endunless -%}
                 {%- when 'custom_liquid' -%}
                   {{ block.settings.custom_liquid }}
                 {%- when 'rating' -%}
@@ -470,7 +483,7 @@
               {% endif %}
               class="link product__view-details animate-arrow"
             >
-              {{ 'products.product.view_full_details' | t }}
+              <span data-i18n-es="Ver todos los detalles" data-i18n-en="View full details">{{- 'products.product.view_full_details' | t -}}</span>
               {{- 'icon-arrow.svg' | inline_asset_content -}}
             </a>
           </section>
@@ -498,9 +511,9 @@
     <script src="{{ 'product-model.js' | asset_url }}" defer></script>
   {%- endif -%}
 
-  <script type="application/ld+json">
-    {{ product | structured_data }}
-  </script>
+  {%- unless placeholder -%}
+    {%- render 'seo-schema-product', product: product -%}
+  {%- endunless -%}
 
   {% if product.media.size > 0 %}
     <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>

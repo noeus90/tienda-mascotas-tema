@@ -82,15 +82,19 @@
               disabled
             {% endif %}
           >
-            <span>
-              {%- if product.selected_or_first_available_variant == null -%}
+            {%- if product.selected_or_first_available_variant == null -%}
+              <span data-i18n-es="No disponible" data-i18n-en="Unavailable">
                 {{ 'products.product.unavailable' | t }}
-              {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
+              </span>
+            {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
+              <span data-i18n-es="Agotado" data-i18n-en="Sold out">
                 {{ 'products.product.sold_out' | t }}
-              {%- else -%}
+              </span>
+            {%- else -%}
+              <span data-i18n-es="Agregar al carrito" data-i18n-en="Add to cart">
                 {{ 'products.product.add_to_cart' | t }}
-              {%- endif -%}
-            </span>
+              </span>
+            {%- endif -%}
             {%- render 'loading-spinner' -%}
           </button>
           {%- if show_dynamic_checkout -%}

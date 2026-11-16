@@ -1,0 +1,46 @@
+{%- doc -%}
+  Customizable Pill Badge for Pet Store promotions and statuses.
+
+  @param {string} [text] - Badge label text (defaults to localized "New").
+  @param {string} [bg_color] - Hex or RGB background color (default: '#e2e8f0').
+  @param {string} [text_color] - Hex or RGB text color (default: '#0f172a').
+  @param {string} [extra_class] - Optional additional CSS classes.
+
+  @example
+  {% render 'custom-badge', text: 'Sold Out', bg_color: '#fee2e2', text_color: '#991b1b' %}
+{%- enddoc -%}
+
+{%- liquid
+  assign default_new = 'pet_cro.badge.new' | t
+  assign badge_text = text | default: default_new
+  assign badge_bg = bg_color | default: '#e2e8f0'
+  assign badge_fg = text_color | default: '#0f172a'
+  assign badge_class = extra_class
+
+  assign badge_es = ''
+  assign badge_en = ''
+  if text == blank or badge_text == 'Nuevo' or badge_text == 'New'
+    assign badge_es = 'Nuevo'
+    assign badge_en = 'New'
+  elsif badge_text == 'Envío Gratis' or badge_text == 'Free Shipping'
+    assign badge_es = 'Envío Gratis'
+    assign badge_en = 'Free Shipping'
+  elsif badge_text == 'Exclusivo' or badge_text == 'Exclusive'
+    assign badge_es = 'Exclusivo'
+    assign badge_en = 'Exclusive'
+  elsif badge_text == 'Agotado' or badge_text == 'Sold Out'
+    assign badge_es = 'Agotado'
+    assign badge_en = 'Sold Out'
+  endif
+-%}
+
+<span
+  class="custom-badge {{ badge_class }}"
+  style="--badge-bg: {{ badge_bg }}; --badge-fg: {{ badge_fg }};"
+  {% if badge_es != '' %}
+    data-i18n-es="{{ badge_es }}"
+    data-i18n-en="{{ badge_en }}"
+  {% endif %}
+>
+  {{ badge_text }}
+</span>

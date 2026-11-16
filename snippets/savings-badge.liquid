@@ -1,0 +1,30 @@
+{%- doc -%}
+  Savings & Discount Percentage Badge for Pet Store products.
+  Calculates the monetary difference and percentage discount when compare_at_price > price.
+
+  @param {product} product - (Required) Shopify product object.
+
+  @example
+  {% render 'savings-badge', product: product %}
+{%- enddoc -%}
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign current_price = current_variant.price
+  assign original_price = current_variant.compare_at_price
+-%}
+{%- if original_price > current_price -%}
+  {%- liquid
+    assign savings_amount = original_price | minus: current_price
+    assign savings_percentage = savings_amount | times: 100.0 | divided_by: original_price | round
+  -%}
+  <span class="savings-badge">
+    <span>{{ savings_amount | money }}</span>
+    <span
+      data-i18n-es="({{ savings_percentage }}% DTO)"
+      data-i18n-en="({{ savings_percentage }}% OFF)"
+    >
+      {{- 'pet_cro.savings.discount_tag' | t: percent: savings_percentage -}}
+    </span>
+  </span>
+{%- endif -%}

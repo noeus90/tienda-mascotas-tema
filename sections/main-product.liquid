@@ -15,6 +15,7 @@
   {{ 'component-slider.css' | asset_url | stylesheet_tag }}
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+  {{ 'component-pet-cro.css' | asset_url | stylesheet_tag }}
 
   {% unless product.has_only_default_variant %}
     {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
@@ -41,6 +42,7 @@
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'pet-cro.js' | asset_url }}" defer="defer"></script>
   {%- if product.quantity_price_breaks_configured? -%}
     <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
@@ -114,6 +116,8 @@
                       show_badges: true,
                       price_class: 'price--large'
                     -%}
+                    {% render 'savings-badge', product: product %}
+                    {% render 'stock-urgency-widget', product: product %}
                   </div>
                   {%- if product.quantity_price_breaks_configured? -%}
                     <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
@@ -123,11 +127,17 @@
                   {%- if cart.taxes_included or cart.duties_included or shop.shipping_policy.body != blank -%}
                     <div class="product__tax caption rte">
                       {%- if cart.duties_included and cart.taxes_included -%}
-                        {{ 'products.product.duties_and_taxes_included' | t }}
+                        <span data-i18n-es="Aranceles e impuestos incluidos." data-i18n-en="Duties and taxes included.">
+                          {{- 'products.product.duties_and_taxes_included' | t -}}
+                        </span>
                       {%- elsif cart.taxes_included -%}
-                        {{ 'products.product.taxes_included' | t }}
+                        <span data-i18n-es="Impuestos incluidos." data-i18n-en="Tax included.">
+                          {{- 'products.product.taxes_included' | t -}}
+                        </span>
                       {%- elsif cart.duties_included -%}
-                        {{ 'products.product.duties_included' | t }}
+                        <span data-i18n-es="Aranceles incluidos." data-i18n-en="Duties included.">
+                          {{- 'products.product.duties_included' | t -}}
+                        </span>
                       {%- endif -%}
                       {%- if shop.shipping_policy.body != blank -%}
                         {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
@@ -193,11 +203,13 @@
                     {%- endif -%}
                   </p>
                 {%- when 'description' -%}
-                  {%- if product.description != blank -%}
-                    <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
+                  <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
+                    {%- if product.description != blank -%}
                       {{ product.description }}
-                    </div>
-                  {%- endif -%}
+                    {%- endif -%}
+                    {% render 'product-care-metafield', product: product %}
+                    {% render 'pet-product-tabs', product: product %}
+                  </div>
                 {%- when 'sku' -%}
                   <p
                     class="product__sku{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.sku.size == 0 %} visibility-hidden{% endif %}"
@@ -252,7 +264,7 @@
                       for="Quantity-{{ section.id }}"
                       aria-labelledby="quantity-label-{{ section.id }}"
                     >
-                      <span aria-hidden="true">{{ 'products.product.quantity.label' | t }}</span>
+                      <span aria-hidden="true" data-i18n-es="Cantidad" data-i18n-en="Quantity">{{ 'products.product.quantity.label' | t }}</span>
                       <span class="quantity__rules-cart{% if cart_qty == 0 %} hidden{% endif %}" aria-hidden="true">
                         {%- render 'loading-spinner' -%}
                         <span
@@ -492,6 +504,8 @@
                     product_form_id: product_form_id
                   %}
                 {%- when 'buy_buttons' -%}
+                  {% render 'free-shipping-bar' %}
+                  {% render 'subscription-selector', product: product, product_form_id: product_form_id %}
                   {%- render 'buy-buttons',
                     block: block,
                     product: product,
@@ -499,6 +513,7 @@
                     section_id: section.id,
                     show_pickup_availability: true
                   -%}
+                  {% render 'pet-product-trust', product: product %}
                 {%- when 'rating' -%}
                   {%- if product.metafields.reviews.rating.value != blank -%}
                     <div class="rating-wrapper">
@@ -596,9 +611,10 @@
                                   {% endif %}
                                 >
                                   <ul class="list-unstyled" role="list">
+                                    {%- assign slide_offset = forloop.index0 | times: block.settings.products_per_page -%}
                                     {%- for product in recommendations.products
                                       limit: block.settings.products_per_page
-                                      offset: continue
+                                      offset: slide_offset
                                     -%}
                                       <li>
                                         {%- if block.settings.enable_quick_add -%}
@@ -738,17 +754,7 @@
         <script src="{{ 'product-model.js' | asset_url }}" defer></script>
       {%- endif -%}
 
-      {%- liquid
-        if product.selected_or_first_available_variant.featured_media
-          assign seo_media = product.selected_or_first_available_variant.featured_media
-        else
-          assign seo_media = product.featured_media
-        endif
-      -%}
-
-      <script type="application/ld+json">
-        {{ product | structured_data }}
-      </script>
+      {%- render 'seo-schema-product', product: product -%}
     </div>
   </product-component>
 </product-info>

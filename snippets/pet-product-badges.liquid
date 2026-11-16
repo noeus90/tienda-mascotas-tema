@@ -1,0 +1,109 @@
+{% comment %}
+  Pet Product Badges (snippets/pet-product-badges.liquid)
+  Renders semantic badges for pet species (Dog/Cat) and product benefits (Grain-free, Natural, Dental, Puppy)
+  Accepts:
+  - card_product: {Object} Product Liquid object
+{% endcomment %}
+
+{%- liquid
+  if card_product == blank
+    break
+  endif
+
+  assign tags_str = card_product.tags | join: ',' | downcase
+  assign type_str = card_product.type | downcase
+  assign title_str = card_product.title | downcase
+  assign meta_species = card_product.metafields.custom.tipo_mascota.value | default: card_product.metafields.custom.pet_type.value | downcase
+  assign combined_text = tags_str | append: ' ' | append: type_str | append: ' ' | append: title_str | append: ' ' | append: meta_species
+
+  # 1. Detect Species
+  assign is_dog = false
+  assign is_cat = false
+
+  if meta_species contains 'perro' or meta_species contains 'dog'
+    assign is_dog = true
+  elsif meta_species contains 'gato' or meta_species contains 'cat'
+    assign is_cat = true
+  elsif combined_text contains 'gato' or combined_text contains 'felino' or combined_text contains 'kitten' or combined_text contains 'cat'
+    assign is_cat = true
+  elsif combined_text contains 'perro' or combined_text contains 'canino' or combined_text contains 'puppy' or combined_text contains 'cachorro' or combined_text contains 'dog'
+    assign is_dog = true
+  else
+    # Default to dog if it mentions bone, chew or kibble
+    if combined_text contains 'hueso' or combined_text contains 'mordedor'
+      assign is_dog = true
+    endif
+  endif
+
+  # 2. Detect Key Benefits
+  assign is_grain_free = false
+  if combined_text contains 'grain-free' or combined_text contains 'sin cereales' or combined_text contains 'grain free'
+    assign is_grain_free = true
+  endif
+
+  assign is_natural = false
+  if combined_text contains 'natural' or combined_text contains '100%' or combined_text contains 'organico' or combined_text contains 'artesanal'
+    assign is_natural = true
+  endif
+
+  assign is_dental = false
+  if combined_text contains 'dental' or combined_text contains 'dientes' or combined_text contains 'sarro'
+    assign is_dental = true
+  endif
+
+  assign is_puppy = false
+  if combined_text contains 'cachorro' or combined_text contains 'puppy' or combined_text contains 'junior'
+    assign is_puppy = true
+  endif
+
+  assign is_senior = false
+  if combined_text contains 'senior' or combined_text contains 'anciano' or combined_text contains 'edad avanzada'
+    assign is_senior = true
+  endif
+
+  assign is_hypo = false
+  if combined_text contains 'hipoalergenico' or combined_text contains 'hipoalergénico' or combined_text contains 'alergia' or combined_text contains 'monoproteico'
+    assign is_hypo = true
+  endif
+-%}
+
+{%- if is_dog or is_cat or is_grain_free or is_natural or is_dental or is_puppy or is_senior or is_hypo -%}
+  <div class="pet-card-badges-wrap" aria-label="Características para mascotas">
+    {%- if is_dog -%}
+      <span class="pet-card-badge pet-card-badge--species pet-card-badge--dog" data-i18n-es="🐶 Perro" data-i18n-en="🐶 Dog">
+        🐶 Perro
+      </span>
+    {%- elsif is_cat -%}
+      <span class="pet-card-badge pet-card-badge--species pet-card-badge--cat" data-i18n-es="🐱 Gato" data-i18n-en="🐱 Cat">
+        🐱 Gato
+      </span>
+    {%- endif -%}
+
+    {%- if is_grain_free -%}
+      <span class="pet-card-badge pet-card-badge--grain-free" data-i18n-es="✨ Sin Cereales" data-i18n-en="✨ Grain Free">
+        ✨ Sin Cereales
+      </span>
+    {%- elsif is_hypo -%}
+      <span class="pet-card-badge pet-card-badge--hypo" data-i18n-es="🛡️ Hipoalergénico" data-i18n-en="🛡️ Hypoallergenic">
+        🛡️ Hipoalergénico
+      </span>
+    {%- elsif is_natural -%}
+      <span class="pet-card-badge pet-card-badge--natural" data-i18n-es="🌿 100% Natural" data-i18n-en="🌿 100% Natural">
+        🌿 100% Natural
+      </span>
+    {%- elsif is_dental -%}
+      <span class="pet-card-badge pet-card-badge--dental" data-i18n-es="🦷 Dental" data-i18n-en="🦷 Dental Care">
+        🦷 Dental
+      </span>
+    {%- elsif is_puppy -%}
+      <span class="pet-card-badge pet-card-badge--puppy" data-i18n-es="🍼 Cachorro" data-i18n-en="🍼 Puppy">
+        🍼 Cachorro
+      </span>
+    {%- elsif is_senior -%}
+      <span class="pet-card-badge pet-card-badge--senior" data-i18n-es="🐾 Senior" data-i18n-en="🐾 Senior">
+        🐾 Senior
+      </span>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
