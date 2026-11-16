@@ -17,7 +17,7 @@
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "Welcome to our store",
+            "text": "🐾 Envío 24h GRATIS en pedidos +49€ · Reserva online tu cita de Peluquería Canina",
             "text_alignment": "center",
             "color_scheme": "scheme-1",
             "link": ""
@@ -38,7 +38,7 @@
         "menu_type_desktop": "dropdown",
         "sticky_header_type": "on-scroll-up",
         "show_line_separator": true,
-        "enable_country_selector": true,
+        "enable_country_selector": false,
         "enable_language_selector": true,
         "mobile_logo_position": "center",
         "margin_bottom": 0,

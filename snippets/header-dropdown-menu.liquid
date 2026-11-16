@@ -8,8 +8,62 @@
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
     {%- for link in section.settings.menu.links -%}
-      <li>
-        {%- if link.links != blank -%}
+      {%- liquid
+        assign nav_title_down = link.title | strip | downcase
+        assign nav_es = ''
+        assign nav_en = ''
+        assign nav_display = link.title | escape
+        if nav_title_down == 'home' or nav_title_down == 'inicio'
+          assign nav_es = 'Inicio'
+          assign nav_en = 'Home'
+          assign nav_display = 'pet_cro.nav.home' | t
+        elsif nav_title_down == 'catalog' or nav_title_down == 'catálogo' or nav_title_down == 'catalogo'
+          assign nav_es = 'Catálogo'
+          assign nav_en = 'Catalog'
+          assign nav_display = 'pet_cro.nav.catalog' | t
+        elsif nav_title_down == 'contact' or nav_title_down == 'contacto'
+          assign nav_es = 'Contacto'
+          assign nav_en = 'Contact'
+          assign nav_display = 'pet_cro.nav.contact' | t
+        elsif nav_title_down == 'bookings' or nav_title_down == 'booking' or nav_title_down == 'reservas' or nav_title_down == 'reserva'
+          assign nav_es = 'Reservas'
+          assign nav_en = 'Bookings'
+          assign nav_display = 'pet_cro.nav.bookings' | t
+        endif
+
+        assign is_catalog_link = false
+        if nav_title_down == 'catalog' or nav_title_down == 'catálogo' or nav_title_down == 'catalogo'
+          assign is_catalog_link = true
+        endif
+
+        assign is_dog_link = false
+        if nav_title_down contains 'perro' or nav_title_down contains 'dog'
+          assign is_dog_link = true
+        endif
+
+        assign is_cat_link = false
+        if nav_title_down contains 'gato' or nav_title_down contains 'cat'
+          assign is_cat_link = true
+        endif
+
+        assign is_booking_link = false
+        if nav_title_down contains 'booking' or nav_title_down contains 'reserva'
+          assign is_booking_link = true
+        endif
+      -%}
+
+      {%- if is_booking_link and section.settings.show_booking_cta != false -%}
+        {% render 'header-booking-cta', section: section %}
+      {%- elsif is_catalog_link and link.links == blank and section.settings.enable_species_navigation != false -%}
+        {% render 'header-species-subnav', species: 'dog', section: section, id_prefix: 'dropdown' %}
+        {% render 'header-species-subnav', species: 'cat', section: section, id_prefix: 'dropdown' %}
+      {%- elsif is_dog_link and link.links == blank and section.settings.enable_species_navigation != false -%}
+        {% render 'header-species-subnav', species: 'dog', section: section, id_prefix: 'dropdown' %}
+      {%- elsif is_cat_link and link.links == blank and section.settings.enable_species_navigation != false -%}
+        {% render 'header-species-subnav', species: 'cat', section: section, id_prefix: 'dropdown' %}
+      {%- else -%}
+        <li>
+          {%- if link.links != blank -%}
           <header-menu>
             <details id="Details-HeaderMenu-{{ forloop.index }}">
               <summary
@@ -20,8 +74,12 @@
                   {%- if link.child_active %}
                     class="header__active-menu-item"
                   {% endif %}
+                  {% if nav_es != '' %}
+                    data-i18n-es="{{ nav_es }}"
+                    data-i18n-en="{{ nav_en }}"
+                  {% endif %}
                 >
-                  {{- link.title | escape -}}
+                  {{- nav_display -}}
                 </span>
                 {{- 'icon-caret.svg' | inline_asset_content -}}
               </summary>
@@ -92,12 +150,30 @@
               {%- if link.current %}
                 class="header__active-menu-item"
               {% endif %}
+              {% if nav_es != '' %}
+                data-i18n-es="{{ nav_es }}"
+                data-i18n-en="{{ nav_en }}"
+              {% endif %}
             >
-              {{- link.title | escape -}}
+              {{- nav_display -}}
             </span>
           </a>
         {%- endif -%}
       </li>
+    {%- endif -%}
     {%- endfor -%}
+
+    {%- liquid
+      assign has_bookings_link = false
+      for link in section.settings.menu.links
+        assign down_t = link.title | strip | downcase
+        if down_t contains 'booking' or down_t contains 'reserva'
+          assign has_bookings_link = true
+        endif
+      endfor
+    -%}
+    {%- if section.settings.show_booking_cta != false and has_bookings_link == false -%}
+      {% render 'header-booking-cta', section: section %}
+    {%- endif -%}
   </ul>
 </nav>

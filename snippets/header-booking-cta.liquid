@@ -1,0 +1,53 @@
+{% comment %}
+  Header Booking CTA Button (snippets/header-booking-cta.liquid)
+  Accepts:
+  - section: {Object} Section Liquid object
+{% endcomment %}
+
+{%- liquid
+  assign lang_code = request.locale.iso_code | slice: 0, 2 | downcase
+  if lang_code == 'en'
+    assign default_booking_slug = 'pages/bookings'
+  else
+    assign default_booking_slug = 'pages/reservas'
+  endif
+
+  assign root_path = routes.root_url
+  if root_path != '/' and root_path != blank
+    assign localized_booking_url = root_path | append: '/' | append: default_booking_slug | replace: '//', '/'
+  else
+    assign localized_booking_url = '/' | append: default_booking_slug
+  endif
+
+  assign booking_target = section.settings.booking_url
+  if booking_target == blank
+    assign booking_target = localized_booking_url
+  endif
+
+  assign is_active = false
+  if request.path contains '/pages/reservas' or request.path contains '/pages/bookings'
+    assign is_active = true
+  endif
+-%}
+
+<li class="header__menu-item-cta-wrap">
+  <a
+    href="{{ booking_target }}"
+    class="header__menu-item header__menu-item--cta-booking link focus-inset{% if is_active %} is-active{% endif %}"
+    {% if is_active %}
+      aria-current="page"
+    {% endif %}
+  >
+    <span class="cta-booking-pulse" aria-hidden="true">
+      <span class="cta-booking-pulse-dot"></span>
+    </span>
+    <span class="cta-booking-icon" aria-hidden="true">✂️</span>
+    <span class="cta-booking-text" data-i18n-es="Reservar Cita" data-i18n-en="Book Grooming">
+      {{- 'pet_cro.nav.book_grooming' | t | default: 'Reservar Cita' -}}
+    </span>
+    <span class="cta-booking-microbadge" aria-hidden="true" data-i18n-es="Online" data-i18n-en="Online">
+      Online
+    </span>
+  </a>
+</li>
+

@@ -1,6 +1,8 @@
 <link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
+{{ 'component-pet-cro.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pet-cro.js' | asset_url }}" defer="defer"></script>
 <link
   rel="stylesheet"
   href="{{ 'component-cart-notification.css' | asset_url }}"
@@ -269,15 +271,8 @@
           </localization-form>
         {% endif %}
 
-        {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
-          <localization-form class="small-hide medium-hide" data-prevent-hide>
-            {%- form 'localization', id: 'HeaderLanguageForm', class: 'localization-form' -%}
-              <div>
-                <h2 class="visually-hidden" id="HeaderLanguageLabel">{{ 'localization.language_label' | t }}</h2>
-                {%- render 'language-localization', localPosition: 'HeaderLanguage' -%}
-              </div>
-            {%- endform -%}
-          </localization-form>
+        {%- if section.settings.enable_language_selector -%}
+          {%- render 'header-language-switcher' -%}
         {%- endif -%}
       </div>
       {% render 'header-search', input_id: 'Search-In-Modal' %}
@@ -458,26 +453,50 @@
   customElements.define('sticky-header', StickyHeader);
 {% endjavascript %}
 
+{%- liquid
+  assign social_links = ''
+  if settings.social_twitter_link != blank
+    assign social_links = social_links | append: settings.social_twitter_link | append: '||'
+  endif
+  if settings.social_facebook_link != blank
+    assign social_links = social_links | append: settings.social_facebook_link | append: '||'
+  endif
+  if settings.social_pinterest_link != blank
+    assign social_links = social_links | append: settings.social_pinterest_link | append: '||'
+  endif
+  if settings.social_instagram_link != blank
+    assign social_links = social_links | append: settings.social_instagram_link | append: '||'
+  endif
+  if settings.social_tiktok_link != blank
+    assign social_links = social_links | append: settings.social_tiktok_link | append: '||'
+  endif
+  if settings.social_tumblr_link != blank
+    assign social_links = social_links | append: settings.social_tumblr_link | append: '||'
+  endif
+  if settings.social_snapchat_link != blank
+    assign social_links = social_links | append: settings.social_snapchat_link | append: '||'
+  endif
+  if settings.social_youtube_link != blank
+    assign social_links = social_links | append: settings.social_youtube_link | append: '||'
+  endif
+  if settings.social_vimeo_link != blank
+    assign social_links = social_links | append: settings.social_vimeo_link | append: '||'
+  endif
+  assign social_links_array = social_links | split: '||'
+-%}
+
 <script type="application/ld+json">
   {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "Organization",
     "name": {{ shop.name | json }},
     {% if settings.logo %}
       "logo": {{ settings.logo | image_url: width: 500 | prepend: "https:" | json }},
     {% endif %}
-    "sameAs": [
-      {{ settings.social_twitter_link | json }},
-      {{ settings.social_facebook_link | json }},
-      {{ settings.social_pinterest_link | json }},
-      {{ settings.social_instagram_link | json }},
-      {{ settings.social_tiktok_link | json }},
-      {{ settings.social_tumblr_link | json }},
-      {{ settings.social_snapchat_link | json }},
-      {{ settings.social_youtube_link | json }},
-      {{ settings.social_vimeo_link | json }}
-    ],
-    "url": {{ request.origin | append: page.url | json }}
+    {% if social_links_array.size > 0 %}
+      "sameAs": {{ social_links_array | json }},
+    {% endif %}
+    "url": {{ request.origin | append: routes.root_url | json }}
   }
 </script>
 
@@ -485,7 +504,7 @@
   {% assign potential_action_target = request.origin | append: routes.search_url | append: '?q={search_term_string}' %}
   <script type="application/ld+json">
     {
-      "@context": "http://schema.org",
+      "@context": "https://schema.org",
       "@type": "WebSite",
       "name": {{ shop.name | json }},
       "potentialAction": {
@@ -493,7 +512,7 @@
         "target": {{ potential_action_target | json }},
         "query-input": "required name=search_term_string"
       },
-      "url": {{ request.origin | append: page.url | json }}
+      "url": {{ request.origin | append: routes.root_url | json }}
     }
   </script>
 {%- endif -%}
@@ -570,6 +589,52 @@
       ],
       "default": "dropdown",
       "label": "t:sections.header.settings.menu_type_desktop.label"
+    },
+    {
+      "type": "header",
+      "content": "Navegación Especializada de Mascotas"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_species_navigation",
+      "default": true,
+      "label": "Activar submenú por especies (Perros y Gatos)",
+      "info": "Muestra subcategorías especializadas para Perros y Gatos enlazadas a los filtros de catálogo."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_booking_cta",
+      "default": true,
+      "label": "Mostrar botón destacado de Peluquería Canina",
+      "info": "Muestra un botón CTA destacado de Reservar Cita en el menú."
+    },
+    {
+      "type": "url",
+      "id": "booking_url",
+      "label": "Enlace de reservas"
+    },
+    {
+      "type": "header",
+      "content": "Mega Menú Visual de Mascotas"
+    },
+    {
+      "type": "product",
+      "id": "mega_menu_featured_product",
+      "label": "Producto destacado en Mega Menú",
+      "info": "Si se deja vacío, se mostrará el Pack Bienestar predeterminado."
+    },
+    {
+      "type": "text",
+      "id": "mega_menu_badge_text",
+      "label": "Texto del badge de oferta",
+      "placeholder": "15% DTO"
+    },
+    {
+      "type": "checkbox",
+      "id": "mega_menu_show_trust_strip",
+      "default": true,
+      "label": "Mostrar micro-tira de confianza",
+      "info": "Muestra garantías de envío gratis y soporte en la base del Mega Menú."
     },
     {
       "type": "select",

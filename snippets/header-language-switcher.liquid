@@ -1,0 +1,82 @@
+{%- doc -%}
+  Compact ES / EN Language Switcher Pill for the right side of the Header.
+  Uses clean GET navigation when multiple languages are published in Shopify Markets,
+  and includes instant client-side ES/EN switching fallback for local development (shopify theme dev)
+  so it never triggers POST /localization 502 proxy errors.
+
+  @example
+  {% render 'header-language-switcher' %}
+{%- enddoc -%}
+
+{%- liquid
+  assign current_iso = localization.language.iso_code | default: request.locale.iso_code | downcase | slice: 0, 2
+  assign current_root = request.locale.root_url
+  assign clean_path = request.path
+  if current_root != '/'
+    assign clean_path = clean_path | replace_first: current_root, ''
+  endif
+  if clean_path == blank
+    assign clean_path = '/'
+  endif
+
+  assign es_url = ''
+  assign en_url = ''
+  for lang in localization.available_languages
+    assign code = lang.iso_code | downcase | slice: 0, 2
+    if code == 'es'
+      if lang.root_url == '/'
+        assign es_url = clean_path
+      else
+        assign es_url = lang.root_url | append: clean_path | replace: '//', '/'
+      endif
+    elsif code == 'en'
+      if lang.root_url == '/'
+        assign en_url = clean_path
+      else
+        assign en_url = lang.root_url | append: clean_path | replace: '//', '/'
+      endif
+    endif
+  endfor
+
+  assign has_both_shopify_langs = false
+  if es_url != '' and en_url != ''
+    assign has_both_shopify_langs = true
+  endif
+-%}
+
+<div
+  class="header-lang-switcher-form"
+  data-lang-switcher
+  data-shopify-multilang="{{ has_both_shopify_langs }}"
+  data-server-lang="{{ current_iso }}"
+>
+  <div
+    class="header-lang-pill"
+    role="group"
+    aria-label="{{ 'localization.language_label' | t }}"
+  >
+    <button
+      type="button"
+      class="header-lang-btn {% if current_iso == 'es' %}is-active{% endif %}"
+      data-switch-lang="es"
+      {% if es_url != '' %}data-lang-url="{{ es_url }}"{% endif %}
+      lang="es"
+      aria-pressed="{% if current_iso == 'es' %}true{% else %}false{% endif %}"
+      title="Español (ES)"
+    >
+      ES
+    </button>
+    <span class="header-lang-divider" aria-hidden="true">|</span>
+    <button
+      type="button"
+      class="header-lang-btn {% if current_iso == 'en' %}is-active{% endif %}"
+      data-switch-lang="en"
+      {% if en_url != '' %}data-lang-url="{{ en_url }}"{% endif %}
+      lang="en"
+      aria-pressed="{% if current_iso == 'en' %}true{% else %}false{% endif %}"
+      title="English (EN)"
+    >
+      EN
+    </button>
+  </div>
+</div>

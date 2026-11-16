@@ -21,11 +21,351 @@
       </span>
     </summary>
     <div id="menu-drawer" class="gradient menu-drawer motion-reduce color-{{ section.settings.menu_color_scheme }}">
+      {%- liquid
+        assign all_products_url = routes.all_products_collection_url
+        assign drawer_lang_code = request.locale.iso_code | slice: 0, 2 | downcase
+        if drawer_lang_code == 'en'
+          assign p_dog_slug = 'pet=dog'
+          assign p_cat_slug = 'pet=cat'
+          assign p_cat_key = 'category'
+          assign p_subfilter_key = 'need'
+          assign val_kibble = 'dry-food'
+          assign val_wet = 'wet-food'
+          assign val_snacks = 'snacks'
+          assign val_toys = 'toys'
+          assign val_grooming = 'hygiene'
+          assign val_accessories = 'accessories'
+          assign val_puppy = 'puppy'
+          assign val_kitten = 'kitten'
+          assign val_adult = 'adult'
+          assign val_senior = 'senior'
+          assign val_sensitive = 'sensitive'
+          assign val_sterilised = 'sterilised'
+          assign val_hairball = 'hairball'
+          assign drawer_booking_slug = 'pages/bookings'
+        else
+          assign p_dog_slug = 'mascota=perro'
+          assign p_cat_slug = 'mascota=gato'
+          assign p_cat_key = 'categoria'
+          assign p_subfilter_key = 'necesidad'
+          assign val_kibble = 'pienso'
+          assign val_wet = 'humeda'
+          assign val_snacks = 'snacks'
+          assign val_toys = 'juguetes'
+          assign val_grooming = 'higiene'
+          assign val_accessories = 'accesorios'
+          assign val_puppy = 'cachorro'
+          assign val_kitten = 'gatito'
+          assign val_adult = 'adulto'
+          assign val_senior = 'senior'
+          assign val_sensitive = 'hipoalergenico'
+          assign val_sterilised = 'esterilizado'
+          assign val_hairball = 'hairball'
+          assign drawer_booking_slug = 'pages/reservas'
+        endif
+
+        assign drawer_root_path = routes.root_url
+        if drawer_root_path != '/' and drawer_root_path != blank
+          assign drawer_booking_url = drawer_root_path | append: '/' | append: drawer_booking_slug | replace: '//', '/'
+        else
+          assign drawer_booking_url = '/' | append: drawer_booking_slug
+        endif
+
+        if section.settings.booking_url != blank
+          assign drawer_booking_url = section.settings.booking_url
+        endif
+      -%}
       <div class="menu-drawer__inner-container">
         <div class="menu-drawer__navigation-container">
           <nav class="menu-drawer__navigation">
+            {%- if section.settings.show_booking_cta != false -%}
+              <div class="menu-drawer__cta-box">
+                <a
+                  href="{{ drawer_booking_url }}"
+                  class="menu-drawer__cta-btn link focus-inset{% if request.path contains '/pages/bookings' or request.path contains '/pages/reservas' %} is-active{% endif %}"
+                  {% if request.path contains '/pages/bookings' or request.path contains '/pages/reservas' %}
+                    aria-current="page"
+                  {% endif %}
+                >
+                  <span class="cta-booking-icon" aria-hidden="true">✂️</span>
+                  <span data-i18n-es="Reservar Cita Peluquería" data-i18n-en="Book Grooming Appointment">
+                    {{- 'pet_cro.nav.book_grooming' | t | default: 'Reservar Cita' -}}
+                  </span>
+                </a>
+              </div>
+            {%- endif -%}
+
+            {%- if section.settings.enable_species_navigation != false -%}
+              <div class="menu-drawer__species-tabs" role="region" aria-label="Navegación por especies">
+                <a
+                  href="{{ all_products_url }}?{{ p_dog_slug }}"
+                  class="menu-drawer__species-tab link focus-inset"
+                >
+                  <span class="menu-drawer__species-tab-emoji" aria-hidden="true">🐶</span>
+                  <div class="menu-drawer__species-tab-content">
+                    <span class="menu-drawer__species-tab-title">{{ 'pet_cro.nav.dogs' | t | default: 'Perros' }}</span>
+                    <span class="menu-drawer__species-tab-sub">{{ 'pet_cro.nav.view_all_dogs' | t | default: 'Ver todo' }}</span>
+                  </div>
+                </a>
+                <a
+                  href="{{ all_products_url }}?{{ p_cat_slug }}"
+                  class="menu-drawer__species-tab link focus-inset"
+                >
+                  <span class="menu-drawer__species-tab-emoji" aria-hidden="true">🐱</span>
+                  <div class="menu-drawer__species-tab-content">
+                    <span class="menu-drawer__species-tab-title">{{ 'pet_cro.nav.cats' | t | default: 'Gatos' }}</span>
+                    <span class="menu-drawer__species-tab-sub">{{ 'pet_cro.nav.view_all_cats' | t | default: 'Ver todo' }}</span>
+                  </div>
+                </a>
+              </div>
+            {%- endif -%}
+
             <ul class="menu-drawer__menu has-submenu list-menu" role="list">
               {%- for link in section.settings.menu.links -%}
+                {%- liquid
+                  assign nav_title_down = link.title | strip | downcase
+                  assign nav_es = ''
+                  assign nav_en = ''
+                  assign nav_display = link.title | escape
+                  if nav_title_down == 'home' or nav_title_down == 'inicio'
+                    assign nav_es = 'Inicio'
+                    assign nav_en = 'Home'
+                    assign nav_display = 'pet_cro.nav.home' | t
+                  elsif nav_title_down == 'catalog' or nav_title_down == 'catálogo' or nav_title_down == 'catalogo'
+                    assign nav_es = 'Catálogo'
+                    assign nav_en = 'Catalog'
+                    assign nav_display = 'pet_cro.nav.catalog' | t
+                  elsif nav_title_down == 'contact' or nav_title_down == 'contacto'
+                    assign nav_es = 'Contacto'
+                    assign nav_en = 'Contact'
+                    assign nav_display = 'pet_cro.nav.contact' | t
+                  elsif nav_title_down == 'bookings' or nav_title_down == 'booking' or nav_title_down == 'reservas' or nav_title_down == 'reserva'
+                    assign nav_es = 'Reservas'
+                    assign nav_en = 'Bookings'
+                    assign nav_display = 'pet_cro.nav.bookings' | t
+                  endif
+
+                  assign is_catalog_link = false
+                  if nav_title_down == 'catalog' or nav_title_down == 'catálogo' or nav_title_down == 'catalogo'
+                    assign is_catalog_link = true
+                  endif
+
+                  assign is_booking_link = false
+                  if nav_title_down contains 'booking' or nav_title_down contains 'reserva'
+                    assign is_booking_link = true
+                  endif
+                -%}
+
+                {%- if is_booking_link and section.settings.show_booking_cta != false -%}
+                  {% comment %}Rendered as top CTA button{% endcomment %}
+                {%- elsif is_catalog_link and link.links == blank and section.settings.enable_species_navigation != false -%}
+                  <li>
+                    <details id="Details-menu-drawer-pet-dog">
+                      <summary
+                        id="HeaderDrawer-pet-dog"
+                        class="menu-drawer__menu-item list-menu__item link link--text focus-inset"
+                      >
+                        <span>🐶 {{ 'pet_cro.nav.dogs' | t | default: 'Perros' }}</span>
+                        <span class="svg-wrapper">
+                          {{- 'icon-arrow.svg' | inline_asset_content -}}
+                        </span>
+                        <span class="svg-wrapper">
+                          {{- 'icon-caret.svg' | inline_asset_content -}}
+                        </span>
+                      </summary>
+                      <div
+                        id="link-pet-dog"
+                        class="menu-drawer__submenu has-submenu gradient motion-reduce"
+                        tabindex="-1"
+                      >
+                        <div class="menu-drawer__inner-submenu">
+                          <button class="menu-drawer__close-button link link--text focus-inset" aria-expanded="true">
+                            <span class="svg-wrapper">
+                              {{- 'icon-arrow.svg' | inline_asset_content -}}
+                            </span>
+                            🐶 {{ 'pet_cro.nav.dogs' | t | default: 'Perros' }}
+                          </button>
+                          <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
+                            <li>
+                              <a
+                                href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_kibble }}"
+                                class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                              >
+                                🥩 {{ 'pet_cro.nav.kibble' | t | default: 'Pienso Seco' }}
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_wet }}"
+                                class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                              >
+                                🥫 {{ 'pet_cro.nav.wet_food' | t | default: 'Comida Húmeda' }}
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_snacks }}"
+                                class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                              >
+                                🦴 {{ 'pet_cro.nav.snacks' | t | default: 'Snacks & Premios' }}
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_toys }}"
+                                class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                              >
+                                🎾 {{ 'pet_cro.nav.toys' | t | default: 'Juguetes' }}
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_grooming }}"
+                                class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                              >
+                                🧴 {{ 'pet_cro.nav.grooming' | t | default: 'Higiene & Cuidados' }}
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_accessories }}"
+                                class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                              >
+                                🦮 {{ 'pet_cro.nav.walk' | t | default: 'Paseo & Accesorios' }}
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="{{ all_products_url }}?{{ p_dog_slug }}"
+                                class="menu-drawer__menu-item link link--text list-menu__item focus-inset menu-drawer__menu-item--highlight"
+                              >
+                                🐾 <strong>{{ 'pet_cro.nav.view_all_dogs' | t | default: 'Ver todo para Perros' }}</strong>
+                              </a>
+                            </li>
+                          </ul>
+
+                          <!-- Microfiltros de Etapa y Salud (Perros) -->
+                          <div class="menu-drawer__subfilters-section">
+                            <span class="menu-drawer__subfilters-heading">{{ 'pet_cro.nav.subfilters_title' | t | default: 'Por Etapa o Necesidad:' }}</span>
+                            <div class="menu-drawer__subfilters-scroll">
+                              <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_subfilter_key }}={{ val_puppy }}" class="menu-drawer__subfilter-pill link focus-inset">
+                                🍼 {{ 'pet_cro.nav.puppy' | t | default: 'Cachorros' }}
+                              </a>
+                              <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_subfilter_key }}={{ val_adult }}" class="menu-drawer__subfilter-pill link focus-inset">
+                                🐕 {{ 'pet_cro.nav.adult' | t | default: 'Adultos' }}
+                              </a>
+                              <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_subfilter_key }}={{ val_senior }}" class="menu-drawer__subfilter-pill link focus-inset">
+                                🦺 {{ 'pet_cro.nav.senior' | t | default: 'Senior (+7a)' }}
+                              </a>
+                              <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_subfilter_key }}={{ val_sensitive }}" class="menu-drawer__subfilter-pill link focus-inset">
+                                🌾 {{ 'pet_cro.nav.sensitive' | t | default: 'Hipoalergénico' }}
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </details>
+                  </li>
+                  <li>
+                    <details id="Details-menu-drawer-pet-cat">
+                      <summary
+                        id="HeaderDrawer-pet-cat"
+                        class="menu-drawer__menu-item list-menu__item link link--text focus-inset"
+                      >
+                        <span>🐱 {{ 'pet_cro.nav.cats' | t | default: 'Gatos' }}</span>
+                        <span class="svg-wrapper">
+                          {{- 'icon-arrow.svg' | inline_asset_content -}}
+                        </span>
+                        <span class="svg-wrapper">
+                          {{- 'icon-caret.svg' | inline_asset_content -}}
+                        </span>
+                      </summary>
+                      <div
+                        id="link-pet-cat"
+                        class="menu-drawer__submenu has-submenu gradient motion-reduce"
+                        tabindex="-1"
+                      >
+                        <div class="menu-drawer__inner-submenu">
+                          <button class="menu-drawer__close-button link link--text focus-inset" aria-expanded="true">
+                            <span class="svg-wrapper">
+                              {{- 'icon-arrow.svg' | inline_asset_content -}}
+                            </span>
+                            🐱 {{ 'pet_cro.nav.cats' | t | default: 'Gatos' }}
+                          </button>
+                          <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
+                            <li>
+                              <a
+                                href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_cat_key }}={{ val_kibble }}"
+                                class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                              >
+                                🥩 {{ 'pet_cro.nav.kibble' | t | default: 'Pienso Seco' }}
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_cat_key }}={{ val_wet }}"
+                                class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                              >
+                                🥫 {{ 'pet_cro.nav.wet_food' | t | default: 'Comida Húmeda' }}
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_cat_key }}={{ val_snacks }}"
+                                class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                              >
+                                🦴 {{ 'pet_cro.nav.snacks' | t | default: 'Snacks & Premios' }}
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_cat_key }}={{ val_toys }}"
+                                class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                              >
+                                🎾 {{ 'pet_cro.nav.toys' | t | default: 'Juguetes & Rascadores' }}
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_cat_key }}={{ val_grooming }}"
+                                class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                              >
+                                🧴 {{ 'pet_cro.nav.grooming' | t | default: 'Higiene & Arena' }}
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="{{ all_products_url }}?{{ p_cat_slug }}"
+                                class="menu-drawer__menu-item link link--text list-menu__item focus-inset menu-drawer__menu-item--highlight"
+                              >
+                                🐾 <strong>{{ 'pet_cro.nav.view_all_cats' | t | default: 'Ver todo para Gatos' }}</strong>
+                              </a>
+                            </li>
+                          </ul>
+
+                          <!-- Microfiltros de Etapa y Salud (Gatos) -->
+                          <div class="menu-drawer__subfilters-section">
+                            <span class="menu-drawer__subfilters-heading">{{ 'pet_cro.nav.subfilters_title' | t | default: 'Por Etapa o Necesidad:' }}</span>
+                            <div class="menu-drawer__subfilters-scroll">
+                              <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_subfilter_key }}={{ val_kitten }}" class="menu-drawer__subfilter-pill link focus-inset">
+                                🍼 {{ 'pet_cro.nav.kitten' | t | default: 'Gatitos' }}
+                              </a>
+                              <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_subfilter_key }}={{ val_adult }}" class="menu-drawer__subfilter-pill link focus-inset">
+                                🐈 {{ 'pet_cro.nav.adult' | t | default: 'Adultos' }}
+                              </a>
+                              <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_subfilter_key }}={{ val_sterilised }}" class="menu-drawer__subfilter-pill link focus-inset">
+                                ✂️ {{ 'pet_cro.nav.sterilised' | t | default: 'Esterilizados' }}
+                              </a>
+                              <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_subfilter_key }}={{ val_hairball }}" class="menu-drawer__subfilter-pill link focus-inset">
+                                🧶 {{ 'pet_cro.nav.hairball' | t | default: 'Bolas de Pelo' }}
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </details>
+                  </li>
+                {%- else -%}
                 <li>
                   {%- if link.links != blank -%}
                     <details id="Details-menu-drawer-menu-item-{{ forloop.index }}">
@@ -33,7 +373,14 @@
                         id="HeaderDrawer-{{ link.handle }}"
                         class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.child_active %} menu-drawer__menu-item--active{% endif %}"
                       >
-                        {{ link.title | escape }}
+                        <span
+                          {% if nav_es != '' %}
+                            data-i18n-es="{{ nav_es }}"
+                            data-i18n-en="{{ nav_en }}"
+                          {% endif %}
+                        >
+                          {{- nav_display -}}
+                        </span>
                         <span class="svg-wrapper">
                           {{- 'icon-arrow.svg' | inline_asset_content -}}
                         </span>
@@ -131,15 +478,34 @@
                       {% if link.current %}
                         aria-current="page"
                       {% endif %}
+                      {% if nav_es != '' %}
+                        data-i18n-es="{{ nav_es }}"
+                        data-i18n-en="{{ nav_en }}"
+                      {% endif %}
                     >
-                      {{ link.title | escape }}
+                      {{ nav_display }}
                     </a>
                   {%- endif -%}
                 </li>
+                {%- endif -%}
               {%- endfor -%}
             </ul>
           </nav>
           <div class="menu-drawer__utility-links">
+            <div class="menu-drawer__contact-box">
+              <a
+                href="https://wa.me/34600000000"
+                class="menu-drawer__whatsapp-btn link focus-inset"
+                target="_blank"
+                rel="noopener"
+                aria-label="WhatsApp"
+              >
+                <span aria-hidden="true">💬</span>
+                <span data-i18n-es="¿Dudas? Escríbenos por WhatsApp" data-i18n-en="Need help? Chat on WhatsApp">
+                  {%- if drawer_lang_code == 'en' -%}Need help? Chat on WhatsApp{%- else -%}¿Dudas? Escríbenos por WhatsApp{%- endif -%}
+                </span>
+              </a>
+            </div>
             {%- if show_country_selector or show_language_selector -%}
               <div class="menu-drawer__localization header-localization">
                 {%- if show_country_selector -%}
@@ -156,16 +522,7 @@
                 {% endif %}
 
                 {%- if show_language_selector -%}
-                  <localization-form>
-                    {%- form 'localization', id: 'HeaderLanguageMobileForm', class: 'localization-form' -%}
-                      <div>
-                        <h2 class="visually-hidden" id="HeaderLanguageMobileLabel">
-                          {{ 'localization.language_label' | t }}
-                        </h2>
-                        {%- render 'language-localization', localPosition: 'HeaderLanguageMobile' -%}
-                      </div>
-                    {%- endform -%}
-                  </localization-form>
+                  {%- render 'header-language-switcher' -%}
                 {%- endif -%}
               </div>
             {%- endif -%}

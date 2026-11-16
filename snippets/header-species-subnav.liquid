@@ -1,0 +1,210 @@
+{% comment %}
+  Header Species Subnav Item (snippets/header-species-subnav.liquid)
+  Renders a dropdown item for Dogs or Cats with deep-linked category filters.
+  Accepts:
+  - species: 'dog' or 'cat'
+  - section: {Object} Section Liquid object
+  - id_prefix: {String} Unique prefix for IDs
+{% endcomment %}
+
+{%- liquid
+  assign all_products_url = routes.all_products_collection_url
+  assign is_dog = false
+  if species == 'dog'
+    assign is_dog = true
+  endif
+
+  assign prefix = id_prefix | default: 'header-species'
+
+  assign lang_code = request.locale.iso_code | slice: 0, 2 | downcase
+  if lang_code == 'en'
+    assign p_species_key = 'pet'
+    assign p_category_key = 'category'
+    if is_dog
+      assign species_val = 'dog'
+    else
+      assign species_val = 'cat'
+    endif
+    assign val_kibble = 'dry-food'
+    assign val_wet = 'wet-food'
+    assign val_snacks = 'snacks'
+    assign val_toys = 'toys'
+    assign val_grooming = 'hygiene'
+    assign val_accessories = 'accessories'
+  else
+    assign p_species_key = 'mascota'
+    assign p_category_key = 'categoria'
+    if is_dog
+      assign species_val = 'perro'
+    else
+      assign species_val = 'gato'
+    endif
+    assign val_kibble = 'pienso'
+    assign val_wet = 'humeda'
+    assign val_snacks = 'snacks'
+    assign val_toys = 'juguetes'
+    assign val_grooming = 'higiene'
+    assign val_accessories = 'accesorios'
+  endif
+-%}
+
+<li>
+  <header-menu>
+    <details id="Details-{{ prefix }}-{{ species }}">
+      <summary
+        id="HeaderMenu-{{ prefix }}-{{ species }}"
+        class="header__menu-item list-menu__item link focus-inset"
+      >
+        <span>
+          {%- if is_dog -%}
+            🐶 {{ 'pet_cro.nav.dogs' | t | default: 'Perros' }}
+          {%- else -%}
+            🐱 {{ 'pet_cro.nav.cats' | t | default: 'Gatos' }}
+          {%- endif -%}
+        </span>
+        {{- 'icon-caret.svg' | inline_asset_content -}}
+      </summary>
+
+      <ul
+        id="HeaderMenu-MenuList-{{ prefix }}-{{ species }}"
+        class="header__submenu list-menu list-menu--disclosure color-{{ section.settings.menu_color_scheme }} gradient caption-large motion-reduce global-settings-popup header__submenu--species"
+        role="list"
+        tabindex="-1"
+      >
+        {%- if is_dog -%}
+          <li>
+            <a
+              href="{{ all_products_url }}?{{ p_species_key }}={{ species_val }}&{{ p_category_key }}={{ val_kibble }}"
+              class="header__menu-item list-menu__item link link--text focus-inset caption-large header__species-link"
+            >
+              <span class="header__species-icon" aria-hidden="true">🥩</span>
+              <span class="header__species-title">{{ 'pet_cro.nav.kibble' | t | default: 'Pienso Seco' }}</span>
+              <span class="header__species-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="{{ all_products_url }}?{{ p_species_key }}={{ species_val }}&{{ p_category_key }}={{ val_wet }}"
+              class="header__menu-item list-menu__item link link--text focus-inset caption-large header__species-link"
+            >
+              <span class="header__species-icon" aria-hidden="true">🥫</span>
+              <span class="header__species-title">{{ 'pet_cro.nav.wet_food' | t | default: 'Comida Húmeda' }}</span>
+              <span class="header__species-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="{{ all_products_url }}?{{ p_species_key }}={{ species_val }}&{{ p_category_key }}={{ val_snacks }}"
+              class="header__menu-item list-menu__item link link--text focus-inset caption-large header__species-link"
+            >
+              <span class="header__species-icon" aria-hidden="true">🦴</span>
+              <span class="header__species-title">{{ 'pet_cro.nav.snacks' | t | default: 'Snacks & Premios' }}</span>
+              <span class="header__species-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="{{ all_products_url }}?{{ p_species_key }}={{ species_val }}&{{ p_category_key }}={{ val_toys }}"
+              class="header__menu-item list-menu__item link link--text focus-inset caption-large header__species-link"
+            >
+              <span class="header__species-icon" aria-hidden="true">🎾</span>
+              <span class="header__species-title">{{ 'pet_cro.nav.toys' | t | default: 'Juguetes' }}</span>
+              <span class="header__species-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="{{ all_products_url }}?{{ p_species_key }}={{ species_val }}&{{ p_category_key }}={{ val_grooming }}"
+              class="header__menu-item list-menu__item link link--text focus-inset caption-large header__species-link"
+            >
+              <span class="header__species-icon" aria-hidden="true">🧴</span>
+              <span class="header__species-title">{{ 'pet_cro.nav.grooming' | t | default: 'Higiene & Cuidados' }}</span>
+              <span class="header__species-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="{{ all_products_url }}?{{ p_species_key }}={{ species_val }}&{{ p_category_key }}={{ val_accessories }}"
+              class="header__menu-item list-menu__item link link--text focus-inset caption-large header__species-link"
+            >
+              <span class="header__species-icon" aria-hidden="true">🦮</span>
+              <span class="header__species-title">{{ 'pet_cro.nav.walk' | t | default: 'Paseo & Accesorios' }}</span>
+              <span class="header__species-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li class="header__submenu-divider">
+            <a
+              href="{{ all_products_url }}?{{ p_species_key }}={{ species_val }}"
+              class="header__menu-item list-menu__item link link--text focus-inset caption-large header__submenu-item--highlight"
+            >
+              <span class="header__species-icon" aria-hidden="true">🐾</span>
+              <span class="header__species-title"><strong>{{ 'pet_cro.nav.view_all_dogs' | t | default: 'Ver todo para Perros' }}</strong></span>
+              <span class="header__species-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        {%- else -%}
+          <li>
+            <a
+              href="{{ all_products_url }}?{{ p_species_key }}={{ species_val }}&{{ p_category_key }}={{ val_kibble }}"
+              class="header__menu-item list-menu__item link link--text focus-inset caption-large header__species-link"
+            >
+              <span class="header__species-icon" aria-hidden="true">🥩</span>
+              <span class="header__species-title">{{ 'pet_cro.nav.kibble' | t | default: 'Pienso Seco' }}</span>
+              <span class="header__species-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="{{ all_products_url }}?{{ p_species_key }}={{ species_val }}&{{ p_category_key }}={{ val_wet }}"
+              class="header__menu-item list-menu__item link link--text focus-inset caption-large header__species-link"
+            >
+              <span class="header__species-icon" aria-hidden="true">🥫</span>
+              <span class="header__species-title">{{ 'pet_cro.nav.wet_food' | t | default: 'Comida Húmeda' }}</span>
+              <span class="header__species-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="{{ all_products_url }}?{{ p_species_key }}={{ species_val }}&{{ p_category_key }}={{ val_snacks }}"
+              class="header__menu-item list-menu__item link link--text focus-inset caption-large header__species-link"
+            >
+              <span class="header__species-icon" aria-hidden="true">🦴</span>
+              <span class="header__species-title">{{ 'pet_cro.nav.snacks' | t | default: 'Snacks & Premios' }}</span>
+              <span class="header__species-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="{{ all_products_url }}?{{ p_species_key }}={{ species_val }}&{{ p_category_key }}={{ val_toys }}"
+              class="header__menu-item list-menu__item link link--text focus-inset caption-large header__species-link"
+            >
+              <span class="header__species-icon" aria-hidden="true">🎾</span>
+              <span class="header__species-title">{{ 'pet_cro.nav.toys' | t | default: 'Juguetes & Rascadores' }}</span>
+              <span class="header__species-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="{{ all_products_url }}?{{ p_species_key }}={{ species_val }}&{{ p_category_key }}={{ val_grooming }}"
+              class="header__menu-item list-menu__item link link--text focus-inset caption-large header__species-link"
+            >
+              <span class="header__species-icon" aria-hidden="true">🧴</span>
+              <span class="header__species-title">{{ 'pet_cro.nav.grooming' | t | default: 'Higiene & Arena' }}</span>
+              <span class="header__species-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li class="header__submenu-divider">
+            <a
+              href="{{ all_products_url }}?{{ p_species_key }}={{ species_val }}"
+              class="header__menu-item list-menu__item link link--text focus-inset caption-large header__submenu-item--highlight"
+            >
+              <span class="header__species-icon" aria-hidden="true">🐾</span>
+              <span class="header__species-title"><strong>{{ 'pet_cro.nav.view_all_cats' | t | default: 'Ver todo para Gatos' }}</strong></span>
+              <span class="header__species-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        {%- endif -%}
+      </ul>
+    </details>
+  </header-menu>
+</li>

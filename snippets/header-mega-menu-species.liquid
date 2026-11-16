@@ -1,0 +1,328 @@
+{% comment %}
+  Header Species Mega Menu (snippets/header-mega-menu-species.liquid)
+  Renders full-width multi-column species catalog with Grooming Promo Card and Trust Badges
+  Accepts:
+  - section: {Object} Section Liquid object
+  - link: {Object} Link Liquid object
+  - nav_display: {String} Localized title
+  - nav_es: {String}
+  - nav_en: {String}
+{% endcomment %}
+
+{%- liquid
+  assign all_products_url = routes.all_products_collection_url
+  assign lang_code = request.locale.iso_code | slice: 0, 2 | downcase
+  if lang_code == 'en'
+    assign p_dog_slug = 'pet=dog'
+    assign p_cat_slug = 'pet=cat'
+    assign p_cat_key = 'category'
+    assign p_subfilter_key = 'need'
+    assign val_kibble = 'dry-food'
+    assign val_wet = 'wet-food'
+    assign val_snacks = 'snacks'
+    assign val_toys = 'toys'
+    assign val_grooming = 'hygiene'
+    assign val_accessories = 'accessories'
+    assign val_puppy = 'puppy'
+    assign val_kitten = 'kitten'
+    assign val_adult = 'adult'
+    assign val_senior = 'senior'
+    assign val_sensitive = 'sensitive'
+    assign val_sterilised = 'sterilised'
+    assign val_hairball = 'hairball'
+    assign default_booking_slug = 'pages/bookings'
+  else
+    assign p_dog_slug = 'mascota=perro'
+    assign p_cat_slug = 'mascota=gato'
+    assign p_cat_key = 'categoria'
+    assign p_subfilter_key = 'necesidad'
+    assign val_kibble = 'pienso'
+    assign val_wet = 'humeda'
+    assign val_snacks = 'snacks'
+    assign val_toys = 'juguetes'
+    assign val_grooming = 'higiene'
+    assign val_accessories = 'accesorios'
+    assign val_puppy = 'cachorro'
+    assign val_kitten = 'gatito'
+    assign val_adult = 'adulto'
+    assign val_senior = 'senior'
+    assign val_sensitive = 'hipoalergenico'
+    assign val_sterilised = 'esterilizado'
+    assign val_hairball = 'hairball'
+    assign default_booking_slug = 'pages/reservas'
+  endif
+
+  assign root_path = routes.root_url
+  if root_path != '/' and root_path != blank
+    assign localized_booking_url = root_path | append: '/' | append: default_booking_slug | replace: '//', '/'
+  else
+    assign localized_booking_url = '/' | append: default_booking_slug
+  endif
+
+  if section.settings.booking_url != blank
+    assign localized_booking_url = section.settings.booking_url
+  endif
+-%}
+
+<li>
+  <header-menu>
+    <details id="Details-HeaderMegaMenu-Species" class="mega-menu">
+      <summary
+        id="HeaderMegaMenu-Species-Summary"
+        class="header__menu-item list-menu__item link focus-inset"
+        aria-haspopup="true"
+      >
+        <span
+          {%- if link.child_active or link.current %}
+            class="header__active-menu-item"
+          {% endif %}
+          {% if nav_es != '' %}
+            data-i18n-es="{{ nav_es }}"
+            data-i18n-en="{{ nav_en }}"
+          {% endif %}
+        >
+          {{- nav_display -}}
+        </span>
+        {{- 'icon-caret.svg' | inline_asset_content -}}
+      </summary>
+      <div
+        id="MegaMenu-Content-Species"
+        class="mega-menu__content color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
+        tabindex="-1"
+        role="region"
+        aria-label="{{ nav_display | escape }}"
+      >
+        <div class="page-width mega-menu-pet__layout">
+          <!-- Columna 1: 🐶 Para Perros -->
+          <div class="mega-menu-pet__col">
+            <div class="mega-menu-pet__col-header">
+              <span class="mega-menu-pet__badge"><span aria-hidden="true">🐶</span> {{ 'pet_cro.nav.dogs' | t | default: 'Perros' }}</span>
+            </div>
+            <ul class="mega-menu-pet__links list-unstyled" role="list">
+              <li>
+                <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_kibble }}" class="mega-menu-pet__link link">
+                  <span class="mega-menu-pet__icon" aria-hidden="true">🥩</span>
+                  <span>{{ 'pet_cro.nav.kibble' | t | default: 'Pienso Seco' }}</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_wet }}" class="mega-menu-pet__link link">
+                  <span class="mega-menu-pet__icon" aria-hidden="true">🥫</span>
+                  <span>{{ 'pet_cro.nav.wet_food' | t | default: 'Comida Húmeda' }}</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_snacks }}" class="mega-menu-pet__link link">
+                  <span class="mega-menu-pet__icon" aria-hidden="true">🦴</span>
+                  <span>{{ 'pet_cro.nav.snacks' | t | default: 'Snacks & Premios' }}</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_toys }}" class="mega-menu-pet__link link">
+                  <span class="mega-menu-pet__icon" aria-hidden="true">🎾</span>
+                  <span>{{ 'pet_cro.nav.toys' | t | default: 'Juguetes' }}</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_grooming }}" class="mega-menu-pet__link link">
+                  <span class="mega-menu-pet__icon" aria-hidden="true">🧴</span>
+                  <span>{{ 'pet_cro.nav.grooming' | t | default: 'Higiene & Cuidados' }}</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_accessories }}" class="mega-menu-pet__link link">
+                  <span class="mega-menu-pet__icon" aria-hidden="true">🦮</span>
+                  <span>{{ 'pet_cro.nav.walk' | t | default: 'Paseo & Accesorios' }}</span>
+                </a>
+              </li>
+              <li class="mega-menu-pet__view-all">
+                <a href="{{ all_products_url }}?{{ p_dog_slug }}" class="mega-menu-pet__btn-view-all link">
+                  <span>🐾 <strong>{{ 'pet_cro.nav.view_all_dogs' | t | default: 'Ver todo para Perros' }}</strong></span>
+                  <span aria-hidden="true">→</span>
+                </a>
+              </li>
+            </ul>
+
+            <!-- Microfiltros por Etapa y Necesidad (Perros) -->
+            <div class="mega-menu-pet__subfilters">
+              <span class="mega-menu-pet__subfilters-title">{{ 'pet_cro.nav.subfilters_title' | t | default: 'Por Etapa o Necesidad:' }}</span>
+              <div class="mega-menu-pet__pills">
+                <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_subfilter_key }}={{ val_puppy }}" class="mega-menu-pet__pill link">
+                  🍼 {{ 'pet_cro.nav.puppy' | t | default: 'Cachorros' }}
+                </a>
+                <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_subfilter_key }}={{ val_adult }}" class="mega-menu-pet__pill link">
+                  🐕 {{ 'pet_cro.nav.adult' | t | default: 'Adultos' }}
+                </a>
+                <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_subfilter_key }}={{ val_senior }}" class="mega-menu-pet__pill link">
+                  🦺 {{ 'pet_cro.nav.senior' | t | default: 'Senior (+7a)' }}
+                </a>
+                <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_subfilter_key }}={{ val_sensitive }}" class="mega-menu-pet__pill link">
+                  🌾 {{ 'pet_cro.nav.sensitive' | t | default: 'Hipoalergénico' }}
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna 2: 🐱 Para Gatos -->
+          <div class="mega-menu-pet__col">
+            <div class="mega-menu-pet__col-header">
+              <span class="mega-menu-pet__badge"><span aria-hidden="true">🐱</span> {{ 'pet_cro.nav.cats' | t | default: 'Gatos' }}</span>
+            </div>
+            <ul class="mega-menu-pet__links list-unstyled" role="list">
+              <li>
+                <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_cat_key }}={{ val_kibble }}" class="mega-menu-pet__link link">
+                  <span class="mega-menu-pet__icon" aria-hidden="true">🥩</span>
+                  <span>{{ 'pet_cro.nav.kibble' | t | default: 'Pienso Seco' }}</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_cat_key }}={{ val_wet }}" class="mega-menu-pet__link link">
+                  <span class="mega-menu-pet__icon" aria-hidden="true">🥫</span>
+                  <span>{{ 'pet_cro.nav.wet_food' | t | default: 'Comida Húmeda' }}</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_cat_key }}={{ val_snacks }}" class="mega-menu-pet__link link">
+                  <span class="mega-menu-pet__icon" aria-hidden="true">🦴</span>
+                  <span>{{ 'pet_cro.nav.snacks' | t | default: 'Snacks & Premios' }}</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_cat_key }}={{ val_toys }}" class="mega-menu-pet__link link">
+                  <span class="mega-menu-pet__icon" aria-hidden="true">🎾</span>
+                  <span>{{ 'pet_cro.nav.toys' | t | default: 'Juguetes & Rascadores' }}</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_cat_key }}={{ val_grooming }}" class="mega-menu-pet__link link">
+                  <span class="mega-menu-pet__icon" aria-hidden="true">🧴</span>
+                  <span>{{ 'pet_cro.nav.grooming' | t | default: 'Higiene & Arena' }}</span>
+                </a>
+              </li>
+              <li class="mega-menu-pet__view-all">
+                <a href="{{ all_products_url }}?{{ p_cat_slug }}" class="mega-menu-pet__btn-view-all link">
+                  <span>🐾 <strong>{{ 'pet_cro.nav.view_all_cats' | t | default: 'Ver todo para Gatos' }}</strong></span>
+                  <span aria-hidden="true">→</span>
+                </a>
+              </li>
+            </ul>
+
+            <!-- Microfiltros por Etapa y Necesidad (Gatos) -->
+            <div class="mega-menu-pet__subfilters">
+              <span class="mega-menu-pet__subfilters-title">{{ 'pet_cro.nav.subfilters_title' | t | default: 'Por Etapa o Necesidad:' }}</span>
+              <div class="mega-menu-pet__pills">
+                <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_subfilter_key }}={{ val_kitten }}" class="mega-menu-pet__pill link">
+                  🍼 {{ 'pet_cro.nav.kitten' | t | default: 'Gatitos' }}
+                </a>
+                <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_subfilter_key }}={{ val_adult }}" class="mega-menu-pet__pill link">
+                  🐈 {{ 'pet_cro.nav.adult' | t | default: 'Adultos' }}
+                </a>
+                <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_subfilter_key }}={{ val_sterilised }}" class="mega-menu-pet__pill link">
+                  ✂️ {{ 'pet_cro.nav.sterilised' | t | default: 'Esterilizados' }}
+                </a>
+                <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_subfilter_key }}={{ val_hairball }}" class="mega-menu-pet__pill link">
+                  🧶 {{ 'pet_cro.nav.hairball' | t | default: 'Bolas de Pelo' }}
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna 3: ✂️ Tarjeta Destacada de Peluquería Canina -->
+          <div class="mega-menu-pet__promo-card">
+            <div class="mega-menu-pet__promo-badge">
+              <span class="cta-booking-pulse" aria-hidden="true">
+                <span class="cta-booking-pulse-dot"></span>
+              </span>
+              <span>{{ 'pet_cro.nav.grooming_banner_title' | t | default: 'Peluquería & Spa' }}</span>
+            </div>
+            <h4 class="mega-menu-pet__promo-title">✂️ Servicio Premium de Peluquería</h4>
+            <p class="mega-menu-pet__promo-desc">
+              {{ 'pet_cro.nav.grooming_banner_desc' | t | default: 'Sesiones relajantes, corte a tijera y deslanado por especialistas.' }}
+            </p>
+            <a href="{{ localized_booking_url }}" class="mega-menu-pet__promo-btn link">
+              {{ 'pet_cro.nav.grooming_banner_cta' | t | default: 'Pedir Cita Online' }} →
+            </a>
+          </div>
+
+          <!-- Columna 4: ⭐ Tarjeta de Producto Destacado / Pack Ahorro + Confianza -->
+          <div class="mega-menu-pet__featured-col">
+            {%- liquid
+              assign featured_prod = section.settings.mega_menu_featured_product
+              if featured_prod != blank
+                assign prod_url = featured_prod.url
+                assign prod_title = featured_prod.title
+                assign prod_price = featured_prod.price | money
+                assign prod_compare = featured_prod.compare_at_price | money
+                assign prod_img = featured_prod.featured_image
+              else
+                assign prod_url = all_products_url
+                assign prod_title = 'pet_cro.nav.featured_default_title' | t | default: 'Pack Bienestar & Digestión Saludable'
+                assign prod_price = '29,70 €'
+                assign prod_compare = '34,95 €'
+                assign prod_img = null
+              endif
+
+              assign badge_discount_text = section.settings.mega_menu_badge_text
+              if badge_discount_text == blank
+                assign badge_discount_text = 'pet_cro.nav.featured_save_badge' | t | default: '15% DTO'
+              endif
+            -%}
+
+            <div class="mega-menu-pet__product-card">
+              <div class="mega-menu-pet__product-badge-wrap">
+                <span class="mega-menu-pet__badge-bestseller">
+                  {{ 'pet_cro.nav.featured_badge' | t | default: '⭐ Producto Estrella' }}
+                </span>
+                <span class="mega-menu-pet__badge-discount">
+                  {{ badge_discount_text }}
+                </span>
+              </div>
+
+              <div class="mega-menu-pet__product-media">
+                {%- if prod_img != blank -%}
+                  {{ prod_img | image_url: width: 320 | image_tag: loading: 'lazy', class: 'mega-menu-pet__product-img', alt: prod_title }}
+                {%- else -%}
+                  <div class="mega-menu-pet__product-placeholder" aria-hidden="true">
+                    <span>🥩🦴</span>
+                  </div>
+                {%- endif -%}
+              </div>
+
+              <div class="mega-menu-pet__product-info">
+                <div class="mega-menu-pet__product-rating">
+                  <span class="mega-menu-pet__stars" aria-hidden="true">★★★★★</span>
+                  <span class="mega-menu-pet__rating-score">{{ 'pet_cro.nav.featured_rating' | t | default: '4.9/5' }}</span>
+                </div>
+                <h5 class="mega-menu-pet__product-title">{{ prod_title }}</h5>
+                <div class="mega-menu-pet__product-pricing">
+                  <span class="mega-menu-pet__price-sale">{{ prod_price }}</span>
+                  {%- if prod_compare != blank and prod_compare != prod_price -%}
+                    <span class="mega-menu-pet__price-compare">{{ prod_compare }}</span>
+                  {%- endif -%}
+                </div>
+                <a href="{{ prod_url }}" class="mega-menu-pet__product-cta link">
+                  {{ 'pet_cro.nav.featured_cta' | t | default: 'Ver Producto' }} →
+                </a>
+              </div>
+            </div>
+
+            {%- if section.settings.mega_menu_show_trust_strip != false -%}
+              <!-- Tira compacta de confianza y ventajas -->
+              <div class="mega-menu-pet__trust-strip">
+                <div class="mega-menu-pet__trust-pill">
+                  <span aria-hidden="true">🚚</span>
+                  <span>{{ 'pet_cro.nav.trust_shipping' | t | default: 'Envío gratis desde 39€' }}</span>
+                </div>
+                <div class="mega-menu-pet__trust-pill">
+                  <span aria-hidden="true">💬</span>
+                  <span>{{ 'pet_cro.nav.trust_support' | t | default: 'Asistencia WhatsApp' }}</span>
+                </div>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </details>
+  </header-menu>
+</li>
+

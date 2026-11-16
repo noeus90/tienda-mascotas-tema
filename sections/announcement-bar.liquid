@@ -33,6 +33,13 @@
         {{ section.blocks.first.shopify_attributes }}
       >
         {%- if section.blocks.first.settings.text != blank -%}
+          {%- liquid
+            assign raw_ann_text = section.blocks.first.settings.text
+            assign is_default_ann = false
+            if raw_ann_text == 'Welcome to our store' or raw_ann_text == 'Bienvenido a nuestra tienda' or raw_ann_text contains 'Envío 24h GRATIS en pedidos +49€' or raw_ann_text contains 'FREE 24h Shipping on orders over €49'
+              assign is_default_ann = true
+            endif
+          -%}
           {%- if section.blocks.first.settings.link != blank -%}
             <a
               href="{{ section.blocks.first.settings.link }}"
@@ -40,7 +47,16 @@
             >
           {%- endif -%}
           <p class="announcement-bar__message h5">
-            <span>{{ section.blocks.first.settings.text | escape }}</span>
+            {%- if is_default_ann -%}
+              <span
+                data-i18n-es="🐾 Envío 24h GRATIS en pedidos +49€ · Reserva online tu cita de Peluquería Canina"
+                data-i18n-en="🐾 FREE 24h Shipping on orders over €49 · Book your Dog Grooming appointment online"
+              >
+                {{- 'pet_cro.general.announcement_default' | t -}}
+              </span>
+            {%- else -%}
+              <span>{{ section.blocks.first.settings.text | escape }}</span>
+            {%- endif -%}
             {%- if section.blocks.first.settings.link != blank -%}
               {{- 'icon-arrow.svg' | inline_asset_content -}}
             {%- endif -%}
@@ -93,6 +109,13 @@
                   aria-label="{{ 'sections.header.announcement' | t }}"
                 >
                   {%- if block.settings.text != blank -%}
+                    {%- liquid
+                      assign raw_slide_text = block.settings.text
+                      assign is_default_slide_ann = false
+                      if raw_slide_text == 'Welcome to our store' or raw_slide_text == 'Bienvenido a nuestra tienda' or raw_slide_text contains 'Envío 24h GRATIS en pedidos +49€' or raw_slide_text contains 'FREE 24h Shipping on orders over €49'
+                        assign is_default_slide_ann = true
+                      endif
+                    -%}
                     {%- if block.settings.link != blank -%}
                       <a
                         href="{{ block.settings.link }}"
@@ -100,7 +123,16 @@
                       >
                     {%- endif -%}
                     <p class="announcement-bar__message h5">
-                      <span>{{ block.settings.text | escape }}</span>
+                      {%- if is_default_slide_ann -%}
+                        <span
+                          data-i18n-es="🐾 Envío 24h GRATIS en pedidos +49€ · Reserva online tu cita de Peluquería Canina"
+                          data-i18n-en="🐾 FREE 24h Shipping on orders over €49 · Book your Dog Grooming appointment online"
+                        >
+                          {{- 'pet_cro.general.announcement_default' | t -}}
+                        </span>
+                      {%- else -%}
+                        <span>{{ block.settings.text | escape }}</span>
+                      {%- endif -%}
                       {%- if block.settings.link != blank -%}
                         {{- 'icon-arrow.svg' | inline_asset_content -}}
                       {%- endif -%}
