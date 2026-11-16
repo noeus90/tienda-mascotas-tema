@@ -274,7 +274,6 @@
       "announcement": "Announcement",
       "announcement_bar": "Announcement bar"
     },
-
     "header": {
       "announcement": "Announcement",
       "menu": "Menu",
@@ -532,7 +531,8 @@
   "pet_cro": {
     "general": {
       "dev_mode_banner": "Active Development Mode: {{ shop_name }}",
-      "announcement_default": "🐾 FREE 24h Shipping on orders over €49 · Book your Dog Grooming appointment online"
+      "announcement_default": "🐾 FREE 24h Shipping on orders over €49 · Book your Dog Grooming appointment online",
+      "related_heading_default": "You may also like for your pet"
     },
     "nav": {
       "home": "Home",
@@ -570,7 +570,10 @@
       "senior": "Senior (+7y)",
       "sensitive": "Hypoallergenic",
       "sterilised": "Sterilised",
-      "hairball": "Hairball Control"
+      "hairball": "Hairball Control",
+      "whatsapp_help": "Need help? Chat on WhatsApp",
+      "species_nav_aria": "Browse by species",
+      "grooming_promo_title": "✂️ Premium Grooming Service"
     },
     "footer": {
       "newsletter_heading": "Join our Pet Parents Club & get 10% OFF",
@@ -586,7 +589,17 @@
       "new": "New",
       "exclusive": "Exclusive",
       "sold_out": "Sold Out",
-      "options": "Sizes:"
+      "options": "Sizes:",
+      "dog": "🐶 Dog",
+      "cat": "🐱 Cat",
+      "grain_free": "✨ Grain Free",
+      "hypoallergenic": "🛡️ Hypoallergenic",
+      "natural": "🌿 100% Natural",
+      "dental": "🦷 Dental Care",
+      "puppy": "🍼 Puppy",
+      "senior": "🐾 Senior",
+      "features_aria": "Pet features",
+      "free_shipping": "Free Shipping"
     },
     "care_guide": {
       "title": "Storage & Care Instructions"

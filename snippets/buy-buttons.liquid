@@ -83,15 +83,15 @@
             {% endif %}
           >
             {%- if product.selected_or_first_available_variant == null -%}
-              <span data-i18n-es="No disponible" data-i18n-en="Unavailable">
+              <span>
                 {{ 'products.product.unavailable' | t }}
               </span>
             {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
-              <span data-i18n-es="Agotado" data-i18n-en="Sold out">
+              <span>
                 {{ 'products.product.sold_out' | t }}
               </span>
             {%- else -%}
-              <span data-i18n-es="Agregar al carrito" data-i18n-en="Add to cart">
+              <span>
                 {{ 'products.product.add_to_cart' | t }}
               </span>
             {%- endif -%}

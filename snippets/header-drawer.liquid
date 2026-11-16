@@ -88,7 +88,7 @@
                   {% endif %}
                 >
                   <span class="cta-booking-icon" aria-hidden="true">✂️</span>
-                  <span data-i18n-es="Reservar Cita Peluquería" data-i18n-en="Book Grooming Appointment">
+                  <span>
                     {{- 'pet_cro.nav.book_grooming' | t | default: 'Reservar Cita' -}}
                   </span>
                 </a>
@@ -96,7 +96,7 @@
             {%- endif -%}
 
             {%- if section.settings.enable_species_navigation != false -%}
-              <div class="menu-drawer__species-tabs" role="region" aria-label="Navegación por especies">
+              <div class="menu-drawer__species-tabs" role="region" aria-label="{{ 'pet_cro.nav.species_nav_aria' | t }}">
                 <a
                   href="{{ all_products_url }}?{{ p_dog_slug }}"
                   class="menu-drawer__species-tab link focus-inset"
@@ -124,24 +124,14 @@
               {%- for link in section.settings.menu.links -%}
                 {%- liquid
                   assign nav_title_down = link.title | strip | downcase
-                  assign nav_es = ''
-                  assign nav_en = ''
                   assign nav_display = link.title | escape
                   if nav_title_down == 'home' or nav_title_down == 'inicio'
-                    assign nav_es = 'Inicio'
-                    assign nav_en = 'Home'
                     assign nav_display = 'pet_cro.nav.home' | t
                   elsif nav_title_down == 'catalog' or nav_title_down == 'catálogo' or nav_title_down == 'catalogo'
-                    assign nav_es = 'Catálogo'
-                    assign nav_en = 'Catalog'
                     assign nav_display = 'pet_cro.nav.catalog' | t
                   elsif nav_title_down == 'contact' or nav_title_down == 'contacto'
-                    assign nav_es = 'Contacto'
-                    assign nav_en = 'Contact'
                     assign nav_display = 'pet_cro.nav.contact' | t
                   elsif nav_title_down == 'bookings' or nav_title_down == 'booking' or nav_title_down == 'reservas' or nav_title_down == 'reserva'
-                    assign nav_es = 'Reservas'
-                    assign nav_en = 'Bookings'
                     assign nav_display = 'pet_cro.nav.bookings' | t
                   endif
 
@@ -373,12 +363,7 @@
                         id="HeaderDrawer-{{ link.handle }}"
                         class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.child_active %} menu-drawer__menu-item--active{% endif %}"
                       >
-                        <span
-                          {% if nav_es != '' %}
-                            data-i18n-es="{{ nav_es }}"
-                            data-i18n-en="{{ nav_en }}"
-                          {% endif %}
-                        >
+                        <span>
                           {{- nav_display -}}
                         </span>
                         <span class="svg-wrapper">
@@ -478,10 +463,6 @@
                       {% if link.current %}
                         aria-current="page"
                       {% endif %}
-                      {% if nav_es != '' %}
-                        data-i18n-es="{{ nav_es }}"
-                        data-i18n-en="{{ nav_en }}"
-                      {% endif %}
                     >
                       {{ nav_display }}
                     </a>
@@ -501,8 +482,8 @@
                 aria-label="WhatsApp"
               >
                 <span aria-hidden="true">💬</span>
-                <span data-i18n-es="¿Dudas? Escríbenos por WhatsApp" data-i18n-en="Need help? Chat on WhatsApp">
-                  {%- if drawer_lang_code == 'en' -%}Need help? Chat on WhatsApp{%- else -%}¿Dudas? Escríbenos por WhatsApp{%- endif -%}
+                <span>
+                  {{- 'pet_cro.nav.whatsapp_help' | t -}}
                 </span>
               </a>
             </div>

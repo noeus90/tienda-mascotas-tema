@@ -33,8 +33,6 @@
             <div class="cart-drawer__empty-content">
               <h2
                 class="cart__empty-text"
-                data-i18n-es="Tu carrito esta vacío"
-                data-i18n-en="Your cart is empty"
               >
                 {{ 'sections.cart.empty' | t }}
               </h2>
@@ -51,8 +49,6 @@
               <a
                 href="{{ routes.all_products_collection_url }}"
                 class="button"
-                data-i18n-es="Seguir comprando"
-                data-i18n-en="Continue shopping"
               >
                 {{ 'general.continue_shopping' | t }}
               </a>
@@ -60,8 +56,6 @@
               {%- if shop.customer_accounts_enabled and customer == null -%}
                 <p
                   class="cart__login-title h3"
-                  data-i18n-es="¿Tienes una cuenta?"
-                  data-i18n-en="Have an account?"
                 >
                   {{ 'sections.cart.login.title' | t }}
                 </p>
@@ -81,8 +75,6 @@
       <div class="drawer__header">
         <h2
           class="drawer__heading"
-          data-i18n-es="Tu carrito"
-          data-i18n-en="Your cart"
         >
           {{ 'sections.cart.title' | t }}
         </h2>
@@ -125,8 +117,6 @@
                         class="caption-with-letter-spacing"
                         scope="col"
                         role="columnheader"
-                        data-i18n-es="Producto"
-                        data-i18n-en="Product"
                       >
                         {{ 'sections.cart.headings.product' | t }}
                       </th>
@@ -135,8 +125,6 @@
                         class="right caption-with-letter-spacing"
                         scope="col"
                         role="columnheader"
-                        data-i18n-es="Total"
-                        data-i18n-en="Total"
                       >
                         {{ 'sections.cart.headings.total' | t }}
                       </th>
@@ -557,8 +545,6 @@
           <div class="totals" role="status">
             <h2
               class="totals__total"
-              data-i18n-es="Total estimado"
-              data-i18n-en="Estimated total"
             >
               {{ 'sections.cart.estimated_total' | t }}
             </h2>
@@ -618,8 +604,6 @@
             {% if cart == empty %}
               disabled
             {% endif %}
-            data-i18n-es="Pagar pedido"
-            data-i18n-en="Check out"
           >
             {{ 'sections.cart.checkout' | t }}
           </button>

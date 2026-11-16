@@ -152,14 +152,8 @@ function initCroDeliveryCountdown(root = document) {
   }).format(deliveryDate);
 
   deliveryNodes.forEach((deliveryEl) => {
-    const tplCutoff =
-      (locale === 'en' ? deliveryEl.dataset.tplCutoffEn : deliveryEl.dataset.tplCutoffEs) ||
-      deliveryEl.dataset.tplCutoff ||
-      '';
-    const tplExpress =
-      (locale === 'en' ? deliveryEl.dataset.tplExpressEn : deliveryEl.dataset.tplExpressEs) ||
-      deliveryEl.dataset.tplExpress ||
-      '';
+    const tplCutoff = deliveryEl.dataset.tplCutoff || '';
+    const tplExpress = deliveryEl.dataset.tplExpress || '';
 
     if (now.getHours() < cutoffHour && remainingHours >= 0 && tplCutoff) {
       deliveryEl.innerHTML = tplCutoff
@@ -185,24 +179,13 @@ window.updateFreeShippingBars = function (totalCents) {
   const bars = document.querySelectorAll('[data-cro-shipping-bar]');
   if (!bars.length) return;
 
-  const locale = (document.documentElement.lang || 'es').toLowerCase().slice(0, 2);
-
   bars.forEach((bar) => {
     bar.dataset.currentTotal = String(totalCents);
     const shippingGoal = parseInt(bar.dataset.shippingGoal, 10) || 4500;
     const giftGoal = parseInt(bar.dataset.giftGoal, 10) || 6500;
-    const tplShipping =
-      (locale === 'en' ? bar.dataset.tplShippingEn : bar.dataset.tplShippingEs) ||
-      bar.dataset.tplShipping ||
-      '';
-    const tplGift =
-      (locale === 'en' ? bar.dataset.tplGiftEn : bar.dataset.tplGiftEs) ||
-      bar.dataset.tplGift ||
-      '';
-    const tplComplete =
-      (locale === 'en' ? bar.dataset.tplCompleteEn : bar.dataset.tplCompleteEs) ||
-      bar.dataset.tplComplete ||
-      '';
+    const tplShipping = bar.dataset.tplShipping || '';
+    const tplGift = bar.dataset.tplGift || '';
+    const tplComplete = bar.dataset.tplComplete || '';
 
     const msgEl = bar.querySelector('[data-shipping-msg]');
     const trackEl = bar.querySelector('[data-shipping-track]');

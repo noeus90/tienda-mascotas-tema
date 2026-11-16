@@ -20,10 +20,7 @@
   -%}
   <span class="savings-badge">
     <span>{{ savings_amount | money }}</span>
-    <span
-      data-i18n-es="({{ savings_percentage }}% DTO)"
-      data-i18n-en="({{ savings_percentage }}% OFF)"
-    >
+    <span>
       {{- 'pet_cro.savings.discount_tag' | t: percent: savings_percentage -}}
     </span>
   </span>

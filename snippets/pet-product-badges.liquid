@@ -68,40 +68,40 @@
 -%}
 
 {%- if is_dog or is_cat or is_grain_free or is_natural or is_dental or is_puppy or is_senior or is_hypo -%}
-  <div class="pet-card-badges-wrap" aria-label="Características para mascotas">
+  <div class="pet-card-badges-wrap" aria-label="{{ 'pet_cro.badge.features_aria' | t }}">
     {%- if is_dog -%}
-      <span class="pet-card-badge pet-card-badge--species pet-card-badge--dog" data-i18n-es="🐶 Perro" data-i18n-en="🐶 Dog">
-        🐶 Perro
+      <span class="pet-card-badge pet-card-badge--species pet-card-badge--dog">
+        {{ 'pet_cro.badge.dog' | t }}
       </span>
     {%- elsif is_cat -%}
-      <span class="pet-card-badge pet-card-badge--species pet-card-badge--cat" data-i18n-es="🐱 Gato" data-i18n-en="🐱 Cat">
-        🐱 Gato
+      <span class="pet-card-badge pet-card-badge--species pet-card-badge--cat">
+        {{ 'pet_cro.badge.cat' | t }}
       </span>
     {%- endif -%}
 
     {%- if is_grain_free -%}
-      <span class="pet-card-badge pet-card-badge--grain-free" data-i18n-es="✨ Sin Cereales" data-i18n-en="✨ Grain Free">
-        ✨ Sin Cereales
+      <span class="pet-card-badge pet-card-badge--grain-free">
+        {{ 'pet_cro.badge.grain_free' | t }}
       </span>
     {%- elsif is_hypo -%}
-      <span class="pet-card-badge pet-card-badge--hypo" data-i18n-es="🛡️ Hipoalergénico" data-i18n-en="🛡️ Hypoallergenic">
-        🛡️ Hipoalergénico
+      <span class="pet-card-badge pet-card-badge--hypo">
+        {{ 'pet_cro.badge.hypoallergenic' | t }}
       </span>
     {%- elsif is_natural -%}
-      <span class="pet-card-badge pet-card-badge--natural" data-i18n-es="🌿 100% Natural" data-i18n-en="🌿 100% Natural">
-        🌿 100% Natural
+      <span class="pet-card-badge pet-card-badge--natural">
+        {{ 'pet_cro.badge.natural' | t }}
       </span>
     {%- elsif is_dental -%}
-      <span class="pet-card-badge pet-card-badge--dental" data-i18n-es="🦷 Dental" data-i18n-en="🦷 Dental Care">
-        🦷 Dental
+      <span class="pet-card-badge pet-card-badge--dental">
+        {{ 'pet_cro.badge.dental' | t }}
       </span>
     {%- elsif is_puppy -%}
-      <span class="pet-card-badge pet-card-badge--puppy" data-i18n-es="🍼 Cachorro" data-i18n-en="🍼 Puppy">
-        🍼 Cachorro
+      <span class="pet-card-badge pet-card-badge--puppy">
+        {{ 'pet_cro.badge.puppy' | t }}
       </span>
     {%- elsif is_senior -%}
-      <span class="pet-card-badge pet-card-badge--senior" data-i18n-es="🐾 Senior" data-i18n-en="🐾 Senior">
-        🐾 Senior
+      <span class="pet-card-badge pet-card-badge--senior">
+        {{ 'pet_cro.badge.senior' | t }}
       </span>
     {%- endif -%}
   </div>

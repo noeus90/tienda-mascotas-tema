@@ -49,8 +49,6 @@
   <span
     class="cro-sub-heading"
     id="sub-heading-{{ section.id }}"
-    data-i18n-es="Elige tu modalidad de compra:"
-    data-i18n-en="Choose your purchase option:"
   >
     {{- 'pet_cro.subscription.heading' | t -}}
   </span>
@@ -69,8 +67,6 @@
   >
     <div
       class="cro-sub-badge-popular"
-      data-i18n-es="Más Popular · Ahorra {{ discount_pct }}%"
-      data-i18n-en="Most Popular · Save {{ discount_pct }}%"
     >
       {{- 'pet_cro.subscription.most_popular' | t: percent: discount_pct -}}
     </div>
@@ -81,15 +77,11 @@
         <div>
           <span
             class="cro-sub-title"
-            data-i18n-es="Autopedido Recurrente y Ahorra"
-            data-i18n-en="Auto-Delivery & Save"
           >
             {{- 'pet_cro.subscription.sub_title' | t -}}
           </span>
           <span
             class="cro-sub-subtitle"
-            data-i18n-es="Recibe su comida o higiene a tiempo sin quedarte nunca sin stock"
-            data-i18n-en="Automatic refills so your pet never runs out of food or grooming essentials"
           >
             {{- 'pet_cro.subscription.sub_subtitle' | t -}}
           </span>
@@ -107,8 +99,6 @@
       <div class="cro-sub-freq-wrapper">
         <label
           for="sub-freq-select-{{ section.id }}"
-          data-i18n-es="Frecuencia de entrega:"
-          data-i18n-en="Delivery frequency:"
         >
           {{- 'pet_cro.subscription.frequency_label' | t -}}
         </label>
@@ -120,22 +110,16 @@
         >
           <option
             value="{{ 'pet_cro.subscription.every_30' | t }}"
-            data-i18n-es="Cada 30 días (Recomendado)"
-            data-i18n-en="Every 30 days (Recommended)"
           >
             {{- 'pet_cro.subscription.every_30' | t -}}
           </option>
           <option
             value="{{ 'pet_cro.subscription.every_45' | t }}"
-            data-i18n-es="Cada 45 días"
-            data-i18n-en="Every 45 days"
           >
             {{- 'pet_cro.subscription.every_45' | t -}}
           </option>
           <option
             value="{{ 'pet_cro.subscription.every_60' | t }}"
-            data-i18n-es="Cada 60 días"
-            data-i18n-en="Every 60 days"
           >
             {{- 'pet_cro.subscription.every_60' | t -}}
           </option>
@@ -147,10 +131,7 @@
           <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
-          <span
-            data-i18n-html-es="Ahorras <strong>{{ formatted_savings }}</strong> en cada entrega automática"
-            data-i18n-html-en="You save <strong>{{ formatted_savings }}</strong> on every automatic delivery"
-          >
+          <span>
             {{- 'pet_cro.subscription.perk_savings_html' | t: amount: formatted_savings -}}
           </span>
         </li>
@@ -158,10 +139,7 @@
           <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
-          <span
-            data-i18n-es="Pausa, cambia de fecha o cancela online en 1 clic sin permanencia"
-            data-i18n-en="Pause, skip a month, or cancel online in 1 click anytime"
-          >
+          <span>
             {{- 'pet_cro.subscription.perk_cancel' | t -}}
           </span>
         </li>
@@ -169,10 +147,7 @@
           <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
-          <span
-            data-i18n-es="Envío prioritario gratuito y snack de regalo en cada pedido"
-            data-i18n-en="Free priority shipping & free natural dog treat with every order"
-          >
+          <span>
             {{- 'pet_cro.subscription.perk_shipping' | t -}}
           </span>
         </li>
@@ -198,15 +173,11 @@
         <div>
           <span
             class="cro-sub-title"
-            data-i18n-es="Compra única"
-            data-i18n-en="One-time purchase"
           >
             {{- 'pet_cro.subscription.onetime_title' | t -}}
           </span>
           <span
             class="cro-sub-subtitle"
-            data-i18n-es="Pedido puntual sin entregas periódicas"
-            data-i18n-en="Single order without recurring deliveries"
           >
             {{- 'pet_cro.subscription.onetime_subtitle' | t -}}
           </span>

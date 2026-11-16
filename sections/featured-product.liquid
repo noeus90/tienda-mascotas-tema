@@ -138,11 +138,11 @@
                   {%- if cart.taxes_included or cart.duties_included or shop.shipping_policy.body != blank -%}
                     <div class="product__tax caption rte">
                       {%- if cart.duties_included and cart.taxes_included -%}
-                        <span data-i18n-es="Aranceles e impuestos incluidos." data-i18n-en="Duties and taxes included.">{{- 'products.product.duties_and_taxes_included' | t -}}</span>
+                        <span>{{- 'products.product.duties_and_taxes_included' | t -}}</span>
                       {%- elsif cart.taxes_included -%}
-                        <span data-i18n-es="Impuestos incluidos." data-i18n-en="Tax included.">{{- 'products.product.taxes_included' | t -}}</span>
+                        <span>{{- 'products.product.taxes_included' | t -}}</span>
                       {%- elsif cart.duties_included -%}
-                        <span data-i18n-es="Aranceles incluidos." data-i18n-en="Duties included.">{{- 'products.product.duties_included' | t -}}</span>
+                        <span>{{- 'products.product.duties_included' | t -}}</span>
                       {%- endif -%}
                       {%- if shop.shipping_policy.body != blank -%}
                         {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
@@ -191,11 +191,10 @@
                       for="Quantity-{{ section.id }}"
                       aria-labelledby="quantity-label-{{ section.id }}"
                     >
-                      <span aria-hidden="true" data-i18n-es="Cantidad" data-i18n-en="Quantity">{{ 'products.product.quantity.label' | t }}</span>
+                      <span aria-hidden="true">{{ 'products.product.quantity.label' | t }}</span>
                       <span class="quantity__rules-cart{% if cart_qty == 0 %} hidden{% endif %}" aria-hidden="true">
                         {%- render 'loading-spinner' -%}
-                        <span
-                          >(
+                        <span>(
                           {{- 'products.product.quantity.in_cart_html' | t: quantity: cart_qty -}}
                           )</span
                         >
@@ -481,7 +480,7 @@
               {% endif %}
               class="link product__view-details animate-arrow"
             >
-              <span data-i18n-es="Ver todos los detalles" data-i18n-en="View full details">{{- 'products.product.view_full_details' | t -}}</span>
+              <span>{{- 'products.product.view_full_details' | t -}}</span>
               {{- 'icon-arrow.svg' | inline_asset_content -}}
             </a>
           </section>

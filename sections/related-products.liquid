@@ -34,21 +34,12 @@
         if raw_rel_heading == 'You may also like' or raw_rel_heading == 'También te puede gustar' or raw_rel_heading == 'También te puede gustar para tu peludo' or raw_rel_heading == 'You may also like for your pet'
           assign is_default_rel_heading = true
         endif
-        assign rel_locale = request.locale.iso_code | downcase | slice: 0, 2
       -%}
       <h2
         class="related-products__heading inline-richtext {{ section.settings.heading_size }}"
-        {% if is_default_rel_heading %}
-          data-i18n-es="También te puede gustar para tu peludo"
-          data-i18n-en="You may also like for your pet"
-        {% endif %}
       >
         {%- if is_default_rel_heading -%}
-          {%- if rel_locale == 'en' -%}
-            You may also like for your pet
-          {%- else -%}
-            También te puede gustar para tu peludo
-          {%- endif -%}
+          {{- 'pet_cro.general.related_heading_default' | t -}}
         {%- else -%}
           {{ section.settings.heading }}
         {%- endif -%}

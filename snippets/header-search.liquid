@@ -49,8 +49,6 @@
               name="q"
               value="{{ search.terms | escape }}"
               placeholder="{{ 'general.search.search' | t }}"
-              data-i18n-placeholder-es="Buscar"
-              data-i18n-placeholder-en="Search"
               {%- if settings.predictive_search_enabled -%}
                 role="combobox"
                 aria-expanded="false"
@@ -67,8 +65,6 @@
             <label
               class="field__label"
               for="{{ input_id }}"
-              data-i18n-es="Buscar"
-              data-i18n-en="Search"
             >
               {{- 'general.search.search' | t -}}
             </label>
@@ -85,8 +81,6 @@
             <button
               class="search__button field__button"
               aria-label="{{ 'general.search.search' | t }}"
-              data-i18n-aria-es="Buscar"
-              data-i18n-aria-en="Search"
             >
               <span class="svg-wrapper">
                 {{- 'icon-search.svg' | inline_asset_content -}}

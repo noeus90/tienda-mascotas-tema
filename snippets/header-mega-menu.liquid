@@ -10,24 +10,14 @@
     {%- for link in section.settings.menu.links -%}
       {%- liquid
         assign nav_title_down = link.title | strip | downcase
-        assign nav_es = ''
-        assign nav_en = ''
         assign nav_display = link.title | escape
         if nav_title_down == 'home' or nav_title_down == 'inicio'
-          assign nav_es = 'Inicio'
-          assign nav_en = 'Home'
           assign nav_display = 'pet_cro.nav.home' | t
         elsif nav_title_down == 'catalog' or nav_title_down == 'catálogo' or nav_title_down == 'catalogo'
-          assign nav_es = 'Catálogo'
-          assign nav_en = 'Catalog'
           assign nav_display = 'pet_cro.nav.catalog' | t
         elsif nav_title_down == 'contact' or nav_title_down == 'contacto'
-          assign nav_es = 'Contacto'
-          assign nav_en = 'Contact'
           assign nav_display = 'pet_cro.nav.contact' | t
         elsif nav_title_down == 'bookings' or nav_title_down == 'booking' or nav_title_down == 'reservas' or nav_title_down == 'reserva'
-          assign nav_es = 'Reservas'
-          assign nav_en = 'Bookings'
           assign nav_display = 'pet_cro.nav.bookings' | t
         endif
 
@@ -55,7 +45,7 @@
       {%- if is_booking_link and section.settings.show_booking_cta != false -%}
         {% render 'header-booking-cta', section: section %}
       {%- elsif is_catalog_link and link.links == blank and section.settings.enable_species_navigation != false -%}
-        {% render 'header-mega-menu-species', section: section, link: link, nav_display: nav_display, nav_es: nav_es, nav_en: nav_en %}
+        {% render 'header-mega-menu-species', section: section, link: link, nav_display: nav_display %}
       {%- elsif is_dog_link and link.links == blank and section.settings.enable_species_navigation != false -%}
         {% render 'header-species-subnav', species: 'dog', section: section, id_prefix: 'mega' %}
       {%- elsif is_cat_link and link.links == blank and section.settings.enable_species_navigation != false -%}
@@ -72,10 +62,6 @@
                 <span
                   {%- if link.child_active %}
                     class="header__active-menu-item"
-                  {% endif %}
-                  {% if nav_es != '' %}
-                    data-i18n-es="{{ nav_es }}"
-                    data-i18n-en="{{ nav_en }}"
                   {% endif %}
                 >
                   {{- nav_display -}}
@@ -139,10 +125,6 @@
             <span
               {%- if link.current %}
                 class="header__active-menu-item"
-              {% endif %}
-              {% if nav_es != '' %}
-                data-i18n-es="{{ nav_es }}"
-                data-i18n-en="{{ nav_en }}"
               {% endif %}
             >
               {{- nav_display -}}

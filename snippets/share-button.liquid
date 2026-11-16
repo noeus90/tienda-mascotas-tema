@@ -23,7 +23,7 @@
   <button class="share-button__button hidden">
     <span class="svg-wrapper">{{ 'icon-share.svg' | inline_asset_content }}</span>
     {%- if is_default_share -%}
-      <span data-i18n-es="Compartir" data-i18n-en="Share">{{ 'products.product.share' | t }}</span>
+      <span>{{ 'products.product.share' | t }}</span>
     {%- else -%}
       {{ block.settings.share_label | escape }}
     {%- endif -%}
@@ -32,7 +32,7 @@
     <summary class="share-button__button">
       <span class="svg-wrapper">{{ 'icon-share.svg' | inline_asset_content }}</span>
       {%- if is_default_share -%}
-        <span data-i18n-es="Compartir" data-i18n-en="Share">{{ 'products.product.share' | t }}</span>
+        <span>{{ 'products.product.share' | t }}</span>
       {%- else -%}
         {{ block.settings.share_label | escape }}
       {%- endif -%}
@@ -46,16 +46,12 @@
           id="ShareUrl-{{ section.id }}"
           value="{{ share_link }}"
           placeholder="{{ 'general.share.share_url' | t }}"
-          data-i18n-placeholder-es="Enlace"
-          data-i18n-placeholder-en="Link"
           onclick="this.select();"
           readonly
         >
         <label
           class="field__label"
           for="ShareUrl-{{ section.id }}"
-          data-i18n-es="Enlace"
-          data-i18n-en="Link"
         >
           {{- 'general.share.share_url' | t -}}
         </label>

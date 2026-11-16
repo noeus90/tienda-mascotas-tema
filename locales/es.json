@@ -543,7 +543,8 @@
   "pet_cro": {
     "general": {
       "dev_mode_banner": "Modo Desarrollo Activo: {{ shop_name }}",
-      "announcement_default": "🐾 Envío 24h GRATIS en pedidos +49€ · Reserva online tu cita de Peluquería Canina"
+      "announcement_default": "🐾 Envío 24h GRATIS en pedidos +49€ · Reserva online tu cita de Peluquería Canina",
+      "related_heading_default": "También te puede gustar para tu peludo"
     },
     "nav": {
       "home": "Inicio",
@@ -581,7 +582,10 @@
       "senior": "Senior (+7a)",
       "sensitive": "Hipoalergénico",
       "sterilised": "Esterilizados",
-      "hairball": "Bolas de Pelo"
+      "hairball": "Bolas de Pelo",
+      "whatsapp_help": "¿Dudas? Escríbenos por WhatsApp",
+      "species_nav_aria": "Navegación por especies",
+      "grooming_promo_title": "✂️ Servicio Premium de Peluquería"
     },
     "footer": {
       "newsletter_heading": "Únete al Club de Familias Perrunas y recibe un 10% DTO",
@@ -597,7 +601,17 @@
       "new": "Nuevo",
       "sold_out": "Agotado",
       "exclusive": "Exclusivo",
-      "options": "Formatos:"
+      "options": "Formatos:",
+      "dog": "🐶 Perro",
+      "cat": "🐱 Gato",
+      "grain_free": "✨ Sin Cereales",
+      "hypoallergenic": "🛡️ Hipoalergénico",
+      "natural": "🌿 100% Natural",
+      "dental": "🦷 Dental",
+      "puppy": "🍼 Cachorro",
+      "senior": "🐾 Senior",
+      "features_aria": "Características para mascotas",
+      "free_shipping": "Envío Gratis"
     },
     "care_guide": {
       "title": "Conservación y cuidado"
