@@ -2,15 +2,11 @@
       <aside class="bundle-summary-panel">
         <h3
           class="bundle-summary-title"
-          data-i18n-es="El Pack de tu Peludo"
-          data-i18n-en="Your Pet's Custom Pack"
         >
           {{- 'pet_cro.bundle.your_pack' | t -}}
         </h3>
         <p
           class="bundle-summary-sub"
-          data-i18n-es="Combina alimentación, snacks o higiene y ahorra al instante"
-          data-i18n-en="Mix & match food, treats, or grooming care and save instantly"
         >
           {{- 'pet_cro.bundle.your_pack_sub' | t -}}
         </p>
@@ -21,10 +17,7 @@
         <!-- Financial Breakdown -->
         <div class="bundle-totals">
           <div class="bundle-total-row">
-            <span
-              data-i18n-es="Subtotal productos:"
-              data-i18n-en="Products subtotal:"
-            >
+            <span>
               {{- 'pet_cro.bundle.subtotal' | t -}}
             </span>
             <span id="bundle-subtotal-{{ section.id }}">0,00 €</span>
@@ -34,10 +27,7 @@
             <span id="bundle-discount-amount-{{ section.id }}">-0,00 €</span>
           </div>
           <div class="bundle-total-row is-final">
-            <span
-              data-i18n-es="Total Pack:"
-              data-i18n-en="Pack Total:"
-            >
+            <span>
               {{- 'pet_cro.bundle.total_pack' | t -}}
             </span>
             <div>
@@ -64,8 +54,6 @@
           id="bundle-feedback-{{ section.id }}"
           role="status"
           aria-live="polite"
-          data-i18n-es="¡Pack para tu mascota añadido correctamente a tu cesta!"
-          data-i18n-en="Pet pack successfully added to your cart!"
         >
           {{ 'pet_cro.bundle.confirmation' | t }}
         </div>

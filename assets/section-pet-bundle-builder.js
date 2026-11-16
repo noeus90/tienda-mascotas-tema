@@ -56,16 +56,12 @@ function initBundleBuilder(rootEl) {
     if (!card) return;
     const id = card.dataset.id;
     const title = card.dataset.title;
-    const titleEs = card.dataset.titleEs || title;
-    const titleEn = card.dataset.titleEn || title;
     const price = parseInt(card.dataset.price, 10) || 0;
 
     bundleItems.push({
       uid: String(Date.now() + Math.random()),
       id,
       title,
-      titleEs,
-      titleEn,
       price,
     });
 
@@ -124,8 +120,7 @@ function initBundleBuilder(rootEl) {
       const slotDiv = document.createElement('div');
 
       if (item) {
-        const displayTitle =
-          activeLang === 'en' ? item.titleEn || item.title : item.titleEs || item.title;
+        const displayTitle = item.title;
         slotDiv.className = 'bundle-slot-item is-filled';
         slotDiv.innerHTML = `
           <div class="bundle-slot-info">

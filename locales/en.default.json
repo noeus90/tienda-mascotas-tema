@@ -715,7 +715,8 @@
       "msg_tier_1": "🐾 You have {{ dto1 }}% OFF. Add {{ missing }} more to get {{ dto2 }}% OFF!",
       "msg_completed": "🎉 Woof! You unlocked the maximum {{ discount }}% discount on your pet's pack",
       "tier_1_label": "2 pcs = {{ discount }}% OFF",
-      "tier_2_label": "{{ goal }}+ pcs = {{ discount }}% OFF"
+      "tier_2_label": "{{ goal }}+ pcs = {{ discount }}% OFF",
+      "progress_aria": "Pack progress"
     },
     "showcase": {
       "empty_state": "Select a pet product collection from the theme editor sidebar"
@@ -803,6 +804,23 @@
     },
     "seo": {
       "home": "Home"
+    },
+    "catalog_bar": {
+      "your_pet": "Your Pet:",
+      "all_pets": "All Pets",
+      "dogs": "Dogs",
+      "cats": "Cats",
+      "view_all": "View All",
+      "kibble": "Dry Kibble",
+      "wet_food": "Wet Food",
+      "snacks": "Natural Treats",
+      "toys": "Toys",
+      "grooming": "Grooming & Hygiene",
+      "supplements": "Supplements",
+      "walk": "Walk & Accessories",
+      "clear_filters": "Clear filters",
+      "aria_species": "Filter by pet type",
+      "aria_category": "Filter by product category"
     }
   }
 }

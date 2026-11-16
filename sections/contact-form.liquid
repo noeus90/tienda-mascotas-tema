@@ -61,14 +61,10 @@
             name="contact[{{ 'templates.contact.form.name' | t }}]"
             value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
             placeholder="{{ 'templates.contact.form.name' | t }}"
-            data-i18n-placeholder-es="Nombre"
-            data-i18n-placeholder-en="Name"
           >
           <label
             class="field__label"
             for="ContactForm-name"
-            data-i18n-es="Nombre"
-            data-i18n-en="Name"
           >
             {{- 'templates.contact.form.name' | t -}}
           </label>
@@ -89,11 +85,9 @@
               aria-describedby="ContactForm-email-error"
             {% endif %}
             placeholder="{{ 'templates.contact.form.email' | t }}"
-            data-i18n-placeholder-es="Correo electrónico"
-            data-i18n-placeholder-en="Email"
           >
           <label class="field__label" for="ContactForm-email">
-            <span data-i18n-es="Correo electrónico" data-i18n-en="Email">{{- 'templates.contact.form.email' | t }}</span>
+            <span>{{- 'templates.contact.form.email' | t }}</span>
             <span aria-hidden="true">*</span></label
           >
           {%- if form.errors contains 'email' -%}
@@ -120,14 +114,10 @@
           pattern="[0-9\-]*"
           value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
           placeholder="{{ 'templates.contact.form.phone' | t }}"
-          data-i18n-placeholder-es="Número de teléfono"
-          data-i18n-placeholder-en="Phone number"
         >
         <label
           class="field__label"
           for="ContactForm-phone"
-          data-i18n-es="Número de teléfono"
-          data-i18n-en="Phone number"
         >
           {{- 'templates.contact.form.phone' | t -}}
         </label>
@@ -139,16 +129,12 @@
           class="text-area field__input"
           name="contact[{{ 'templates.contact.form.comment' | t }}]"
           placeholder="{{ 'templates.contact.form.comment' | t }}"
-          data-i18n-placeholder-es="Comentario"
-          data-i18n-placeholder-en="Comment"
         >
           {{- form.body -}}
         </textarea>
         <label
           class="form__label field__label"
           for="ContactForm-body"
-          data-i18n-es="Comentario"
-          data-i18n-en="Comment"
         >
           {{- 'templates.contact.form.comment' | t -}}
         </label>
@@ -157,8 +143,6 @@
         <button
           type="submit"
           class="button"
-          data-i18n-es="Enviar"
-          data-i18n-en="Send"
         >
           {{ 'templates.contact.form.send' | t }}
         </button>

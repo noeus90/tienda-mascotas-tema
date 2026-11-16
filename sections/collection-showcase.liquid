@@ -24,11 +24,7 @@
     <h2
       {% if is_sc_h %}
         {% if raw_sc_h == 'Top Ventas Tienda Animal' or raw_sc_h == 'Top Pet Store Bestsellers' %}
-          data-i18n-es="Top Ventas Tienda Animal"
-          data-i18n-en="Top Pet Store Bestsellers"
         {% else %}
-          data-i18n-es="Favoritos para tu Mascota"
-          data-i18n-en="Favorites for Your Pet"
         {% endif %}
       {% endif %}
     >
@@ -81,8 +77,6 @@
             {%- unless product_item.available -%}
               <span
                 class="showcase-badge-soldout"
-                data-i18n-es="Agotado"
-                data-i18n-en="Sold Out"
               >
                 {{- 'pet_cro.badge.sold_out' | t -}}
               </span>
@@ -98,10 +92,7 @@
             {%- assign variant_list = product_item.variants | map: 'title' | join: ' · ' -%}
             {%- if product_item.has_only_default_variant == false -%}
               <div class="showcase-variants">
-                <strong
-                  data-i18n-es="Formatos: "
-                  data-i18n-en="Sizes: "
-                >
+                <strong>
                   {{- 'pet_cro.badge.options' | t }}
                 </strong>
                 {{- variant_list -}}
@@ -132,10 +123,7 @@
     </script>
   {%- else %}
     <div class="showcase-empty-state">
-      <p
-        data-i18n-es="Selecciona una colección de productos para mascotas desde la barra lateral del editor"
-        data-i18n-en="Select a pet product collection from the theme editor sidebar"
-      >
+      <p>
         {{- 'pet_cro.showcase.empty_state' | t -}}
       </p>
     </div>

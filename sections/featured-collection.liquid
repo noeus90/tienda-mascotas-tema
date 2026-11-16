@@ -84,10 +84,6 @@
         -%}
         <h2
           class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-          {% if is_default_fc_title %}
-            data-i18n-es="Favoritos para tu Mascota"
-            data-i18n-en="Favorites for Your Pet"
-          {% endif %}
         >
           {%- if is_default_fc_title -%}
             {%- if fc_locale == 'en' -%}Favorites for Your Pet{%- else -%}Favoritos para tu Mascota{%- endif -%}
@@ -222,8 +218,6 @@
           href="{{ section.settings.collection.url }}"
           class="{% if section.settings.view_all_style == 'link' %}link underlined-link{% elsif section.settings.view_all_style == 'solid' %}button{% else %}button button--secondary{% endif %}"
           aria-label="{{ 'sections.featured_collection.view_all_label' | t: collection_name: section.settings.collection.title | escape }}"
-          data-i18n-es="Ver todo"
-          data-i18n-en="View all"
         >
           {{ 'sections.featured_collection.view_all' | t }}
         </a>

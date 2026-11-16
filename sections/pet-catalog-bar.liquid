@@ -23,8 +23,8 @@
 
     {%- if section.settings.show_mascot_switcher -%}
       <!-- Level 1: Mascot Switcher -->
-      <div class="pet-mascot-switcher" role="tablist" aria-label="Filtrar por tipo de mascota">
-        <span class="pet-mascot-label" data-i18n-es="Tu Peludo:" data-i18n-en="Your Pet:">Tu Peludo:</span>
+      <div class="pet-mascot-switcher" role="tablist" aria-label="{{ 'pet_cro.catalog_bar.aria_species' | t }}">
+        <span class="pet-mascot-label">{{ 'pet_cro.catalog_bar.your_pet' | t }}</span>
 
         <button
           type="button"
@@ -34,7 +34,7 @@
           aria-selected="true"
         >
           <span class="pet-mascot-icon">✨</span>
-          <span data-i18n-es="Todos" data-i18n-en="All Pets">Todos</span>
+          <span>{{ 'pet_cro.catalog_bar.all_pets' | t }}</span>
         </button>
 
         <button
@@ -45,7 +45,7 @@
           aria-selected="false"
         >
           <span class="pet-mascot-icon">🐶</span>
-          <span data-i18n-es="Perros" data-i18n-en="Dogs">Perros</span>
+          <span>{{ 'pet_cro.catalog_bar.dogs' | t }}</span>
         </button>
 
         <button
@@ -56,14 +56,14 @@
           aria-selected="false"
         >
           <span class="pet-mascot-icon">🐱</span>
-          <span data-i18n-es="Gatos" data-i18n-en="Cats">Gatos</span>
+          <span>{{ 'pet_cro.catalog_bar.cats' | t }}</span>
         </button>
       </div>
     {%- endif -%}
 
     <!-- Level 2: Category Chips / Subcollection Pills -->
     <div class="pet-categories-scroll-wrap">
-      <div class="pet-categories-pills" role="tablist" aria-label="Filtrar por categoría de producto">
+      <div class="pet-categories-pills" role="tablist" aria-label="{{ 'pet_cro.catalog_bar.aria_category' | t }}">
         <button
           type="button"
           class="pet-category-pill is-active"
@@ -72,7 +72,7 @@
           aria-selected="true"
         >
           <span class="pet-category-icon">🐾</span>
-          <span data-i18n-es="Ver Todo" data-i18n-en="View All">Ver Todo</span>
+          <span>{{ 'pet_cro.catalog_bar.view_all' | t }}</span>
         </button>
 
         <button
@@ -83,7 +83,7 @@
           aria-selected="false"
         >
           <span class="pet-category-icon">🥩</span>
-          <span data-i18n-es="Pienso Seco" data-i18n-en="Dry Kibble">Pienso Seco</span>
+          <span>{{ 'pet_cro.catalog_bar.kibble' | t }}</span>
         </button>
 
         <button
@@ -94,7 +94,7 @@
           aria-selected="false"
         >
           <span class="pet-category-icon">🥫</span>
-          <span data-i18n-es="Comida Húmeda" data-i18n-en="Wet Food">Comida Húmeda</span>
+          <span>{{ 'pet_cro.catalog_bar.wet_food' | t }}</span>
         </button>
 
         <button
@@ -105,7 +105,7 @@
           aria-selected="false"
         >
           <span class="pet-category-icon">🦴</span>
-          <span data-i18n-es="Snacks Naturales" data-i18n-en="Natural Treats">Snacks Naturales</span>
+          <span>{{ 'pet_cro.catalog_bar.snacks' | t }}</span>
         </button>
 
         <button
@@ -116,7 +116,7 @@
           aria-selected="false"
         >
           <span class="pet-category-icon">🎾</span>
-          <span data-i18n-es="Juguetes" data-i18n-en="Toys">Juguetes</span>
+          <span>{{ 'pet_cro.catalog_bar.toys' | t }}</span>
         </button>
 
         <button
@@ -127,7 +127,7 @@
           aria-selected="false"
         >
           <span class="pet-category-icon">🧴</span>
-          <span data-i18n-es="Higiene & Cuidados" data-i18n-en="Grooming & Hygiene">Higiene & Cuidados</span>
+          <span>{{ 'pet_cro.catalog_bar.grooming' | t }}</span>
         </button>
 
         <button
@@ -138,7 +138,7 @@
           aria-selected="false"
         >
           <span class="pet-category-icon">💊</span>
-          <span data-i18n-es="Suplementos" data-i18n-en="Supplements">Suplementos</span>
+          <span>{{ 'pet_cro.catalog_bar.supplements' | t }}</span>
         </button>
 
         <button
@@ -149,7 +149,7 @@
           aria-selected="false"
         >
           <span class="pet-category-icon">🦮</span>
-          <span data-i18n-es="Paseo & Accesorios" data-i18n-en="Walk & Accessories">Paseo & Accesorios</span>
+          <span>{{ 'pet_cro.catalog_bar.walk' | t }}</span>
         </button>
       </div>
     </div>
@@ -159,7 +159,7 @@
       <div class="pet-catalog-status-text" data-pet-status-text></div>
       <button type="button" class="pet-catalog-reset-btn" data-pet-reset>
         <span>✕</span>
-        <span data-i18n-es="Limpiar filtros" data-i18n-en="Clear filters">Limpiar filtros</span>
+        <span>{{ 'pet_cro.catalog_bar.clear_filters' | t }}</span>
       </button>
     </div>
 

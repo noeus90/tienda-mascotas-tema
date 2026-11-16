@@ -8,8 +8,6 @@
           <span
             class="bundle-tier-pill"
             id="tier-1-{{ section.id }}"
-            data-i18n-es="2 uds = {{ discount_tier_1 }}% DTO"
-            data-i18n-en="2 pcs = {{ discount_tier_1 }}% OFF"
           >
             {{- 'pet_cro.bundle.tier_1_label' | t: discount: discount_tier_1 -}}
           </span>
@@ -17,8 +15,6 @@
           <span
             class="bundle-tier-pill"
             id="tier-2-{{ section.id }}"
-            data-i18n-es="{{ goal_units }}+ uds = {{ discount_tier_2 }}% DTO"
-            data-i18n-en="{{ goal_units }}+ pcs = {{ discount_tier_2 }}% OFF"
           >
             {{- 'pet_cro.bundle.tier_2_label' | t: goal: goal_units, discount: discount_tier_2 -}}
           </span>
@@ -31,7 +27,7 @@
         aria-valuemin="0"
         aria-valuemax="{{ goal_units }}"
         aria-valuenow="0"
-        aria-label="{{ section.settings.heading | escape }}"
+        aria-label="{{ 'pet_cro.bundle.progress_aria' | t }}"
       >
         <div class="bundle-bar-fill" id="bundle-bar-{{ section.id }}"></div>
       </div>

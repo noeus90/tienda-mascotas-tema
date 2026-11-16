@@ -130,10 +130,6 @@
             -%}
             <h2
               class="banner__heading inline-richtext {{ block.settings.heading_size }}"
-              {% if is_default_pet_banner %}
-                data-i18n-es="Nutrición Natural y Peluquería Canina sin Estrés"
-                data-i18n-en="Natural Nutrition & Stress-Free Dog Grooming"
-              {% endif %}
               {{ block.shopify_attributes }}
             >
               {%- if is_default_pet_banner -%}
@@ -171,10 +167,6 @@
                     href="{{ block.settings.button_link_1 }}"
                   {% endif %}
                   class="button{% if block.settings.button_style_secondary_1 %} button--secondary{% else %} button--primary{% endif %}"
-                  {% if is_default_pet_btn %}
-                    data-i18n-es="Ver Tienda Animal"
-                    data-i18n-en="Shop Pet Store"
-                  {% endif %}
                 >
                   {%- if is_default_pet_btn -%}
                     {%- if btn_locale == 'en' -%}Shop Pet Store{%- else -%}Ver Tienda Animal{%- endif -%}

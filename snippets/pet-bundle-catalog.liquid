@@ -47,8 +47,6 @@
                 <button
                   type="button"
                   class="bundle-add-btn"
-                  data-i18n-es="+ Añadir al Pack"
-                  data-i18n-en="+ Add to Pack"
                 >
                   {{ 'pet_cro.bundle.add_btn' | t }}
                 </button>
@@ -60,12 +58,6 @@
           {%- assign demo_names = 'pet_cro.bundle.demo_names' | t | split: '|' -%}
           {%- assign demo_benefits = 'pet_cro.bundle.demo_benefits' | t | split: '|' -%}
           {%- assign demo_tags = 'pet_cro.bundle.demo_tags' | t | split: '|' -%}
-          {%- assign names_es = 'Pienso Salmón & Boniato Grain-Free (3 kg)|Snacks Dentales Naturales de Ciervo|Champú Dermoprotector Avena & Aloe|Aceite de Salmón Puro Omega 3-6|Bálsamo Reparador Trufa y Almohadillas|Juguete Mordedor Caucho Natural' | split: '|' -%}
-          {%- assign names_en = 'Salmon & Sweet Potato Grain-Free Kibble (3 kg)|Natural Deer Dental Chews|Dermoprotective Oatmeal & Aloe Shampoo|Pure Omega 3-6 Salmon Oil|Nose & Paw Pad Repair Balm|Natural Rubber Chew Toy' | split: '|' -%}
-          {%- assign benefits_es = 'Alta digestibilidad, pelo brillante y articulaciones fuertes|Limpia el sarro y refuerza las encías de forma natural|Calma el picor y respeta el pH neutro (7.0) de su piel|Reduce la caída del pelo y refuerza el sistema inmune|Hidrata y protege las patas frente al asfalto y el frío|Resistente, interactivo y rellenable con premios' | split: '|' -%}
-          {%- assign benefits_en = 'High digestibility, shiny coat, and strong joints|Naturally cleans tartar and strengthens gums|Soothes itching and respects their skin’s neutral pH (7.0)|Reduces shedding and strengthens the immune system|Moisturizes and protects paws from hot pavement and cold|Durable, interactive, and treat-dispensing' | split: '|' -%}
-          {%- assign tags_es = 'Nutrición|Snacks|Higiene|Suplemento|Cuidado Patas|Enriquecimiento' | split: '|' -%}
-          {%- assign tags_en = 'Nutrition|Snacks|Grooming|Supplement|Paw Care|Enrichment' | split: '|' -%}
           {%- assign demo_prices = '2690|990|1650|1890|1350|1490' | split: '|' -%}
 
           {%- for demo_name in demo_names -%}
@@ -75,14 +67,10 @@
               class="bundle-prod-card"
               data-id="demo-{{ forloop.index }}"
               data-title="{{ demo_name }}"
-              data-title-es="{{ names_es[idx] }}"
-              data-title-en="{{ names_en[idx] }}"
               data-price="{{ price_cents }}"
             >
               <span
                 class="bundle-prod-tag"
-                data-i18n-es="{{ tags_es[idx] }}"
-                data-i18n-en="{{ tags_en[idx] }}"
               >
                 {{- demo_tags[idx] -}}
               </span>
@@ -91,15 +79,11 @@
               </div>
               <h3
                 class="bundle-prod-title"
-                data-i18n-es="{{ names_es[idx] }}"
-                data-i18n-en="{{ names_en[idx] }}"
               >
                 {{- demo_name -}}
               </h3>
               <p
                 class="bundle-prod-benefit"
-                data-i18n-es="{{ benefits_es[idx] }}"
-                data-i18n-en="{{ benefits_en[idx] }}"
               >
                 {{- demo_benefits[idx] -}}
               </p>
@@ -108,8 +92,6 @@
                 <button
                   type="button"
                   class="bundle-add-btn"
-                  data-i18n-es="+ Añadir al Pack"
-                  data-i18n-en="+ Add to Pack"
                 >
                   {{ 'pet_cro.bundle.add_btn' | t }}
                 </button>

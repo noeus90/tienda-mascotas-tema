@@ -78,29 +78,17 @@
                 {%- if block.settings.heading != blank -%}
                   {%- liquid
                     assign raw_footer_heading = block.settings.heading | strip
-                    assign footer_heading_es = ''
-                    assign footer_heading_en = ''
                     assign footer_heading_display = raw_footer_heading
                     if raw_footer_heading == 'Quick links' or raw_footer_heading == 'Enlaces rápidos'
-                      assign footer_heading_es = 'Enlaces rápidos'
-                      assign footer_heading_en = 'Quick links'
                       assign footer_heading_display = 'pet_cro.footer.quick_links' | t
                     elsif raw_footer_heading == 'Info' or raw_footer_heading == 'Información' or raw_footer_heading == 'Tienda Animal & Peluquería' or raw_footer_heading == 'Pet Store & Grooming Salon'
-                      assign footer_heading_es = 'Tienda Animal & Peluquería'
-                      assign footer_heading_en = 'Pet Store & Grooming Salon'
                       assign footer_heading_display = 'pet_cro.footer.info_heading' | t
                     elsif raw_footer_heading == 'Our mission' or raw_footer_heading == 'Nuestra misión'
-                      assign footer_heading_es = 'Nuestra misión'
-                      assign footer_heading_en = 'Our mission'
                       assign footer_heading_display = 'pet_cro.footer.mission_heading' | t
                     endif
                   -%}
                   <h2
                     class="footer-block__heading inline-richtext"
-                    {% if footer_heading_es != '' %}
-                      data-i18n-es="{{ footer_heading_es | escape }}"
-                      data-i18n-en="{{ footer_heading_en | escape }}"
-                    {% endif %}
                   >
                     {{- footer_heading_display -}}
                   </h2>
@@ -119,24 +107,14 @@
                         {%- for link in block.settings.menu.links -%}
                           {%- liquid
                             assign fl_title_down = link.title | strip | downcase
-                            assign fl_es = ''
-                            assign fl_en = ''
                             assign fl_display = link.title | escape
                             if fl_title_down == 'home' or fl_title_down == 'inicio'
-                              assign fl_es = 'Inicio'
-                              assign fl_en = 'Home'
                               assign fl_display = 'pet_cro.nav.home' | t
                             elsif fl_title_down == 'catalog' or fl_title_down == 'catálogo' or fl_title_down == 'catalogo'
-                              assign fl_es = 'Catálogo'
-                              assign fl_en = 'Catalog'
                               assign fl_display = 'pet_cro.nav.catalog' | t
                             elsif fl_title_down == 'contact' or fl_title_down == 'contacto'
-                              assign fl_es = 'Contacto'
-                              assign fl_en = 'Contact'
                               assign fl_display = 'pet_cro.nav.contact' | t
                             elsif fl_title_down == 'search' or fl_title_down == 'buscar' or fl_title_down == 'búsqueda'
-                              assign fl_es = 'Buscar'
-                              assign fl_en = 'Search'
                               assign fl_display = 'pet_cro.nav.search' | t
                             endif
                           -%}
@@ -144,10 +122,6 @@
                             <a
                               href="{{ link.url }}"
                               class="link link--text list-menu__item list-menu__item--link{% if link.active %} list-menu__item--active{% endif %}"
-                              {% if fl_es != '' %}
-                                data-i18n-es="{{ fl_es }}"
-                                data-i18n-en="{{ fl_en }}"
-                              {% endif %}
                             >
                               {{ fl_display }}
                             </a>
@@ -232,8 +206,6 @@
                 {%- if is_default_nl -%}
                   <h2
                     class="footer-block__heading inline-richtext"
-                    data-i18n-es="Únete al Club de Familias Perrunas y recibe un 10% DTO"
-                    data-i18n-en="Join our Pet Parents Club & get 10% OFF"
                   >
                     {{- 'pet_cro.footer.newsletter_heading' | t -}}
                   </h2>
@@ -263,15 +235,11 @@
                         aria-describedby="ContactFooter-success"
                       {% endif %}
                       placeholder="{{ 'newsletter.label' | t }}"
-                      data-i18n-placeholder-es="Correo electrónico"
-                      data-i18n-placeholder-en="Email"
                       required
                     >
                     <label
                       class="field__label"
                       for="NewsletterForm--{{ section.id }}"
-                      data-i18n-es="Correo electrónico"
-                      data-i18n-en="Email"
                     >
                       {{ 'newsletter.label' | t }}
                     </label>
@@ -281,8 +249,6 @@
                       name="commit"
                       id="Subscribe"
                       aria-label="{{ 'newsletter.button_label' | t }}"
-                      data-i18n-aria-es="Suscribirse"
-                      data-i18n-aria-en="Subscribe"
                     >
                       <span class="svg-wrapper">
                         {{- 'icon-arrow.svg' | inline_asset_content -}}

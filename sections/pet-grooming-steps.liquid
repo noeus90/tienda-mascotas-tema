@@ -43,10 +43,6 @@
       {%- if section.settings.kicker != blank -%}
         <span
           class="grooming-steps-kicker"
-          {% if is_default_gs_kicker %}
-            data-i18n-es="Guía de Peluquería Canina"
-            data-i18n-en="Dog Grooming Guide"
-          {% endif %}
         >
           {%- if is_default_gs_kicker and gs_locale == 'en' -%}
             Dog Grooming Guide
@@ -55,12 +51,7 @@
           {%- endif -%}
         </span>
       {%- endif -%}
-      <h2
-        {% if is_default_gs_heading %}
-          data-i18n-es="Su Rutina de Higiene y Manto en 4 Pasos"
-          data-i18n-en="Their 4-Step Coat & Hygiene Routine"
-        {% endif %}
-      >
+      <h2>
         {%- if is_default_gs_heading and gs_locale == 'en' -%}
           Their 4-Step Coat & Hygiene Routine
         {%- else -%}
@@ -68,12 +59,7 @@
         {%- endif -%}
       </h2>
       {%- if section.settings.subheading != blank -%}
-        <p
-          {% if is_default_gs_sub %}
-            data-i18n-es="Sigue el orden recomendado por nuestros peluqueros caninos y veterinarios para mantener su pelo sano, limpio y brillante."
-            data-i18n-en="Follow the order recommended by our dog groomers and veterinarians to keep their coat healthy, clean, and shiny."
-          {% endif %}
-        >
+        <p>
           {%- if is_default_gs_sub and gs_locale == 'en' -%}
             Follow the order recommended by our dog groomers and veterinarians to keep their coat healthy, clean, and shiny.
           {%- else -%}
@@ -145,16 +131,12 @@
           <div class="grooming-steps-meta">
             <span
               class="grooming-steps-badge"
-              data-i18n-es="Paso {{ forloop.index }}"
-              data-i18n-en="Step {{ forloop.index }}"
             >
               {{- 'pet_cro.grooming_steps.step_num' | t: number: forloop.index -}}
             </span>
             {%- if step_timing != blank -%}
               <span
                 class="grooming-steps-timing-tag"
-                data-i18n-es="{{ timing_es | escape }}"
-                data-i18n-en="{{ timing_en | escape }}"
               >
                 {%- if gs_locale == 'en' -%}{{ timing_en }}{%- else -%}{{ timing_es }}{%- endif -%}
               </span>
@@ -193,8 +175,6 @@
           <div class="grooming-steps-card-body">
             <span
               class="grooming-steps-category-title"
-              data-i18n-es="{{ cat_es | escape }}"
-              data-i18n-en="{{ cat_en | escape }}"
             >
               {%- if gs_locale == 'en' -%}{{ cat_en }}{%- else -%}{{ cat_es }}{%- endif -%}
             </span>
@@ -216,8 +196,6 @@
             {%- if step_desc != blank -%}
               <p
                 class="grooming-steps-desc"
-                data-i18n-es="{{ desc_es | escape }}"
-                data-i18n-en="{{ desc_en | escape }}"
               >
                 {%- if gs_locale == 'en' -%}{{ desc_en }}{%- else -%}{{ desc_es }}{%- endif -%}
               </p>
@@ -252,10 +230,7 @@
                 href="{% if step_product != blank %}{{ step_product.url }}{% else %}#{% endif %}"
                 class="grooming-steps-btn-link"
               >
-                <span
-                  data-i18n-es="Ver producto"
-                  data-i18n-en="View product"
-                >
+                <span>
                   {{- 'pet_cro.grooming_steps.view_step' | t -}}
                 </span>
                 <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -291,24 +266,14 @@
       -%}
       <div class="grooming-steps-bundle-banner">
         <div class="grooming-steps-bundle-info">
-          <h3
-            {% if is_default_b_h %}
-              data-i18n-es="Pack Rutina Completa de Manto"
-              data-i18n-en="Complete Coat Routine Bundle"
-            {% endif %}
-          >
+          <h3>
             {%- if is_default_b_h and gs_locale == 'en' -%}
               Complete Coat Routine Bundle
             {%- else -%}
               {{ section.settings.bundle_heading }}
             {%- endif -%}
           </h3>
-          <p
-            {% if is_default_b_sub %}
-              data-i18n-es="Lleva los 4 pasos juntos y ahorra un 15% en el cuidado diario de tu peludo."
-              data-i18n-en="Get all 4 steps together and save 15% on your pet's daily care."
-            {% endif %}
-          >
+          <p>
             {%- if is_default_b_sub and gs_locale == 'en' -%}
               Get all 4 steps together and save 15% on your pet's daily care.
             {%- else -%}
@@ -320,10 +285,6 @@
           <a
             href="{{ section.settings.bundle_link }}"
             class="grooming-steps-bundle-btn"
-            {% if is_default_b_btn %}
-              data-i18n-es="Comprar rutina completa (-15%) &rarr;"
-              data-i18n-en="Shop complete routine (-15%) &rarr;"
-            {% endif %}
           >
             {%- if is_default_b_btn and gs_locale == 'en' -%}
               Shop complete routine (-15%)

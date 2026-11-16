@@ -24,8 +24,6 @@
       <h2
         class="promo-banner-title"
         {% if section.settings.heading == '-20% en tu 1ª Sesión de Peluquería Canina' %}
-          data-i18n-es="-20% en tu 1ª Sesión de Peluquería Canina"
-          data-i18n-en="-20% on your 1st Dog Grooming Session"
         {% endif %}
       >
         {{- section.settings.heading | escape -}}
@@ -35,10 +33,6 @@
     {%- if section.settings.subheading != blank -%}
       <div
         class="promo-banner-subtitle"
-        {% if section.settings.subheading contains 'Incluye baño dermoprotector con ozonoterapia' %}
-          data-i18n-html-es="<p>Incluye baño dermoprotector con ozonoterapia, corte según raza, limpieza de oídos y corte de uñas.</p>"
-          data-i18n-html-en="<p>Includes dermoprotective ozone bath, breed-specific haircut, ear cleaning, and nail trim.</p>"
-        {% endif %}
       >
         {{- section.settings.subheading -}}
       </div>
@@ -48,10 +42,6 @@
       <a
         href="{{ section.settings.button_link }}"
         class="promo-banner-btn"
-        {% if section.settings.button_label == 'Reservar Cita Ahora' %}
-          data-i18n-es="Reservar Cita Ahora"
-          data-i18n-en="Book Appointment Now"
-        {% endif %}
       >
         {{ section.settings.button_label | escape }}
       </a>

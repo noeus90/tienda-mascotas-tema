@@ -90,10 +90,6 @@
       {%- if section.settings.kicker != blank -%}
         <span
           class="bundle-kicker"
-          {% if is_default_bb_kicker %}
-            data-i18n-es="Ahorra Combinando sus Favoritos"
-            data-i18n-en="Save by Mixing Their Favorites"
-          {% endif %}
         >
           {%- if is_default_bb_kicker and bb_locale == 'en' -%}
             Save by Mixing Their Favorites
@@ -102,12 +98,7 @@
           {%- endif -%}
         </span>
       {%- endif -%}
-      <h2
-        {% if is_default_bb_h %}
-          data-i18n-es="Crea el Pack de tu Peludo y Ahorra hasta un 15%"
-          data-i18n-en="Build Your Pet's Pack & Save up to 15%"
-        {% endif %}
-      >
+      <h2>
         {%- if is_default_bb_h and bb_locale == 'en' -%}
           Build Your Pet's Pack & Save up to 15%
         {%- else -%}
@@ -115,12 +106,7 @@
         {%- endif -%}
       </h2>
       {%- if section.settings.subheading != blank -%}
-        <p
-          {% if is_default_bb_sub %}
-            data-i18n-es="Elige 2 productos para obtener un 10% DTO o combina 3 o más (pienso, snacks, champú o cuidados) para desbloquear el 15% de descuento directo."
-            data-i18n-en="Pick 2 items for 10% OFF or mix 3+ (food, treats, shampoo, or care) to unlock an instant 15% discount."
-          {% endif %}
-        >
+        <p>
           {%- if is_default_bb_sub and bb_locale == 'en' -%}
             Pick 2 items for 10% OFF or mix 3+ (food, treats, shampoo, or care) to unlock an instant 15% discount.
           {%- else -%}

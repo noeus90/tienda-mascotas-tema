@@ -51,10 +51,6 @@
           <span class="trust-badges-stars" aria-hidden="true">★★★★★</span>
           <span
             class="trust-badges-review-text"
-            {% if is_default_tb_review %}
-              data-i18n-es="{{ section.settings.review_score }} · +2.400 familias perrunas felices"
-              data-i18n-en="{{ section.settings.review_score }} · +2,400 happy pet families"
-            {% endif %}
           >
             {%- if is_default_tb_review and tb_locale == 'en' -%}
               {{ section.settings.review_score }} · +2,400 happy pet families
@@ -67,12 +63,7 @@
               <svg aria-hidden="true" focusable="false" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
-              <span
-                {% if is_default_tb_verified %}
-                  data-i18n-es="Peluquería & Tienda Verificada"
-                  data-i18n-en="Verified Grooming Salon & Store"
-                {% endif %}
-              >
+              <span>
                 {%- if is_default_tb_verified and tb_locale == 'en' -%}
                   Verified Grooming Salon & Store
                 {%- else -%}
@@ -85,12 +76,7 @@
       {%- endif -%}
 
       {%- if section.settings.heading != blank -%}
-        <h2
-          {% if is_default_tb_heading %}
-            data-i18n-es="Alimentación Natural y Peluquería Canina Respaldada por Expertos"
-            data-i18n-en="Expert-Backed Natural Pet Food & Dog Grooming"
-          {% endif %}
-        >
+        <h2>
           {%- if is_default_tb_heading and tb_locale == 'en' -%}
             Expert-Backed Natural Pet Food & Dog Grooming
           {%- else -%}
@@ -99,12 +85,7 @@
         </h2>
       {%- endif -%}
       {%- if section.settings.subheading != blank -%}
-        <p
-          {% if is_default_tb_sub %}
-            data-i18n-es="Todo lo que tu compañero necesita para estar sano por dentro y radiante por fuera."
-            data-i18n-en="Everything your companion needs to stay healthy inside and radiant outside."
-          {% endif %}
-        >
+        <p>
           {%- if is_default_tb_sub and tb_locale == 'en' -%}
             Everything your companion needs to stay healthy inside and radiant outside.
           {%- else -%}
@@ -189,23 +170,15 @@
           {%- if block.settings.certificate_tag != blank -%}
             <span
               class="trust-badge-cert-tag"
-              data-i18n-es="{{ cert_es | escape }}"
-              data-i18n-en="{{ cert_en | escape }}"
             >
               {%- if tb_locale == 'en' -%}{{ cert_en }}{%- else -%}{{ cert_es }}{%- endif -%}
             </span>
           {%- endif -%}
 
-          <h3
-            data-i18n-es="{{ h_es | escape }}"
-            data-i18n-en="{{ h_en | escape }}"
-          >
+          <h3>
             {%- if tb_locale == 'en' -%}{{ h_en }}{%- else -%}{{ h_es }}{%- endif -%}
           </h3>
-          <p
-            data-i18n-es="{{ desc_es | escape }}"
-            data-i18n-en="{{ desc_en | escape }}"
-          >
+          <p>
             {%- if tb_locale == 'en' -%}{{ desc_en }}{%- else -%}{{ desc_es }}{%- endif -%}
           </p>
         </div>

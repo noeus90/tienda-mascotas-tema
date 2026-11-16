@@ -727,7 +727,8 @@
       "msg_tier_1": "🐾 Tienes un {{ dto1 }}% DTO. ¡Añade {{ missing }} más para conseguir un {{ dto2 }}% DTO!",
       "msg_completed": "🎉 ¡Guau! Has desbloqueado el {{ discount }}% de descuento máximo en el pack de tu peludo",
       "tier_1_label": "2 uds = {{ discount }}% DTO",
-      "tier_2_label": "{{ goal }}+ uds = {{ discount }}% DTO"
+      "tier_2_label": "{{ goal }}+ uds = {{ discount }}% DTO",
+      "progress_aria": "Progreso del pack"
     },
     "showcase": {
       "empty_state": "Selecciona una colección de productos para mascotas desde la barra lateral del editor"
@@ -815,6 +816,23 @@
     },
     "seo": {
       "home": "Inicio"
+    },
+    "catalog_bar": {
+      "your_pet": "Tu Peludo:",
+      "all_pets": "Todos",
+      "dogs": "Perros",
+      "cats": "Gatos",
+      "view_all": "Ver Todo",
+      "kibble": "Pienso Seco",
+      "wet_food": "Comida Húmeda",
+      "snacks": "Snacks Naturales",
+      "toys": "Juguetes",
+      "grooming": "Higiene & Cuidados",
+      "supplements": "Suplementos",
+      "walk": "Paseo & Accesorios",
+      "clear_filters": "Limpiar filtros",
+      "aria_species": "Filtrar por tipo de mascota",
+      "aria_category": "Filtrar por categoría de producto"
     }
   }
 }
