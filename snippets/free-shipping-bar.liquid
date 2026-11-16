@@ -1,0 +1,136 @@
+{%- doc -%}
+  2-Tier CRO Cart Rewards Progress Bar based on cart.total_price:
+  - Tier 1: Free 24/48h Shipping (default: 45.00 € -> 4500 cents).
+  - Tier 2: Free Natural Pet Treat Gift (default: 65.00 € -> 6500 cents).
+
+  @param {number} [shipping_threshold_cents] - (Optional) Threshold in cents for free shipping (default: 4500).
+  @param {number} [gift_threshold_cents] - (Optional) Threshold in cents for free pet treat (default: 6500).
+  @param {string} [gift_name] - (Optional) Name of the unlockable pet gift (defaults to localized 'Natural Dental Chew').
+
+  @example
+  {% render 'free-shipping-bar' %}
+{%- enddoc -%}
+
+{%- liquid
+  assign default_gift = 'pet_cro.free_shipping.default_gift' | t
+  assign gift_es = gift_name | default: 'Snack Natural Dental'
+  assign gift_en = gift_name | default: 'Natural Dental Chew'
+  assign shipping_goal = shipping_threshold_cents | default: 4500
+  assign gift_goal = gift_threshold_cents | default: 6500
+  assign gift_label = gift_name | default: default_gift
+  assign current_total = cart.total_price | default: 0
+
+  assign missing_shipping = shipping_goal | minus: current_total
+  assign missing_gift = gift_goal | minus: current_total
+  assign missing_shipping_money = missing_shipping | money
+  assign missing_gift_money = missing_gift | money
+
+  assign progress_pct = current_total | times: 100.0 | divided_by: gift_goal | round
+  if progress_pct > 100
+    assign progress_pct = 100
+  endif
+
+  assign shipping_milestone_pos = shipping_goal | times: 100.0 | divided_by: gift_goal | round
+-%}
+
+<div
+  class="cro-shipping-bar"
+  role="region"
+  aria-label="{{ 'pet_cro.free_shipping.aria_label' | t }}"
+  data-i18n-aria-es="Progreso de recompensas del carrito"
+  data-i18n-aria-en="Cart rewards progress"
+  data-cro-shipping-bar
+  data-current-total="{{ current_total }}"
+  data-shipping-goal="{{ shipping_goal }}"
+  data-gift-goal="{{ gift_goal }}"
+  data-tpl-shipping="{{ 'pet_cro.free_shipping.missing_shipping_html' | t: amount: '__AMOUNT__' | escape }}"
+  data-tpl-gift="{{ 'pet_cro.free_shipping.missing_gift_html' | t: amount: '__AMOUNT__', gift: gift_label | escape }}"
+  data-tpl-complete="{{ 'pet_cro.free_shipping.completed_html' | t: gift: gift_label | escape }}"
+  data-tpl-shipping-es="🚚 Te faltan <strong>__AMOUNT__</strong> para conseguir <strong>Envío 24h GRATIS</strong>"
+  data-tpl-shipping-en="🚚 You are <strong>__AMOUNT__</strong> away from <strong>FREE 24h Shipping</strong>"
+  data-tpl-gift-es="✅ ¡Tienes <strong>Envío GRATIS</strong>! Añade <strong>__AMOUNT__</strong> más para tu <strong>{{ gift_es | escape }} GRATIS 🦴</strong>"
+  data-tpl-gift-en="✅ You unlocked <strong>FREE Shipping</strong>! Add <strong>__AMOUNT__</strong> more for your <strong>FREE {{ gift_en | escape }} 🦴</strong>"
+  data-tpl-complete-es="🎉 ¡Guau! Tienes <strong>Envío 24h GRATIS</strong> + <strong>{{ gift_es | escape }} de Regalo 🐾</strong>"
+  data-tpl-complete-en="🎉 Woof! You unlocked <strong>FREE 24h Shipping</strong> + <strong>Free {{ gift_en | escape }} 🐾</strong>"
+>
+  <!-- Dynamic Reward Status Message -->
+  <div class="cro-shipping-msg" data-shipping-msg aria-live="polite" aria-atomic="true">
+    {%- if current_total < shipping_goal -%}
+      <span
+        data-i18n-html-es="🚚 Te faltan <strong>{{ missing_shipping_money }}</strong> para conseguir <strong>Envío 24h GRATIS</strong>"
+        data-i18n-html-en="🚚 You are <strong>{{ missing_shipping_money }}</strong> away from <strong>FREE 24h Shipping</strong>"
+      >
+        {{ 'pet_cro.free_shipping.missing_shipping_html' | t: amount: missing_shipping_money }}
+      </span>
+    {%- elsif current_total < gift_goal -%}
+      <span
+        data-i18n-html-es="✅ ¡Tienes <strong>Envío GRATIS</strong>! Añade <strong>{{ missing_gift_money }}</strong> más para tu <strong>{{ gift_es | escape }} GRATIS 🦴</strong>"
+        data-i18n-html-en="✅ You unlocked <strong>FREE Shipping</strong>! Add <strong>{{ missing_gift_money }}</strong> more for your <strong>FREE {{ gift_en | escape }} 🦴</strong>"
+      >
+        {{ 'pet_cro.free_shipping.missing_gift_html' | t: amount: missing_gift_money, gift: gift_label }}
+      </span>
+    {%- else -%}
+      <span
+        class="is-complete"
+        data-i18n-html-es="🎉 ¡Guau! Tienes <strong>Envío 24h GRATIS</strong> + <strong>{{ gift_es | escape }} de Regalo 🐾</strong>"
+        data-i18n-html-en="🎉 Woof! You unlocked <strong>FREE 24h Shipping</strong> + <strong>Free {{ gift_en | escape }} 🐾</strong>"
+      >
+        {{ 'pet_cro.free_shipping.completed_html' | t: gift: gift_label }}
+      </span>
+    {%- endif -%}
+  </div>
+
+  <!-- Progress Track with Milestone Markers -->
+  <div class="cro-shipping-track-wrapper">
+    <div
+      class="cro-shipping-track"
+      data-shipping-track
+      role="progressbar"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="{{ progress_pct }}"
+      aria-label="{{ 'pet_cro.free_shipping.aria_label' | t }}"
+      data-i18n-aria-es="Progreso de recompensas del carrito"
+      data-i18n-aria-en="Cart rewards progress"
+    >
+      <div class="cro-shipping-fill" data-shipping-fill style="width: {{ progress_pct }}%;"></div>
+    </div>
+
+    <!-- Milestone 1: Free 24h Shipping -->
+    <div
+      class="cro-shipping-milestone {% if current_total >= shipping_goal %}is-reached{% endif %}"
+      data-milestone="shipping"
+      style="left: {{ shipping_milestone_pos }}%;"
+      title="{{ 'pet_cro.free_shipping.milestone_shipping' | t }} ({{ shipping_goal | money }})"
+    >
+      <div class="cro-milestone-dot" data-milestone-dot="🚚">
+        {%- if current_total >= shipping_goal -%}✓{%- else -%}🚚{%- endif -%}
+      </div>
+      <span
+        class="cro-milestone-label"
+        data-i18n-es="Envío Gratis ({{ shipping_goal | money_without_trailing_zeros }})"
+        data-i18n-en="Free Shipping ({{ shipping_goal | money_without_trailing_zeros }})"
+      >
+        {{- 'pet_cro.free_shipping.milestone_shipping' | t }} ({{ shipping_goal | money_without_trailing_zeros }})
+      </span>
+    </div>
+
+    <!-- Milestone 2: Free Pet Treat Gift -->
+    <div
+      class="cro-shipping-milestone is-last {% if current_total >= gift_goal %}is-reached{% endif %}"
+      data-milestone="gift"
+      title="{{ 'pet_cro.free_shipping.milestone_gift' | t }} ({{ gift_goal | money }})"
+    >
+      <div class="cro-milestone-dot" data-milestone-dot="🦴">
+        {%- if current_total >= gift_goal -%}✓{%- else -%}🦴{%- endif -%}
+      </div>
+      <span
+        class="cro-milestone-label"
+        data-i18n-es="Snack Regalo ({{ gift_goal | money_without_trailing_zeros }})"
+        data-i18n-en="Free Treat ({{ gift_goal | money_without_trailing_zeros }})"
+      >
+        {{- 'pet_cro.free_shipping.milestone_gift' | t }} ({{ gift_goal | money_without_trailing_zeros }})
+      </span>
+    </div>
+  </div>
+</div>

@@ -7,9 +7,11 @@
 
 {{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-pet-cro.css' | asset_url | stylesheet_tag }}
 
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'pet-cro.js' | asset_url }}" defer="defer"></script>
 
 <style>
   .drawer {
@@ -31,7 +33,13 @@
         <div class="drawer__inner-empty">
           <div class="cart-drawer__warnings center{% if settings.cart_drawer_collection != blank %} cart-drawer__warnings--has-collection{% endif %}">
             <div class="cart-drawer__empty-content">
-              <h2 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h2>
+              <h2
+                class="cart__empty-text"
+                data-i18n-es="Tu carrito esta vacío"
+                data-i18n-en="Your cart is empty"
+              >
+                {{ 'sections.cart.empty' | t }}
+              </h2>
               <button
                 class="drawer__close"
                 type="button"
@@ -42,12 +50,23 @@
                   {{- 'icon-close.svg' | inline_asset_content -}}
                 </span>
               </button>
-              <a href="{{ routes.all_products_collection_url }}" class="button">
+              <a
+                href="{{ routes.all_products_collection_url }}"
+                class="button"
+                data-i18n-es="Seguir comprando"
+                data-i18n-en="Continue shopping"
+              >
                 {{ 'general.continue_shopping' | t }}
               </a>
 
               {%- if shop.customer_accounts_enabled and customer == null -%}
-                <p class="cart__login-title h3">{{ 'sections.cart.login.title' | t }}</p>
+                <p
+                  class="cart__login-title h3"
+                  data-i18n-es="¿Tienes una cuenta?"
+                  data-i18n-en="Have an account?"
+                >
+                  {{ 'sections.cart.login.title' | t }}
+                </p>
                 <p class="cart__login-paragraph">
                   {{ 'sections.cart.login.paragraph_html' | t: link: routes.account_login_url }}
                 </p>
@@ -62,7 +81,13 @@
         </div>
       {%- endif -%}
       <div class="drawer__header">
-        <h2 class="drawer__heading">{{ 'sections.cart.title' | t }}</h2>
+        <h2
+          class="drawer__heading"
+          data-i18n-es="Tu carrito"
+          data-i18n-en="Your cart"
+        >
+          {{ 'sections.cart.title' | t }}
+        </h2>
         <button
           class="drawer__close"
           type="button"
@@ -89,6 +114,7 @@
         >
           <div id="CartDrawer-CartItems" class="drawer__contents js-contents">
             {%- if cart != empty -%}
+              {% render 'free-shipping-bar' %}
               <div class="drawer__cart-items-wrapper">
                 <table class="cart-items" role="table">
                   <thead role="rowgroup">
@@ -101,6 +127,8 @@
                         class="caption-with-letter-spacing"
                         scope="col"
                         role="columnheader"
+                        data-i18n-es="Producto"
+                        data-i18n-en="Product"
                       >
                         {{ 'sections.cart.headings.product' | t }}
                       </th>
@@ -109,6 +137,8 @@
                         class="right caption-with-letter-spacing"
                         scope="col"
                         role="columnheader"
+                        data-i18n-es="Total"
+                        data-i18n-en="Total"
                       >
                         {{ 'sections.cart.headings.total' | t }}
                       </th>
@@ -527,7 +557,13 @@
           </div>
 
           <div class="totals" role="status">
-            <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
+            <h2
+              class="totals__total"
+              data-i18n-es="Total estimado"
+              data-i18n-en="Estimated total"
+            >
+              {{ 'sections.cart.estimated_total' | t }}
+            </h2>
             <p class="totals__total-value">{{ cart.total_price | money_with_currency }}</p>
           </div>
 
@@ -584,6 +620,8 @@
             {% if cart == empty %}
               disabled
             {% endif %}
+            data-i18n-es="Pagar pedido"
+            data-i18n-en="Check out"
           >
             {{ 'sections.cart.checkout' | t }}
           </button>
