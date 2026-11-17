@@ -110,13 +110,13 @@
               {%- endif -%}
               {%- if mf_benefits != blank -%}
                 <div class="cro-panel-text">
-                  {{ mf_benefits }}
+                  {{ mf_benefits | newline_to_br }}
                 </div>
               {%- endif -%}
             {%- when 'ingredients' -%}
               {%- if mf_ingredients != blank -%}
                 <div class="cro-panel-text">
-                  {{ mf_ingredients }}
+                  {{ mf_ingredients | newline_to_br }}
                 </div>
               {%- endif -%}
               {%- if mf_composition != blank -%}
@@ -125,13 +125,13 @@
                     {{ 'pet_cro.tabs.view_composition' | t }}
                   </summary>
                   <div class="cro-inci-text">
-                    {{ mf_composition }}
+                    {{ mf_composition | newline_to_br }}
                   </div>
                 </details>
               {%- endif -%}
             {%- when 'usage' -%}
               <div class="cro-panel-text">
-                {{ mf_usage }}
+                {{ mf_usage | newline_to_br }}
               </div>
           {%- endcase -%}
         </div>
