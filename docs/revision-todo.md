@@ -20,6 +20,17 @@ Medido el 16/11/2026 sobre la vista previa del tema de desarrollo (#189706305839
 
 El diseño no salta en ninguna página (CLS ≈ 0).
 
+**Repetición del 17/11/2026** (después de los arreglos de accesibilidad, misma forma de medir):
+
+| Página | Accesibilidad | Buenas prácticas | Rendimiento (mediana) |
+|---|---|---|---|
+| Portada | 91 (=) | 77 (=) | 97 |
+| Colección | 91 (+4) | 77 (=) | 86 |
+| Producto | 92 (+4) | 77 (+4) | 95 |
+| Carrito | 94 (+4) | 77 (+4) | 100 |
+
+Lo que sigue marcando: el iframe de la barra de vista previa de Shopify (solo lo ven administradores), textos en "blanco sobre blanco" que son falsos positivos de la animación de aparición al desplazarse de Dawn, y el botón de idioma del pie en móvil (tapado en parte, probablemente por la barra de vista previa).
+
 **Hallazgos:**
 - 🔴 **Error de JavaScript en producto y carrito:** `SyntaxError: Identifier 'PET_STORE_TRANSLATIONS' has already been declared`. Lo provoca cargar `pet-cro.js` dos veces. Baja la nota de buenas prácticas.
 - 🟠 **La primera visita a la colección bloquea la página 1,5 s.** La mayor parte la causa `shopify-perf-kit` (de Shopify, no del tema). El resto es el propio HTML de la colección y `pet-catalog-bar.js`.
