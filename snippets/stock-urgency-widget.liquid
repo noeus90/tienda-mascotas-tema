@@ -27,8 +27,10 @@
   endif
 
   assign scarcity_bar_pct = qty | times: 100.0 | divided_by: scarcity_limit | round
-  if scarcity_bar_pct > 100 or scarcity_bar_pct < 15
-    assign scarcity_bar_pct = 25
+  if scarcity_bar_pct > 100
+    assign scarcity_bar_pct = 100
+  elsif scarcity_bar_pct < 10
+    assign scarcity_bar_pct = 10
   endif
 -%}
 

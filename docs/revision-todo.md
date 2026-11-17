@@ -60,14 +60,14 @@ Lo que sigue marcando: el iframe de la barra de vista previa de Shopify (solo lo
 ## 3. Traducciones
 
 - [x] 🟠 **Doble sistema de idiomas** (hecho el 16/11/2026, salvo reservas y calendario de peluquería). Se han quitado los `data-i18n-*`, el diccionario y el traductor de `pet-cro.js` (de 41 KB a 12,5 KB). El selector de idioma son ahora enlaces normales. Peluquería conserva 91 atributos y condiciones de idioma en su JS, que se rehará con el módulo. Texto original de la tarea: Hay atributos `data-i18n-es` / `data-i18n-en` en 48 ficheros, que JavaScript intercambia en el navegador, además de los ficheros de `locales/`. Decidir uno. Lo recomendable en Shopify es usar solo `locales/` con el idioma de Shopify Markets. Así el HTML llega ya traducido y no hay parpadeo ni texto incorrecto para buscadores.
-- [ ] 🟢 **Claves sin traducir o que faltan** entre `es.json` y `en.default.json`, y también en los ficheros de esquema.
+- [x] 🟢 **Claves sin traducir o que faltan** entre `es.json` y `en.default.json`, y también en los ficheros de esquema (revisado el 17/11/2026). No falta ninguna clave en ningún idioma y todas las que usa el código existen. Quedan textos fijos solo en el módulo de peluquería, que se rehará.
 
 ## 4. Ficha de producto y carrito
 
 - [ ] 🟠 **Selector de suscripción** (`subscription-selector.liquid`): comprobar que funciona con planes de venta reales y que no se rompe si el producto no tiene ninguno.
 - [x] 🟠 **Barra de envío gratis** (hecho el 17/11/2026). El umbral (50 €) y el del regalo (65 €) son ajustes del tema en *Configuración del tema → Carrito*. El aviso superior y el menú toman el mismo importe. La parte de JavaScript usa el formato de moneda de la tienda, igual que Liquid. Probado simulando importes; falta probarlo con un carrito real cuando haya productos disponibles. Con varias monedas (Markets) el umbral no se convierte: está en la moneda de la tienda.
-- [ ] 🟠 **Widget de stock** (`stock-urgency-widget.liquid`): qué se muestra sin inventario gestionado, con stock 0 y con variantes.
-- [ ] 🟢 **Metacampos vacíos:** las pestañas, los cuidados y las insignias no deben dejar huecos ni títulos sueltos cuando el producto no tiene datos.
+- [x] 🟠 **Widget de stock** (`stock-urgency-widget.liquid`) (revisado el 17/11/2026). Los cuatro estados (en stock, pocas unidades, reserva y agotado) salen bien y se actualiza al cambiar de variante. Corregida la barra de escasez, que con 1 unidad se pintaba más llena que con 2. Pendiente de decidir: la fecha de entrega usa la hora del ordenador del cliente y no la de España, y solo salta los domingos (no los sábados ni los festivos).
+- [x] 🟢 **Metacampos vacíos** (hecho el 17/11/2026). Las pestañas de producto mostraban beneficios, composición ("65 % salmón fresco") y raciones inventados en cualquier producto sin datos. Ahora cada pestaña solo aparece si su metacampo tiene contenido, y si no hay ninguno no se muestra el bloque. Los cuidados y las insignias ya se ocultaban solos.
 - [ ] 🟢 **Productos recomendados:** revisar el cambio de `offset: continue` a `slide_offset` en `main-product.liquid`.
 
 ## 5. Catálogo y constructor de packs
@@ -78,14 +78,21 @@ Lo que sigue marcando: el iframe de la barra de vista previa de Shopify (solo lo
 
 ## 6. Accesibilidad y SEO
 
-- [ ] 🟠 **Menús nuevos** (mega menú por especie, submenú, cajón móvil): navegación con teclado, foco visible, `aria-expanded` y cierre con Escape.
-- [ ] 🟠 **Datos estructurados:** validar `seo-schema-product` y `seo-schema-breadcrumbs` con la prueba de resultados enriquecidos de Google. Comprobar también que `aggregateRating` no se publica sin reseñas reales.
+- [x] 🟠 **Menús nuevos** (revisado el 17/11/2026). En escritorio, Intro abre el desplegable, el foco se ve, `aria-expanded` cambia, Escape cierra y devuelve el foco, y al salir con Tab se cierra. El cajón móvil usa el mismo código de Dawn; no se ha podido probar en pantalla de móvil.
+- [x] 🟠 **Datos estructurados** (hecho el 17/11/2026). El producto publicaba siempre una valoración inventada (4,9 con 348 reseñas), y la ficha la enseñaba a los clientes. Ahora solo salen valoraciones de una app de reseñas real, en el schema, en la ficha y en el mega menú. El schema de producto ya no se repite en la portada y las migas solo salen donde tienen sentido. Falta pasar la prueba de resultados enriquecidos de Google con la tienda publicada.
 - [x] 🟢 **Contraste de color** de insignias, banners y botones nuevos (hecho el 17/11/2026). El verde `#059669` pasa a `#047857` en textos y fondos con texto blanco, el azul de "Ver todo" a `#0369a1`, y se oscurecen el precio tachado de la suscripción, la duración de los extras de peluquería y el aviso de desarrollo. Todo queda por encima de 4,5:1. El "blanco sobre blanco" que marcaba Lighthouse en títulos y precios era un falso positivo de la animación de entrada.
 - [x] 🟢 **Fallos de accesibilidad de Lighthouse** (hecho el 17/11/2026): el campo de cantidad tiene nombre accesible (fallo heredado de Dawn), los filtros de la barra de catálogo son botones con `aria-pressed` en vez de pestañas, y los botones de idioma miden al menos 24 px. El aviso de iframe sin título es la barra de vista previa de Shopify y no se puede tocar. Falta repetir Lighthouse para ver la nota nueva.
 
 ## 7. Antes de publicar
 
 - [ ] 🔴 Quitar o condicionar el aviso de "Modo Desarrollo" de `layout/theme.liquid`.
-- [ ] 🟠 Revisar los textos de prueba en `templates/*.json` (portada, producto, colección).
+- [ ] 🟠 **Confirmar que son ciertas las afirmaciones de los textos** (revisado el 17/11/2026; se cambian en el editor del tema, no en el código):
+  - Portada, sello de confianza: "4.9 / 5", "+2.400 familias perrunas felices", "Peluquería & Tienda Verificada" y "Revisado por Veterinarios".
+  - Pie: "recibe un 10% DTO" al suscribirse. ¿Existe el código de descuento y se envía solo?
+  - Packs: "Ahorra hasta un 15%" y "2 productos 10% DTO". Tiene que coincidir con el descuento real del carrito.
+  - Pasos de peluquería: "pH canino (7.0)", "sin jaulas de secado" y el resto de datos de los productos.
+  - Producto agotado: "Reponiendo nuevo lote fresco de fábrica" sale en todos los agotados, también en los que no se van a reponer.
+  - Mega menú: sin un producto destacado elegido, enseña un "Pack Bienestar & Digestión Saludable" de 29,70 € que no existe. Elegir un producto en el editor o quitar la tarjeta.
+- [ ] 🟠 **Actualizar desde la versión nueva de Dawn.** `upstream/main` trae correcciones que este tema no tiene. Por ejemplo, el nombre de la variante elegida se pinta con `innerHTML` en vez de `textContent` en `global.js`, y la cesta rápida de varios productos se ha reescrito. Hay que revisar el cambio con cuidado porque el tema tiene muchas personalizaciones.
 - [x] 🟢 Decidir qué hacer con las automatizaciones de Dawn en `.github/workflows/` (`cla.yml` y `stale.yml` no sirven aquí; `ci.yml` necesita claves de tienda para Lighthouse).
 - [ ] 🟢 Repetir las pruebas en el navegador con Claude in Chrome, en el perfil CLAUDIA.

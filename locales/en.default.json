@@ -559,7 +559,7 @@
       "trust_support": "WhatsApp customer help",
       "featured_badge": "⭐ Bestseller",
       "featured_save_badge": "15% OFF",
-      "featured_rating": "4.9/5 (120+ reviews)",
+      "featured_rating": "{{ rating }}/5 ({{ count }} reviews)",
       "featured_default_title": "Healthy Digestion & Vitality Pack",
       "featured_default_desc": "Hypoallergenic natural food + 100% natural dental chew.",
       "featured_cta": "View Product",

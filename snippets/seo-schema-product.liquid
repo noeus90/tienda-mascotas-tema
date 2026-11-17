@@ -1,8 +1,10 @@
 {%- doc -%}
-  Enriched Product SEO Structured Data (JSON-LD) for Pet Shop & Dog Grooming products.
-  Complements Shopify's native {{ product | structured_data }} filter with:
-  - Dynamic aggregateRating (enables Google Rich Snippets / golden review stars in SERP).
-  - Additional Pet Care properties from Metafields (pet suitability / breed size and analytical composition).
+  Product SEO Structured Data (JSON-LD) for Pet Shop & Dog Grooming products.
+  Outputs Shopify's native {{ product | structured_data }} (name, images, offers, availability) and,
+  only when real data exists, a second block with the same @id so Google merges both:
+  - aggregateRating, only from the standard review metafields (reviews.rating and reviews.rating_count)
+    written by a review app. Never invented: Google penalises ratings without real reviews.
+  - Pet care properties from metafields (pet suitability / analytical composition).
 
   @param {product} product - (Required) Shopify product object.
 
@@ -12,65 +14,55 @@
 
 {%- if product != blank -%}
   {%- liquid
-    assign rating_val = product.metafields.reviews.rating.value.rating | default: 4.9
-    assign rating_max = product.metafields.reviews.rating.value.scale_max | default: 5
-    assign rating_min = product.metafields.reviews.rating.value.scale_min | default: 1
-    assign rating_count = product.metafields.reviews.rating_count | default: 348
+    assign rating = product.metafields.reviews.rating.value
+    assign rating_count = product.metafields.reviews.rating_count.value | default: 0
+    assign has_rating = false
+    if rating != blank and rating_count > 0
+      assign has_rating = true
+    endif
     assign pet_suitability = product.metafields.custom.pet_suitability.value | default: product.metafields.custom.tipo_piel.value
     assign analytical_comp = product.metafields.custom.analytical_composition.value | default: product.metafields.custom.lista_inci.value
-    assign current_variant = product.selected_or_first_available_variant
-    assign product_url = request.origin | append: product.url
   -%}
 
   <script type="application/ld+json">
     {{ product | structured_data }}
   </script>
 
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Product",
-      "@id": {{ product_url | append: '#product' | json }},
-      "name": {{ product.title | json }},
-      "url": {{ product_url | json }},
-      {%- if product.featured_media -%}
-        "image": [
-          {{ product.featured_media | image_url: width: 1200 | prepend: 'https:' | json }}
-        ],
-      {%- endif -%}
-      "description": {{ product.description | strip_html | truncatewords: 120 | json }},
-      {%- if current_variant.sku != blank -%}
-        "sku": {{ current_variant.sku | json }},
-      {%- endif -%}
-      "brand": {
-        "@type": "Brand",
-        "name": {{ product.vendor | default: shop.name | json }}
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": {{ rating_val | json }},
-        "reviewCount": {{ rating_count | json }},
-        "bestRating": {{ rating_max | json }},
-        "worstRating": {{ rating_min | json }}
-      }
-      {%- if pet_suitability != blank or analytical_comp != blank -%},
-      "additionalProperty": [
-        {%- if pet_suitability != blank -%}
-          {
-            "@type": "PropertyValue",
-            "name": {{ 'pet_cro.tabs.ideal_for' | t | remove: ':' | json }},
-            "value": {{ pet_suitability | json }}
-          }{%- if analytical_comp != blank -%},{%- endif -%}
-        {%- endif -%}
-        {%- if analytical_comp != blank -%}
-          {
-            "@type": "PropertyValue",
-            "name": "Analytical Composition",
-            "value": {{ analytical_comp | json }}
+  {%- if has_rating or pet_suitability != blank or analytical_comp != blank -%}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "@id": {{ product.url | append: '#product' | json }},
+        "name": {{ product.title | json }}
+        {%- if has_rating -%},
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": {{ rating.rating | json }},
+            "reviewCount": {{ rating_count | json }},
+            "bestRating": {{ rating.scale_max | default: 5 | json }},
+            "worstRating": {{ rating.scale_min | default: 1 | json }}
           }
         {%- endif -%}
-      ]
-      {%- endif -%}
-    }
-  </script>
+        {%- if pet_suitability != blank or analytical_comp != blank -%},
+          "additionalProperty": [
+            {%- if pet_suitability != blank -%}
+              {
+                "@type": "PropertyValue",
+                "name": {{ 'pet_cro.tabs.ideal_for' | t | remove: ':' | json }},
+                "value": {{ pet_suitability | json }}
+              }{%- if analytical_comp != blank -%},{%- endif -%}
+            {%- endif -%}
+            {%- if analytical_comp != blank -%}
+              {
+                "@type": "PropertyValue",
+                "name": "Analytical Composition",
+                "value": {{ analytical_comp | json }}
+              }
+            {%- endif -%}
+          ]
+        {%- endif -%}
+      }
+    </script>
+  {%- endif -%}
 {%- endif -%}

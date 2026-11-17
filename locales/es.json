@@ -571,7 +571,7 @@
       "trust_support": "Asistencia por WhatsApp",
       "featured_badge": "⭐ Producto Estrella",
       "featured_save_badge": "15% DTO",
-      "featured_rating": "4.9/5 (120+ opiniones)",
+      "featured_rating": "{{ rating }}/5 ({{ count }} opiniones)",
       "featured_default_title": "Pack Bienestar & Digestión Saludable",
       "featured_default_desc": "Pienso natural hipoalergénico + snack dental 100% natural.",
       "featured_cta": "Ver Producto",

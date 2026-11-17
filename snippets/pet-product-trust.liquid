@@ -9,13 +9,20 @@
 {%- enddoc -%}
 
 {%- liquid
-  assign rating_val = product.metafields.reviews.rating.value.rating | default: '4.9'
-  assign rating_count = product.metafields.reviews.rating_count | default: '348'
+  # Solo valoraciones reales de una app de reseñas; nunca un número inventado.
+  assign rating = product.metafields.reviews.rating.value
+  assign rating_count = product.metafields.reviews.rating_count.value | default: 0
+  assign has_rating = false
+  if rating != blank and rating_count > 0
+    assign has_rating = true
+    assign rating_val = rating.rating | round: 1
+  endif
 -%}
 
 <div class="cro-product-trust-box">
   <!-- Verified Pet Parents Review Bar -->
   <div class="cro-review-badge-bar">
+    {%- if has_rating -%}
     <div
       class="cro-stars"
       role="img"
@@ -28,6 +35,7 @@
     >
       <strong>{{ rating_val }}/5</strong> ({{ rating_count }} {{ 'pet_cro.trust.verified_reviews' | t }})
     </span>
+    {%- endif -%}
     <span class="cro-verified-pill">
       <svg aria-hidden="true" focusable="false" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>

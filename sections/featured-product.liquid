@@ -509,9 +509,6 @@
     <script src="{{ 'product-model.js' | asset_url }}" defer></script>
   {%- endif -%}
 
-  {%- unless placeholder -%}
-    {%- render 'seo-schema-product', product: product -%}
-  {%- endunless -%}
 
   {% if product.media.size > 0 %}
     <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>

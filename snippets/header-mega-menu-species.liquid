@@ -284,10 +284,16 @@
               </div>
 
               <div class="mega-menu-pet__product-info">
-                <div class="mega-menu-pet__product-rating">
-                  <span class="mega-menu-pet__stars" aria-hidden="true">★★★★★</span>
-                  <span class="mega-menu-pet__rating-score">{{ 'pet_cro.nav.featured_rating' | t | default: '4.9/5' }}</span>
-                </div>
+                {%- assign featured_rating = featured_prod.metafields.reviews.rating.value -%}
+                {%- assign featured_rating_count = featured_prod.metafields.reviews.rating_count.value | default: 0 -%}
+                {%- if featured_rating != blank and featured_rating_count > 0 -%}
+                  <div class="mega-menu-pet__product-rating">
+                    <span class="mega-menu-pet__stars" aria-hidden="true">★★★★★</span>
+                    <span class="mega-menu-pet__rating-score">
+                      {{- 'pet_cro.nav.featured_rating' | t: rating: featured_rating.rating, count: featured_rating_count -}}
+                    </span>
+                  </div>
+                {%- endif -%}
                 <h5 class="mega-menu-pet__product-title">{{ prod_title }}</h5>
                 <div class="mega-menu-pet__product-pricing">
                   <span class="mega-menu-pet__price-sale">{{ prod_price }}</span>

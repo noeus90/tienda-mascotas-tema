@@ -1,12 +1,16 @@
 {%- doc -%}
-  Global BreadcrumbList SEO Structured Data (JSON-LD) for all inner templates.
+  BreadcrumbList SEO Structured Data (JSON-LD) for collection, product, blog, article and page templates.
+  Other templates (cart, search, 404…) get none, since a one-item list adds nothing.
   Automatically generates Home > Collection/Blog > Product/Article/Page hierarchy in Google Search.
 
   @example
   {% render 'seo-schema-breadcrumbs' %}
 {%- enddoc -%}
 
-{%- unless request.page_type == 'index' or request.page_type == '404' -%}
+{%- liquid
+  assign breadcrumb_types = 'collection,product,blog,article,page' | split: ','
+-%}
+{%- if breadcrumb_types contains request.page_type -%}
   {%- assign home_name = 'pet_cro.seo.home' | t -%}
   <script type="application/ld+json">
     {
@@ -83,4 +87,4 @@
       ]
     }
   </script>
-{%- endunless -%}
+{%- endif -%}
