@@ -8,6 +8,7 @@
 {% endcomment %}
 
 {%- liquid
+  assign free_shipping_amount = settings.free_shipping_threshold | default: 50 | times: 100 | money_without_trailing_zeros
   assign all_products_url = routes.all_products_collection_url
   assign lang_code = request.locale.iso_code | slice: 0, 2 | downcase
   if lang_code == 'en'
@@ -305,7 +306,7 @@
               <div class="mega-menu-pet__trust-strip">
                 <div class="mega-menu-pet__trust-pill">
                   <span aria-hidden="true">🚚</span>
-                  <span>{{ 'pet_cro.nav.trust_shipping' | t | default: 'Envío gratis desde 39€' }}</span>
+                  <span>{{ 'pet_cro.nav.trust_shipping' | t: amount: free_shipping_amount }}</span>
                 </div>
                 <div class="mega-menu-pet__trust-pill">
                   <span aria-hidden="true">💬</span>

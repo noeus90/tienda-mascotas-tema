@@ -1449,6 +1449,24 @@
         "id": "cart_color_scheme",
         "label": "t:sections.all.colors.label",
         "default": "scheme-1"
+      },
+      {
+        "type": "header",
+        "content": "Barra de envío gratis"
+      },
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Importe para envío gratis",
+        "info": "En la moneda de la tienda, sin decimales (por ejemplo 50). También se usa en el aviso superior y en el menú.",
+        "default": 50
+      },
+      {
+        "type": "number",
+        "id": "free_gift_threshold",
+        "label": "Importe para el regalo",
+        "info": "Importe a partir del cual se regala el snack. Debe ser mayor que el de envío gratis.",
+        "default": 65
       }
     ]
   },

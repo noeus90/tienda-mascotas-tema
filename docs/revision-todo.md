@@ -41,9 +41,9 @@ El diseño no salta en ninguna página (CLS ≈ 0).
 ## 2. Rendimiento
 
 - [ ] 🔴 **Peso del JavaScript de peluquería.** `grooming-booking.js` ocupa 82 KB y `grooming-calendar.js` 52 KB, sin minificar. Comprobar que solo se cargan en sus páginas (`page.bookings`, `page.grooming-calendar`) y con `defer`. Buscar código muerto o duplicado entre los dos.
-- [ ] 🟠 **`pet-cro.js` (41 KB) y `component-pet-cro.css` (18 KB).** Se cargan desde 6 sitios distintos (carrito, cajón del carrito, producto…). Comprobar que no se descargan dos veces en la misma página y valorar partirlos por funcionalidad.
+- [x] 🟠 **`pet-cro.js` (41 KB) y `component-pet-cro.css` (18 KB).** Hecho: se cargan una sola vez desde `theme.liquid` y `pet-cro.js` pesa ahora 12,5 KB. Se cargan desde 6 sitios distintos (carrito, cajón del carrito, producto…). Comprobar que no se descargan dos veces en la misma página y valorar partirlos por funcionalidad.
 - [ ] 🟠 **CSS de peluquería** (`section-grooming-booking.css` 33 KB, `section-grooming-calendar.css` 30 KB): buscar reglas sin usar.
-- [ ] 🟠 **Medir con Lighthouse** la portada, una colección, una ficha de producto y el carrito, en móvil. Anotar LCP, CLS y TBT para tener una referencia antes de optimizar.
+- [x] 🟠 **Medir con Lighthouse** la portada, una colección, una ficha de producto y el carrito, en móvil. Anotar LCP, CLS y TBT para tener una referencia antes de optimizar.
 - [ ] 🟢 **Imágenes de las secciones nuevas** (promo-banner, collection-showcase, pet-trust-badges, pasos de peluquería): `image_url` con `width`, `srcset`, `loading="lazy"` fuera de la primera pantalla, y `width`/`height` para evitar saltos de diseño.
 
 ## 3. Traducciones
@@ -54,7 +54,7 @@ El diseño no salta en ninguna página (CLS ≈ 0).
 ## 4. Ficha de producto y carrito
 
 - [ ] 🟠 **Selector de suscripción** (`subscription-selector.liquid`): comprobar que funciona con planes de venta reales y que no se rompe si el producto no tiene ninguno.
-- [ ] 🟠 **Barra de envío gratis:** que se actualice al cambiar cantidades en el carrito y en el cajón, que use la moneda correcta y que el umbral de 49 € sea configurable y no esté fijo en el código.
+- [x] 🟠 **Barra de envío gratis** (hecho el 17/11/2026). El umbral (50 €) y el del regalo (65 €) son ajustes del tema en *Configuración del tema → Carrito*. El aviso superior y el menú toman el mismo importe. La parte de JavaScript usa el formato de moneda de la tienda, igual que Liquid. Probado simulando importes; falta probarlo con un carrito real cuando haya productos disponibles. Con varias monedas (Markets) el umbral no se convierte: está en la moneda de la tienda.
 - [ ] 🟠 **Widget de stock** (`stock-urgency-widget.liquid`): qué se muestra sin inventario gestionado, con stock 0 y con variantes.
 - [ ] 🟢 **Metacampos vacíos:** las pestañas, los cuidados y las insignias no deben dejar huecos ni títulos sueltos cuando el producto no tiene datos.
 - [ ] 🟢 **Productos recomendados:** revisar el cambio de `offset: continue` a `slide_offset` en `main-product.liquid`.
@@ -75,5 +75,5 @@ El diseño no salta en ninguna página (CLS ≈ 0).
 
 - [ ] 🔴 Quitar o condicionar el aviso de "Modo Desarrollo" de `layout/theme.liquid`.
 - [ ] 🟠 Revisar los textos de prueba en `templates/*.json` (portada, producto, colección).
-- [ ] 🟢 Decidir qué hacer con las automatizaciones de Dawn en `.github/workflows/` (`cla.yml` y `stale.yml` no sirven aquí; `ci.yml` necesita claves de tienda para Lighthouse).
+- [x] 🟢 Decidir qué hacer con las automatizaciones de Dawn en `.github/workflows/` (`cla.yml` y `stale.yml` no sirven aquí; `ci.yml` necesita claves de tienda para Lighthouse).
 - [ ] 🟢 Repetir las pruebas en el navegador con Claude in Chrome, en el perfil CLAUDIA.

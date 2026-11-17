@@ -165,7 +165,26 @@ function initCroDeliveryCountdown(root = document) {
   });
 }
 
-function formatCroMoney(cents) {
+// Usa el formato de moneda de la tienda (shop.money_format) para que el
+// importe salga igual que el que pinta Liquid. Si no llega, usa Intl.
+function formatCroMoney(cents, moneyFormat) {
+  const match = moneyFormat && moneyFormat.match(/\{\{\s*(\w+)\s*\}\}/);
+  if (match) {
+    const group = (value, thousands, decimal, decimals) => {
+      const [int, frac] = (value / 100).toFixed(decimals).split('.');
+      const intGrouped = int.replace(/\B(?=(\d{3})+(?!\d))/g, thousands);
+      return frac ? intGrouped + decimal + frac : intGrouped;
+    };
+    const formats = {
+      amount: () => group(cents, ',', '.', 2),
+      amount_no_decimals: () => group(cents, ',', '.', 0),
+      amount_with_comma_separator: () => group(cents, '.', ',', 2),
+      amount_no_decimals_with_comma_separator: () => group(cents, '.', ',', 0),
+      amount_with_apostrophe_separator: () => group(cents, "'", '.', 2),
+      amount_with_space_separator: () => group(cents, ' ', ',', 2),
+    };
+    if (formats[match[1]]) return moneyFormat.replace(match[0], formats[match[1]]());
+  }
   const locale = document.documentElement.lang || 'es';
   const currency =
     (window.Shopify && window.Shopify.currency && window.Shopify.currency.active) || 'EUR';
@@ -181,7 +200,7 @@ window.updateFreeShippingBars = function (totalCents) {
 
   bars.forEach((bar) => {
     bar.dataset.currentTotal = String(totalCents);
-    const shippingGoal = parseInt(bar.dataset.shippingGoal, 10) || 4500;
+    const shippingGoal = parseInt(bar.dataset.shippingGoal, 10) || 5000;
     const giftGoal = parseInt(bar.dataset.giftGoal, 10) || 6500;
     const tplShipping = bar.dataset.tplShipping || '';
     const tplGift = bar.dataset.tplGift || '';
@@ -203,10 +222,10 @@ window.updateFreeShippingBars = function (totalCents) {
 
     if (msgEl) {
       if (totalCents < shippingGoal) {
-        const missing = formatCroMoney(shippingGoal - totalCents);
+        const missing = formatCroMoney(shippingGoal - totalCents, bar.dataset.moneyFormat);
         msgEl.innerHTML = `<span>${tplShipping.replace('__AMOUNT__', missing)}</span>`;
       } else if (totalCents < giftGoal) {
-        const missing = formatCroMoney(giftGoal - totalCents);
+        const missing = formatCroMoney(giftGoal - totalCents, bar.dataset.moneyFormat);
         msgEl.innerHTML = `<span>${tplGift.replace('__AMOUNT__', missing)}</span>`;
       } else {
         msgEl.innerHTML = `<span class="is-complete">${tplComplete}</span>`;

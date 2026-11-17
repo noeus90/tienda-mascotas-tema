@@ -531,7 +531,7 @@
   "pet_cro": {
     "general": {
       "dev_mode_banner": "Active Development Mode: {{ shop_name }}",
-      "announcement_default": "🐾 FREE 24h Shipping on orders over €49 · Book your Dog Grooming appointment online",
+      "announcement_default": "🐾 FREE 24h Shipping on orders over {{ amount }} · Book your Dog Grooming appointment online",
       "related_heading_default": "You may also like for your pet"
     },
     "nav": {
@@ -554,7 +554,7 @@
       "grooming_banner_title": "Grooming & Spa",
       "grooming_banner_desc": "Stress-free sessions, breed styling and deshedding by experts.",
       "grooming_banner_cta": "Book Online Now",
-      "trust_shipping": "Free shipping from 39€",
+      "trust_shipping": "Free shipping from {{ amount }}",
       "trust_natural": "100% Natural pet food",
       "trust_support": "WhatsApp customer help",
       "featured_badge": "⭐ Bestseller",

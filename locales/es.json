@@ -543,7 +543,7 @@
   "pet_cro": {
     "general": {
       "dev_mode_banner": "Modo Desarrollo Activo: {{ shop_name }}",
-      "announcement_default": "🐾 Envío 24h GRATIS en pedidos +49€ · Reserva online tu cita de Peluquería Canina",
+      "announcement_default": "🐾 Envío 24h GRATIS en pedidos +{{ amount }} · Reserva online tu cita de Peluquería Canina",
       "related_heading_default": "También te puede gustar para tu peludo"
     },
     "nav": {
@@ -566,7 +566,7 @@
       "grooming_banner_title": "Peluquería & Spa",
       "grooming_banner_desc": "Sesiones relajantes, corte a tijera y deslanado por especialistas.",
       "grooming_banner_cta": "Pedir Cita Online",
-      "trust_shipping": "Envío gratis desde 39€",
+      "trust_shipping": "Envío gratis desde {{ amount }}",
       "trust_natural": "Nutrición 100% natural",
       "trust_support": "Asistencia por WhatsApp",
       "featured_badge": "⭐ Producto Estrella",

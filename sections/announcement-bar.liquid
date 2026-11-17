@@ -2,6 +2,7 @@
 {{ 'component-slider.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
+  assign free_shipping_amount = settings.free_shipping_threshold | default: 50 | times: 100 | money_without_trailing_zeros
   assign social_icons = true
   if settings.social_facebook_link == blank and settings.social_instagram_link == blank and settings.social_youtube_link == blank and settings.social_tiktok_link == blank and settings.social_twitter_link == blank and settings.social_pinterest_link == blank and settings.social_snapchat_link == blank and settings.social_tumblr_link == blank and settings.social_vimeo_link == blank
     assign social_icons = false
@@ -36,7 +37,7 @@
           {%- liquid
             assign raw_ann_text = section.blocks.first.settings.text
             assign is_default_ann = false
-            if raw_ann_text == 'Welcome to our store' or raw_ann_text == 'Bienvenido a nuestra tienda' or raw_ann_text contains 'Envío 24h GRATIS en pedidos +49€' or raw_ann_text contains 'FREE 24h Shipping on orders over €49'
+            if raw_ann_text == 'Welcome to our store' or raw_ann_text == 'Bienvenido a nuestra tienda' or raw_ann_text contains 'Envío 24h GRATIS en pedidos +' or raw_ann_text contains 'FREE 24h Shipping on orders over'
               assign is_default_ann = true
             endif
           -%}
@@ -49,7 +50,7 @@
           <p class="announcement-bar__message h5">
             {%- if is_default_ann -%}
               <span>
-                {{- 'pet_cro.general.announcement_default' | t -}}
+                {{- 'pet_cro.general.announcement_default' | t: amount: free_shipping_amount -}}
               </span>
             {%- else -%}
               <span>{{ section.blocks.first.settings.text | escape }}</span>
@@ -109,7 +110,7 @@
                     {%- liquid
                       assign raw_slide_text = block.settings.text
                       assign is_default_slide_ann = false
-                      if raw_slide_text == 'Welcome to our store' or raw_slide_text == 'Bienvenido a nuestra tienda' or raw_slide_text contains 'Envío 24h GRATIS en pedidos +49€' or raw_slide_text contains 'FREE 24h Shipping on orders over €49'
+                      if raw_slide_text == 'Welcome to our store' or raw_slide_text == 'Bienvenido a nuestra tienda' or raw_slide_text contains 'Envío 24h GRATIS en pedidos +' or raw_slide_text contains 'FREE 24h Shipping on orders over'
                         assign is_default_slide_ann = true
                       endif
                     -%}
@@ -122,7 +123,7 @@
                     <p class="announcement-bar__message h5">
                       {%- if is_default_slide_ann -%}
                         <span>
-                          {{- 'pet_cro.general.announcement_default' | t -}}
+                          {{- 'pet_cro.general.announcement_default' | t: amount: free_shipping_amount -}}
                         </span>
                       {%- else -%}
                         <span>{{ block.settings.text | escape }}</span>
