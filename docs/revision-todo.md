@@ -69,7 +69,8 @@ El diseño no salta en ninguna página (CLS ≈ 0).
 
 - [ ] 🟠 **Menús nuevos** (mega menú por especie, submenú, cajón móvil): navegación con teclado, foco visible, `aria-expanded` y cierre con Escape.
 - [ ] 🟠 **Datos estructurados:** validar `seo-schema-product` y `seo-schema-breadcrumbs` con la prueba de resultados enriquecidos de Google. Comprobar también que `aggregateRating` no se publica sin reseñas reales.
-- [ ] 🟢 **Contraste de color** de insignias, banners y botones nuevos.
+- [x] 🟢 **Contraste de color** de insignias, banners y botones nuevos (hecho el 17/11/2026). El verde `#059669` pasa a `#047857` en textos y fondos con texto blanco, el azul de "Ver todo" a `#0369a1`, y se oscurecen el precio tachado de la suscripción, la duración de los extras de peluquería y el aviso de desarrollo. Todo queda por encima de 4,5:1. El "blanco sobre blanco" que marcaba Lighthouse en títulos y precios era un falso positivo de la animación de entrada.
+- [x] 🟢 **Fallos de accesibilidad de Lighthouse** (hecho el 17/11/2026): el campo de cantidad tiene nombre accesible (fallo heredado de Dawn), los filtros de la barra de catálogo son botones con `aria-pressed` en vez de pestañas, y los botones de idioma miden al menos 24 px. El aviso de iframe sin título es la barra de vista previa de Shopify y no se puede tocar. Falta repetir Lighthouse para ver la nota nueva.
 
 ## 7. Antes de publicar
 

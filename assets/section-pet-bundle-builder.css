@@ -77,7 +77,7 @@
 }
 
 .bundle-tier-pill.is-unlocked {
-  color: #059669;
+  color: #047857;
   font-weight: 700;
 }
 
@@ -219,7 +219,7 @@
 }
 
 .bundle-add-btn:hover {
-  background: #059669;
+  background: #047857;
   color: #ffffff;
 }
 
@@ -296,7 +296,7 @@
 
 .bundle-slot-price {
   font-size: 0.75rem;
-  color: #059669;
+  color: #047857;
   font-weight: 600;
 }
 
@@ -334,7 +334,7 @@
 }
 
 .bundle-total-row.is-discount {
-  color: #059669;
+  color: #047857;
   font-weight: 600;
 }
 
@@ -359,7 +359,7 @@
   padding: 0.95rem 1rem;
   border: none;
   border-radius: 10px;
-  background: #059669;
+  background: #047857;
   color: #ffffff;
   font-size: 0.95rem;
   font-weight: 700;

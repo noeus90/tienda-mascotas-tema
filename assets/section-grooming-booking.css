@@ -99,13 +99,13 @@
 
 .booking-step-indicator.is-active .step-num {
   border-color: #059669;
-  background: #059669;
+  background: #047857;
   color: #ffffff;
   box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.15);
 }
 
 .booking-step-indicator.is-active .step-label {
-  color: #059669;
+  color: #047857;
   font-weight: 700;
 }
 
@@ -239,7 +239,7 @@
 
 .booking-service-card.is-selected .service-card-check {
   border-color: #059669;
-  background: #059669;
+  background: #047857;
 }
 
 .booking-service-card.is-selected .service-card-check::after {
@@ -564,7 +564,7 @@
 }
 
 .booking-addon-card.is-selected .booking-addon-toggle {
-  background: #059669;
+  background: #047857;
   border-color: #059669;
 }
 
@@ -619,7 +619,7 @@
 }
 
 .booking-addon-card.is-selected .booking-addon-price {
-  background: #059669;
+  background: #047857;
   color: #ffffff;
   border-color: #059669;
 }
@@ -635,7 +635,7 @@
   margin-top: 0.2rem;
   font-size: 0.7rem;
   font-weight: 600;
-  color: rgba(var(--color-foreground), 0.5);
+  color: rgba(var(--color-foreground), 0.7);
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
@@ -687,7 +687,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
-  background: #059669;
+  background: #047857;
   color: #ffffff;
   border: none;
   border-radius: 10px;
@@ -859,7 +859,7 @@
 }
 
 .cal-day-cell.is-selected {
-  background: #059669 !important;
+  background: #047857 !important;
   color: #ffffff !important;
   font-weight: 800;
   box-shadow: 0 4px 10px rgba(5, 150, 105, 0.35);
@@ -1016,7 +1016,7 @@
 
 .booking-slot-card.is-selected {
   border-color: #059669;
-  background: #059669;
+  background: #047857;
   color: #ffffff;
 }
 
@@ -1120,7 +1120,7 @@
   font-size: 0.95rem;
   font-weight: 800;
   padding: 0 0.5rem;
-  color: #059669;
+  color: #047857;
 }
 
 .booking-form-grid {
@@ -1518,7 +1518,7 @@
 }
 
 .booking-privacy-link {
-  color: #059669;
+  color: #047857;
   text-decoration: underline;
   text-underline-offset: 3px;
   font-weight: 600;
@@ -1547,7 +1547,7 @@
 }
 
 .booking-rgpd-summary:hover {
-  color: #059669;
+  color: #047857;
 }
 
 .booking-rgpd-summary svg {

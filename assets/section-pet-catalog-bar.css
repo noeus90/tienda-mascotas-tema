@@ -1,6 +1,6 @@
 /* Pet Catalog Navigation & Quick Filters Bar
  * File: assets/section-pet-catalog-bar.css
- * Fully responsive, accessible tablist with smooth scrollable chips & subtle gradients
+ * Fully responsive, accessible filter button group with smooth scrollable chips & subtle gradients
  */
 
 .pet-catalog-bar-section {
@@ -138,9 +138,9 @@
 }
 
 .pet-category-pill.is-active {
-  background: #0284c7;
+  background: #0369a1;
   color: #ffffff;
-  border-color: #0284c7;
+  border-color: #0369a1;
   box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
 }
 

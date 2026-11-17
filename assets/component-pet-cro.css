@@ -104,7 +104,7 @@
 }
 
 .cro-tab-btn.is-active {
-  color: #059669;
+  color: #047857;
   background-color: rgb(var(--color-background, 255, 255, 255));
   border-bottom-color: #059669;
 }
@@ -170,7 +170,7 @@
   height: 20px;
   border-radius: 50%;
   background-color: #d1fae5;
-  color: #059669;
+  color: #047857;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -386,7 +386,7 @@
   border-radius: 50%;
   background: rgb(var(--color-background, 255, 255, 255));
   border: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.16);
-  color: #059669;
+  color: #047857;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -444,7 +444,7 @@
   position: absolute;
   top: -10px;
   right: 14px;
-  background: #059669;
+  background: #047857;
   color: #ffffff;
   font-size: 0.68rem;
   font-weight: 700;
@@ -482,7 +482,7 @@
 
 .cro-sub-option.is-selected .cro-sub-radio-circle {
   border-color: #059669;
-  background: #059669;
+  background: #047857;
   box-shadow: inset 0 0 0 3px #ffffff;
 }
 
@@ -511,7 +511,7 @@
 
 .cro-sub-price-old {
   font-size: 0.78rem;
-  color: #94a3b8;
+  color: #475569;
   text-decoration: line-through;
   line-height: 1.1;
 }
@@ -665,7 +665,7 @@
 }
 
 .cro-shipping-milestone.is-reached .cro-milestone-dot {
-  background: #059669;
+  background: #047857;
   border-color: #059669;
   color: #ffffff;
 }
@@ -807,7 +807,7 @@
   border: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.16);
   border-radius: 999px;
   padding: 2px;
-  gap: 2px;
+  gap: 4px;
 }
 
 .header-lang-btn {
@@ -820,6 +820,11 @@
   font-weight: 700;
   line-height: 1;
   padding: 0.45rem 0.7rem;
+  min-width: 2.8rem;
+  min-height: 2.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 999px;
   cursor: pointer;
   letter-spacing: 0.04em;
@@ -836,7 +841,7 @@
 }
 
 .header-lang-btn.is-active {
-  background: #059669;
+  background: #047857;
   color: #ffffff;
   box-shadow: 0 1px 2px rgba(5, 150, 105, 0.25);
 }
@@ -857,7 +862,7 @@
 /* 10. Dev Mode Banner (layout/theme.liquid) */
 .dev-mode-banner {
   background-color: #ffc0cb;
-  color: #f9fafb;
+  color: #1f2937;
   text-align: center;
   padding: 10px;
   font-weight: bold;

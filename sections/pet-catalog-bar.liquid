@@ -36,15 +36,14 @@
 
     {%- if section.settings.show_mascot_switcher -%}
       <!-- Level 1: Mascot Switcher -->
-      <div class="pet-mascot-switcher" role="tablist" aria-label="{{ 'pet_cro.catalog_bar.aria_species' | t }}">
+      <div class="pet-mascot-switcher" role="group" aria-label="{{ 'pet_cro.catalog_bar.aria_species' | t }}">
         <span class="pet-mascot-label">{{ 'pet_cro.catalog_bar.your_pet' | t }}</span>
 
         <button
           type="button"
           class="pet-mascot-btn is-active"
           data-pet-mascot="all"
-          role="tab"
-          aria-selected="true"
+          aria-pressed="true"
         >
           <span class="pet-mascot-icon">✨</span>
           <span>{{ 'pet_cro.catalog_bar.all_pets' | t }}</span>
@@ -54,8 +53,7 @@
           type="button"
           class="pet-mascot-btn"
           data-pet-mascot="perro"
-          role="tab"
-          aria-selected="false"
+          aria-pressed="false"
         >
           <span class="pet-mascot-icon">🐶</span>
           <span>{{ 'pet_cro.catalog_bar.dogs' | t }}</span>
@@ -65,8 +63,7 @@
           type="button"
           class="pet-mascot-btn"
           data-pet-mascot="gato"
-          role="tab"
-          aria-selected="false"
+          aria-pressed="false"
         >
           <span class="pet-mascot-icon">🐱</span>
           <span>{{ 'pet_cro.catalog_bar.cats' | t }}</span>
@@ -76,13 +73,12 @@
 
     <!-- Level 2: Category Chips / Subcollection Pills -->
     <div class="pet-categories-scroll-wrap">
-      <div class="pet-categories-pills" role="tablist" aria-label="{{ 'pet_cro.catalog_bar.aria_category' | t }}">
+      <div class="pet-categories-pills" role="group" aria-label="{{ 'pet_cro.catalog_bar.aria_category' | t }}">
         <button
           type="button"
           class="pet-category-pill is-active"
           data-pet-category="all"
-          role="tab"
-          aria-selected="true"
+          aria-pressed="true"
         >
           <span class="pet-category-icon">🐾</span>
           <span>{{ 'pet_cro.catalog_bar.view_all' | t }}</span>
@@ -92,8 +88,7 @@
           type="button"
           class="pet-category-pill"
           data-pet-category="pienso"
-          role="tab"
-          aria-selected="false"
+          aria-pressed="false"
         >
           <span class="pet-category-icon">🥩</span>
           <span>{{ 'pet_cro.catalog_bar.kibble' | t }}</span>
@@ -103,8 +98,7 @@
           type="button"
           class="pet-category-pill"
           data-pet-category="humeda"
-          role="tab"
-          aria-selected="false"
+          aria-pressed="false"
         >
           <span class="pet-category-icon">🥫</span>
           <span>{{ 'pet_cro.catalog_bar.wet_food' | t }}</span>
@@ -114,8 +108,7 @@
           type="button"
           class="pet-category-pill"
           data-pet-category="snacks"
-          role="tab"
-          aria-selected="false"
+          aria-pressed="false"
         >
           <span class="pet-category-icon">🦴</span>
           <span>{{ 'pet_cro.catalog_bar.snacks' | t }}</span>
@@ -125,8 +118,7 @@
           type="button"
           class="pet-category-pill"
           data-pet-category="juguetes"
-          role="tab"
-          aria-selected="false"
+          aria-pressed="false"
         >
           <span class="pet-category-icon">🎾</span>
           <span>{{ 'pet_cro.catalog_bar.toys' | t }}</span>
@@ -136,8 +128,7 @@
           type="button"
           class="pet-category-pill"
           data-pet-category="higiene"
-          role="tab"
-          aria-selected="false"
+          aria-pressed="false"
         >
           <span class="pet-category-icon">🧴</span>
           <span>{{ 'pet_cro.catalog_bar.grooming' | t }}</span>
@@ -147,8 +138,7 @@
           type="button"
           class="pet-category-pill"
           data-pet-category="suplementos"
-          role="tab"
-          aria-selected="false"
+          aria-pressed="false"
         >
           <span class="pet-category-icon">💊</span>
           <span>{{ 'pet_cro.catalog_bar.supplements' | t }}</span>
@@ -158,8 +148,7 @@
           type="button"
           class="pet-category-pill"
           data-pet-category="accesorios"
-          role="tab"
-          aria-selected="false"
+          aria-pressed="false"
         >
           <span class="pet-category-icon">🦮</span>
           <span>{{ 'pet_cro.catalog_bar.walk' | t }}</span>
