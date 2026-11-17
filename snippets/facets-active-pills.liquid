@@ -1,9 +1,14 @@
-{% comment %}
-  Renders active filter pills for facets (both desktop and mobile)
-  Accepts:
-  - results: {Object} Collection or Search object
-  - results_url: {String} URL to clear all filters
-{% endcomment %}
+{%- doc -%}
+  Renders the active filter pills (one per selected value, plus the price range) for facets.
+  Shared by the vertical, horizontal, drawer and mobile layouts of snippets/facets.liquid.
+
+  @param {object} results - Collection or search object whose filters are active.
+  @param {string} results_url - URL that clears every filter.
+  @param {boolean} [hide_clear_all] - Hide the "Clear all" link (the vertical layout shows its own).
+
+  @example
+  {% render 'facets-active-pills', results: results, results_url: results_url %}
+{%- enddoc -%}
 
 {%- for filter in results.filters -%}
   {%- for value in filter.active_values -%}

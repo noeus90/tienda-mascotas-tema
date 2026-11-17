@@ -74,7 +74,7 @@ Lo que sigue marcando: el iframe de la barra de vista previa de Shopify (solo lo
 
 - [ ] 🟠 **Barra de catálogo por mascota** (`pet-catalog-bar.js`): filtra tarjetas en el navegador según etiquetas y tipo. Comprobar que funciona con paginación y filtros de Shopify y que no oculta productos que deberían verse.
 - [ ] 🟠 **Constructor de packs:** añadir al carrito varios productos de una vez, mensajes de error si un producto se agota y precio total correcto.
-- [ ] 🟢 **Filtros activos** (`facets-active-pills.liquid`): revisar que no se haya perdido nada al sustituir el bloque original de Dawn en `facets.liquid`, por ejemplo el rango de precio.
+- [x] 🟢 **Filtros activos** (`facets-active-pills.liquid`) (revisado el 17/11/2026). La extracción es igual al código de Dawn en los cuatro sitios (vertical, horizontal, cajón y móvil), incluido el rango de precio y "Borrar todo". Probado en la colección: las píldoras de disponibilidad y precio aparecen, se quitan sin recargar y el mensaje de "sin productos" sale una vez.
 
 ## 6. Accesibilidad y SEO
 
