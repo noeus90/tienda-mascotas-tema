@@ -25,7 +25,7 @@ Esta guía documenta todos los componentes de optimización de conversión (**CR
 | :--- | :--- |
 | [`sections/grooming-booking.liquid`](../sections/grooming-booking.liquid) | **Reserva de Cita de Peluquería Canina & Spa** con widget oficial de Calendly embebido. |
 | [`sections/pet-grooming-steps.liquid`](../sections/pet-grooming-steps.liquid) | **Rutina de Higiene y Manto en 4-5 Pasos** con línea de tiempo numerada y esquema SEO `HowTo`. |
-| [`sections/pet-bundle-builder.liquid`](../sections/pet-bundle-builder.liquid) | **Constructor de Packs ("Crea el Pack de tu Peludo")** con descuentos progresivos (2 uds = 10%, 3+ uds = 15%) y apertura automática del Cart Drawer. |
+| [`sections/pet-packs.liquid`](../sections/pet-packs.liquid) | **Packs temáticos**: muestra los packs de la colección "Packs" (productos hechos con la app Shopify Bundles, un 10 % más baratos que por separado). Sustituye al antiguo constructor de packs, quitado el 18/11/2026. |
 | [`sections/pet-trust-badges.liquid`](../sections/pet-trust-badges.liquid) | **Garantías Veterinarias y Reseñas de Familias Perrunas** configurable por bloques. |
 | [`sections/collection-showcase.liquid`](../sections/collection-showcase.liquid) | **Vitrina de Colección de Mascotas** con formatos/pesos disponibles y esquema SEO `ItemList`. |
 | [`sections/promo-banner.liquid`](../sections/promo-banner.liquid) | **Banner Promocional** para campañas de peluquería o desparasitación. |
@@ -54,8 +54,6 @@ En **Configuración > Datos personalizados (Custom data) > Productos**, puedes c
 | [`assets/component-pet-cro.css`](../assets/component-pet-cro.css) | Estilos de los 8 snippets CRO con variables dinámicas de Dawn (`--color-foreground`, `--color-background`) y foco accesible `:focus-visible`. |
 | [`assets/pet-cro.js`](../assets/pet-cro.js) | Lógica de pestañas (`switchPetTab`, `handlePetTabKeydown`), suscripción (`selectPurchaseMode`, `handleSubscriptionKeydown`, `updateDeliveryFrequency`), cuenta atrás 24h (`initCroDeliveryCountdown`) y suscriptores `PUB_SUB_EVENTS.cartUpdate` y `PUB_SUB_EVENTS.variantChange`. |
 | [`assets/section-pet-grooming-steps.css`](../assets/section-pet-grooming-steps.css) | Estilos de [`sections/pet-grooming-steps.liquid`](../sections/pet-grooming-steps.liquid). |
-| [`assets/section-pet-bundle-builder.css`](../assets/section-pet-bundle-builder.css) | Estilos de [`sections/pet-bundle-builder.liquid`](../sections/pet-bundle-builder.liquid). |
-| [`assets/section-pet-bundle-builder.js`](../assets/section-pet-bundle-builder.js) | Lógica interactiva multi-instancia del Constructor de Packs + Section Rendering API. |
 | [`assets/section-pet-trust-badges.css`](../assets/section-pet-trust-badges.css) | Estilos de [`sections/pet-trust-badges.liquid`](../sections/pet-trust-badges.liquid). |
 | [`assets/section-grooming-booking.css`](../assets/section-grooming-booking.css) | Estilos de [`sections/grooming-booking.liquid`](../sections/grooming-booking.liquid). |
 | [`assets/section-collection-showcase.css`](../assets/section-collection-showcase.css) | Estilos de [`sections/collection-showcase.liquid`](../sections/collection-showcase.liquid). |
@@ -67,7 +65,7 @@ En **Configuración > Datos personalizados (Custom data) > Productos**, puedes c
 
 1. **Desacoplamiento de CSS y JS en `assets/`:** Cero bloques `<style>` o `<script>` estáticos inline; carga diferida (`defer="defer"`) y soporte del Theme Editor (`shopify:section:load`).
 2. **Imágenes Responsivas y Core Web Vitals (`LCP` & `CLS = 0`):** Uso de `image_tag` con `widths`, `sizes`, `width`/`height` explícitos y carga `eager` + `fetchpriority="high"` en las 2 primeras imágenes de la primera sección (`section.index == 1`).
-3. **Section Rendering API y Sincronización Reactiva del Carrito:** El Constructor de Packs inyecta el HTML del `cart-drawer` al vuelo tras `POST /cart/add.js` y actualiza la barra de envío gratis + snack de regalo vía `PUB_SUB_EVENTS.cartUpdate`.
+3. **Section Rendering API y Sincronización Reactiva del Carrito:** El bloque "Se suelen comprar juntos" (`pet-bought-together.js`) inyecta el HTML del `cart-drawer` al vuelo tras `POST /cart/add.js` y actualiza la barra de envío gratis + snack de regalo vía `PUB_SUB_EVENTS.cartUpdate`.
 4. **Sincronización Dinámica de Cambio de Variante (`PUB_SUB_EVENTS.variantChange`):** Actualiza precios de suscripción, ahorro, estado de stock y contador 24h al cambiar de tamaño/formato de saco sin recargar la página.
 5. **Accesibilidad WCAG 2.1 Nivel AA:** Patrón WAI-ARIA Tabs con *roving `tabindex`*, `radiogroup` navegable por teclado, `role="progressbar"` con `aria-valuenow` y regiones `aria-live="polite"`.
 6. **Esquemas de Color Nativos (`color_scheme`):** Todas las secciones personalizadas integran `"type": "color_scheme"` y variables CSS de Dawn.

@@ -878,3 +878,15 @@
 .bundle-old-total.is-visible {
   display: inline;
 }
+
+/* Pack savings line under the price (snippets/price.liquid) */
+.price__pack-savings {
+  flex-basis: 100%;
+  margin: 0.4rem 0 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #047857;
+}
+.price:has(.price__pack-savings) {
+  flex-wrap: wrap;
+}

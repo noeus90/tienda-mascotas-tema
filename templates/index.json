@@ -177,16 +177,11 @@
         "subheading": "Todo lo que tu compañero necesita para estar sano por dentro y radiante por fuera."
       }
     },
-    "pet_bundle_builder": {
-      "type": "pet-bundle-builder",
+    "pet_packs": {
+      "type": "pet-packs",
       "settings": {
-        "collection": "perros",
-        "kicker": "Ahorra Combinando sus Favoritos",
-        "heading": "Crea el Pack de tu Peludo y Ahorra hasta un 15%",
-        "subheading": "Elige 2 productos para obtener un 10% DTO o combina 3 o más (pienso, snacks, champú o cuidados) para desbloquear el 15% de descuento directo.",
-        "goal_units": 3,
-        "discount_tier_1": 10,
-        "discount_tier_2": 15
+        "products_to_show": 4,
+        "columns_desktop": 4
       }
     }
   },
@@ -194,7 +189,7 @@
     "image_banner",
     "pet_trust_badges",
     "pet_grooming_steps",
-    "pet_bundle_builder",
+    "pet_packs",
     "featured_collection",
     "grooming_booking"
   ]

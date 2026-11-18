@@ -545,6 +545,7 @@
       "kibble": "Dry Kibble",
       "wet_food": "Wet Food",
       "barf": "BARF raw diet",
+      "packs": "Bundles 10% off",
       "snacks": "Natural Treats",
       "toys": "Toys",
       "grooming": "Grooming & Hygiene",
@@ -559,7 +560,7 @@
       "trust_natural": "100% Natural pet food",
       "trust_support": "WhatsApp customer help",
       "featured_badge": "⭐ Bestseller",
-      "featured_save_badge": "15% OFF",
+      "featured_save_badge": "10% OFF",
       "featured_rating": "{{ rating }}/5 ({{ count }} reviews)",
       "featured_default_title": "Healthy Digestion & Vitality Pack",
       "featured_default_desc": "Hypoallergenic natural food + 100% natural dental chew.",
@@ -708,30 +709,14 @@
       "added": "Added to cart",
       "add_error": "The products could not be added to your cart."
     },
-    "bundle": {
-      "pure_tag": "Pet Favorite",
-      "default_benefit": "100% natural formula approved by veterinarians",
-      "demo_names": "Salmon & Sweet Potato Grain-Free Kibble (3 kg)|Natural Deer Dental Chews|Dermoprotective Oatmeal & Aloe Shampoo|Pure Omega 3-6 Salmon Oil|Nose & Paw Pad Repair Balm|Natural Rubber Chew Toy",
-      "demo_benefits": "High digestibility, shiny coat, and strong joints|Naturally cleans tartar and strengthens gums|Soothes itching and respects their skin's neutral pH (7.0)|Reduces shedding and strengthens the immune system|Moisturizes and protects paws from hot pavement and cold|Durable, interactive, and treat-dispensing",
-      "demo_tags": "Nutrition|Snacks|Grooming|Supplement|Paw Care|Enrichment",
-      "add_btn": "+ Add to Pack",
-      "your_pack": "Your Pet's Custom Pack",
-      "your_pack_sub": "Mix & match food, treats, or grooming care and save instantly",
-      "subtotal": "Products subtotal:",
-      "discount_label": "Pack discount ({{ percent }}%):",
-      "total_pack": "Pack Total:",
-      "select_at_least": "Select at least 1 product",
-      "add_pack_cta": "Add Pack ({{ count }}) · {{ total }}",
-      "confirmation": "Pet pack successfully added to your cart!",
-      "add_error": "The pack could not be added to your cart.",
-      "empty_step": "Item {{ number }}: Select from catalog",
-      "msg_initial": "Select {{ goal }} products for your pet to unlock your {{ discount }}% discount",
-      "msg_missing_1": "Add 1 more product to unlock a {{ discount }}% discount",
-      "msg_tier_1": "🐾 You have {{ dto1 }}% OFF. Add {{ missing }} more to get {{ dto2 }}% OFF!",
-      "msg_completed": "🎉 Woof! You unlocked the maximum {{ discount }}% discount on your pet's pack",
-      "tier_1_label": "2 pcs = {{ discount }}% OFF",
-      "tier_2_label": "{{ goal }}+ pcs = {{ discount }}% OFF",
-      "progress_aria": "Pack progress"
+    "pack": {
+      "savings": "You save {{ amount }} compared to buying them separately"
+    },
+    "packs": {
+      "heading": "Bundles with 10% off",
+      "subheading": "Themed bundles that cost 10% less than their products bought separately.",
+      "view_all": "View all bundles",
+      "editor_empty": "Create bundles with Shopify Bundles and tag them \"pack\" to show them here."
     },
     "showcase": {
       "empty_state": "Select a pet product collection from the theme editor sidebar"

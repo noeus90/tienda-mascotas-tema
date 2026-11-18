@@ -9,7 +9,6 @@
 
 {%- liquid
   assign free_shipping_amount = settings.free_shipping_threshold | default: 50 | times: 100 | money_without_trailing_zeros
-  assign all_products_url = routes.all_products_collection_url
   # Pet links go to the Perros / Gatos collections with Search & Discovery filters
   # (filter.p.product_type = product type, filter.p.tag = need tag), so Shopify filters every page.
   assign dog_url = routes.collections_url | append: '/perros'
@@ -241,35 +240,42 @@
           <!-- Columna 4: ⭐ Tarjeta de Producto Destacado / Pack Ahorro + Confianza -->
           <div class="mega-menu-pet__featured-col">
             {%- liquid
+              # Featured product: the one chosen in the header settings or, if none, the first pack.
               assign featured_prod = section.settings.mega_menu_featured_product
+              if featured_prod == blank
+                assign featured_prod = collections['packs'].products.first
+              endif
               if featured_prod != blank
                 assign prod_url = featured_prod.url
                 assign prod_title = featured_prod.title
                 assign prod_price = featured_prod.price | money
-                assign prod_compare = featured_prod.compare_at_price | money
                 assign prod_img = featured_prod.featured_image
-              else
-                assign prod_url = all_products_url
-                assign prod_title = 'pet_cro.nav.featured_default_title' | t | default: 'Pack Bienestar & Digestión Saludable'
-                assign prod_price = '29,70 €'
-                assign prod_compare = '34,95 €'
-                assign prod_img = null
+              endif
+
+              # Packs show how much they save instead of a struck-through price (hidden in the Spain market).
+              assign featured_savings = 0
+              assign featured_separate = featured_prod.metafields.custom.precio_por_separado.value
+              if featured_separate != blank
+                assign featured_savings = featured_separate | times: 100 | round | minus: featured_prod.price
               endif
 
               assign badge_discount_text = section.settings.mega_menu_badge_text
-              if badge_discount_text == blank
-                assign badge_discount_text = 'pet_cro.nav.featured_save_badge' | t | default: '15% DTO'
+              if badge_discount_text == blank and featured_savings > 0
+                assign badge_discount_text = 'pet_cro.nav.featured_save_badge' | t
               endif
             -%}
 
+            {%- if featured_prod != blank -%}
             <div class="mega-menu-pet__product-card">
               <div class="mega-menu-pet__product-badge-wrap">
                 <span class="mega-menu-pet__badge-bestseller">
                   {{ 'pet_cro.nav.featured_badge' | t | default: '⭐ Producto Estrella' }}
                 </span>
-                <span class="mega-menu-pet__badge-discount">
-                  {{ badge_discount_text }}
-                </span>
+                {%- if badge_discount_text != blank -%}
+                  <span class="mega-menu-pet__badge-discount">
+                    {{ badge_discount_text }}
+                  </span>
+                {%- endif -%}
               </div>
 
               <div class="mega-menu-pet__product-media">
@@ -296,15 +302,17 @@
                 <h5 class="mega-menu-pet__product-title">{{ prod_title }}</h5>
                 <div class="mega-menu-pet__product-pricing">
                   <span class="mega-menu-pet__price-sale">{{ prod_price }}</span>
-                  {%- if prod_compare != blank and prod_compare != prod_price -%}
-                    <span class="mega-menu-pet__price-compare">{{ prod_compare }}</span>
-                  {%- endif -%}
                 </div>
+                {%- if featured_savings > 0 -%}
+                  {%- assign featured_savings_money = featured_savings | money -%}
+                  <p class="price__pack-savings">{{ 'pet_cro.pack.savings' | t: amount: featured_savings_money }}</p>
+                {%- endif -%}
                 <a href="{{ prod_url }}" class="mega-menu-pet__product-cta link">
                   {{ 'pet_cro.nav.featured_cta' | t | default: 'Ver Producto' }} →
                 </a>
               </div>
             </div>
+            {%- endif -%}
 
             {%- if section.settings.mega_menu_show_trust_strip != false -%}
               <!-- Tira compacta de confianza y ventajas -->

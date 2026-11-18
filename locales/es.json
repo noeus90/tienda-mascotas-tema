@@ -557,6 +557,7 @@
       "kibble": "Pienso Seco",
       "wet_food": "Comida Húmeda",
       "barf": "Dieta BARF",
+      "packs": "Packs -10 %",
       "snacks": "Snacks & Premios",
       "toys": "Juguetes",
       "grooming": "Higiene & Cuidados",
@@ -571,7 +572,7 @@
       "trust_natural": "Nutrición 100% natural",
       "trust_support": "Asistencia por WhatsApp",
       "featured_badge": "⭐ Producto Estrella",
-      "featured_save_badge": "15% DTO",
+      "featured_save_badge": "10 % DTO",
       "featured_rating": "{{ rating }}/5 ({{ count }} opiniones)",
       "featured_default_title": "Pack Bienestar & Digestión Saludable",
       "featured_default_desc": "Pienso natural hipoalergénico + snack dental 100% natural.",
@@ -720,30 +721,14 @@
       "added": "Añadido a la cesta",
       "add_error": "No se han podido añadir los productos a la cesta."
     },
-    "bundle": {
-      "pure_tag": "Top Mascotas",
-      "default_benefit": "Fórmula 100% natural aprobada por veterinarios",
-      "demo_names": "Pienso Salmón & Boniato Grain-Free (3 kg)|Snacks Dentales Naturales de Ciervo|Champú Dermoprotector Avena & Aloe|Aceite de Salmón Puro Omega 3-6|Bálsamo Reparador Trufa y Almohadillas|Juguete Mordedor Caucho Natural",
-      "demo_benefits": "Alta digestibilidad, pelo brillante y articulaciones fuertes|Limpia el sarro y refuerza las encías de forma natural|Calma el picor y respeta el pH neutro (7.0) de su piel|Reduce la caída del pelo y refuerza el sistema inmune|Hidrata y protege las patas frente al asfalto y el frío|Resistente, interactivo y rellenable con premios",
-      "demo_tags": "Nutrición|Snacks|Higiene|Suplemento|Cuidado Patas|Enriquecimiento",
-      "add_btn": "+ Añadir al Pack",
-      "your_pack": "El Pack de tu Peludo",
-      "your_pack_sub": "Combina alimentación, snacks o higiene y ahorra al instante",
-      "subtotal": "Subtotal productos:",
-      "discount_label": "Descuento pack ({{ percent }}%):",
-      "total_pack": "Total Pack:",
-      "select_at_least": "Elige al menos 1 producto",
-      "add_pack_cta": "Añadir Pack ({{ count }}) · {{ total }}",
-      "confirmation": "¡Pack para tu mascota añadido correctamente a tu cesta!",
-      "add_error": "No se ha podido añadir el pack a la cesta.",
-      "empty_step": "Producto {{ number }}: Selecciona del catálogo",
-      "msg_initial": "Selecciona {{ goal }} productos para tu mascota y desbloquea un {{ discount }}% de descuento",
-      "msg_missing_1": "Añade 1 producto más para desbloquear un {{ discount }}% de descuento",
-      "msg_tier_1": "🐾 Tienes un {{ dto1 }}% DTO. ¡Añade {{ missing }} más para conseguir un {{ dto2 }}% DTO!",
-      "msg_completed": "🎉 ¡Guau! Has desbloqueado el {{ discount }}% de descuento máximo en el pack de tu peludo",
-      "tier_1_label": "2 uds = {{ discount }}% DTO",
-      "tier_2_label": "{{ goal }}+ uds = {{ discount }}% DTO",
-      "progress_aria": "Progreso del pack"
+    "pack": {
+      "savings": "Ahorras {{ amount }} frente a comprarlos por separado"
+    },
+    "packs": {
+      "heading": "Packs con un 10 % de descuento",
+      "subheading": "Packs temáticos que cuestan un 10 % menos que sus productos por separado.",
+      "view_all": "Ver todos los packs",
+      "editor_empty": "Crea packs con Shopify Bundles y ponles la etiqueta \"pack\" para que salgan aquí."
     },
     "showcase": {
       "empty_state": "Selecciona una colección de productos para mascotas desde la barra lateral del editor"

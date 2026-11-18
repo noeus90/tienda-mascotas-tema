@@ -254,6 +254,9 @@
         elsif raw_b_h == '¿Quieres llevarte el Pack de Baño Completo o reservar cita en Peluquería?'
           assign is_default_b_h = true
           assign b_h_en = 'Take home the Complete Bath Bundle or book a grooming appointment?'
+        elsif raw_b_h == '¿Te llevas un pack o reservas cita en la peluquería?'
+          assign is_default_b_h = true
+          assign b_h_en = 'Take home a bundle or book a grooming appointment?'
         endif
 
         assign raw_b_sub = section.settings.bundle_subheading | strip
@@ -264,6 +267,9 @@
         elsif raw_b_sub contains 'Ahorra un 15% creando el pack de higiene'
           assign is_default_b_sub = true
           assign b_sub_en = "Save 15% by building your pet's hygiene bundle, or book a bath and haircut session with our experts."
+        elsif raw_b_sub contains 'Nuestros packs temáticos cuestan un 10 %'
+          assign is_default_b_sub = true
+          assign b_sub_en = 'Our themed bundles cost 10% less than their products bought separately. Or book a bath and haircut with our experts.'
         endif
 
         assign raw_b_btn = section.settings.bundle_button_label | strip
@@ -274,6 +280,15 @@
         elsif raw_b_btn == 'Crear Pack con 15% DTO'
           assign is_default_b_btn = true
           assign b_btn_en = 'Build your bundle (15% off)'
+        elsif raw_b_btn == 'Ver packs (-10 %)'
+          assign is_default_b_btn = true
+          assign b_btn_en = 'View bundles (10% off)'
+        endif
+
+        # Without a link, the button goes to the Packs collection.
+        assign bundle_url = section.settings.bundle_link
+        if bundle_url == blank and collections['packs'].products_count > 0
+          assign bundle_url = collections['packs'].url
         endif
       -%}
       <div class="grooming-steps-bundle-banner">
@@ -293,9 +308,9 @@
             {%- endif -%}
           </p>
         </div>
-        {%- if section.settings.bundle_link != blank -%}
+        {%- if bundle_url != blank -%}
           <a
-            href="{{ section.settings.bundle_link }}"
+            href="{{ bundle_url }}"
             class="grooming-steps-bundle-btn"
           >
             {%- if is_default_b_btn and gs_locale == 'en' -%}
@@ -381,19 +396,19 @@
       "type": "text",
       "id": "bundle_heading",
       "label": "t:sections.pet_grooming_steps.settings.bundle_heading.label",
-      "default": "¿Quieres llevarte el Pack de Baño Completo o reservar cita en Peluquería?"
+      "default": "¿Te llevas un pack o reservas cita en la peluquería?"
     },
     {
       "type": "text",
       "id": "bundle_subheading",
       "label": "t:sections.pet_grooming_steps.settings.bundle_subheading.label",
-      "default": "Ahorra un 15% creando el pack de higiene de tu peludo o agenda su sesión de baño y corte con nuestros expertos."
+      "default": "Nuestros packs temáticos cuestan un 10 % menos que sus productos por separado. O agenda su baño y corte con nuestros expertos."
     },
     {
       "type": "text",
       "id": "bundle_button_label",
       "label": "t:sections.pet_grooming_steps.settings.bundle_button_label.label",
-      "default": "Crear Pack con 15% DTO"
+      "default": "Ver packs (-10 %)"
     },
     {
       "type": "url",

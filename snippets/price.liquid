@@ -9,6 +9,9 @@
   - price_class: {String} Adds a price class to the price element (optional)
   - show_compare_at_price: {Boolean} Renders the compare at price if the product matches the condition (optional)
 
+  Packs: when the product has the metafield custom.precio_por_separado (price of its products bought
+  separately), a "you save X" line is shown. It replaces the compare-at price, which the Spain market hides.
+
   Usage:
   {% render 'price', product: product %}
 {% endcomment %}
@@ -124,6 +127,17 @@
       >
         {{ 'products.product.sold_out' | t }}
       </span>
+    {%- endif -%}
+    {%- liquid
+      assign pack_savings = 0
+      assign pack_separate = product.metafields.custom.precio_por_separado.value
+      if pack_separate != blank
+        assign pack_savings = pack_separate | times: 100 | round | minus: price
+      endif
+    -%}
+    {%- if pack_savings > 0 -%}
+      {%- assign pack_savings_money = pack_savings | money -%}
+      <p class="price__pack-savings">{{ 'pet_cro.pack.savings' | t: amount: pack_savings_money }}</p>
     {%- endif -%}
   </div>
 {% endunless %}
