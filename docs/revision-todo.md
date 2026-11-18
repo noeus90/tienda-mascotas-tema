@@ -51,11 +51,11 @@ Lo que sigue marcando: el iframe de la barra de vista previa de Shopify (solo lo
 
 ## 2. Rendimiento
 
-- [ ] 🔴 **Peso del JavaScript de peluquería.** `grooming-booking.js` ocupa 82 KB y `grooming-calendar.js` 52 KB, sin minificar. Comprobar que solo se cargan en sus páginas (`page.bookings`, `page.grooming-calendar`) y con `defer`. Buscar código muerto o duplicado entre los dos.
+- [x] 🔴 **Peso del JavaScript de peluquería** (hecho el 18/11/2026). La portada cargaba el formulario de reservas completo (`grooming-booking.js` 82 KB + `section-grooming-booking.css` 33 KB). Ahora el formulario está solo en la página "Bookings" (`/pages/bookings`, en español `/es/pages/bookings`): va en la plantilla de página normal (`templates/page.json`) y la sección solo se pinta en esa página, porque el admin solo deja asignar plantillas del tema publicado. De paso se arregló el botón "Reservar cita": en español llevaba a `/es/pages/reservas`, que daba 404, y en inglés a una página vacía. El calendario (`grooming-calendar.js`) no lo carga ninguna página: `/pages/grooming-calendar` no existe (va con la revisión del calendario). Pendiente: traducir el título de la página ("Bookings") al español con Translate & Adapt.
 - [x] 🟠 **`pet-cro.js` (41 KB) y `component-pet-cro.css` (18 KB).** Hecho: se cargan una sola vez desde `theme.liquid` y `pet-cro.js` pesa ahora 12,5 KB. Se cargan desde 6 sitios distintos (carrito, cajón del carrito, producto…). Comprobar que no se descargan dos veces en la misma página y valorar partirlos por funcionalidad.
-- [ ] 🟠 **CSS de peluquería** (`section-grooming-booking.css` 33 KB, `section-grooming-calendar.css` 30 KB): buscar reglas sin usar.
+- [x] 🟠 **CSS de peluquería** (revisado el 18/11/2026): casi todas las clases se usan. Las 7 que no aparecen en el código (`is-mixed`, `status-pending`…) se forman en JavaScript. Ahora solo se cargan en su página, así que no hay nada que quitar.
 - [x] 🟠 **Medir con Lighthouse** la portada, una colección, una ficha de producto y el carrito, en móvil. Anotar LCP, CLS y TBT para tener una referencia antes de optimizar.
-- [ ] 🟢 **Imágenes de las secciones nuevas** (promo-banner, collection-showcase, pet-trust-badges, pasos de peluquería): `image_url` con `width`, `srcset`, `loading="lazy"` fuera de la primera pantalla, y `width`/`height` para evitar saltos de diseño.
+- [x] 🟢 **Imágenes de las secciones nuevas** (revisado el 18/11/2026): los pasos de peluquería y el escaparate de colección usan `image_url` con `srcset`, `sizes`, `width`/`height` y `loading="lazy"` salvo en la primera sección. Los sellos de confianza son SVG y el banner promocional, un emoji.
 
 ## 3. Traducciones
 

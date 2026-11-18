@@ -2,8 +2,18 @@
   Native Dog Grooming Appointment Booking Wizard (sections/grooming-booking.liquid)
   Purpose: 4-step interactive booking wizard customized for dogs, sizes, and specific care needs.
   Architecture: Clean Vanilla JS, WAI-ARIA states, zero external iframes, direct WhatsApp & Email confirmation.
+  In the default page template (templates/page.json) it only shows on the "bookings" page: the admin can only
+  assign templates of the published theme, so this works before and after publishing.
 {% endcomment %}
 
+{%- liquid
+  assign show_booking = true
+  if template.name == 'page' and template.suffix == blank and page.handle != 'bookings'
+    assign show_booking = false
+  endif
+-%}
+
+{%- if show_booking -%}
 {{ 'section-grooming-booking.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'grooming-booking.js' | asset_url }}" defer="defer"></script>
 
@@ -258,6 +268,7 @@
 
   {% render 'grooming-booking-customer-sync', section: section %}
 </section>
+{%- endif -%}
 
 {% schema %}
 {

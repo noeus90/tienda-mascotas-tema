@@ -6,9 +6,17 @@
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "booking": {
+      "type": "grooming-booking",
+      "settings": {
+        "heading": "Reserva Cita de Peluquería Canina & Spa",
+        "subheading": "Elige servicio (Baño Dermoprotector, Corte a Tijera, Stripping o Deslanado) y selecciona el día y hora que mejor se adapte a tu agenda."
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "booking"
   ]
 }
