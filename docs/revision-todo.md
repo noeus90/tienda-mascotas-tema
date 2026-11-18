@@ -96,6 +96,15 @@ Lo que sigue marcando: el iframe de la barra de vista previa de Shopify (solo lo
   Pendiente: **el carrito no aplica el 10 % / 15 %**, porque no hay ningún descuento automático en Shopify. El cliente ve 32,55 € en el pack y paga 38,30 €.
 - [x] 🟠 **Se suelen comprar juntos** (`pet-bought-together.liquid`) (hecho el 18/11/2026). Bloque nuevo de la ficha, debajo del botón de compra: el producto con hasta 2 complementarios, con casillas, desplegable de opciones y un botón "Añadir N a la cesta · total" que los añade a la vez. Sin descuento. Las parejas se eligen en *Search & Discovery → Recomendaciones*; están puestas en los 37 productos (los 20 de prueba nuevos se añadieron el mismo día). Los productos agotados no salen y, si un producto no tiene complementarios disponibles, el bloque no se muestra. Probado en Chrome (CLAUDIA) en español, inglés y a 390 px: total, desplegable, cambio de opción del producto principal y carrito (2 líneas, 22,40 €).
 - [x] 🟢 **Filtros activos** (`facets-active-pills.liquid`) (revisado el 17/11/2026). La extracción es igual al código de Dawn en los cuatro sitios (vertical, horizontal, cajón y móvil), incluido el rango de precio y "Borrar todo". Probado en la colección: las píldoras de disponibilidad y precio aparecen, se quitan sin recargar y el mensaje de "sin productos" sale una vez.
+- [ ] 🟠 **Packs temáticos para quitar stock** (decidido el 18/11/2026). Sustituyen al constructor de packs: packs cerrados con un 10 % de descuento, hechos con la app gratuita Shopify Bundles (el pack es un producto con su precio y descuenta el stock de cada producto). Primer pack: **Pack BARF iniciación**.
+  - [x] **4 productos BARF** de prueba (hechos el 18/11/2026, 20 unidades de cada uno): menú pollo y verduras (8,90 €), menú ternera y cordero (10,90 €), cuellos de pollo (6,90 €) y mezcla de verduras y algas (9,90 €), con el tipo nuevo "Dieta BARF".
+  - [x] **Tipo "Dieta BARF" en el tema** (hecho el 18/11/2026): botón en la barra de catálogo y enlace en el menú de perros, en español e inglés.
+  - [x] **Comprados juntos** entre los 4 productos BARF (hecho el 18/11/2026: cada menú con la mezcla y los cuellos; la mezcla y los cuellos con los dos menús).
+  - [ ] *(tú, OK)* **Instalar Shopify Bundles.**
+  - [ ] **Crear el pack** con los 4 productos: 32,90 € con 36,60 € tachado, en una colección nueva "Packs".
+  - [ ] **Portada y textos**: cambiar el constructor por una sección de packs y quitar "2 productos 10 %" y "Ahorra hasta un 15 %" del mega menú, el banner de peluquería y la portada.
+  - [ ] **Pruebas en Chrome (CLAUDIA)**: el carrito cobra 32,90 €, el stock baja en los 4 productos, ficha del pack, móvil e inglés.
+  - [ ] *(antes de vender BARF de verdad)* **Envío refrigerado** para los congelados: la tarifa Standard no lo cubre.
 
 ## 6. Accesibilidad y SEO
 

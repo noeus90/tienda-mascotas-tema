@@ -18,6 +18,7 @@
   assign p_subfilter_key = 'filter.p.tag'
   assign val_kibble = 'Pienso'
   assign val_wet = 'Comida húmeda' | url_encode
+  assign val_barf = 'Dieta BARF' | url_encode
   assign val_snacks = 'Snack'
   assign val_toys = 'Juguete'
   assign val_grooming = 'Higiene'
@@ -90,6 +91,12 @@
                 <a href="{{ dog_url }}?{{ p_cat_key }}={{ val_wet }}" class="mega-menu-pet__link link">
                   <span class="mega-menu-pet__icon" aria-hidden="true">🥫</span>
                   <span>{{ 'pet_cro.nav.wet_food' | t | default: 'Comida Húmeda' }}</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{ dog_url }}?{{ p_cat_key }}={{ val_barf }}" class="mega-menu-pet__link link">
+                  <span class="mega-menu-pet__icon" aria-hidden="true">🍖</span>
+                  <span>{{ 'pet_cro.nav.barf' | t | default: 'Dieta BARF' }}</span>
                 </a>
               </li>
               <li>
