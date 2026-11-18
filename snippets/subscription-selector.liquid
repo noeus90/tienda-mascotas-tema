@@ -1,6 +1,9 @@
 {%- doc -%}
   CRO Subscription Selector ("One-Time Purchase vs. Auto-Delivery & Save") for Pet Food & Grooming Supplies.
   Calculates the discounted price in real time and binds the selected mode and delivery frequency to the product form.
+  Renders nothing unless the product has selling plans (a subscriptions app): without them the
+  "subscribe & save" option only added line item properties, so customers paid full price for a one-off order.
+  TODO: when a subscriptions app is installed, send the chosen `selling_plan` id and take the discount from the plan.
 
   @param {product} product - (Required) Shopify product object.
   @param {string} product_form_id - (Required) Main product form ID in the section.
@@ -10,6 +13,7 @@
   {% render 'subscription-selector', product: product, product_form_id: product_form_id %}
 {%- enddoc -%}
 
+{%- if product.selling_plan_groups.size > 0 -%}
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
   assign single_price = current_variant.price
@@ -190,3 +194,4 @@
     </div>
   </div>
 </div>
+{%- endif -%}

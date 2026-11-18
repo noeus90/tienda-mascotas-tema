@@ -38,18 +38,30 @@
                 {%- endif -%}
               </div>
               <h3 class="bundle-prod-title">{{ product_item.title }}</h3>
-              {%- assign default_bundle_benefit = 'pet_cro.bundle.default_benefit' | t -%}
-              <p class="bundle-prod-benefit">
-                {{ product_item.metafields.custom.pet_suitability.value | default: product_item.metafields.custom.tipo_piel.value | default: default_bundle_benefit }}
-              </p>
+              {%- assign bundle_benefit = product_item.metafields.custom.pet_suitability.value
+                | default: product_item.metafields.custom.tipo_piel.value
+              -%}
+              {%- if bundle_benefit != blank -%}
+                <p class="bundle-prod-benefit">{{ bundle_benefit }}</p>
+              {%- endif -%}
               <div class="bundle-prod-footer">
                 <span class="bundle-prod-price">{{ current_variant.price | money }}</span>
-                <button
-                  type="button"
-                  class="bundle-add-btn"
-                >
-                  {{ 'pet_cro.bundle.add_btn' | t }}
-                </button>
+                {%- if current_variant.available -%}
+                  <button
+                    type="button"
+                    class="bundle-add-btn"
+                  >
+                    {{ 'pet_cro.bundle.add_btn' | t }}
+                  </button>
+                {%- else -%}
+                  <button
+                    type="button"
+                    class="bundle-add-btn"
+                    disabled
+                  >
+                    {{ 'products.product.sold_out' | t }}
+                  </button>
+                {%- endif -%}
               </div>
             </div>
           {%- endfor -%}

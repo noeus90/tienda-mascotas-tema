@@ -394,3 +394,16 @@
   display: block;
 }
 
+.bundle-feedback.is-error {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.bundle-add-btn:disabled,
+.bundle-add-btn:disabled:hover {
+  background: #e2e8f0;
+  color: #475569;
+  border-color: #e2e8f0;
+  cursor: not-allowed;
+}
+

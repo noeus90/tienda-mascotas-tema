@@ -20,20 +20,31 @@
   assign is_dog = false
   assign is_cat = false
 
-  if meta_species contains 'perro' or meta_species contains 'dog'
-    assign is_dog = true
-  elsif meta_species contains 'gato' or meta_species contains 'cat'
-    assign is_cat = true
-  elsif combined_text contains 'gato' or combined_text contains 'felino' or combined_text contains 'kitten' or combined_text contains 'cat'
-    assign is_cat = true
-  elsif combined_text contains 'perro' or combined_text contains 'canino' or combined_text contains 'puppy' or combined_text contains 'cachorro' or combined_text contains 'dog'
-    assign is_dog = true
-  else
-    # Default to dog if it mentions bone, chew or kibble
-    if combined_text contains 'hueso' or combined_text contains 'mordedor'
+  # A product can be for both species (e.g. "perro, gato" or both tags): then both badges show.
+  # The metafield wins over tags, type and title when it is filled in.
+  if meta_species != blank
+    if meta_species contains 'perro' or meta_species contains 'dog'
       assign is_dog = true
     endif
+    if meta_species contains 'gato' or meta_species contains 'cat'
+      assign is_cat = true
+    endif
   endif
+
+  unless is_dog or is_cat
+    if combined_text contains 'gato' or combined_text contains 'felino' or combined_text contains 'kitten' or combined_text contains 'cat'
+      assign is_cat = true
+    endif
+    if combined_text contains 'perro' or combined_text contains 'canino' or combined_text contains 'puppy' or combined_text contains 'cachorro' or combined_text contains 'dog'
+      assign is_dog = true
+    endif
+    # Default to dog if it mentions bone or chew
+    unless is_dog or is_cat
+      if combined_text contains 'hueso' or combined_text contains 'mordedor'
+        assign is_dog = true
+      endif
+    endunless
+  endunless
 
   # 2. Detect Key Benefits
   assign is_grain_free = false
@@ -73,7 +84,8 @@
       <span class="pet-card-badge pet-card-badge--species pet-card-badge--dog">
         {{ 'pet_cro.badge.dog' | t }}
       </span>
-    {%- elsif is_cat -%}
+    {%- endif -%}
+    {%- if is_cat -%}
       <span class="pet-card-badge pet-card-badge--species pet-card-badge--cat">
         {{ 'pet_cro.badge.cat' | t }}
       </span>

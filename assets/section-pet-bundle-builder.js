@@ -175,6 +175,7 @@ function initBundleBuilder(rootEl) {
   rootEl.addEventListener('click', (event) => {
     const addBtn = event.target.closest('.bundle-add-btn');
     if (addBtn) {
+      if (addBtn.disabled) return;
       const card = addBtn.closest('.bundle-prod-card');
       addItemFromCard(card);
       return;
@@ -223,17 +224,33 @@ function initBundleBuilder(rootEl) {
       })
         .then((res) => res.json())
         .then((response) => {
+          // /cart/add.js answers 422 with { status, description } when a product is sold out.
+          if (!response || response.status) {
+            showError(response && response.description);
+            return;
+          }
+
           showConfirmation();
 
-          if (cart && response && response.sections) {
-            if (typeof cart.setActiveElement === 'function') {
-              cart.setActiveElement(submitBtn);
-            }
-            if (cart.classList.contains('is-empty')) {
-              cart.classList.remove('is-empty');
-            }
-            if (typeof cart.renderContents === 'function') {
-              cart.renderContents(response);
+          if (cart && response.sections) {
+            try {
+              if (typeof cart.setActiveElement === 'function') {
+                cart.setActiveElement(submitBtn);
+              }
+              if (cart.classList.contains('is-empty')) {
+                cart.classList.remove('is-empty');
+              }
+              if (typeof cart.renderContents === 'function') {
+                // A pack adds several lines; Dawn's cart notification shows one, picked by `key`.
+                const firstItem = response.items && response.items[0];
+                cart.renderContents({
+                  ...response,
+                  key: firstItem ? firstItem.key : undefined,
+                  id: firstItem ? firstItem.variant_id : undefined,
+                });
+              }
+            } catch (renderError) {
+              // The products are already in the cart: a failed preview must not report an error.
             }
           }
 
@@ -245,7 +262,7 @@ function initBundleBuilder(rootEl) {
           }
         })
         .catch(() => {
-          showConfirmation();
+          showError();
         })
         .finally(() => {
           submitBtn.disabled = false;
@@ -260,12 +277,28 @@ function initBundleBuilder(rootEl) {
     }
   });
 
-  function showConfirmation() {
+  const confirmationText = feedbackEl ? feedbackEl.textContent.trim() : '';
+  let feedbackTimer;
+
+  function showFeedback(text, isError) {
     if (!feedbackEl) return;
+    clearTimeout(feedbackTimer);
+    feedbackEl.textContent = text;
+    feedbackEl.classList.toggle('is-error', isError);
     feedbackEl.classList.add('is-visible');
-    setTimeout(() => {
+    feedbackTimer = setTimeout(() => {
       feedbackEl.classList.remove('is-visible');
-    }, 4000);
+    }, isError ? 8000 : 4000);
+  }
+
+  function showConfirmation() {
+    showFeedback(confirmationText, false);
+  }
+
+  function showError(description) {
+    const activeLang = (document.documentElement.lang || 'es').toLowerCase().slice(0, 2);
+    const dict = (i18nBundle && i18nBundle[activeLang]) || i18nBundle;
+    showFeedback(description || dict.addError || i18nBundle.addError || '', true);
   }
 
   updateBundleUI();

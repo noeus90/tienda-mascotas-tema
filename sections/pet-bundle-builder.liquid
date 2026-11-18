@@ -5,6 +5,22 @@
   Full documentation: docs/pet-store-architecture.md
 {% endcomment %}
 
+
+{%- liquid
+  assign collection_obj = section.settings.collection
+  assign goal_units = section.settings.goal_units | default: 3
+  assign discount_tier_1 = section.settings.discount_tier_1 | default: 10
+  assign discount_tier_2 = section.settings.discount_tier_2 | default: 15
+
+  # Without a collection the catalog only has sample products, which cannot be added to the cart:
+  # show them in the theme editor as a preview, never to customers.
+  assign has_bundle_products = false
+  if collection_obj != blank and collection_obj.products_count > 0
+    assign has_bundle_products = true
+  endif
+-%}
+
+{%- if has_bundle_products or request.design_mode -%}
 {{ 'section-pet-bundle-builder.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'section-pet-bundle-builder.js' | asset_url }}" defer="defer"></script>
 
@@ -15,12 +31,6 @@
   }
 {%- endstyle -%}
 
-{%- liquid
-  assign collection_obj = section.settings.collection
-  assign goal_units = section.settings.goal_units | default: 3
-  assign discount_tier_1 = section.settings.discount_tier_1 | default: 10
-  assign discount_tier_2 = section.settings.discount_tier_2 | default: 15
--%}
 
 <section
   class="bundle-section-{{ section.id }} bundle-builder-root color-{{ section.settings.color_scheme }} gradient"
@@ -40,6 +50,7 @@
       "discountLabel": {{ 'pet_cro.bundle.discount_label' | t: percent: '__PCT__' | json }},
       "selectAtLeast": {{ 'pet_cro.bundle.select_at_least' | t | json }},
       "addPackCta": {{ 'pet_cro.bundle.add_pack_cta' | t: count: '__COUNT__', total: '__TOTAL__' | json }},
+      "addError": {{ 'pet_cro.bundle.add_error' | t | json }},
       "es": {
         "msgInitial": "Selecciona {{ goal_units }} productos para tu mascota y desbloquea un {{ discount_tier_2 }}% de descuento",
         "msgMissing1": "Añade 1 producto más para desbloquear un {{ discount_tier_1 }}% de descuento",
@@ -48,7 +59,8 @@
         "emptyStep": "Producto __NUM__: Selecciona del catálogo",
         "discountLabel": "Descuento pack (__PCT__%):",
         "selectAtLeast": "Elige al menos 1 producto",
-        "addPackCta": "Añadir Pack (__COUNT__) · __TOTAL__"
+        "addPackCta": "Añadir Pack (__COUNT__) · __TOTAL__",
+        "addError": "No se ha podido añadir el pack a la cesta."
       },
       "en": {
         "msgInitial": "Select {{ goal_units }} products for your pet to unlock your {{ discount_tier_2 }}% discount",
@@ -58,7 +70,8 @@
         "emptyStep": "Item __NUM__: Select from catalog",
         "discountLabel": "Pack discount (__PCT__%):",
         "selectAtLeast": "Select at least 1 product",
-        "addPackCta": "Add Pack (__COUNT__) · __TOTAL__"
+        "addPackCta": "Add Pack (__COUNT__) · __TOTAL__",
+        "addError": "The pack could not be added to your cart."
       }
     }
   </script>
@@ -138,6 +151,7 @@
 
   </div>
 </section>
+{%- endif -%}
 
 {% schema %}
 {

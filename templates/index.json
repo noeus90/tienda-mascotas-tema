@@ -180,6 +180,7 @@
     "pet_bundle_builder": {
       "type": "pet-bundle-builder",
       "settings": {
+        "collection": "perros",
         "kicker": "Ahorra Combinando sus Favoritos",
         "heading": "Crea el Pack de tu Peludo y Ahorra hasta un 15%",
         "subheading": "Elige 2 productos para obtener un 10% DTO o combina 3 o más (pienso, snacks, champú o cuidados) para desbloquear el 15% de descuento directo.",

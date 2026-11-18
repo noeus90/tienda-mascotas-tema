@@ -709,6 +709,7 @@
       "select_at_least": "Select at least 1 product",
       "add_pack_cta": "Add Pack ({{ count }}) · {{ total }}",
       "confirmation": "Pet pack successfully added to your cart!",
+      "add_error": "The pack could not be added to your cart.",
       "empty_step": "Item {{ number }}: Select from catalog",
       "msg_initial": "Select {{ goal }} products for your pet to unlock your {{ discount }}% discount",
       "msg_missing_1": "Add 1 more product to unlock a {{ discount }}% discount",

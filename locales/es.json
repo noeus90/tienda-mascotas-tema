@@ -721,6 +721,7 @@
       "select_at_least": "Elige al menos 1 producto",
       "add_pack_cta": "Añadir Pack ({{ count }}) · {{ total }}",
       "confirmation": "¡Pack para tu mascota añadido correctamente a tu cesta!",
+      "add_error": "No se ha podido añadir el pack a la cesta.",
       "empty_step": "Producto {{ number }}: Selecciona del catálogo",
       "msg_initial": "Selecciona {{ goal }} productos para tu mascota y desbloquea un {{ discount }}% de descuento",
       "msg_missing_1": "Añade 1 producto más para desbloquear un {{ discount }}% de descuento",
