@@ -21,7 +21,7 @@
   assign total_active_values = 0
   assign default_presentation = 'text'
   # Pet shop: the tag filter ("Necesidad") only lists the need tags, not every product tag (perro, higiene…).
-  assign need_tags = settings.need_filter_tags | default: 'cachorro,gatito,adulto,senior,sensible,esterilizado,bolas de pelo,dental' | replace: ', ', ',' | split: ','
+  assign need_tags = settings.need_filter_tags | default: 'cachorro,gatito,adulto,senior,sensible,hipoalergenico,sin cereales,control de peso,esterilizado,bolas de pelo,dental' | replace: ', ', ',' | split: ','
   if results.url
     assign results_url = results.url
   else

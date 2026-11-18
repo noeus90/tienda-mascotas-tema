@@ -39,6 +39,7 @@
         assign val_adult = 'adulto'
         assign val_senior = 'senior'
         assign val_sensitive = 'sensible'
+        assign val_hypoallergenic = 'hipoalergenico'
         assign val_sterilised = 'esterilizado'
         assign val_hairball = 'bolas de pelo' | url_encode
         assign drawer_lang_code = request.locale.iso_code | slice: 0, 2 | downcase
@@ -232,7 +233,10 @@
                                 🦺 {{ 'pet_cro.nav.senior' | t | default: 'Senior (+7a)' }}
                               </a>
                               <a href="{{ dog_url }}?{{ p_subfilter_key }}={{ val_sensitive }}" class="menu-drawer__subfilter-pill link focus-inset">
-                                🌾 {{ 'pet_cro.nav.sensitive' | t | default: 'Hipoalergénico' }}
+                                🌾 {{ 'pet_cro.nav.sensitive' | t | default: 'Sensible' }}
+                              </a>
+                              <a href="{{ dog_url }}?{{ p_subfilter_key }}={{ val_hypoallergenic }}" class="menu-drawer__subfilter-pill link focus-inset">
+                                🛡️ {{ 'pet_cro.nav.hypoallergenic' | t | default: 'Hipoalergénico' }}
                               </a>
                             </div>
                           </div>
@@ -326,6 +330,9 @@
                               </a>
                               <a href="{{ cat_url }}?{{ p_subfilter_key }}={{ val_adult }}" class="menu-drawer__subfilter-pill link focus-inset">
                                 🐈 {{ 'pet_cro.nav.adult' | t | default: 'Adultos' }}
+                              </a>
+                              <a href="{{ cat_url }}?{{ p_subfilter_key }}={{ val_sensitive }}" class="menu-drawer__subfilter-pill link focus-inset">
+                                🌾 {{ 'pet_cro.nav.sensitive' | t | default: 'Sensible' }}
                               </a>
                               <a href="{{ cat_url }}?{{ p_subfilter_key }}={{ val_sterilised }}" class="menu-drawer__subfilter-pill link focus-inset">
                                 ✂️ {{ 'pet_cro.nav.sterilised' | t | default: 'Esterilizados' }}

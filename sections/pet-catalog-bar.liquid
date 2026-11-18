@@ -201,7 +201,7 @@
       pet-catalog-bar.js marks the active one and points each link at the current URL + tag.
     {%- endcomment -%}
     {%- liquid
-      assign need_tags = settings.need_filter_tags | default: 'cachorro,gatito,adulto,senior,sensible,esterilizado,bolas de pelo,dental' | replace: ', ', ',' | split: ','
+      assign need_tags = settings.need_filter_tags | default: 'cachorro,gatito,adulto,senior,sensible,hipoalergenico,sin cereales,control de peso,esterilizado,bolas de pelo,dental' | replace: ', ', ',' | split: ','
       assign collection_needs = ''
       for tag in need_tags
         if collection.all_tags contains tag
@@ -226,6 +226,12 @@
                 assign need_label = 'pet_cro.nav.senior' | t
               when 'sensible'
                 assign need_label = 'pet_cro.nav.sensitive' | t
+              when 'hipoalergenico'
+                assign need_label = 'pet_cro.nav.hypoallergenic' | t
+              when 'sin cereales'
+                assign need_label = 'pet_cro.nav.grain_free' | t
+              when 'control de peso'
+                assign need_label = 'pet_cro.nav.weight_control' | t
               when 'esterilizado'
                 assign need_label = 'pet_cro.nav.sterilised' | t
               when 'bolas de pelo'

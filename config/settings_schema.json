@@ -1473,7 +1473,7 @@
         "id": "need_filter_tags",
         "label": "Etiquetas del filtro Necesidad",
         "info": "Etiquetas de producto, separadas por comas, que salen en el filtro Necesidad de las colecciones. Las demás etiquetas no se muestran.",
-        "default": "cachorro,gatito,adulto,senior,sensible,esterilizado,bolas de pelo,dental"
+        "default": "cachorro,gatito,adulto,senior,sensible,hipoalergenico,sin cereales,control de peso,esterilizado,bolas de pelo,dental"
       }
     ]
   },
