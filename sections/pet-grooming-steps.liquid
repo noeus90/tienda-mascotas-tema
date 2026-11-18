@@ -248,34 +248,46 @@
       {%- liquid
         assign raw_b_h = section.settings.bundle_heading | strip
         assign is_default_b_h = false
+        assign b_h_en = 'Complete Coat Routine Bundle'
         if raw_b_h == 'Pack Rutina Completa de Manto' or raw_b_h == 'Complete Coat Routine Bundle'
           assign is_default_b_h = true
+        elsif raw_b_h == '¿Quieres llevarte el Pack de Baño Completo o reservar cita en Peluquería?'
+          assign is_default_b_h = true
+          assign b_h_en = 'Take home the Complete Bath Bundle or book a grooming appointment?'
         endif
 
         assign raw_b_sub = section.settings.bundle_subheading | strip
         assign is_default_b_sub = false
+        assign b_sub_en = "Get all 4 steps together and save 15% on your pet's daily care."
         if raw_b_sub contains 'Lleva los 4 pasos juntos y ahorra un 15%' or raw_b_sub contains 'Get all 4 steps together'
           assign is_default_b_sub = true
+        elsif raw_b_sub contains 'Ahorra un 15% creando el pack de higiene'
+          assign is_default_b_sub = true
+          assign b_sub_en = "Save 15% by building your pet's hygiene bundle, or book a bath and haircut session with our experts."
         endif
 
         assign raw_b_btn = section.settings.bundle_button_label | strip
         assign is_default_b_btn = false
+        assign b_btn_en = 'Shop complete routine (-15%)'
         if raw_b_btn == 'Comprar rutina completa (-15%)' or raw_b_btn == 'Shop complete routine (-15%)'
           assign is_default_b_btn = true
+        elsif raw_b_btn == 'Crear Pack con 15% DTO'
+          assign is_default_b_btn = true
+          assign b_btn_en = 'Build your bundle (15% off)'
         endif
       -%}
       <div class="grooming-steps-bundle-banner">
         <div class="grooming-steps-bundle-info">
           <h3>
             {%- if is_default_b_h and gs_locale == 'en' -%}
-              Complete Coat Routine Bundle
+              {{ b_h_en }}
             {%- else -%}
               {{ section.settings.bundle_heading }}
             {%- endif -%}
           </h3>
           <p>
             {%- if is_default_b_sub and gs_locale == 'en' -%}
-              Get all 4 steps together and save 15% on your pet's daily care.
+              {{ b_sub_en }}
             {%- else -%}
               {{ section.settings.bundle_subheading }}
             {%- endif -%}
@@ -287,7 +299,7 @@
             class="grooming-steps-bundle-btn"
           >
             {%- if is_default_b_btn and gs_locale == 'en' -%}
-              Shop complete routine (-15%)
+              {{ b_btn_en }}
             {%- else -%}
               {{ section.settings.bundle_button_label }}
             {%- endif %} &rarr;
