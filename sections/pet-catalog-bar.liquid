@@ -1,11 +1,66 @@
 {% comment %}
-  Pet Catalog Navigation & Quick Filters Bar (sections/pet-catalog-bar.liquid)
-  Purpose: 2-level instant visual filtering (By Pet: Dogs/Cats, By Category: Kibble/Wet/Snacks/Toys/Grooming)
-  Architecture: Vanilla JS, WAI-ARIA states, URL sync, instant live filter on #product-grid
+  Pet catalog bar (sections/pet-catalog-bar.liquid), shown above the collection grid.
+
+  Shopify does the filtering on the server, so it covers every page of the collection:
+  - Pet buttons are links to the "perros" and "gatos" collections (or all products).
+    The active category is kept when switching pet.
+  - Category pills come from the "Product type" filter of Search & Discovery
+    (collection.filters, param filter.p.product_type). Only types with products are shown,
+    with their real count. A pill replaces the current type; clicking the active one removes it.
+  - The status line uses collection.products_count, which already counts the active filters.
+
+  assets/pet-catalog-bar.js re-renders this section when Dawn's AJAX filters change the grid,
+  and redirects old links (?mascota=perro&categoria=pienso…) to the new URLs.
 {% endcomment %}
 
 {{ 'section-pet-catalog-bar.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'pet-catalog-bar.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign all_url = routes.all_products_collection_url
+  assign dogs_url = routes.collections_url | append: '/perros'
+  assign cats_url = routes.collections_url | append: '/gatos'
+
+  case collection.handle
+    when 'perros'
+      assign active_pet = 'perro'
+      assign pet_label = 'pet_cro.catalog_bar.status_dogs' | t
+    when 'gatos'
+      assign active_pet = 'gato'
+      assign pet_label = 'pet_cro.catalog_bar.status_cats' | t
+    else
+      assign active_pet = 'all'
+      assign pet_label = 'pet_cro.catalog_bar.status_all' | t
+  endcase
+
+  assign type_filter = nil
+  for f in collection.filters
+    if f.param_name == 'filter.p.product_type'
+      assign type_filter = f
+      break
+    endif
+  endfor
+
+  assign keep_query = ''
+  assign active_type_label = ''
+  if type_filter
+    for v in type_filter.active_values
+      assign enc_value = v.value | url_encode
+      assign keep_query = keep_query | append: '&' | append: v.param_name | append: '=' | append: enc_value
+      assign active_type_label = v.label
+    endfor
+    if keep_query != blank
+      assign keep_query = keep_query | remove_first: '&' | prepend: '?'
+    endif
+  endif
+
+  assign any_filter_active = false
+  for f in collection.filters
+    if f.active_values.size > 0 or f.min_value.value != nil or f.max_value.value != nil
+      assign any_filter_active = true
+    endif
+  endfor
+-%}
 
 {%- style -%}
   .pet-catalog-bar-{{ section.id }} {
@@ -17,154 +72,204 @@
 <div
   class="pet-catalog-bar-section pet-catalog-bar-{{ section.id }} color-{{ section.settings.color_scheme }} gradient"
   data-pet-catalog-bar
+  data-section-id="{{ section.id }}"
   id="pet-catalog-bar-{{ section.id }}"
 >
   <div class="pet-catalog-bar-container page-width">
-    <script type="application/json" data-pet-catalog-i18n>
-      {
-        "empty_title": {{ 'pet_cro.catalog_bar.empty_title' | t | json }},
-        "empty_text": {{ 'pet_cro.catalog_bar.empty_text' | t | json }},
-        "empty_button": {{ 'pet_cro.catalog_bar.empty_button' | t | json }},
-        "status_dogs": {{ 'pet_cro.catalog_bar.status_dogs' | t | json }},
-        "status_cats": {{ 'pet_cro.catalog_bar.status_cats' | t | json }},
-        "status_all": {{ 'pet_cro.catalog_bar.status_all' | t | json }},
-        "status_one_html": {{ 'pet_cro.catalog_bar.status_one_html' | t | json }},
-        "status_other_html": {{ 'pet_cro.catalog_bar.status_other_html' | t | json }}
-      }
-    </script>
-
-
     {%- if section.settings.show_mascot_switcher -%}
-      <!-- Level 1: Mascot Switcher -->
-      <div class="pet-mascot-switcher" role="group" aria-label="{{ 'pet_cro.catalog_bar.aria_species' | t }}">
+      <nav class="pet-mascot-switcher" aria-label="{{ 'pet_cro.catalog_bar.aria_species' | t }}">
         <span class="pet-mascot-label">{{ 'pet_cro.catalog_bar.your_pet' | t }}</span>
-
-        <button
-          type="button"
-          class="pet-mascot-btn is-active"
-          data-pet-mascot="all"
-          aria-pressed="true"
+        <a
+          href="{{ all_url }}{{ keep_query }}"
+          class="pet-mascot-btn{% if active_pet == 'all' %} is-active{% endif %}"
+          {% if active_pet == 'all' %}
+            aria-current="page"
+          {% endif %}
         >
-          <span class="pet-mascot-icon">✨</span>
+          <span class="pet-mascot-icon" aria-hidden="true">✨</span>
           <span>{{ 'pet_cro.catalog_bar.all_pets' | t }}</span>
-        </button>
-
-        <button
-          type="button"
-          class="pet-mascot-btn"
-          data-pet-mascot="perro"
-          aria-pressed="false"
+        </a>
+        <a
+          href="{{ dogs_url }}{{ keep_query }}"
+          class="pet-mascot-btn{% if active_pet == 'perro' %} is-active{% endif %}"
+          {% if active_pet == 'perro' %}
+            aria-current="page"
+          {% endif %}
         >
-          <span class="pet-mascot-icon">🐶</span>
+          <span class="pet-mascot-icon" aria-hidden="true">🐶</span>
           <span>{{ 'pet_cro.catalog_bar.dogs' | t }}</span>
-        </button>
-
-        <button
-          type="button"
-          class="pet-mascot-btn"
-          data-pet-mascot="gato"
-          aria-pressed="false"
+        </a>
+        <a
+          href="{{ cats_url }}{{ keep_query }}"
+          class="pet-mascot-btn{% if active_pet == 'gato' %} is-active{% endif %}"
+          {% if active_pet == 'gato' %}
+            aria-current="page"
+          {% endif %}
         >
-          <span class="pet-mascot-icon">🐱</span>
+          <span class="pet-mascot-icon" aria-hidden="true">🐱</span>
           <span>{{ 'pet_cro.catalog_bar.cats' | t }}</span>
-        </button>
+        </a>
+      </nav>
+    {%- endif -%}
+
+    {%- if type_filter -%}
+      <div class="pet-categories-scroll-wrap">
+        <nav class="pet-categories-pills" aria-label="{{ 'pet_cro.catalog_bar.aria_category' | t }}">
+          {%- liquid
+            assign no_type_active = true
+            if type_filter.active_values.size > 0
+              assign no_type_active = false
+            endif
+            if type_filter.url_to_remove contains '?'
+              assign type_base_url = type_filter.url_to_remove | append: '&'
+            else
+              assign type_base_url = type_filter.url_to_remove | append: '?'
+            endif
+          -%}
+          <a
+            href="{{ type_filter.url_to_remove }}"
+            class="pet-category-pill{% if no_type_active %} is-active{% endif %}"
+            data-pet-filter-link
+            {% if no_type_active %}
+              aria-current="true"
+            {% endif %}
+          >
+            <span class="pet-category-icon" aria-hidden="true">🐾</span>
+            <span>{{ 'pet_cro.catalog_bar.view_all' | t }}</span>
+          </a>
+
+          {%- for value in type_filter.values -%}
+            {%- if value.count == 0 and value.active == false -%}
+              {%- continue -%}
+            {%- endif -%}
+            {%- liquid
+              case value.value
+                when 'Pienso'
+                  assign pill_icon = '🥩'
+                  assign pill_label = 'pet_cro.catalog_bar.kibble' | t
+                when 'Comida húmeda'
+                  assign pill_icon = '🥫'
+                  assign pill_label = 'pet_cro.catalog_bar.wet_food' | t
+                when 'Snack'
+                  assign pill_icon = '🦴'
+                  assign pill_label = 'pet_cro.catalog_bar.snacks' | t
+                when 'Juguete'
+                  assign pill_icon = '🎾'
+                  assign pill_label = 'pet_cro.catalog_bar.toys' | t
+                when 'Higiene'
+                  assign pill_icon = '🧴'
+                  assign pill_label = 'pet_cro.catalog_bar.grooming' | t
+                when 'Suplemento'
+                  assign pill_icon = '💊'
+                  assign pill_label = 'pet_cro.catalog_bar.supplements' | t
+                when 'Accesorio'
+                  assign pill_icon = '🦮'
+                  assign pill_label = 'pet_cro.catalog_bar.walk' | t
+                else
+                  assign pill_icon = '🐾'
+                  assign pill_label = value.label
+              endcase
+
+              if value.active
+                assign pill_url = value.url_to_remove
+                assign active_type_label = pill_label
+              else
+                assign enc_value = value.value | url_encode
+                assign pill_url = type_base_url | append: value.param_name | append: '=' | append: enc_value
+              endif
+            -%}
+            <a
+              href="{{ pill_url }}"
+              class="pet-category-pill{% if value.active %} is-active{% endif %}"
+              data-pet-filter-link
+              {% if value.active %}
+                aria-current="true"
+              {% endif %}
+            >
+              <span class="pet-category-icon" aria-hidden="true">{{ pill_icon }}</span>
+              <span>{{ pill_label }}</span>
+              <span class="pet-category-count">{{ value.count }}</span>
+            </a>
+          {%- endfor -%}
+        </nav>
       </div>
     {%- endif -%}
 
-    <!-- Level 2: Category Chips / Subcollection Pills -->
-    <div class="pet-categories-scroll-wrap">
-      <div class="pet-categories-pills" role="group" aria-label="{{ 'pet_cro.catalog_bar.aria_category' | t }}">
-        <button
-          type="button"
-          class="pet-category-pill is-active"
-          data-pet-category="all"
-          aria-pressed="true"
-        >
-          <span class="pet-category-icon">🐾</span>
-          <span>{{ 'pet_cro.catalog_bar.view_all' | t }}</span>
-        </button>
+    {%- comment -%}
+      Need chips (tags). Shopify hides the tag filter on translated pages (/es/), but filter.p.tag
+      still filters there, so the bar offers the need tags that this collection's products have.
+      pet-catalog-bar.js marks the active one and points each link at the current URL + tag.
+    {%- endcomment -%}
+    {%- liquid
+      assign need_tags = settings.need_filter_tags | default: 'cachorro,gatito,adulto,senior,sensible,esterilizado,bolas de pelo,dental' | replace: ', ', ',' | split: ','
+      assign collection_needs = ''
+      for tag in need_tags
+        if collection.all_tags contains tag
+          assign collection_needs = collection_needs | append: tag | append: ','
+        endif
+      endfor
+      assign collection_needs = collection_needs | split: ','
+    -%}
+    {%- if collection_needs.size > 0 -%}
+      <nav class="pet-needs-pills" aria-label="{{ 'pet_cro.nav.subfilters_title' | t }}" data-pet-needs>
+        <span class="pet-mascot-label">{{ 'pet_cro.nav.subfilters_title' | t }}</span>
+        {%- for tag in collection_needs -%}
+          {%- liquid
+            case tag
+              when 'cachorro'
+                assign need_label = 'pet_cro.nav.puppy' | t
+              when 'gatito'
+                assign need_label = 'pet_cro.nav.kitten' | t
+              when 'adulto'
+                assign need_label = 'pet_cro.nav.adult' | t
+              when 'senior'
+                assign need_label = 'pet_cro.nav.senior' | t
+              when 'sensible'
+                assign need_label = 'pet_cro.nav.sensitive' | t
+              when 'esterilizado'
+                assign need_label = 'pet_cro.nav.sterilised' | t
+              when 'bolas de pelo'
+                assign need_label = 'pet_cro.nav.hairball' | t
+              else
+                assign need_label = tag | capitalize
+            endcase
+            assign enc_tag = tag | url_encode
+          -%}
+          <a
+            href="{{ collection.url }}?filter.p.tag={{ enc_tag }}"
+            class="pet-category-pill pet-need-pill"
+            data-pet-filter-link
+            data-pet-need="{{ tag | escape }}"
+          >
+            {{- need_label -}}
+          </a>
+        {%- endfor -%}
+      </nav>
+    {%- endif -%}
 
-        <button
-          type="button"
-          class="pet-category-pill"
-          data-pet-category="pienso"
-          aria-pressed="false"
-        >
-          <span class="pet-category-icon">🥩</span>
-          <span>{{ 'pet_cro.catalog_bar.kibble' | t }}</span>
-        </button>
-
-        <button
-          type="button"
-          class="pet-category-pill"
-          data-pet-category="humeda"
-          aria-pressed="false"
-        >
-          <span class="pet-category-icon">🥫</span>
-          <span>{{ 'pet_cro.catalog_bar.wet_food' | t }}</span>
-        </button>
-
-        <button
-          type="button"
-          class="pet-category-pill"
-          data-pet-category="snacks"
-          aria-pressed="false"
-        >
-          <span class="pet-category-icon">🦴</span>
-          <span>{{ 'pet_cro.catalog_bar.snacks' | t }}</span>
-        </button>
-
-        <button
-          type="button"
-          class="pet-category-pill"
-          data-pet-category="juguetes"
-          aria-pressed="false"
-        >
-          <span class="pet-category-icon">🎾</span>
-          <span>{{ 'pet_cro.catalog_bar.toys' | t }}</span>
-        </button>
-
-        <button
-          type="button"
-          class="pet-category-pill"
-          data-pet-category="higiene"
-          aria-pressed="false"
-        >
-          <span class="pet-category-icon">🧴</span>
-          <span>{{ 'pet_cro.catalog_bar.grooming' | t }}</span>
-        </button>
-
-        <button
-          type="button"
-          class="pet-category-pill"
-          data-pet-category="suplementos"
-          aria-pressed="false"
-        >
-          <span class="pet-category-icon">💊</span>
-          <span>{{ 'pet_cro.catalog_bar.supplements' | t }}</span>
-        </button>
-
-        <button
-          type="button"
-          class="pet-category-pill"
-          data-pet-category="accesorios"
-          aria-pressed="false"
-        >
-          <span class="pet-category-icon">🦮</span>
-          <span>{{ 'pet_cro.catalog_bar.walk' | t }}</span>
-        </button>
+    {%- if active_pet != 'all' or any_filter_active -%}
+      {%- liquid
+        assign product_count = collection.products_count
+        if product_count == 1
+          assign status_template = 'pet_cro.catalog_bar.status_one_html' | t
+        else
+          assign status_template = 'pet_cro.catalog_bar.status_other_html' | t
+        endif
+        assign category_part = ''
+        if active_type_label != blank
+          assign category_part = ' · ' | append: active_type_label
+        endif
+      -%}
+      <div class="pet-catalog-status-bar" role="status">
+        <div class="pet-catalog-status-text">
+          {{- status_template | replace: '__COUNT__', product_count | replace: '__PET__', pet_label | replace: '__CATEGORY__', category_part -}}
+        </div>
+        <a href="{{ all_url }}" class="pet-catalog-reset-btn">
+          <span aria-hidden="true">✕</span>
+          <span>{{ 'pet_cro.catalog_bar.clear_filters' | t }}</span>
+        </a>
       </div>
-    </div>
-
-    <!-- Active Filter Status & Reset Action -->
-    <div class="pet-catalog-status-bar" data-pet-status-bar hidden>
-      <div class="pet-catalog-status-text" data-pet-status-text></div>
-      <button type="button" class="pet-catalog-reset-btn" data-pet-reset>
-        <span>✕</span>
-        <span>{{ 'pet_cro.catalog_bar.clear_filters' | t }}</span>
-      </button>
-    </div>
-
+    {%- endif -%}
   </div>
 </div>
 

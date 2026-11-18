@@ -20,6 +20,8 @@
   assign sort_by = results.sort_by | default: results.default_sort_by
   assign total_active_values = 0
   assign default_presentation = 'text'
+  # Pet shop: the tag filter ("Necesidad") only lists the need tags, not every product tag (perro, higiene…).
+  assign need_tags = settings.need_filter_tags | default: 'cachorro,gatito,adulto,senior,sensible,esterilizado,bolas de pelo,dental' | replace: ', ', ',' | split: ','
   if results.url
     assign results_url = results.url
   else
@@ -167,6 +169,7 @@
                           role="list"
                         >
                           {%- for value in sorted_values -%}
+                            {%- if filter.param_name == 'filter.p.tag' -%}{%- unless need_tags contains value.value -%}{%- continue -%}{%- endunless -%}{%- endif -%}
                             {% liquid
                               assign input_id = 'Filter-' | append: filter.param_name | escape | append: '-' | append: forloop.index
                               assign is_disabled = false
@@ -499,6 +502,7 @@
                               endif
                             -%}
                             {%- for value in sorted_values -%}
+                              {%- if filter.param_name == 'filter.p.tag' -%}{%- unless need_tags contains value.value -%}{%- continue -%}{%- endunless -%}{%- endif -%}
                               {% liquid
                                 assign input_id = 'Filter-' | append: filter.param_name | escape | append: '-mobile-' | append: forloop.index
                                 assign is_disabled = false

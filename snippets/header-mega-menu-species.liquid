@@ -10,44 +10,29 @@
 {%- liquid
   assign free_shipping_amount = settings.free_shipping_threshold | default: 50 | times: 100 | money_without_trailing_zeros
   assign all_products_url = routes.all_products_collection_url
+  # Pet links go to the Perros / Gatos collections with Search & Discovery filters
+  # (filter.p.product_type = product type, filter.p.tag = need tag), so Shopify filters every page.
+  assign dog_url = routes.collections_url | append: '/perros'
+  assign cat_url = routes.collections_url | append: '/gatos'
+  assign p_cat_key = 'filter.p.product_type'
+  assign p_subfilter_key = 'filter.p.tag'
+  assign val_kibble = 'Pienso'
+  assign val_wet = 'Comida húmeda' | url_encode
+  assign val_snacks = 'Snack'
+  assign val_toys = 'Juguete'
+  assign val_grooming = 'Higiene'
+  assign val_accessories = 'Accesorio'
+  assign val_puppy = 'cachorro'
+  assign val_kitten = 'gatito'
+  assign val_adult = 'adulto'
+  assign val_senior = 'senior'
+  assign val_sensitive = 'sensible'
+  assign val_sterilised = 'esterilizado'
+  assign val_hairball = 'bolas de pelo' | url_encode
   assign lang_code = request.locale.iso_code | slice: 0, 2 | downcase
   if lang_code == 'en'
-    assign p_dog_slug = 'pet=dog'
-    assign p_cat_slug = 'pet=cat'
-    assign p_cat_key = 'category'
-    assign p_subfilter_key = 'need'
-    assign val_kibble = 'dry-food'
-    assign val_wet = 'wet-food'
-    assign val_snacks = 'snacks'
-    assign val_toys = 'toys'
-    assign val_grooming = 'hygiene'
-    assign val_accessories = 'accessories'
-    assign val_puppy = 'puppy'
-    assign val_kitten = 'kitten'
-    assign val_adult = 'adult'
-    assign val_senior = 'senior'
-    assign val_sensitive = 'sensitive'
-    assign val_sterilised = 'sterilised'
-    assign val_hairball = 'hairball'
     assign default_booking_slug = 'pages/bookings'
   else
-    assign p_dog_slug = 'mascota=perro'
-    assign p_cat_slug = 'mascota=gato'
-    assign p_cat_key = 'categoria'
-    assign p_subfilter_key = 'necesidad'
-    assign val_kibble = 'pienso'
-    assign val_wet = 'humeda'
-    assign val_snacks = 'snacks'
-    assign val_toys = 'juguetes'
-    assign val_grooming = 'higiene'
-    assign val_accessories = 'accesorios'
-    assign val_puppy = 'cachorro'
-    assign val_kitten = 'gatito'
-    assign val_adult = 'adulto'
-    assign val_senior = 'senior'
-    assign val_sensitive = 'hipoalergenico'
-    assign val_sterilised = 'esterilizado'
-    assign val_hairball = 'hairball'
     assign default_booking_slug = 'pages/reservas'
   endif
 
@@ -95,43 +80,43 @@
             </div>
             <ul class="mega-menu-pet__links list-unstyled" role="list">
               <li>
-                <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_kibble }}" class="mega-menu-pet__link link">
+                <a href="{{ dog_url }}?{{ p_cat_key }}={{ val_kibble }}" class="mega-menu-pet__link link">
                   <span class="mega-menu-pet__icon" aria-hidden="true">🥩</span>
                   <span>{{ 'pet_cro.nav.kibble' | t | default: 'Pienso Seco' }}</span>
                 </a>
               </li>
               <li>
-                <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_wet }}" class="mega-menu-pet__link link">
+                <a href="{{ dog_url }}?{{ p_cat_key }}={{ val_wet }}" class="mega-menu-pet__link link">
                   <span class="mega-menu-pet__icon" aria-hidden="true">🥫</span>
                   <span>{{ 'pet_cro.nav.wet_food' | t | default: 'Comida Húmeda' }}</span>
                 </a>
               </li>
               <li>
-                <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_snacks }}" class="mega-menu-pet__link link">
+                <a href="{{ dog_url }}?{{ p_cat_key }}={{ val_snacks }}" class="mega-menu-pet__link link">
                   <span class="mega-menu-pet__icon" aria-hidden="true">🦴</span>
                   <span>{{ 'pet_cro.nav.snacks' | t | default: 'Snacks & Premios' }}</span>
                 </a>
               </li>
               <li>
-                <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_toys }}" class="mega-menu-pet__link link">
+                <a href="{{ dog_url }}?{{ p_cat_key }}={{ val_toys }}" class="mega-menu-pet__link link">
                   <span class="mega-menu-pet__icon" aria-hidden="true">🎾</span>
                   <span>{{ 'pet_cro.nav.toys' | t | default: 'Juguetes' }}</span>
                 </a>
               </li>
               <li>
-                <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_grooming }}" class="mega-menu-pet__link link">
+                <a href="{{ dog_url }}?{{ p_cat_key }}={{ val_grooming }}" class="mega-menu-pet__link link">
                   <span class="mega-menu-pet__icon" aria-hidden="true">🧴</span>
                   <span>{{ 'pet_cro.nav.grooming' | t | default: 'Higiene & Cuidados' }}</span>
                 </a>
               </li>
               <li>
-                <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_accessories }}" class="mega-menu-pet__link link">
+                <a href="{{ dog_url }}?{{ p_cat_key }}={{ val_accessories }}" class="mega-menu-pet__link link">
                   <span class="mega-menu-pet__icon" aria-hidden="true">🦮</span>
                   <span>{{ 'pet_cro.nav.walk' | t | default: 'Paseo & Accesorios' }}</span>
                 </a>
               </li>
               <li class="mega-menu-pet__view-all">
-                <a href="{{ all_products_url }}?{{ p_dog_slug }}" class="mega-menu-pet__btn-view-all link">
+                <a href="{{ dog_url }}" class="mega-menu-pet__btn-view-all link">
                   <span>🐾 <strong>{{ 'pet_cro.nav.view_all_dogs' | t | default: 'Ver todo para Perros' }}</strong></span>
                   <span aria-hidden="true">→</span>
                 </a>
@@ -142,16 +127,16 @@
             <div class="mega-menu-pet__subfilters">
               <span class="mega-menu-pet__subfilters-title">{{ 'pet_cro.nav.subfilters_title' | t | default: 'Por Etapa o Necesidad:' }}</span>
               <div class="mega-menu-pet__pills">
-                <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_subfilter_key }}={{ val_puppy }}" class="mega-menu-pet__pill link">
+                <a href="{{ dog_url }}?{{ p_subfilter_key }}={{ val_puppy }}" class="mega-menu-pet__pill link">
                   🍼 {{ 'pet_cro.nav.puppy' | t | default: 'Cachorros' }}
                 </a>
-                <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_subfilter_key }}={{ val_adult }}" class="mega-menu-pet__pill link">
+                <a href="{{ dog_url }}?{{ p_subfilter_key }}={{ val_adult }}" class="mega-menu-pet__pill link">
                   🐕 {{ 'pet_cro.nav.adult' | t | default: 'Adultos' }}
                 </a>
-                <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_subfilter_key }}={{ val_senior }}" class="mega-menu-pet__pill link">
+                <a href="{{ dog_url }}?{{ p_subfilter_key }}={{ val_senior }}" class="mega-menu-pet__pill link">
                   🦺 {{ 'pet_cro.nav.senior' | t | default: 'Senior (+7a)' }}
                 </a>
-                <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_subfilter_key }}={{ val_sensitive }}" class="mega-menu-pet__pill link">
+                <a href="{{ dog_url }}?{{ p_subfilter_key }}={{ val_sensitive }}" class="mega-menu-pet__pill link">
                   🌾 {{ 'pet_cro.nav.sensitive' | t | default: 'Hipoalergénico' }}
                 </a>
               </div>
@@ -165,37 +150,37 @@
             </div>
             <ul class="mega-menu-pet__links list-unstyled" role="list">
               <li>
-                <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_cat_key }}={{ val_kibble }}" class="mega-menu-pet__link link">
+                <a href="{{ cat_url }}?{{ p_cat_key }}={{ val_kibble }}" class="mega-menu-pet__link link">
                   <span class="mega-menu-pet__icon" aria-hidden="true">🥩</span>
                   <span>{{ 'pet_cro.nav.kibble' | t | default: 'Pienso Seco' }}</span>
                 </a>
               </li>
               <li>
-                <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_cat_key }}={{ val_wet }}" class="mega-menu-pet__link link">
+                <a href="{{ cat_url }}?{{ p_cat_key }}={{ val_wet }}" class="mega-menu-pet__link link">
                   <span class="mega-menu-pet__icon" aria-hidden="true">🥫</span>
                   <span>{{ 'pet_cro.nav.wet_food' | t | default: 'Comida Húmeda' }}</span>
                 </a>
               </li>
               <li>
-                <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_cat_key }}={{ val_snacks }}" class="mega-menu-pet__link link">
+                <a href="{{ cat_url }}?{{ p_cat_key }}={{ val_snacks }}" class="mega-menu-pet__link link">
                   <span class="mega-menu-pet__icon" aria-hidden="true">🦴</span>
                   <span>{{ 'pet_cro.nav.snacks' | t | default: 'Snacks & Premios' }}</span>
                 </a>
               </li>
               <li>
-                <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_cat_key }}={{ val_toys }}" class="mega-menu-pet__link link">
+                <a href="{{ cat_url }}?{{ p_cat_key }}={{ val_toys }}" class="mega-menu-pet__link link">
                   <span class="mega-menu-pet__icon" aria-hidden="true">🎾</span>
                   <span>{{ 'pet_cro.nav.toys' | t | default: 'Juguetes & Rascadores' }}</span>
                 </a>
               </li>
               <li>
-                <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_cat_key }}={{ val_grooming }}" class="mega-menu-pet__link link">
+                <a href="{{ cat_url }}?{{ p_cat_key }}={{ val_grooming }}" class="mega-menu-pet__link link">
                   <span class="mega-menu-pet__icon" aria-hidden="true">🧴</span>
                   <span>{{ 'pet_cro.nav.grooming' | t | default: 'Higiene & Arena' }}</span>
                 </a>
               </li>
               <li class="mega-menu-pet__view-all">
-                <a href="{{ all_products_url }}?{{ p_cat_slug }}" class="mega-menu-pet__btn-view-all link">
+                <a href="{{ cat_url }}" class="mega-menu-pet__btn-view-all link">
                   <span>🐾 <strong>{{ 'pet_cro.nav.view_all_cats' | t | default: 'Ver todo para Gatos' }}</strong></span>
                   <span aria-hidden="true">→</span>
                 </a>
@@ -206,16 +191,16 @@
             <div class="mega-menu-pet__subfilters">
               <span class="mega-menu-pet__subfilters-title">{{ 'pet_cro.nav.subfilters_title' | t | default: 'Por Etapa o Necesidad:' }}</span>
               <div class="mega-menu-pet__pills">
-                <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_subfilter_key }}={{ val_kitten }}" class="mega-menu-pet__pill link">
+                <a href="{{ cat_url }}?{{ p_subfilter_key }}={{ val_kitten }}" class="mega-menu-pet__pill link">
                   🍼 {{ 'pet_cro.nav.kitten' | t | default: 'Gatitos' }}
                 </a>
-                <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_subfilter_key }}={{ val_adult }}" class="mega-menu-pet__pill link">
+                <a href="{{ cat_url }}?{{ p_subfilter_key }}={{ val_adult }}" class="mega-menu-pet__pill link">
                   🐈 {{ 'pet_cro.nav.adult' | t | default: 'Adultos' }}
                 </a>
-                <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_subfilter_key }}={{ val_sterilised }}" class="mega-menu-pet__pill link">
+                <a href="{{ cat_url }}?{{ p_subfilter_key }}={{ val_sterilised }}" class="mega-menu-pet__pill link">
                   ✂️ {{ 'pet_cro.nav.sterilised' | t | default: 'Esterilizados' }}
                 </a>
-                <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_subfilter_key }}={{ val_hairball }}" class="mega-menu-pet__pill link">
+                <a href="{{ cat_url }}?{{ p_subfilter_key }}={{ val_hairball }}" class="mega-menu-pet__pill link">
                   🧶 {{ 'pet_cro.nav.hairball' | t | default: 'Bolas de Pelo' }}
                 </a>
               </div>

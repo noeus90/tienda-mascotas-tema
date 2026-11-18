@@ -22,45 +22,29 @@
     </summary>
     <div id="menu-drawer" class="gradient menu-drawer motion-reduce color-{{ section.settings.menu_color_scheme }}">
       {%- liquid
-        assign all_products_url = routes.all_products_collection_url
+        # Pet links go to the Perros / Gatos collections with Search & Discovery filters
+        # (filter.p.product_type = product type, filter.p.tag = need tag), so Shopify filters every page.
+        assign dog_url = routes.collections_url | append: '/perros'
+        assign cat_url = routes.collections_url | append: '/gatos'
+        assign p_cat_key = 'filter.p.product_type'
+        assign p_subfilter_key = 'filter.p.tag'
+        assign val_kibble = 'Pienso'
+        assign val_wet = 'Comida húmeda' | url_encode
+        assign val_snacks = 'Snack'
+        assign val_toys = 'Juguete'
+        assign val_grooming = 'Higiene'
+        assign val_accessories = 'Accesorio'
+        assign val_puppy = 'cachorro'
+        assign val_kitten = 'gatito'
+        assign val_adult = 'adulto'
+        assign val_senior = 'senior'
+        assign val_sensitive = 'sensible'
+        assign val_sterilised = 'esterilizado'
+        assign val_hairball = 'bolas de pelo' | url_encode
         assign drawer_lang_code = request.locale.iso_code | slice: 0, 2 | downcase
         if drawer_lang_code == 'en'
-          assign p_dog_slug = 'pet=dog'
-          assign p_cat_slug = 'pet=cat'
-          assign p_cat_key = 'category'
-          assign p_subfilter_key = 'need'
-          assign val_kibble = 'dry-food'
-          assign val_wet = 'wet-food'
-          assign val_snacks = 'snacks'
-          assign val_toys = 'toys'
-          assign val_grooming = 'hygiene'
-          assign val_accessories = 'accessories'
-          assign val_puppy = 'puppy'
-          assign val_kitten = 'kitten'
-          assign val_adult = 'adult'
-          assign val_senior = 'senior'
-          assign val_sensitive = 'sensitive'
-          assign val_sterilised = 'sterilised'
-          assign val_hairball = 'hairball'
           assign drawer_booking_slug = 'pages/bookings'
         else
-          assign p_dog_slug = 'mascota=perro'
-          assign p_cat_slug = 'mascota=gato'
-          assign p_cat_key = 'categoria'
-          assign p_subfilter_key = 'necesidad'
-          assign val_kibble = 'pienso'
-          assign val_wet = 'humeda'
-          assign val_snacks = 'snacks'
-          assign val_toys = 'juguetes'
-          assign val_grooming = 'higiene'
-          assign val_accessories = 'accesorios'
-          assign val_puppy = 'cachorro'
-          assign val_kitten = 'gatito'
-          assign val_adult = 'adulto'
-          assign val_senior = 'senior'
-          assign val_sensitive = 'hipoalergenico'
-          assign val_sterilised = 'esterilizado'
-          assign val_hairball = 'hairball'
           assign drawer_booking_slug = 'pages/reservas'
         endif
 
@@ -98,7 +82,7 @@
             {%- if section.settings.enable_species_navigation != false -%}
               <div class="menu-drawer__species-tabs" role="region" aria-label="{{ 'pet_cro.nav.species_nav_aria' | t }}">
                 <a
-                  href="{{ all_products_url }}?{{ p_dog_slug }}"
+                  href="{{ dog_url }}"
                   class="menu-drawer__species-tab link focus-inset"
                 >
                   <span class="menu-drawer__species-tab-emoji" aria-hidden="true">🐶</span>
@@ -108,7 +92,7 @@
                   </div>
                 </a>
                 <a
-                  href="{{ all_products_url }}?{{ p_cat_slug }}"
+                  href="{{ cat_url }}"
                   class="menu-drawer__species-tab link focus-inset"
                 >
                   <span class="menu-drawer__species-tab-emoji" aria-hidden="true">🐱</span>
@@ -178,7 +162,7 @@
                           <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
                             <li>
                               <a
-                                href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_kibble }}"
+                                href="{{ dog_url }}?{{ p_cat_key }}={{ val_kibble }}"
                                 class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
                               >
                                 🥩 {{ 'pet_cro.nav.kibble' | t | default: 'Pienso Seco' }}
@@ -186,7 +170,7 @@
                             </li>
                             <li>
                               <a
-                                href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_wet }}"
+                                href="{{ dog_url }}?{{ p_cat_key }}={{ val_wet }}"
                                 class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
                               >
                                 🥫 {{ 'pet_cro.nav.wet_food' | t | default: 'Comida Húmeda' }}
@@ -194,7 +178,7 @@
                             </li>
                             <li>
                               <a
-                                href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_snacks }}"
+                                href="{{ dog_url }}?{{ p_cat_key }}={{ val_snacks }}"
                                 class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
                               >
                                 🦴 {{ 'pet_cro.nav.snacks' | t | default: 'Snacks & Premios' }}
@@ -202,7 +186,7 @@
                             </li>
                             <li>
                               <a
-                                href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_toys }}"
+                                href="{{ dog_url }}?{{ p_cat_key }}={{ val_toys }}"
                                 class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
                               >
                                 🎾 {{ 'pet_cro.nav.toys' | t | default: 'Juguetes' }}
@@ -210,7 +194,7 @@
                             </li>
                             <li>
                               <a
-                                href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_grooming }}"
+                                href="{{ dog_url }}?{{ p_cat_key }}={{ val_grooming }}"
                                 class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
                               >
                                 🧴 {{ 'pet_cro.nav.grooming' | t | default: 'Higiene & Cuidados' }}
@@ -218,7 +202,7 @@
                             </li>
                             <li>
                               <a
-                                href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_cat_key }}={{ val_accessories }}"
+                                href="{{ dog_url }}?{{ p_cat_key }}={{ val_accessories }}"
                                 class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
                               >
                                 🦮 {{ 'pet_cro.nav.walk' | t | default: 'Paseo & Accesorios' }}
@@ -226,7 +210,7 @@
                             </li>
                             <li>
                               <a
-                                href="{{ all_products_url }}?{{ p_dog_slug }}"
+                                href="{{ dog_url }}"
                                 class="menu-drawer__menu-item link link--text list-menu__item focus-inset menu-drawer__menu-item--highlight"
                               >
                                 🐾 <strong>{{ 'pet_cro.nav.view_all_dogs' | t | default: 'Ver todo para Perros' }}</strong>
@@ -238,16 +222,16 @@
                           <div class="menu-drawer__subfilters-section">
                             <span class="menu-drawer__subfilters-heading">{{ 'pet_cro.nav.subfilters_title' | t | default: 'Por Etapa o Necesidad:' }}</span>
                             <div class="menu-drawer__subfilters-scroll">
-                              <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_subfilter_key }}={{ val_puppy }}" class="menu-drawer__subfilter-pill link focus-inset">
+                              <a href="{{ dog_url }}?{{ p_subfilter_key }}={{ val_puppy }}" class="menu-drawer__subfilter-pill link focus-inset">
                                 🍼 {{ 'pet_cro.nav.puppy' | t | default: 'Cachorros' }}
                               </a>
-                              <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_subfilter_key }}={{ val_adult }}" class="menu-drawer__subfilter-pill link focus-inset">
+                              <a href="{{ dog_url }}?{{ p_subfilter_key }}={{ val_adult }}" class="menu-drawer__subfilter-pill link focus-inset">
                                 🐕 {{ 'pet_cro.nav.adult' | t | default: 'Adultos' }}
                               </a>
-                              <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_subfilter_key }}={{ val_senior }}" class="menu-drawer__subfilter-pill link focus-inset">
+                              <a href="{{ dog_url }}?{{ p_subfilter_key }}={{ val_senior }}" class="menu-drawer__subfilter-pill link focus-inset">
                                 🦺 {{ 'pet_cro.nav.senior' | t | default: 'Senior (+7a)' }}
                               </a>
-                              <a href="{{ all_products_url }}?{{ p_dog_slug }}&{{ p_subfilter_key }}={{ val_sensitive }}" class="menu-drawer__subfilter-pill link focus-inset">
+                              <a href="{{ dog_url }}?{{ p_subfilter_key }}={{ val_sensitive }}" class="menu-drawer__subfilter-pill link focus-inset">
                                 🌾 {{ 'pet_cro.nav.sensitive' | t | default: 'Hipoalergénico' }}
                               </a>
                             </div>
@@ -285,7 +269,7 @@
                           <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
                             <li>
                               <a
-                                href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_cat_key }}={{ val_kibble }}"
+                                href="{{ cat_url }}?{{ p_cat_key }}={{ val_kibble }}"
                                 class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
                               >
                                 🥩 {{ 'pet_cro.nav.kibble' | t | default: 'Pienso Seco' }}
@@ -293,7 +277,7 @@
                             </li>
                             <li>
                               <a
-                                href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_cat_key }}={{ val_wet }}"
+                                href="{{ cat_url }}?{{ p_cat_key }}={{ val_wet }}"
                                 class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
                               >
                                 🥫 {{ 'pet_cro.nav.wet_food' | t | default: 'Comida Húmeda' }}
@@ -301,7 +285,7 @@
                             </li>
                             <li>
                               <a
-                                href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_cat_key }}={{ val_snacks }}"
+                                href="{{ cat_url }}?{{ p_cat_key }}={{ val_snacks }}"
                                 class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
                               >
                                 🦴 {{ 'pet_cro.nav.snacks' | t | default: 'Snacks & Premios' }}
@@ -309,7 +293,7 @@
                             </li>
                             <li>
                               <a
-                                href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_cat_key }}={{ val_toys }}"
+                                href="{{ cat_url }}?{{ p_cat_key }}={{ val_toys }}"
                                 class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
                               >
                                 🎾 {{ 'pet_cro.nav.toys' | t | default: 'Juguetes & Rascadores' }}
@@ -317,7 +301,7 @@
                             </li>
                             <li>
                               <a
-                                href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_cat_key }}={{ val_grooming }}"
+                                href="{{ cat_url }}?{{ p_cat_key }}={{ val_grooming }}"
                                 class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
                               >
                                 🧴 {{ 'pet_cro.nav.grooming' | t | default: 'Higiene & Arena' }}
@@ -325,7 +309,7 @@
                             </li>
                             <li>
                               <a
-                                href="{{ all_products_url }}?{{ p_cat_slug }}"
+                                href="{{ cat_url }}"
                                 class="menu-drawer__menu-item link link--text list-menu__item focus-inset menu-drawer__menu-item--highlight"
                               >
                                 🐾 <strong>{{ 'pet_cro.nav.view_all_cats' | t | default: 'Ver todo para Gatos' }}</strong>
@@ -337,16 +321,16 @@
                           <div class="menu-drawer__subfilters-section">
                             <span class="menu-drawer__subfilters-heading">{{ 'pet_cro.nav.subfilters_title' | t | default: 'Por Etapa o Necesidad:' }}</span>
                             <div class="menu-drawer__subfilters-scroll">
-                              <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_subfilter_key }}={{ val_kitten }}" class="menu-drawer__subfilter-pill link focus-inset">
+                              <a href="{{ cat_url }}?{{ p_subfilter_key }}={{ val_kitten }}" class="menu-drawer__subfilter-pill link focus-inset">
                                 🍼 {{ 'pet_cro.nav.kitten' | t | default: 'Gatitos' }}
                               </a>
-                              <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_subfilter_key }}={{ val_adult }}" class="menu-drawer__subfilter-pill link focus-inset">
+                              <a href="{{ cat_url }}?{{ p_subfilter_key }}={{ val_adult }}" class="menu-drawer__subfilter-pill link focus-inset">
                                 🐈 {{ 'pet_cro.nav.adult' | t | default: 'Adultos' }}
                               </a>
-                              <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_subfilter_key }}={{ val_sterilised }}" class="menu-drawer__subfilter-pill link focus-inset">
+                              <a href="{{ cat_url }}?{{ p_subfilter_key }}={{ val_sterilised }}" class="menu-drawer__subfilter-pill link focus-inset">
                                 ✂️ {{ 'pet_cro.nav.sterilised' | t | default: 'Esterilizados' }}
                               </a>
-                              <a href="{{ all_products_url }}?{{ p_cat_slug }}&{{ p_subfilter_key }}={{ val_hairball }}" class="menu-drawer__subfilter-pill link focus-inset">
+                              <a href="{{ cat_url }}?{{ p_subfilter_key }}={{ val_hairball }}" class="menu-drawer__subfilter-pill link focus-inset">
                                 🧶 {{ 'pet_cro.nav.hairball' | t | default: 'Bolas de Pelo' }}
                               </a>
                             </div>

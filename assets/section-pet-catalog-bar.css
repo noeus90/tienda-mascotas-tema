@@ -179,28 +179,28 @@
   border-radius: 4px;
 }
 
-.pet-catalog-reset-btn:hover {
+.pet-catalog-reset-btn:hover,
+.pet-catalog-reset-btn:focus-visible {
   background: #fef2f2;
 }
 
-/* Hidden elements during filter */
-.product-card-wrapper.is-hidden-by-pet-filter {
-  display: none !important;
+.pet-needs-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
-.product-grid-empty-filter {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 3rem 1.5rem;
-  background: rgba(var(--color-foreground), 0.02);
-  border-radius: 12px;
-  border: 1px dashed rgba(var(--color-foreground), 0.15);
-  margin-top: 1rem;
+.pet-category-count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.05rem 0.4rem;
+  border-radius: 9999px;
+  background: rgba(var(--color-foreground), 0.08);
 }
 
-.product-grid-empty-filter p {
-  margin: 0.5rem 0 1rem;
-  color: rgba(var(--color-foreground), 0.7);
+.pet-category-pill.is-active .pet-category-count {
+  background: rgba(255, 255, 255, 0.22);
 }
 
 /* Responsive adjustments */
