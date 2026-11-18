@@ -694,6 +694,16 @@
       "demo_desc_4": "Prevents ear infections and gently cleanses tear stains.",
       "demo_desc_5": "Moisturizes and protects nose and paw pads from hot or cold pavement."
     },
+    "bought_together": {
+      "heading": "Frequently bought together",
+      "this_item": "This item",
+      "add_item_label": "Add {{ title }}",
+      "variant_label": "{{ title }} option",
+      "add_cta": "Add {{ count }} to cart · {{ total }}",
+      "select_one": "Select at least one product",
+      "added": "Added to cart",
+      "add_error": "The products could not be added to your cart."
+    },
     "bundle": {
       "pure_tag": "Pet Favorite",
       "default_benefit": "100% natural formula approved by veterinarians",

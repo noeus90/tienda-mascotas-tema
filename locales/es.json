@@ -706,6 +706,16 @@
       "demo_desc_4": "Previene infecciones auriculares y limpia el lagrimal con suavidad.",
       "demo_desc_5": "Hidrata y protege trufa y almohadillas frente al asfalto frío o caliente."
     },
+    "bought_together": {
+      "heading": "Se suelen comprar juntos",
+      "this_item": "Este producto",
+      "add_item_label": "Añadir {{ title }}",
+      "variant_label": "Opción de {{ title }}",
+      "add_cta": "Añadir {{ count }} a la cesta · {{ total }}",
+      "select_one": "Elige al menos un producto",
+      "added": "Añadido a la cesta",
+      "add_error": "No se han podido añadir los productos a la cesta."
+    },
     "bundle": {
       "pure_tag": "Top Mascotas",
       "default_benefit": "Fórmula 100% natural aprobada por veterinarios",

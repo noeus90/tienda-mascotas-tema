@@ -550,6 +550,8 @@
                       </p>
                     </div>
                   {%- endif -%}
+                {%- when 'bought_together' -%}
+                  {% render 'pet-bought-together', block: block, product: product, section: section, recommendations: recommendations %}
                 {%- when 'complementary' -%}
                   <product-recommendations
                     class="complementary-products quick-add-hidden{% if block.settings.make_collapsible_row %} is-accordion{% endif %}{% if block.settings.enable_quick_add %} complementary-products-contains-quick-add{% endif %}"
@@ -1251,6 +1253,26 @@
         {
           "type": "paragraph",
           "content": "t:sections.main-product.blocks.rating.settings.paragraph.content"
+        }
+      ]
+    },
+    {
+      "type": "bought_together",
+      "name": "Comprados juntos",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Muestra el producto con sus productos complementarios, que se eligen en la app Search & Discovery, para añadirlos a la vez. Si no tiene ninguno disponible, no se muestra."
+        },
+        {
+          "type": "range",
+          "id": "product_list_limit",
+          "min": 1,
+          "max": 3,
+          "step": 1,
+          "default": 2,
+          "label": "Productos complementarios como máximo"
         }
       ]
     },

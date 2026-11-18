@@ -33,6 +33,12 @@
             "show_gift_card_recipient": true
           }
         },
+        "bought_together": {
+          "type": "bought_together",
+          "settings": {
+            "product_list_limit": 2
+          }
+        },
         "description": {
           "type": "description"
         },
@@ -50,6 +56,7 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
+        "bought_together",
         "description",
         "share"
       ],

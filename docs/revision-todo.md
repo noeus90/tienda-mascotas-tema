@@ -94,6 +94,7 @@ Lo que sigue marcando: el iframe de la barra de vista previa de Shopify (solo lo
   - el aviso del carrito no se abría y daba error;
   - se ha quitado "Fórmula 100% natural aprobada por veterinarios", que salía en cualquier producto sin datos.
   Pendiente: **el carrito no aplica el 10 % / 15 %**, porque no hay ningún descuento automático en Shopify. El cliente ve 32,55 € en el pack y paga 38,30 €.
+- [x] 🟠 **Se suelen comprar juntos** (`pet-bought-together.liquid`) (hecho el 18/11/2026). Bloque nuevo de la ficha, debajo del botón de compra: el producto con hasta 2 complementarios, con casillas, desplegable de opciones y un botón "Añadir N a la cesta · total" que los añade a la vez. Sin descuento. Las parejas se eligen en *Search & Discovery → Recomendaciones*; están puestas las 17 (ver tabla en el historial de la conversación del 18/11/2026). Los productos agotados no salen y, si un producto no tiene complementarios disponibles, el bloque no se muestra. Probado en Chrome (CLAUDIA) en español, inglés y a 390 px: total, desplegable, cambio de opción del producto principal y carrito (2 líneas, 22,40 €).
 - [x] 🟢 **Filtros activos** (`facets-active-pills.liquid`) (revisado el 17/11/2026). La extracción es igual al código de Dawn en los cuatro sitios (vertical, horizontal, cajón y móvil), incluido el rango de precio y "Borrar todo". Probado en la colección: las píldoras de disponibilidad y precio aparecen, se quitan sin recargar y el mensaje de "sin productos" sale una vez.
 
 ## 6. Accesibilidad y SEO
