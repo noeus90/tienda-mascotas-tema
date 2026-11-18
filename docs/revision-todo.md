@@ -100,8 +100,8 @@ Lo que sigue marcando: el iframe de la barra de vista previa de Shopify (solo lo
   - [x] **4 productos BARF** de prueba (hechos el 18/11/2026, 20 unidades de cada uno): menú pollo y verduras (8,90 €), menú ternera y cordero (10,90 €), cuellos de pollo (6,90 €) y mezcla de verduras y algas (9,90 €), con el tipo nuevo "Dieta BARF".
   - [x] **Tipo "Dieta BARF" en el tema** (hecho el 18/11/2026): botón en la barra de catálogo y enlace en el menú de perros, en español e inglés.
   - [x] **Comprados juntos** entre los 4 productos BARF (hecho el 18/11/2026: cada menú con la mezcla y los cuellos; la mezcla y los cuellos con los dos menús).
-  - [ ] *(tú, OK)* **Instalar Shopify Bundles.**
-  - [ ] **Crear el pack** con los 4 productos: 32,90 € con 36,60 € tachado, en una colección nueva "Packs".
+  - [x] *(tú, OK)* **Instalar Shopify Bundles** (instalada el 18/11/2026).
+  - [x] **Crear el pack** con los 4 productos (hecho el 18/11/2026): "Pack BARF iniciación", 32,90 €, tipo "Pack", etiquetas perro, barf y pack, en la colección automática nueva "Packs" (etiqueta = pack). El carrito cobra 32,90 €. **Pendiente de decidir:** el precio de comparación (36,60 €) está guardado pero no se ve, porque el mercado España tiene "Precio de comparación: oculto" (Mercados → españa). Mostrarlo es decisión de la tienda: en la UE, anunciar una rebaja exige como precio anterior el más bajo de los últimos 30 días.
   - [ ] **Portada y textos**: cambiar el constructor por una sección de packs y quitar "2 productos 10 %" y "Ahorra hasta un 15 %" del mega menú, el banner de peluquería y la portada.
   - [ ] **Pruebas en Chrome (CLAUDIA)**: el carrito cobra 32,90 €, el stock baja en los 4 productos, ficha del pack, móvil e inglés.
   - [ ] *(antes de vender BARF de verdad)* **Envío refrigerado** para los congelados: la tarifa Standard no lo cubre.
