@@ -79,7 +79,11 @@ Cada fase deja algo que funciona.
 - [ ] **Enlaces a Google Calendar y mapas** (`grooming-booking.js:1289`, `:1813`, `:1822`): comprobar las zonas horarias y que la dirección sale bien codificada.
 
 ### Fase 5. Valor añadido
-- [ ] **Ficha del perro en la cuenta del cliente** (raza, tamaño, cuidados) para no repetir datos en la siguiente reserva.
+- **Ficha del perro**, en 4 fases (la tienda usa las cuentas de cliente nuevas, así que «Mi cuenta» se amplía con una extensión de la app, no con Liquid):
+  - [x] **2a. Fichas en la agenda** (hecho y probado el 19/11/2026, `app/lib/dogs.server.js`): metaobjeto `$app:dog` (nombre, raza, tamaño, edad, cuidados, notas del salón, tutor). Cada reserva se vincula al perro del mismo nombre y tutor (cliente de Shopify o teléfono) o crea su ficha, y la actualiza con lo último que indique el tutor. Páginas **Perros** y ficha del perro en la app; en cada cita, la ficha con notas del salón editables y el historial. Las 11 citas antiguas ya tienen ficha.
+  - [ ] **2b. «Mis perros» en la cuenta del cliente**: sus perros, próximas citas e historial (con los códigos del 5 % aún válidos). Comprobar si la extensión necesita permiso de acceso a red; si no, guardar un resumen en la ficha del cliente.
+  - [ ] **2c. Reserva más rápida**: con la sesión iniciada, el formulario rellena los datos del tutor y deja elegir uno de sus perros.
+  - [ ] **2d. Editar desde la cuenta**: el cliente corrige los datos de su perro o añade otro.
 - [ ] **Historial de citas** en la cuenta del cliente.
 - [x] **5 % en higiene** después de la cita (hecho y probado el 19/11/2026, `app/lib/discounts.server.js`): al marcar la cita como **completada** se crea un código único `PELU5-XXXXXX` (un uso, 30 días, combinable con envío gratis) para la colección automática «Higiene» (handle `pack-de-higiene`, etiqueta `higiene`). Se guarda en la cita y se envía en un email de agradecimiento con un enlace que aplica el código. Si el cliente no tiene email, la agenda lo muestra para dárselo en persona. La colección se renombró de «Pack de higiene» a «Higiene» el mismo día; el handle no cambia porque lo usa la app. Los productos de higiene nuevos deben llevar la etiqueta `higiene`.
 - [ ] **Señal o pago por adelantado** en el checkout, para reducir las citas a las que no viene nadie.
