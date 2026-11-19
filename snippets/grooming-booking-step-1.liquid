@@ -40,7 +40,14 @@
                       <p class="service-card-desc">{{ s_desc }}</p>
                     {%- endif -%}
                     <div class="service-card-meta">
-                      <span class="service-duration">{{ s_dur }}</span>
+                      {%- comment -%} Durations saved as minutes ("60") read as "1 hora" / "45 min". {%- endcomment -%}
+                      {%- assign s_dur_text = s_dur | append: '' | strip -%}
+                      {%- assign s_dur_num = s_dur_text | plus: 0 -%}
+                      {%- assign s_dur_back = s_dur_num | append: '' -%}
+                      {%- if s_dur_num > 0 and s_dur_back == s_dur_text -%}
+                        {%- if s_dur_num == 60 -%}{%- assign s_dur = '1 hora' -%}{%- else -%}{%- assign s_dur = s_dur_num | append: ' min' -%}{%- endif -%}
+                      {%- endif -%}
+                      <span class="service-duration">⏱️ {{ s_dur }}</span>
                       <span class="service-base-price" data-price-mini="{{ s_mini }}" data-price-medium="{{ s_med }}" data-price-large="{{ s_lar }}">
                         Desde {{ s_mini }} €
                       </span>

@@ -1155,6 +1155,16 @@
     updatePriceEstimate() {
       const isEn = document.documentElement.lang === 'en';
       const defaultDuration = isEn ? '1 hour' : '1 hora';
+      // Service durations can come as plain minutes ("60") from the grooming_service metaobject.
+      const formatDuration = (value) => {
+        const mins = Number.parseInt(value, 10);
+        if (!/^\s*\d+\s*$/.test(String(value)) || !mins) return value || defaultDuration;
+        if (mins === 60) return defaultDuration;
+        if (mins < 60) return `${mins} min`;
+        const h = Math.floor(mins / 60);
+        const m = mins % 60;
+        return m ? `${h} h ${m} min` : `${h} ${isEn ? 'hours' : 'horas'}`;
+      };
 
       const servicePrices = {
         bath_hygiene: { mini: 28, medium: 34, large: 42, duration: defaultDuration, name: isEn ? 'Dermoprotective Bath & Ears' : 'Baño Dermoprotector & Oídos' },
@@ -1169,7 +1179,7 @@
             mini: s.mini || 28,
             medium: s.medium || 34,
             large: s.large || 42,
-            duration: s.duration || defaultDuration,
+            duration: formatDuration(s.duration),
             name: s.name,
           };
         });
@@ -1471,7 +1481,10 @@
       if (petNameEl) petNameEl.textContent = this.bookingData.petName;
       if (petBreedEl) {
         const breedDisplay = this.bookingData.petBreed || (isEn ? 'Mixed breed' : 'Mestizo / Sin raza');
-        const sizeTag = this.bookingData.dogSize ? this.bookingData.dogSize.toUpperCase() : '';
+        const sizeNames = isEn
+          ? { mini: 'Mini / Toy', medium: 'Medium', large: 'Large' }
+          : { mini: 'Mini / Toy', medium: 'Mediano', large: 'Grande' };
+        const sizeTag = sizeNames[this.bookingData.dogSize] || '';
         petBreedEl.textContent = sizeTag ? `${breedDisplay} (${sizeTag})` : breedDisplay;
       }
       if (priceEl) priceEl.textContent = this.bookingData.price;
