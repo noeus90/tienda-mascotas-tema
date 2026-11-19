@@ -55,9 +55,11 @@ Cada fase deja algo que funciona.
 - [x] **Definir el metaobjeto "Cita de peluquería"** (hecho el 19/11/2026, `$app:appointment` en `shopify.app.toml`; solo admin, no se ve en la tienda). Campos: resumen, fecha, hora, duración, servicio, tamaño, extras, precio, perro (nombre, raza, edad, cuidados), tutor (nombre, teléfono, email), estado (pending, confirmed, completed, cancelled), canal y notas. El enlace a la ficha del cliente se añade en la fase 4 (necesita permisos de clientes).
 
 ### Fase 1. La peluquería recibe las citas
-- [ ] **Guardar la cita en Shopify:** endpoint del app proxy que comprueba la firma de Shopify, valida los datos y crea la cita en estado "pendiente".
-- [ ] **El formulario envía la cita** al confirmar, con mensaje de éxito o de error. Incluye la validación pendiente: campos obligatorios, fechas pasadas, teléfono y email, doble clic en "confirmar". WhatsApp y email siguen como opción para avisar al salón.
-- [ ] **Lista de citas en el admin:** página sencilla de la app con las próximas citas.
+- [x] **Guardar la cita en Shopify** (hecho el 19/11/2026): `POST /apps/reservas/citas` (app proxy, ruta `app/routes/proxy.citas.jsx` de la app) comprueba la firma de Shopify, valida los datos (`app/lib/appointments.server.js`: fecha entre hoy y 120 días, hora, teléfono de 9 a 15 cifras, email, campo trampa para bots) y crea la cita en estado "pendiente". Probado con una petición firmada: la válida se guarda y sale en el admin; la inválida devuelve qué campos fallan.
+- [ ] **El formulario envía la cita** (código hecho el 19/11/2026, **falta probarlo en la tienda** cuando CLAUDIA vuelva a tener la contraseña): botón "Confirmar reserva" en el paso 4, mensaje de éxito o de error, no se envía dos veces y no deja volver a editar después de guardar. El paso 3 comprueba teléfono y email. WhatsApp, email y calendario salen después de guardar, o si falla, como alternativa.
+- [x] **Lista de citas en el admin** (hecho el 19/11/2026): *Apps → peluqueria-reservas* muestra fecha, hora, servicio, perro, tutor y estado. Hay una cita de prueba ("Toby (PRUEBA)", 22/11/2026).
+
+- [ ] 🟠 **Tamaños del CSS del formulario** (`section-grooming-booking.css`): parece escrito para 1rem = 16 px, como pasaba en la barra de catálogo, así que los textos salen al 62,5 %. Revisar y pasar a la escala de Dawn.
 
 ### Fase 2. Sin citas a la misma hora
 - [ ] **Horas ocupadas reales:** endpoint que devuelve las horas ocupadas de cada día a partir de las citas guardadas.

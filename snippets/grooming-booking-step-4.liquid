@@ -50,8 +50,14 @@
             </div>
           </div>
 
-          <!-- Action Confirmations (WhatsApp Direct & Email) -->
+          <!-- Action Confirmations: the booking is saved by the booking app (/apps/reservas/citas) -->
           <div class="confirmation-cta-box">
+            <button type="button" class="grooming-booking-btn-primary booking-submit-btn" data-booking-action="submit-booking">
+              <span data-i18n-es="Confirmar reserva" data-i18n-en="Confirm booking">Confirmar reserva</span>
+            </button>
+            <div class="booking-submit-status" role="status" aria-live="polite" data-booking-submit-status hidden></div>
+
+            <div class="booking-after-submit" data-booking-after-submit hidden>
             <a
               href="#"
               target="_blank"
@@ -126,6 +132,7 @@
               >
                 Copiar datos
               </button>
+            </div>
             </div>
 
             <div class="booking-success-banner" data-booking-success-banner hidden>

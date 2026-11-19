@@ -78,6 +78,10 @@
                 <label for="booking-cust-email-{{ section.id }}" class="booking-field-label" data-i18n-es="Correo electrónico (opcional)" data-i18n-en="Email address (optional)">Correo electrónico (opcional)</label>
                 <input type="email" id="booking-cust-email-{{ section.id }}" class="booking-form-input" data-booking-input="customerEmail" placeholder="laura@ejemplo.com">
               </div>
+              <div class="booking-hp-field" aria-hidden="true">
+                <label for="booking-website-{{ section.id }}">Web</label>
+                <input type="text" id="booking-website-{{ section.id }}" data-booking-input="website" tabindex="-1" autocomplete="off">
+              </div>
             </div>
             <div class="booking-form-field" style="margin-top: 1rem;">
               <label for="booking-notes-{{ section.id }}" class="booking-field-label" data-i18n-es="Notas o indicaciones adicionales" data-i18n-en="Additional notes or requests">Notas o indicaciones adicionales</label>

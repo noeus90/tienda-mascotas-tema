@@ -110,6 +110,10 @@
       this.mapsBtn = section.querySelector('[data-booking-action="salon-maps"]');
       this.copyBtn = section.querySelector('[data-booking-action="copy-details"]');
       this.successBanner = section.querySelector('[data-booking-success-banner]');
+      this.submitBtn = section.querySelector('[data-booking-action="submit-booking"]');
+      this.submitStatus = section.querySelector('[data-booking-submit-status]');
+      this.afterSubmit = section.querySelector('[data-booking-after-submit]');
+      this.submitting = false;
 
       // Breed search elements (Paso 1)
       this.quickBreedInput = section.querySelector('[data-booking-input="quickBreed"]');
@@ -430,6 +434,10 @@
     }
 
     initEvents() {
+      if (this.submitBtn) {
+        this.submitBtn.addEventListener('click', () => this.submitBooking());
+      }
+
       // Step Navigation buttons
       this.section.addEventListener('click', (e) => {
         const nextBtn = e.target.closest('[data-wizard-action="next"]');
@@ -958,9 +966,11 @@
 
       const totalNumPrice = basePrice + addonsTotalPrice;
       this.bookingData.price = `${totalNumPrice},00 €`;
+      this.bookingData.priceAmount = totalNumPrice;
 
       // Calcular duración total (base 60 mins + extras)
       const totalMins = 60 + addonsTotalMins;
+      this.bookingData.durationMinutes = totalMins;
       if (totalMins > 60) {
         const hours = Math.floor(totalMins / 60);
         const mins = totalMins % 60;
@@ -1101,6 +1111,26 @@
             custPhoneInput.focus();
           }
           return;
+        }
+
+        // Phone: 9 to 15 digits; email (optional): something@domain.tld
+        const phoneValue = custPhoneInput.value.trim();
+        const phoneDigits = phoneValue.replace(/\D/g, '');
+        if (phoneDigits.length < 9 || phoneDigits.length > 15 || /[^\d\s+().-]/.test(phoneValue)) {
+          custPhoneInput.classList.add('is-invalid');
+          custPhoneInput.focus();
+          return;
+        }
+        const emailCheckInput = this.section.querySelector('[data-booking-input="customerEmail"]');
+        if (emailCheckInput) {
+          emailCheckInput.classList.remove('is-invalid');
+          const emailValue = emailCheckInput.value.trim();
+          if (emailValue && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emailValue)) {
+            emailCheckInput.classList.add('is-invalid');
+            emailCheckInput.addEventListener('input', () => emailCheckInput.classList.remove('is-invalid'), { once: true });
+            emailCheckInput.focus();
+            return;
+          }
         }
 
         const privacyInput = this.section.querySelector('[data-booking-input="privacyConsent"]');
@@ -1385,6 +1415,117 @@
         tags: tagsString,
         note: customerNote,
       };
+    }
+
+    /**
+     * Sends the appointment to the booking app (app proxy /apps/reservas/citas), which saves it in
+     * Shopify as a pending appointment. WhatsApp, email and calendar buttons are shown afterwards.
+     */
+    submitBooking() {
+      if (this.submitting || this.bookingData.bookingId || !this.submitBtn) return;
+      const isEn = document.documentElement.lang === 'en';
+      const label = this.submitBtn.querySelector('span') || this.submitBtn;
+      const originalLabel = label.textContent;
+      const websiteInput = this.section.querySelector('[data-booking-input="website"]');
+
+      const payload = {
+        date: this.bookingData.date,
+        time: this.bookingData.slot,
+        service: this.bookingData.serviceName,
+        dogSize: this.bookingData.dogSize,
+        durationMinutes: this.bookingData.durationMinutes,
+        price: this.bookingData.priceAmount,
+        addons: (this.bookingData.addons || []).map((addon) => addon.name),
+        petName: this.bookingData.petName,
+        petBreed: this.bookingData.petBreed,
+        petAge: this.bookingData.petAge,
+        careNotes: this.bookingData.specialNeeds,
+        ownerName: this.bookingData.customerName,
+        ownerPhone: this.bookingData.customerPhone,
+        ownerEmail: this.bookingData.customerEmail,
+        notes: this.bookingData.notes,
+        website: websiteInput ? websiteInput.value : '',
+      };
+
+      this.submitting = true;
+      this.submitBtn.disabled = true;
+      this.submitBtn.setAttribute('aria-busy', 'true');
+      label.textContent = isEn ? 'Sending…' : 'Enviando…';
+      this.showSubmitStatus('', '');
+
+      fetch('/apps/reservas/citas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload),
+      })
+        .then((response) => response.json().catch(() => ({ ok: false, error: 'invalid_response' })))
+        .then((result) => {
+          if (result && result.ok) {
+            this.bookingData.bookingId = result.reference || result.id;
+            this.onBookingSaved(isEn);
+            return;
+          }
+          const fieldNames = isEn
+            ? { date: 'date', time: 'time', service: 'service', dogSize: 'dog size', petName: "dog's name", ownerName: 'your name', ownerPhone: 'phone', ownerEmail: 'email' }
+            : { date: 'fecha', time: 'hora', service: 'servicio', dogSize: 'tamaño', petName: 'nombre del perro', ownerName: 'tu nombre', ownerPhone: 'teléfono', ownerEmail: 'email' };
+          const fields = ((result && result.fields) || []).map((field) => fieldNames[field]).filter(Boolean);
+          const message = fields.length
+            ? (isEn
+                ? 'Some details are not valid. Go back and check them: ' + fields.join(', ') + '.'
+                : 'Hay datos que no son válidos. Vuelve atrás y revísalos: ' + fields.join(', ') + '.')
+            : (isEn
+                ? 'We could not save your booking. Please try again, or send it to us by WhatsApp.'
+                : 'No hemos podido guardar tu reserva. Vuelve a intentarlo o envíanosla por WhatsApp.');
+          this.onBookingFailed(message, label, originalLabel);
+        })
+        .catch(() => {
+          this.onBookingFailed(
+            isEn
+              ? 'No connection. Please try again, or send your booking by WhatsApp.'
+              : 'Sin conexión. Vuelve a intentarlo o envíanos la reserva por WhatsApp.',
+            label,
+            originalLabel
+          );
+        });
+    }
+
+    onBookingSaved(isEn) {
+      this.submitting = false;
+      this.submitBtn.hidden = true;
+      this.submitBtn.removeAttribute('aria-busy');
+      this.showSubmitStatus(
+        'is-success',
+        isEn
+          ? 'Booking received! The salon will confirm it soon. You can also let us know by WhatsApp or add it to your calendar.'
+          : '¡Reserva recibida! La peluquería te la confirmará pronto. Si quieres, avísanos también por WhatsApp o añádela a tu calendario.'
+      );
+      if (this.afterSubmit) this.afterSubmit.hidden = false;
+      // The booking is saved: going back to edit would create a second one.
+      const prevBtn = this.section.querySelector('[data-step-panel="4"] [data-wizard-action="prev"]');
+      if (prevBtn) prevBtn.hidden = true;
+    }
+
+    onBookingFailed(message, label, originalLabel) {
+      this.submitting = false;
+      this.submitBtn.disabled = false;
+      this.submitBtn.removeAttribute('aria-busy');
+      label.textContent = originalLabel;
+      this.showSubmitStatus('is-error', message);
+      // WhatsApp stays available as a fallback.
+      if (this.afterSubmit) this.afterSubmit.hidden = false;
+    }
+
+    showSubmitStatus(type, message) {
+      if (!this.submitStatus) return;
+      this.submitStatus.classList.remove('is-success', 'is-error');
+      if (!message) {
+        this.submitStatus.hidden = true;
+        this.submitStatus.textContent = '';
+        return;
+      }
+      if (type) this.submitStatus.classList.add(type);
+      this.submitStatus.textContent = message;
+      this.submitStatus.hidden = false;
     }
 
     copyBookingDetails() {

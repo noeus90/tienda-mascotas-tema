@@ -1600,3 +1600,39 @@
   font-weight: 600;
   color: #b91c1c;
 }
+
+/* Booking app submission (step 4) */
+.booking-submit-btn {
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+}
+.booking-submit-btn[aria-busy="true"] {
+  opacity: 0.7;
+  cursor: progress;
+}
+.booking-submit-status {
+  margin: 0 0 1.2rem;
+  padding: 1.2rem 1.4rem;
+  border-radius: 1rem;
+  font-size: 1.4rem;
+  line-height: 1.5;
+}
+.booking-submit-status.is-success {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+.booking-submit-status.is-error {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+/* Hidden field for bots: people never see it */
+.booking-hp-field {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
