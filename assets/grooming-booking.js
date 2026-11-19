@@ -239,6 +239,23 @@
         .catch(() => {});
     }
 
+    /** Payment line of the summary (step 4), following the deposit setting of the booking app. */
+    renderPaymentNote(deposit) {
+      const el = this.section.querySelector('[data-booking-payment-note]');
+      if (!el || !deposit || deposit.mode === 'off') return;
+      const isEn = document.documentElement.lang === 'en';
+      const euros = new Intl.NumberFormat(isEn ? 'en-IE' : 'es-ES', { style: 'currency', currency: 'EUR' }).format(deposit.amount);
+      const amount = deposit.type === 'percent' ? `${deposit.percent} %` : euros;
+      el.textContent =
+        deposit.mode === 'required'
+          ? (isEn
+              ? `💳 ${amount} deposit when booking · the rest at the salon`
+              : `💳 Señal de ${amount} al reservar · el resto en la tienda`)
+          : (isEn
+              ? `💳 Pay at the salon · optional ${amount} deposit`
+              : `💳 Pago en la tienda · señal opcional de ${amount}`);
+    }
+
     /** Groomer picker (step 2), only when the salon has two or more active groomers. */
     renderGroomers(groomers) {
       const box = this.section.querySelector('[data-booking-groomers]');
@@ -437,6 +454,7 @@
           if (!result || !result.ok) return;
           this.busy = result.busy || {};
           this.renderGroomers(result.groomers || []);
+          this.renderPaymentNote(result.deposit);
           this.updateAvailableSlots();
           this.renderMiniCalendar();
         })

@@ -60,7 +60,7 @@ Cada fase deja algo que funciona.
 - [x] **Lista de citas en el admin** (hecho el 19/11/2026): *Apps → peluqueria-reservas* muestra fecha, hora, servicio, perro, tutor y estado. Hay una cita de prueba ("Toby (PRUEBA)", 22/11/2026).
 
 - [x] 🟠 **Tamaños del CSS del formulario** (hecho el 19/11/2026, `section-grooming-booking.css`): los 249 valores en rem estaban pensados para 1rem = 16 px y salían al 62,5 % (descripciones a 9 px, campos a 9,5 px). Pasados a la escala de Dawn (×1,6) y los campos de texto a 16 px para que el iPhone no haga zoom. Probado en escritorio y en móvil (390 px, simulado en CLAUDIA) en los 4 pasos. Arreglos de móvil del 19/11/2026: botones con la letra del tema y sin partirse, precio de los extras bajo el nombre, hueco vacío bajo el buscador de raza, total del resumen alineado, peluqueras a todo el ancho, filas vacías del resumen ocultas, duración «1 hora» en vez de «60», tamaño «Mediano» en vez de «MEDIUM» y el selector ES/EN del pie de página ya no tapa el de país.
-  - Pendiente de decidir: el resumen dice «Pago en tienda tras el servicio», que choca con la señal si se activa la obligatoria.
+  - El texto de pago del resumen sigue el modo de la señal (19/11/2026): desactivada «Pago en tienda tras el servicio», demostración «Pago en la tienda · señal opcional de 10,00 €», obligatoria «Señal de 10,00 € al reservar · el resto en la tienda».
 
 ### Fase 2. Sin citas a la misma hora
 - [x] **Horas ocupadas reales** (hecho el 19/11/2026): `GET /apps/reservas/disponibilidad?from=&to=` devuelve los tramos ocupados de cada día (solo horas, sin datos personales), contando la duración de cada cita y sin las canceladas.
