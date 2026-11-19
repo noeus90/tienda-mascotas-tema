@@ -1644,3 +1644,8 @@
 .booking-submit-status[hidden] {
   display: none !important;
 }
+
+/* Optional newsletter box, under the privacy checkbox */
+.booking-marketing-label {
+  margin-top: 1rem;
+}

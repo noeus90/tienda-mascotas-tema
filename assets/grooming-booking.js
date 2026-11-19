@@ -1454,6 +1454,7 @@
       const label = this.submitBtn.querySelector('span') || this.submitBtn;
       const originalLabel = label.textContent;
       const websiteInput = this.section.querySelector('[data-booking-input="website"]');
+      const marketingInput = this.section.querySelector('[data-booking-input="marketingOptIn"]');
 
       const payload = {
         date: this.bookingData.date,
@@ -1472,6 +1473,8 @@
         ownerEmail: this.bookingData.customerEmail,
         notes: this.bookingData.notes,
         website: websiteInput ? websiteInput.value : '',
+        marketingOptIn: !!(marketingInput && marketingInput.checked),
+        locale: document.documentElement.lang || 'es',
       };
 
       this.submitting = true;

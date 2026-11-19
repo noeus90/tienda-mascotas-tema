@@ -113,6 +113,19 @@
               </span>
             </label>
 
+            <!-- Optional and unticked: only people who tick it are subscribed to marketing emails -->
+            <label class="booking-privacy-checkbox-label booking-marketing-label" for="booking-marketing-{{ section.id }}">
+              <input
+                type="checkbox"
+                id="booking-marketing-{{ section.id }}"
+                class="booking-privacy-checkbox"
+                data-booking-input="marketingOptIn"
+              >
+              <span class="booking-privacy-text-wrap">
+                <span data-i18n-es="Quiero recibir por email novedades y ofertas de la tienda (opcional; puedes darte de baja cuando quieras)." data-i18n-en="I want to receive shop news and offers by email (optional; you can unsubscribe at any time).">Quiero recibir por email novedades y ofertas de la tienda (opcional; puedes darte de baja cuando quieras).</span>
+              </span>
+            </label>
+
             <!-- Información básica por capas (AEPD) -->
             <details class="booking-rgpd-accordion">
               <summary class="booking-rgpd-summary">
