@@ -1586,7 +1586,7 @@
         .then((result) => {
           if (result && result.ok) {
             this.bookingData.savedReference = result.reference || result.id;
-            this.onBookingSaved(isEn);
+            this.onBookingSaved(isEn, result.deposit);
             return;
           }
           if (result && result.error === 'slot_taken') {
@@ -1617,20 +1617,53 @@
         });
     }
 
-    onBookingSaved(isEn) {
+    onBookingSaved(isEn, deposit) {
       this.submitting = false;
       this.submitBtn.hidden = true;
       this.submitBtn.removeAttribute('aria-busy');
+      const required = deposit && deposit.mode === 'required';
       this.showSubmitStatus(
         'is-success',
-        isEn
-          ? 'Booking received! The salon will confirm it soon. You can also let us know by WhatsApp or add it to your calendar.'
-          : '¡Reserva recibida! La peluquería te la confirmará pronto. Si quieres, avísanos también por WhatsApp o añádela a tu calendario.'
+        required
+          ? (isEn
+              ? 'Booking saved! Pay the deposit below to confirm it.'
+              : '¡Reserva guardada! Paga la señal aquí abajo para confirmarla.')
+          : (isEn
+              ? 'Booking received! The salon will confirm it soon. You can also let us know by WhatsApp or add it to your calendar.'
+              : '¡Reserva recibida! La peluquería te la confirmará pronto. Si quieres, avísanos también por WhatsApp o añádela a tu calendario.')
       );
+      this.showDeposit(isEn, deposit);
       if (this.afterSubmit) this.afterSubmit.hidden = false;
       // The booking is saved: going back to edit would create a second one.
       const prevBtn = this.section.querySelector('[data-step-panel="4"] [data-wizard-action="prev"]');
       if (prevBtn) prevBtn.hidden = true;
+    }
+
+    /** Deposit link from the booking app (Shopify checkout of a draft order), when deposits are on. */
+    showDeposit(isEn, deposit) {
+      const box = this.section.querySelector('[data-booking-deposit]');
+      if (!box || !deposit || !deposit.url) return;
+      const amount = new Intl.NumberFormat(isEn ? 'en-IE' : 'es-ES', { style: 'currency', currency: 'EUR' }).format(deposit.amount);
+      const text = box.querySelector('[data-booking-deposit-text]');
+      const link = box.querySelector('[data-booking-deposit-link]');
+      const note = box.querySelector('[data-booking-deposit-note]');
+      text.textContent =
+        deposit.mode === 'required'
+          ? (isEn
+              ? `To confirm your appointment, pay a ${amount} deposit. It is taken off the final price.`
+              : `Para confirmar tu cita, paga una señal de ${amount}. Se descuenta del precio final.`)
+          : (isEn
+              ? `Want to secure your appointment? Pay a ${amount} deposit now; it is taken off the final price.`
+              : `¿Quieres asegurar tu cita? Paga ahora una señal de ${amount}; se descuenta del precio final.`);
+      link.href = deposit.url;
+      link.textContent = isEn ? `Pay deposit (${amount})` : `Pagar señal (${amount})`;
+      if (deposit.mode === 'demo') {
+        note.textContent = isEn
+          ? 'Test site: the payment is a test and nothing real is charged (use card number 1).'
+          : 'Web en pruebas: el pago es de prueba y no se cobra nada real (usa la tarjeta número 1).';
+        note.hidden = false;
+      }
+      box.hidden = false;
     }
 
     // The time was booked by someone else meanwhile: reload busy times and go back to step 2.

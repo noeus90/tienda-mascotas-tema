@@ -1208,6 +1208,45 @@
   opacity: 0.75;
 }
 
+/* Deposit offered after booking. Dawn scale: 1rem = 10px. */
+.booking-deposit {
+  margin: 1.6rem 0;
+  padding: 1.6rem;
+  border: 1px solid rgba(5, 150, 105, 0.35);
+  border-radius: 12px;
+  background: rgba(5, 150, 105, 0.06);
+  text-align: center;
+}
+
+.booking-deposit[hidden],
+.booking-deposit [hidden] {
+  display: none !important;
+}
+
+.booking-deposit-text {
+  margin: 0 0 1.2rem;
+  font-size: 1.5rem;
+  line-height: 1.45;
+}
+
+.booking-deposit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 1rem 2.4rem;
+  border-radius: 9999px;
+  background: #047857;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.booking-deposit-btn:hover {
+  background: #065f46;
+}
+
 .booking-field-hint {
   /* Dawn scale (1rem = 10px); the rest of this file still assumes 16px, see docs/revision-todo.md */
   margin: 0.6rem 0 0;
