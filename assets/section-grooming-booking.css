@@ -1,3 +1,4 @@
+/* Sizes in Dawn scale (1rem = 10px). Converted from a 16px-based scale on 2026-11-19. */
 /**
  * Native Dog Grooming Appointment Booking Wizard Stylesheet
  * File: assets/section-grooming-booking.css
@@ -12,41 +13,41 @@
 .grooming-booking-container {
   max-width: 960px;
   margin: 0 auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding-left: 2.4rem;
+  padding-right: 2.4rem;
 }
 
 /* Header */
 .grooming-booking-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 3.2rem;
 }
 
 .grooming-booking-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.35rem 0.85rem;
+  gap: 0.56rem;
+  padding: 0.56rem 1.36rem;
   border-radius: 9999px;
-  font-size: 0.75rem;
+  font-size: 1.2rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   background-color: rgba(16, 185, 129, 0.12);
   color: #047857;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1.2rem;
 }
 
 .grooming-booking-title {
-  margin: 0 0 0.5rem 0;
-  font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+  margin: 0 0 0.8rem 0;
+  font-size: clamp(2.8rem, 3.5vw, 3.6rem);
   font-weight: 800;
   line-height: 1.25;
 }
 
 .grooming-booking-subtitle {
   margin: 0 auto;
-  font-size: 0.95rem;
+  font-size: 1.52rem;
   color: rgba(var(--color-foreground), 0.75);
   max-width: 580px;
   line-height: 1.5;
@@ -60,7 +61,7 @@
   align-items: center;
   justify-content: space-between;
   max-width: 720px;
-  margin: 0 auto 2.5rem auto;
+  margin: 0 auto 4rem auto;
   position: relative;
 }
 
@@ -68,7 +69,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.64rem;
   position: relative;
   z-index: 2;
   cursor: default;
@@ -85,12 +86,12 @@
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 1.44rem;
   transition: all 0.2s ease;
 }
 
 .booking-step-indicator .step-label {
-  font-size: 0.75rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: rgba(var(--color-foreground), 0.6);
   white-space: nowrap;
@@ -119,7 +120,7 @@
   flex: 1;
   height: 2px;
   background: rgba(var(--color-foreground), 0.15);
-  margin: 0 0.5rem 1.25rem 0.5rem;
+  margin: 0 0.8rem 2rem 0.8rem;
 }
 
 @media screen and (max-width: 600px) {
@@ -139,13 +140,13 @@
   border-radius: 20px;
   border: 1px solid rgba(var(--color-foreground), 0.1);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
-  padding: 2.25rem;
+  padding: 3.6rem;
   overflow: hidden;
 }
 
 @media screen and (max-width: 750px) {
   .grooming-booking-card {
-    padding: 1.5rem 1rem;
+    padding: 2.4rem 1.6rem;
   }
 }
 
@@ -170,17 +171,17 @@
 }
 
 .step-panel-header {
-  margin-bottom: 1.75rem;
+  margin-bottom: 2.8rem;
 }
 
 .step-panel-title {
-  font-size: 1.35rem;
+  font-size: 2.16rem;
   font-weight: 800;
-  margin: 0 0 0.35rem 0;
+  margin: 0 0 0.56rem 0;
 }
 
 .step-panel-desc {
-  font-size: 0.9rem;
+  font-size: 1.44rem;
   color: rgba(var(--color-foreground), 0.7);
   margin: 0;
 }
@@ -191,8 +192,8 @@
 .booking-services-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 1.6rem;
+  margin-bottom: 3.2rem;
 }
 
 @media screen and (max-width: 750px) {
@@ -204,8 +205,8 @@
 .booking-service-card {
   position: relative;
   display: flex;
-  gap: 1rem;
-  padding: 1.25rem;
+  gap: 1.6rem;
+  padding: 2rem;
   border-radius: 14px;
   border: 2px solid rgba(var(--color-foreground), 0.1);
   background: rgba(var(--color-foreground), 0.015);
@@ -227,8 +228,8 @@
 
 .service-card-check {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 1.6rem;
+  right: 1.6rem;
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -254,7 +255,7 @@
 }
 
 .service-card-icon {
-  font-size: 2rem;
+  font-size: 3.2rem;
   line-height: 1;
 }
 
@@ -263,16 +264,16 @@
 }
 
 .service-card-name {
-  margin: 0 0 0.35rem 0;
-  font-size: 1rem;
+  margin: 0 0 0.56rem 0;
+  font-size: 1.6rem;
   font-weight: 700;
-  padding-right: 1.5rem;
+  padding-right: 2.4rem;
 }
 
 .service-card-desc {
-  font-size: 0.825rem;
+  font-size: 1.32rem;
   color: rgba(var(--color-foreground), 0.7);
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 1.2rem 0;
   line-height: 1.4;
 }
 
@@ -280,7 +281,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.8rem;
+  font-size: 1.28rem;
 }
 
 .service-duration {
@@ -295,15 +296,15 @@
 
 /* Selector de Tamaño & Buscador Predictivo de Raza */
 .booking-size-section {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
+  margin-top: 2.4rem;
+  padding-top: 2.4rem;
   border-top: 1px dashed rgba(var(--color-foreground), 0.12);
 }
 
 .booking-breed-help {
-  font-size: 0.85rem;
+  font-size: 1.36rem;
   color: rgba(var(--color-foreground), 0.7);
-  margin: -0.5rem 0 1rem 0;
+  margin: -0.8rem 0 1.6rem 0;
   line-height: 1.4;
 }
 
@@ -311,15 +312,15 @@
   background: rgba(var(--color-foreground), 0.02);
   border: 1px solid rgba(var(--color-foreground), 0.08);
   border-radius: 12px;
-  padding: 1rem;
-  margin-bottom: 1.25rem;
+  padding: 1.6rem;
+  margin-bottom: 2rem;
 }
 
 .booking-breed-search-label {
   display: block;
-  font-size: 0.85rem;
+  font-size: 1.36rem;
   font-weight: 700;
-  margin-bottom: 0.45rem;
+  margin-bottom: 0.72rem;
   color: rgba(var(--color-foreground), 0.85);
 }
 
@@ -331,11 +332,11 @@
 
 .booking-breed-quick-input {
   width: 100%;
-  padding: 0.75rem 2.5rem 0.75rem 0.95rem;
+  padding: 1.2rem 4rem 1.2rem 1.52rem;
   border-radius: 8px;
   border: 1.5px solid rgba(var(--color-foreground), 0.15);
   background: #ffffff;
-  font-size: 0.9rem;
+  font-size: 1.44rem;
   color: inherit;
   font-family: inherit;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
@@ -349,7 +350,7 @@
 
 .booking-breed-clear-btn {
   position: absolute;
-  right: 0.6rem;
+  right: 0.96rem;
   top: 50%;
   transform: translateY(-50%);
   width: 24px;
@@ -358,7 +359,7 @@
   border: none;
   background: rgba(var(--color-foreground), 0.08);
   color: rgba(var(--color-foreground), 0.6);
-  font-size: 1.15rem;
+  font-size: 1.84rem;
   line-height: 1;
   cursor: pointer;
   display: flex;
@@ -375,14 +376,14 @@
 
 /* Feedback Contextual Inteligente */
 .booking-breed-feedback {
-  margin-top: 0.75rem;
-  padding: 0.65rem 0.9rem;
+  margin-top: 1.2rem;
+  padding: 1.04rem 1.44rem;
   border-radius: 8px;
-  font-size: 0.85rem;
+  font-size: 1.36rem;
   line-height: 1.45;
   display: flex;
   align-items: flex-start;
-  gap: 0.5rem;
+  gap: 0.8rem;
   animation: fadeInFeedback 0.2s ease-out;
 }
 
@@ -412,15 +413,15 @@
 }
 
 .step-section-subtitle {
-  font-size: 1rem;
+  font-size: 1.6rem;
   font-weight: 700;
-  margin: 0 0 1rem 0;
+  margin: 0 0 1.6rem 0;
 }
 
 .booking-size-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
+  gap: 1.2rem;
 }
 
 @media screen and (max-width: 600px) {
@@ -430,14 +431,14 @@
 }
 
 .booking-size-card {
-  padding: 1rem;
+  padding: 1.6rem;
   border-radius: 12px;
   border: 2px solid rgba(var(--color-foreground), 0.1);
   background: #ffffff;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.4rem;
   transition: all 0.15s ease;
 }
 
@@ -453,7 +454,7 @@
 .size-badge {
   display: inline-block;
   align-self: flex-start;
-  font-size: 0.7rem;
+  font-size: 1.12rem;
   font-weight: 800;
   text-transform: uppercase;
   color: #047857;
@@ -461,19 +462,19 @@
 }
 
 .size-name {
-  font-size: 0.95rem;
+  font-size: 1.52rem;
   font-weight: 700;
 }
 
 .size-hint {
-  font-size: 0.75rem;
+  font-size: 1.2rem;
   color: rgba(var(--color-foreground), 0.6);
 }
 
 /* Selector de Cuidados Extra / Add-ons */
 .booking-addons-section {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
+  margin-top: 2.4rem;
+  padding-top: 2.4rem;
   border-top: 1px dashed rgba(var(--color-foreground), 0.12);
 }
 
@@ -481,17 +482,17 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+  gap: 1.2rem;
+  margin-bottom: 1.6rem;
 }
 
 .booking-addons-header .step-section-subtitle {
-  margin: 0 0 0.25rem 0;
+  margin: 0 0 0.4rem 0;
 }
 
 .booking-addons-subtitle {
   margin: 0;
-  font-size: 0.825rem;
+  font-size: 1.32rem;
   color: rgba(var(--color-foreground), 0.65);
   line-height: 1.4;
 }
@@ -499,8 +500,8 @@
 .booking-addons-pill-badge {
   display: inline-flex;
   align-items: center;
-  padding: 0.25rem 0.65rem;
-  font-size: 0.7rem;
+  padding: 0.4rem 1.04rem;
+  font-size: 1.12rem;
   font-weight: 700;
   background: #ecfdf5;
   color: #065f46;
@@ -513,7 +514,7 @@
 .booking-addons-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.85rem;
+  gap: 1.36rem;
 }
 
 @media screen and (max-width: 680px) {
@@ -526,8 +527,8 @@
   position: relative;
   display: flex;
   align-items: flex-start;
-  gap: 0.85rem;
-  padding: 0.95rem 1rem;
+  gap: 1.36rem;
+  padding: 1.52rem 1.6rem;
   background: #ffffff;
   border: 2px solid rgba(var(--color-foreground), 0.1);
   border-radius: 12px;
@@ -552,7 +553,7 @@
   position: relative;
   width: 20px;
   height: 20px;
-  margin-top: 0.15rem;
+  margin-top: 0.24rem;
   border: 2px solid rgba(var(--color-foreground), 0.25);
   border-radius: 6px;
   background: #ffffff;
@@ -578,17 +579,17 @@
 }
 
 .booking-addon-icon {
-  font-size: 1.5rem;
+  font-size: 2.4rem;
   line-height: 1;
   flex-shrink: 0;
-  margin-top: 0.1rem;
+  margin-top: 0.16rem;
 }
 
 .booking-addon-content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.32rem;
   min-width: 0;
 }
 
@@ -596,23 +597,23 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  gap: 0.5rem;
+  gap: 0.8rem;
 }
 
 .booking-addon-name {
-  font-size: 0.925rem;
+  font-size: 1.48rem;
   font-weight: 700;
   color: rgba(var(--color-foreground), 0.9);
   line-height: 1.3;
 }
 
 .booking-addon-price {
-  font-size: 0.875rem;
+  font-size: 1.4rem;
   font-weight: 800;
   color: #047857;
   white-space: nowrap;
   background: #ecfdf5;
-  padding: 0.15rem 0.45rem;
+  padding: 0.24rem 0.72rem;
   border-radius: 6px;
   border: 1px solid rgba(5, 150, 105, 0.2);
   transition: all 0.2s ease;
@@ -626,19 +627,19 @@
 
 .booking-addon-desc {
   margin: 0;
-  font-size: 0.775rem;
+  font-size: 1.24rem;
   color: rgba(var(--color-foreground), 0.65);
   line-height: 1.35;
 }
 
 .booking-addon-duration {
-  margin-top: 0.2rem;
-  font-size: 0.7rem;
+  margin-top: 0.32rem;
+  font-size: 1.12rem;
   font-weight: 600;
   color: rgba(var(--color-foreground), 0.7);
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.4rem;
 }
 
 /* Live Estimate Bar */
@@ -646,37 +647,37 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 2rem;
-  padding: 1.25rem 1.5rem;
+  margin-top: 3.2rem;
+  padding: 2rem 2.4rem;
   background: rgba(5, 150, 105, 0.06);
   border: 1px solid rgba(5, 150, 105, 0.2);
   border-radius: 14px;
-  gap: 1rem;
+  gap: 1.6rem;
   flex-wrap: wrap;
 }
 
 .estimate-label {
   display: block;
-  font-size: 0.8rem;
+  font-size: 1.28rem;
   font-weight: 600;
   color: rgba(var(--color-foreground), 0.7);
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.32rem;
 }
 
 .estimate-numbers {
   display: flex;
   align-items: baseline;
-  gap: 0.5rem;
+  gap: 0.8rem;
 }
 
 .estimate-price {
-  font-size: 1.5rem;
+  font-size: 2.4rem;
   font-weight: 900;
   color: #047857;
 }
 
 .estimate-duration {
-  font-size: 0.85rem;
+  font-size: 1.36rem;
   font-weight: 600;
   color: rgba(var(--color-foreground), 0.65);
 }
@@ -685,13 +686,13 @@
 .grooming-booking-btn-primary {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
+  gap: 0.8rem;
+  padding: 1.2rem 2.4rem;
   background: #047857;
   color: #ffffff;
   border: none;
   border-radius: 10px;
-  font-size: 0.95rem;
+  font-size: 1.52rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -707,13 +708,13 @@
 .grooming-booking-btn-secondary {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.75rem 1.25rem;
+  gap: 0.64rem;
+  padding: 1.2rem 2rem;
   background: #ffffff;
   color: inherit;
   border: 1px solid rgba(var(--color-foreground), 0.2);
   border-radius: 10px;
-  font-size: 0.9rem;
+  font-size: 1.44rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -727,8 +728,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 2rem;
-  padding-top: 1.5rem;
+  margin-top: 3.2rem;
+  padding-top: 2.4rem;
   border-top: 1px solid rgba(var(--color-foreground), 0.08);
 }
 
@@ -738,7 +739,7 @@
 .booking-datetime-grid {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
-  gap: 1.75rem;
+  gap: 2.8rem;
 }
 
 @media screen and (max-width: 800px) {
@@ -752,7 +753,7 @@
   background: #ffffff;
   border: 1px solid rgba(var(--color-foreground), 0.12);
   border-radius: 16px;
-  padding: 1.25rem;
+  padding: 2rem;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
 }
 
@@ -760,26 +761,26 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1rem;
+  margin-bottom: 1.6rem;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.8rem;
 }
 
 .booking-calendar-badge {
-  font-size: 0.75rem;
+  font-size: 1.2rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #047857;
   background: rgba(16, 185, 129, 0.12);
-  padding: 0.25rem 0.65rem;
+  padding: 0.4rem 1.04rem;
   border-radius: 9999px;
 }
 
 .booking-calendar-nav {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.8rem;
 }
 
 .booking-cal-nav-btn {
@@ -808,7 +809,7 @@
 }
 
 .booking-cal-month-label {
-  font-size: 0.95rem;
+  font-size: 1.52rem;
   font-weight: 800;
   margin: 0;
   min-width: 130px;
@@ -819,13 +820,13 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   text-align: center;
-  font-size: 0.75rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: rgba(var(--color-foreground), 0.55);
   text-transform: uppercase;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
   border-bottom: 1px solid rgba(var(--color-foreground), 0.06);
-  padding-bottom: 0.4rem;
+  padding-bottom: 0.64rem;
 }
 
 .booking-cal-days-grid {
@@ -840,7 +841,7 @@
   border: 1px solid transparent;
   border-radius: 10px;
   background: transparent;
-  font-size: 0.85rem;
+  font-size: 1.36rem;
   font-weight: 600;
   display: flex;
   flex-direction: column;
@@ -907,17 +908,17 @@
 .booking-cal-selected-notice {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
-  margin-top: 1rem;
-  padding: 0.65rem 0.85rem;
+  gap: 1.04rem;
+  margin-top: 1.6rem;
+  padding: 1.04rem 1.36rem;
   background: rgba(5, 150, 105, 0.06);
   border: 1px solid rgba(5, 150, 105, 0.2);
   border-radius: 10px;
-  font-size: 0.85rem;
+  font-size: 1.36rem;
 }
 
 .cal-notice-icon {
-  font-size: 1.1rem;
+  font-size: 1.76rem;
 }
 
 .cal-notice-text strong {
@@ -927,15 +928,15 @@
 .booking-cal-legend {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-top: 0.75rem;
+  gap: 1.2rem;
+  margin-top: 1.2rem;
   flex-wrap: wrap;
 }
 
 .cal-legend-pill {
-  font-size: 0.75rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  padding: 0.25rem 0.6rem;
+  padding: 0.4rem 0.96rem;
   border-radius: 9999px;
   background: rgba(var(--color-foreground), 0.04);
   color: rgba(var(--color-foreground), 0.75);
@@ -954,42 +955,42 @@
 .booking-shift-info-box {
   display: flex;
   align-items: flex-start;
-  gap: 0.6rem;
-  margin-top: 1.25rem;
-  padding: 0.75rem 0.9rem;
+  gap: 0.96rem;
+  margin-top: 2rem;
+  padding: 1.2rem 1.44rem;
   border-radius: 10px;
   background: rgba(var(--color-foreground), 0.03);
   border: 1px solid rgba(var(--color-foreground), 0.08);
 }
 
 .shift-info-icon {
-  font-size: 1rem;
+  font-size: 1.6rem;
   line-height: 1.3;
 }
 
 .shift-info-text {
   margin: 0;
-  font-size: 0.78rem;
+  font-size: 1.248rem;
   line-height: 1.4;
   color: rgba(var(--color-foreground), 0.7);
 }
 
 .shift-group {
-  margin-bottom: 1.25rem;
+  margin-bottom: 2rem;
 }
 
 .shift-group-title {
   display: block;
-  font-size: 0.8rem;
+  font-size: 1.28rem;
   font-weight: 700;
   color: rgba(var(--color-foreground), 0.7);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.64rem;
 }
 
 .shift-slots-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.5rem;
+  gap: 0.8rem;
 }
 
 @media screen and (max-width: 520px) {
@@ -999,13 +1000,13 @@
 }
 
 .booking-slot-card {
-  padding: 0.6rem 0.5rem;
+  padding: 0.96rem 0.8rem;
   text-align: center;
   border-radius: 8px;
   border: 1px solid rgba(var(--color-foreground), 0.15);
   background: #ffffff;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 1.36rem;
   font-weight: 700;
   transition: all 0.15s ease;
 }
@@ -1032,7 +1033,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.2rem;
+  gap: 0.32rem;
 }
 
 .booking-slot-card.is-booked .slot-time {
@@ -1040,11 +1041,11 @@
 }
 
 .slot-booked-badge {
-  font-size: 0.65rem;
+  font-size: 1.04rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  padding: 0.1rem 0.35rem;
+  padding: 0.16rem 0.56rem;
   border-radius: 4px;
   background: rgba(220, 38, 38, 0.12);
   color: #dc2626;
@@ -1058,14 +1059,14 @@
 .booking-shift-special-notice {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-top: 1rem;
-  padding: 0.85rem 1.1rem;
+  gap: 1.2rem;
+  margin-top: 1.6rem;
+  padding: 1.36rem 1.76rem;
   border-radius: 12px;
   background: rgba(245, 158, 11, 0.12);
   border: 1px solid rgba(245, 158, 11, 0.35);
   color: #92400e;
-  font-size: 0.85rem;
+  font-size: 1.36rem;
   font-weight: 600;
   line-height: 1.4;
 }
@@ -1075,7 +1076,7 @@
 }
 
 .booking-shift-special-notice .notice-icon {
-  font-size: 1.25rem;
+  font-size: 2rem;
   flex-shrink: 0;
   line-height: 1;
 }
@@ -1083,14 +1084,14 @@
 .booking-shift-fully-booked-notice {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-top: 1rem;
-  padding: 0.85rem 1.1rem;
+  gap: 1.2rem;
+  margin-top: 1.6rem;
+  padding: 1.36rem 1.76rem;
   border-radius: 12px;
   background: rgba(220, 38, 38, 0.1);
   border: 1px solid rgba(220, 38, 38, 0.3);
   color: #b91c1c;
-  font-size: 0.85rem;
+  font-size: 1.36rem;
   font-weight: 600;
   line-height: 1.4;
 }
@@ -1100,7 +1101,7 @@
 }
 
 .booking-shift-fully-booked-notice .notice-icon {
-  font-size: 1.25rem;
+  font-size: 2rem;
   flex-shrink: 0;
   line-height: 1;
 }
@@ -1111,22 +1112,22 @@
 .booking-fieldset {
   border: 1px solid rgba(var(--color-foreground), 0.1);
   border-radius: 14px;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
+  padding: 2.4rem;
+  margin-bottom: 2.4rem;
   background: rgba(var(--color-foreground), 0.01);
 }
 
 .booking-legend {
-  font-size: 0.95rem;
+  font-size: 1.52rem;
   font-weight: 800;
-  padding: 0 0.5rem;
+  padding: 0 0.8rem;
   color: #047857;
 }
 
 .booking-form-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  gap: 1.6rem;
 }
 
 @media screen and (max-width: 750px) {
@@ -1143,8 +1144,8 @@
 .booking-form-input,
 .booking-form-textarea {
   width: 100%;
-  padding: 0.65rem 0.85rem;
-  font-size: 0.95rem;
+  padding: 1.04rem 1.36rem;
+  font-size: 1.6rem; /* 16px: iOS does not zoom when the field gets focus */
   border-radius: 8px;
   border: 1px solid rgba(var(--color-foreground), 0.2);
   background: #ffffff;
@@ -1266,7 +1267,6 @@
 }
 
 .booking-field-hint {
-  /* Dawn scale (1rem = 10px); the rest of this file still assumes 16px, see docs/revision-todo.md */
   margin: 0.6rem 0 0;
   font-size: 1.3rem;
   line-height: 1.4;
@@ -1295,26 +1295,26 @@
 }
 
 .booking-special-needs {
-  margin-top: 1rem;
-  padding-top: 1rem;
+  margin-top: 1.6rem;
+  padding-top: 1.6rem;
   border-top: 1px dashed rgba(var(--color-foreground), 0.1);
 }
 
 .booking-tags-grid {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.8rem;
   flex-wrap: wrap;
 }
 
 .booking-tag-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.35rem 0.75rem;
+  gap: 0.56rem;
+  padding: 0.56rem 1.2rem;
   border-radius: 9999px;
   border: 1px solid rgba(var(--color-foreground), 0.15);
   background: #ffffff;
-  font-size: 0.8rem;
+  font-size: 1.28rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -1341,7 +1341,7 @@
   background: rgba(var(--color-foreground), 0.015);
   border: 1px solid rgba(var(--color-foreground), 0.1);
   border-radius: 16px;
-  padding: 1.75rem;
+  padding: 2.8rem;
 }
 
 .confirmation-summary-header {
@@ -1349,16 +1349,16 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
-  padding-bottom: 1.25rem;
-  margin-bottom: 1.25rem;
-  gap: 1rem;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  gap: 1.6rem;
   flex-wrap: wrap;
 }
 
 .confirmation-pet-badge {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1.2rem;
 }
 
 .confirmation-pet-badge .pet-icon {
@@ -1369,17 +1369,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 2.4rem;
 }
 
 .pet-summary-name {
   display: block;
-  font-size: 1.2rem;
+  font-size: 1.92rem;
   font-weight: 800;
 }
 
 .pet-summary-breed {
-  font-size: 0.85rem;
+  font-size: 1.36rem;
   color: rgba(var(--color-foreground), 0.7);
 }
 
@@ -1389,14 +1389,14 @@
 
 .price-label {
   display: block;
-  font-size: 0.75rem;
+  font-size: 1.2rem;
   text-transform: uppercase;
   color: rgba(var(--color-foreground), 0.6);
   font-weight: 700;
 }
 
 .price-amount {
-  font-size: 1.5rem;
+  font-size: 2.4rem;
   font-weight: 900;
   color: #047857;
 }
@@ -1404,8 +1404,8 @@
 .confirmation-details-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-bottom: 1.75rem;
+  gap: 1.6rem;
+  margin-bottom: 2.8rem;
 }
 
 @media screen and (max-width: 600px) {
@@ -1417,18 +1417,18 @@
 .conf-item {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.32rem;
 }
 
 .conf-label {
-  font-size: 0.75rem;
+  font-size: 1.2rem;
   font-weight: 700;
   text-transform: uppercase;
   color: rgba(var(--color-foreground), 0.6);
 }
 
 .conf-value {
-  font-size: 0.95rem;
+  font-size: 1.52rem;
 }
 
 .conf-item-addons {
@@ -1438,19 +1438,19 @@
 .conf-addons-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 0.25rem;
+  gap: 0.64rem;
+  margin-top: 0.4rem;
 }
 
 .conf-addon-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.3rem 0.65rem;
+  gap: 0.56rem;
+  padding: 0.48rem 1.04rem;
   background: #ecfdf5;
   border: 1px solid #a7f3d0;
   border-radius: 9999px;
-  font-size: 0.8rem;
+  font-size: 1.28rem;
   color: #065f46;
   font-weight: 600;
 }
@@ -1464,8 +1464,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  padding-top: 1.25rem;
+  gap: 1.6rem;
+  padding-top: 2rem;
   border-top: 1px dashed rgba(var(--color-foreground), 0.15);
 }
 
@@ -1473,14 +1473,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.65rem;
+  gap: 1.04rem;
   width: 100%;
   max-width: 360px;
-  padding: 0.9rem 1.75rem;
+  padding: 1.44rem 2.8rem;
   background: #25D366;
   color: #ffffff;
   border-radius: 12px;
-  font-size: 1.05rem;
+  font-size: 1.68rem;
   font-weight: 800;
   text-decoration: none;
   box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
@@ -1499,7 +1499,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.65rem;
+  gap: 1.04rem;
   flex-wrap: wrap;
   width: 100%;
 }
@@ -1514,9 +1514,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.55rem 0.95rem;
+  padding: 0.88rem 1.52rem;
   border-radius: 8px;
-  font-size: 0.825rem;
+  font-size: 1.32rem;
   font-weight: 600;
   text-decoration: none;
   background: #ffffff;
@@ -1548,8 +1548,8 @@
 .booking-success-banner {
   display: flex;
   align-items: flex-start;
-  gap: 0.75rem;
-  padding: 1rem 1.25rem;
+  gap: 1.2rem;
+  padding: 1.6rem 2rem;
   background: #ecfdf5;
   border: 1px solid #a7f3d0;
   border-radius: 12px;
@@ -1565,28 +1565,28 @@
 }
 
 .success-icon {
-  font-size: 1.5rem;
+  font-size: 2.4rem;
   line-height: 1;
 }
 
 .success-text strong {
   display: block;
   color: #065f46;
-  font-size: 0.95rem;
-  margin-bottom: 0.2rem;
+  font-size: 1.52rem;
+  margin-bottom: 0.32rem;
 }
 
 .success-text p {
   margin: 0;
   color: #047857;
-  font-size: 0.825rem;
+  font-size: 1.32rem;
   line-height: 1.4;
 }
 
 .booking-trust-points {
   display: flex;
-  gap: 1rem;
-  font-size: 0.8rem;
+  gap: 1.6rem;
+  font-size: 1.28rem;
   color: rgba(var(--color-foreground), 0.7);
   flex-wrap: wrap;
   justify-content: center;
@@ -1598,8 +1598,8 @@
 
 /* RGPD / LOPD-GDD Privacy Protection Card */
 .booking-privacy-card {
-  margin-top: 1.25rem;
-  padding: 1rem 1.15rem;
+  margin-top: 2rem;
+  padding: 1.6rem 1.84rem;
   background: #f8fafc;
   border: 1px solid rgba(var(--color-foreground), 0.12);
   border-radius: 10px;
@@ -1616,18 +1616,18 @@
 .booking-privacy-checkbox-label {
   display: flex;
   align-items: flex-start;
-  gap: 0.65rem;
+  gap: 1.04rem;
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: 1.4rem;
   line-height: 1.45;
   color: rgba(var(--color-foreground), 0.85);
   user-select: none;
 }
 
 .booking-privacy-checkbox {
-  margin-top: 0.2rem;
-  width: 1.15rem;
-  height: 1.15rem;
+  margin-top: 0.32rem;
+  width: 1.84rem;
+  height: 1.84rem;
   accent-color: #059669;
   cursor: pointer;
   flex-shrink: 0;
@@ -1650,16 +1650,16 @@
 }
 
 .booking-rgpd-accordion {
-  margin-top: 0.75rem;
+  margin-top: 1.2rem;
   border-top: 1px dashed rgba(var(--color-foreground), 0.12);
-  padding-top: 0.6rem;
+  padding-top: 0.96rem;
 }
 
 .booking-rgpd-summary {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.775rem;
+  gap: 0.64rem;
+  font-size: 1.24rem;
   color: rgba(var(--color-foreground), 0.65);
   cursor: pointer;
   user-select: none;
@@ -1675,8 +1675,8 @@
 }
 
 .booking-rgpd-content {
-  margin-top: 0.6rem;
-  padding: 0.65rem 0.85rem;
+  margin-top: 0.96rem;
+  padding: 1.04rem 1.36rem;
   background: #ffffff;
   border-radius: 6px;
   border: 1px solid rgba(var(--color-foreground), 0.08);
@@ -1686,21 +1686,21 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
-  font-size: 0.75rem;
+  gap: 0.72rem;
+  font-size: 1.2rem;
   line-height: 1.4;
 }
 
 .booking-rgpd-row {
   display: grid;
   grid-template-columns: 95px 1fr;
-  gap: 0.5rem;
+  gap: 0.8rem;
 }
 
 @media screen and (max-width: 480px) {
   .booking-rgpd-row {
     grid-template-columns: 1fr;
-    gap: 0.15rem;
+    gap: 0.24rem;
   }
 }
 
@@ -1715,8 +1715,8 @@
 }
 
 .booking-privacy-error {
-  margin-top: 0.6rem;
-  font-size: 0.825rem;
+  margin-top: 0.96rem;
+  font-size: 1.32rem;
   font-weight: 600;
   color: #b91c1c;
 }
@@ -1725,17 +1725,17 @@
 .booking-submit-btn {
   width: 100%;
   justify-content: center;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.92rem;
 }
 .booking-submit-btn[aria-busy="true"] {
   opacity: 0.7;
   cursor: progress;
 }
 .booking-submit-status {
-  margin: 0 0 1.2rem;
-  padding: 1.2rem 1.4rem;
-  border-radius: 1rem;
-  font-size: 1.4rem;
+  margin: 0 0 1.92rem;
+  padding: 1.92rem 2.24rem;
+  border-radius: 1.6rem;
+  font-size: 2.24rem;
   line-height: 1.5;
 }
 .booking-submit-status.is-success {
@@ -1767,5 +1767,5 @@
 
 /* Optional newsletter box, under the privacy checkbox */
 .booking-marketing-label {
-  margin-top: 1rem;
+  margin-top: 1.6rem;
 }
