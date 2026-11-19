@@ -140,6 +140,9 @@
   endif
 -%}
 
+{%- comment -%} Texts follow the page language (/en/ English, otherwise Spanish). {%- endcomment -%}
+{%- assign booking_en = false -%}{%- if request.locale.iso_code == 'en' -%}{%- assign booking_en = true -%}{%- endif -%}
+
 <section
   class="grooming-booking-section grooming-booking-{{ section.id }} color-{{ section.settings.color_scheme }} gradient"
   id="grooming-booking-{{ section.id }}"
@@ -229,17 +232,19 @@
     <header class="grooming-booking-header">
       <span
         class="grooming-booking-badge"
-        data-i18n-es="🐾 Peluquería Canina Sin Estrés"
-        data-i18n-en="🐾 Stress-Free Dog Grooming"
       >
-        🐾 Peluquería Canina Sin Estrés
+        {% if booking_en %}🐾 Stress-Free Dog Grooming{% else %}🐾 Peluquería Canina Sin Estrés{% endif %}
       </span>
-      <h2
-        class="grooming-booking-title"
-        data-i18n-es="Reserva Cita de Peluquería Canina & Spa"
-        data-i18n-en="Book a Dog Grooming & Spa Appointment"
-      >
-        {{ section.settings.heading | default: 'Reserva Cita de Peluquería Canina & Spa' }}
+      {%- comment -%}
+        Heading and subheading are editor settings: the store translates them in Settings → Languages
+        (theme content). The untouched Spanish default heading gets its English version here.
+      {%- endcomment -%}
+      {%- assign booking_heading = section.settings.heading | default: 'Reserva Cita de Peluquería Canina & Spa' -%}
+      {%- if booking_en and booking_heading == 'Reserva Cita de Peluquería Canina & Spa' -%}
+        {%- assign booking_heading = 'Book a Dog Grooming & Spa Appointment' -%}
+      {%- endif -%}
+      <h2 class="grooming-booking-title">
+        {{ booking_heading }}
       </h2>
       {%- if section.settings.subheading != blank -%}
         <p class="grooming-booking-subtitle">

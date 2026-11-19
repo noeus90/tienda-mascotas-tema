@@ -1,22 +1,24 @@
+{%- comment -%} Texts follow the page language (/en/ English, otherwise Spanish). {%- endcomment -%}
+{%- assign booking_en = false -%}{%- if request.locale.iso_code == 'en' -%}{%- assign booking_en = true -%}{%- endif -%}
     <!-- Booking Stepper Progress Indicator -->
-    <nav class="grooming-booking-stepper" aria-label="Pasos de la reserva">
+    <nav class="grooming-booking-stepper" aria-label="{% if booking_en %}Booking steps{% else %}Pasos de la reserva{% endif %}">
       <div class="booking-step-indicator is-active" data-step-indicator="1">
         <span class="step-num">1</span>
-        <span class="step-label" data-i18n-es="Servicio & Tamaño" data-i18n-en="Service & Size">Servicio & Tamaño</span>
+        <span class="step-label">{% if booking_en %}Service & Size{% else %}Servicio & Tamaño{% endif %}</span>
       </div>
       <div class="booking-step-line" aria-hidden="true"></div>
       <div class="booking-step-indicator" data-step-indicator="2">
         <span class="step-num">2</span>
-        <span class="step-label" data-i18n-es="Fecha & Turno" data-i18n-en="Date & Time">Fecha & Turno</span>
+        <span class="step-label">{% if booking_en %}Date & Time{% else %}Fecha & Turno{% endif %}</span>
       </div>
       <div class="booking-step-line" aria-hidden="true"></div>
       <div class="booking-step-indicator" data-step-indicator="3">
         <span class="step-num">3</span>
-        <span class="step-label" data-i18n-es="Ficha del Peludo" data-i18n-en="Pet Details">Ficha del Peludo</span>
+        <span class="step-label">{% if booking_en %}Pet Details{% else %}Ficha del Peludo{% endif %}</span>
       </div>
       <div class="booking-step-line" aria-hidden="true"></div>
       <div class="booking-step-indicator" data-step-indicator="4">
         <span class="step-num">4</span>
-        <span class="step-label" data-i18n-es="Confirmación" data-i18n-en="Confirmation">Confirmación</span>
+        <span class="step-label">{% if booking_en %}Confirmation{% else %}Confirmación{% endif %}</span>
       </div>
     </nav>
