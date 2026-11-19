@@ -76,7 +76,8 @@
               </div>
               <div class="booking-form-field">
                 <label for="booking-cust-email-{{ section.id }}" class="booking-field-label" data-i18n-es="Correo electrónico (opcional)" data-i18n-en="Email address (optional)">Correo electrónico (opcional)</label>
-                <input type="email" id="booking-cust-email-{{ section.id }}" class="booking-form-input" data-booking-input="customerEmail" placeholder="laura@ejemplo.com">
+                <input type="email" id="booking-cust-email-{{ section.id }}" class="booking-form-input" data-booking-input="customerEmail" placeholder="laura@ejemplo.com" aria-describedby="booking-email-hint-{{ section.id }}">
+                <p id="booking-email-hint-{{ section.id }}" class="booking-field-hint" data-i18n-es="🎁 Déjanos tu email y, después de la cita, te enviaremos un 5 % de descuento en productos de higiene." data-i18n-en="🎁 Leave your email and, after the appointment, we will send you 5% off hygiene products.">🎁 Déjanos tu email y, después de la cita, te enviaremos un 5 % de descuento en productos de higiene.</p>
               </div>
               <div class="booking-hp-field" aria-hidden="true">
                 <label for="booking-website-{{ section.id }}">Web</label>

@@ -1153,6 +1153,14 @@
   transition: all 0.15s ease;
 }
 
+.booking-field-hint {
+  /* Dawn scale (1rem = 10px); the rest of this file still assumes 16px, see docs/revision-todo.md */
+  margin: 0.6rem 0 0;
+  font-size: 1.3rem;
+  line-height: 1.4;
+  color: #047857;
+}
+
 .booking-form-input:focus,
 .booking-form-textarea:focus {
   outline: none;
