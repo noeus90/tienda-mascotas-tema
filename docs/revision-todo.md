@@ -43,11 +43,47 @@ Lo que sigue marcando: el iframe de la barra de vista previa de Shopify (solo lo
 
 ## 1. Peluquería: reservas y calendario
 
-- [ ] 🔴 **Dónde se guardan las reservas.** `grooming-booking.js` y `grooming-calendar.js` guardan las citas en `localStorage`, es decir, en el navegador de quien reserva. El calendario del administrador no verá las reservas hechas desde otro móvil u ordenador. Revisar el flujo completo (Calendly → confirmación → calendario) y decidir dónde deben vivir los datos de verdad (Calendly, metaobjetos de Shopify, una app…).
-- [ ] 🔴 **Acceso al calendario solo para el administrador.** Sustituir el PIN de JavaScript (`sections/grooming-calendar.liquid:48`, por defecto `1234`, visible en el HTML) por una comprobación en Liquid: cliente con sesión iniciada y etiqueta `staff`. A los demás no debe llegarles ni el HTML.
-- [ ] 🟠 **Reinicio de datos.** `grooming-calendar.js:147` borra datos guardados según una marca `RESET_FLAG`. Confirmar que no puede borrar citas reales.
-- [ ] 🟠 **Validación del formulario de reserva** (pasos 1 a 4): campos obligatorios, fechas pasadas, teléfonos y correos no válidos, doble clic en "confirmar".
-- [ ] 🟢 **Enlaces a Google Calendar y mapas** (`grooming-booking.js:1289`, `:1813`, `:1822`): comprobar las zonas horarias de las fechas y que la dirección sale bien codificada.
+Situación el 19/11/2026: el formulario de reservas (`grooming-booking`, página "Reservar cita") funciona para el cliente, pero **las citas solo se guardan en el navegador de quien reserva** (`localStorage`). La peluquería no las recibe, el calendario (`grooming-calendar`) solo ve las de su propio navegador, puede haber dos citas a la misma hora, ninguna página muestra el calendario y su PIN (`1234`) está en el HTML. Servicios, extras y horario ya se editan en *Contenido → Metaobjetos*.
+
+**Decisión (19/11/2026): app propia de Shopify** (opción 3). Las citas se guardan como metaobjetos de Shopify, el formulario de la web habla con la app por un *app proxy* (`/apps/...`) y el calendario va dentro del admin. Coste cero en desarrollo: `shopify app dev` sirve la app desde el ordenador; el servidor de pago (≈5–10 €/mes, por confirmar) solo hace falta en producción. Es una app sin Shopify Functions, así que no necesita Shopify Plus.
+
+Cada fase deja algo que funciona.
+
+### Fase 0. Preparación
+- [ ] 🔴 **Quitar la suscripción a la newsletter del formulario** (tema, independiente de la app). `grooming-booking-customer-sync.liquid` usa el formulario de suscripción de Shopify: cada reserva da de alta al cliente como suscrito al marketing sin pedirle permiso (RGPD), y el teléfono y la nota probablemente no se guardan.
+- [ ] **Crear la app** con Shopify CLI en una carpeta y repositorio aparte (no dentro del tema) e instalarla en la tienda de desarrollo. *(tú: iniciar sesión en Shopify CLI la primera vez)*
+- [ ] **Definir el metaobjeto "Cita de peluquería"**, propiedad de la app: fecha, hora, duración, servicio, tamaño, extras, precio, perro (nombre, raza, cuidados), tutor (nombre, teléfono, email), estado (pendiente, confirmada, completada, cancelada), canal y notas.
+
+### Fase 1. La peluquería recibe las citas
+- [ ] **Guardar la cita en Shopify:** endpoint del app proxy que comprueba la firma de Shopify, valida los datos y crea la cita en estado "pendiente".
+- [ ] **El formulario envía la cita** al confirmar, con mensaje de éxito o de error. Incluye la validación pendiente: campos obligatorios, fechas pasadas, teléfono y email, doble clic en "confirmar". WhatsApp y email siguen como opción para avisar al salón.
+- [ ] **Lista de citas en el admin:** página sencilla de la app con las próximas citas.
+
+### Fase 2. Sin citas a la misma hora
+- [ ] **Horas ocupadas reales:** endpoint que devuelve las horas ocupadas de cada día a partir de las citas guardadas.
+- [ ] **El formulario usa esas horas** en vez de `localStorage`, y se deja de guardar nada en el navegador.
+- [ ] **Comprobación al guardar:** si otra persona ha cogido la hora mientras tanto, aviso "esa hora ya no está libre" y vuelta al paso 2.
+
+### Fase 3. Calendario en el admin
+- [ ] **Vista de mes y de semana** dentro de la app, aprovechando el diseño del calendario actual.
+- [ ] **Gestionar citas:** confirmar, completar, cancelar (libera la hora), editar y crear citas a mano (por teléfono).
+- [ ] **Quitar el calendario del tema:** sección `grooming-calendar`, PIN y la marca `RESET_FLAG` que borraba datos.
+
+### Fase 4. Cliente y avisos
+- [ ] **Ficha del cliente:** crear o vincular el cliente en Shopify desde la app, sin suscribirlo; casilla opcional para recibir novedades.
+- [ ] **Email de confirmación automático** al cliente y aviso al salón (servicio de email con plan gratuito).
+- [ ] **Recordatorio** por email el día antes. WhatsApp automático, solo si se decide en producción (la API cobra por mensaje).
+- [ ] **Enlaces a Google Calendar y mapas** (`grooming-booking.js:1289`, `:1813`, `:1822`): comprobar las zonas horarias y que la dirección sale bien codificada.
+
+### Fase 5. Valor añadido
+- [ ] **Ficha del perro en la cuenta del cliente** (raza, tamaño, cuidados) para no repetir datos en la siguiente reserva.
+- [ ] **Historial de citas** en la cuenta del cliente.
+- [ ] **5 % en un producto de higiene** después de la cita (código de un solo uso).
+- [ ] **Señal o pago por adelantado** en el checkout, para reducir las citas a las que no viene nadie.
+- [ ] **Capacidad por peluquero** (varias citas a la misma hora si hay varios).
+
+### Fase 6. Producción
+- [ ] Servidor de pago para la app, pruebas completas y datos reales del salón (WhatsApp y dirección: ahora son de ejemplo, `+34 612 345 678` y `Calle Amor de Mascota 12`).
 
 ## 2. Rendimiento
 
