@@ -3634,45 +3634,6 @@
           "label": "Enlace del botón"
         }
       }
-    },
-    "grooming_calendar": {
-      "name": "Agenda de Peluquería Canina",
-      "settings": {
-        "heading": {
-          "label": "Título del calendario"
-        },
-        "subheading": {
-          "label": "Subtítulo explicativo"
-        },
-        "default_view": {
-          "label": "Vista inicial predeterminada",
-          "options": {
-            "day": "Vista de Día",
-            "week": "Vista de Semana",
-            "month": "Vista de Mes"
-          }
-        },
-        "color_scheme": {
-          "label": "Esquema de color"
-        },
-        "header_access": {
-          "content": "Control de Acceso (Personal / Admin)"
-        },
-        "require_pin": {
-          "label": "Proteger agenda con PIN de personal",
-          "info": "Si está activado, solicita un PIN antes de mostrar las citas y datos de clientes."
-        },
-        "admin_pin": {
-          "label": "PIN de acceso",
-          "info": "Código numérico de 4 a 6 dígitos (por defecto: 1234)."
-        },
-        "padding_top": {
-          "label": "Espaciado superior"
-        },
-        "padding_bottom": {
-          "label": "Espaciado inferior"
-        }
-      }
     }
   }
 }

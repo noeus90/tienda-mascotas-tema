@@ -3634,45 +3634,6 @@
           "label": "Button link"
         }
       }
-    },
-    "grooming_calendar": {
-      "name": "Dog Grooming Calendar",
-      "settings": {
-        "heading": {
-          "label": "Calendar heading"
-        },
-        "subheading": {
-          "label": "Calendar subheading"
-        },
-        "default_view": {
-          "label": "Initial default view",
-          "options": {
-            "day": "Day View",
-            "week": "Week View",
-            "month": "Month View"
-          }
-        },
-        "color_scheme": {
-          "label": "Color scheme"
-        },
-        "header_access": {
-          "content": "Access Control (Staff / Admin)"
-        },
-        "require_pin": {
-          "label": "Protect calendar with staff PIN",
-          "info": "When enabled, prompts for a PIN before displaying appointments and client details."
-        },
-        "admin_pin": {
-          "label": "Access PIN",
-          "info": "4 to 6 digit numerical code (default: 1234)."
-        },
-        "padding_top": {
-          "label": "Top padding"
-        },
-        "padding_bottom": {
-          "label": "Bottom padding"
-        }
-      }
     }
   }
 }
