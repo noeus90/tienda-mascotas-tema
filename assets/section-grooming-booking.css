@@ -1636,3 +1636,11 @@
   height: 1px;
   overflow: hidden;
 }
+
+/* [hidden] must win over the display rules above (the banner showed before any booking was sent) */
+.booking-success-banner[hidden],
+.booking-submit-btn[hidden],
+.booking-after-submit[hidden],
+.booking-submit-status[hidden] {
+  display: none !important;
+}

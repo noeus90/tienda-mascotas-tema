@@ -191,6 +191,7 @@
       // State
       this.bookingData = {
         bookingId: null,
+        savedReference: null,
         serviceId: initialServiceId,
         serviceName: 'Baño Dermoprotector & Oídos',
         dogSize: 'mini',
@@ -1422,7 +1423,8 @@
      * Shopify as a pending appointment. WhatsApp, email and calendar buttons are shown afterwards.
      */
     submitBooking() {
-      if (this.submitting || this.bookingData.bookingId || !this.submitBtn) return;
+      // savedReference is the app's appointment; bookingId belongs to the old in-browser agenda.
+      if (this.submitting || this.bookingData.savedReference || !this.submitBtn) return;
       const isEn = document.documentElement.lang === 'en';
       const label = this.submitBtn.querySelector('span') || this.submitBtn;
       const originalLabel = label.textContent;
@@ -1461,7 +1463,7 @@
         .then((response) => response.json().catch(() => ({ ok: false, error: 'invalid_response' })))
         .then((result) => {
           if (result && result.ok) {
-            this.bookingData.bookingId = result.reference || result.id;
+            this.bookingData.savedReference = result.reference || result.id;
             this.onBookingSaved(isEn);
             return;
           }
