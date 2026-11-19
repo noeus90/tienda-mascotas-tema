@@ -269,33 +269,60 @@
           small.textContent = g.bio;
           button.appendChild(small);
         }
-        button.addEventListener('click', () => this.selectGroomer(g.id));
+        button.addEventListener('click', () => this.selectGroomer(g.id, ''));
         list.appendChild(button);
       });
-      if (!this.bookingData.groomer) this.bookingData.groomer = 'any';
+      // A groomer proposed before the list arrived (favourite of the chosen dog) must still exist.
+      if (!this.bookingData.groomer || !groomers.some((g) => g.id === this.bookingData.groomer)) {
+        this.bookingData.groomer = 'any';
+        this.groomerNoteKind = '';
+      }
       this.markGroomer();
       box.hidden = false;
+      if (this.bookingData.groomer !== 'any') this.loadBusySlots();
     }
 
-    markGroomer(note) {
+    markGroomer() {
+      const current = this.bookingData.groomer || 'any';
       this.section.querySelectorAll('[data-booking-groomers-list] [data-groomer-id]').forEach((b) => {
-        const on = b.dataset.groomerId === (this.bookingData.groomer || 'any');
+        const on = b.dataset.groomerId === current;
         b.classList.toggle('is-selected', on);
         b.setAttribute('aria-checked', on ? 'true' : 'false');
       });
+      const isEn = document.documentElement.lang === 'en';
+      const dog = this.selectedDog;
+      const name = this.groomerName();
+      // Why this groomer is proposed: the dog's favourite, or who groomed it last time.
+      let note = '';
+      if (dog && name && this.groomerNoteKind === 'favorite' && current === dog.favoriteGroomer) {
+        note = isEn ? `⭐ ${name} is ${dog.name}'s favourite groomer.` : `⭐ ${name} es la peluquera favorita de ${dog.name}.`;
+      } else if (dog && name && this.groomerNoteKind === 'last' && current === dog.lastGroomer) {
+        note = isEn ? `${name} groomed ${dog.name} last time.` : `${name} atendió a ${dog.name} la última vez.`;
+      }
       const hint = this.section.querySelector('[data-booking-groomers-hint]');
       if (hint) {
-        hint.textContent = note || '';
+        hint.textContent = note;
         hint.hidden = !note;
+      }
+      // Logged-in client with a dog and a specific groomer that is not already the favourite.
+      const favWrap = this.section.querySelector('[data-booking-fav-wrap]');
+      if (favWrap) {
+        const offer = !!(dog && name && current !== 'any' && current !== dog.favoriteGroomer);
+        favWrap.hidden = !offer;
+        if (!offer) favWrap.querySelector('[data-booking-fav]').checked = false;
+        favWrap.querySelector('[data-booking-fav-text]').textContent = offer
+          ? (isEn ? `⭐ Save ${name} as ${dog.name}'s favourite groomer` : `⭐ Guardar a ${name} como peluquera favorita de ${dog.name}`)
+          : '';
       }
     }
 
     /** Changes the groomer and reloads her free times. */
-    selectGroomer(id, note) {
-      if ((this.bookingData.groomer || 'any') === id && !note) return;
+    selectGroomer(id, noteKind = '') {
+      const changed = (this.bookingData.groomer || 'any') !== id;
       this.bookingData.groomer = id;
-      this.markGroomer(note);
-      this.loadBusySlots();
+      this.groomerNoteKind = noteKind;
+      this.markGroomer();
+      if (changed) this.loadBusySlots();
     }
 
     groomerName() {
@@ -357,6 +384,20 @@
 
     /** Fills the dog fields with a saved dog, or clears them for a new one (null). */
     applyDog(dog) {
+      this.selectedDog = dog;
+      if (dog && (dog.favoriteGroomer || dog.lastGroomer)) {
+        const pick = dog.favoriteGroomer || dog.lastGroomer;
+        const kind = dog.favoriteGroomer ? 'favorite' : 'last';
+        if (this.groomersRendered) {
+          if ((this.groomers || []).some((g) => g.id === pick)) this.selectGroomer(pick, kind);
+        } else {
+          // The groomer list has not arrived yet: renderGroomers applies it.
+          this.bookingData.groomer = pick;
+          this.groomerNoteKind = kind;
+        }
+      } else if (this.groomersRendered) {
+        this.markGroomer();
+      }
       const set = (key, value) => {
         const input = this.section.querySelector(`[data-booking-input="${key}"]`);
         if (input) {
@@ -1642,6 +1683,7 @@
         ownerEmail: this.bookingData.customerEmail,
         notes: this.bookingData.notes,
         groomer: this.bookingData.groomer || 'any',
+        saveFavoriteGroomer: !!(this.section.querySelector('[data-booking-fav]') || {}).checked,
         website: websiteInput ? websiteInput.value : '',
         marketingOptIn: !!(marketingInput && marketingInput.checked),
         locale: document.documentElement.lang || 'es',

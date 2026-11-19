@@ -1169,6 +1169,11 @@
   border-radius: 12px;
 }
 
+.booking-fav-label {
+  margin-top: 1rem;
+  font-size: 1.4rem;
+}
+
 .booking-groomers[hidden],
 .booking-groomers [hidden],
 [data-summary-groomer-row][hidden] {

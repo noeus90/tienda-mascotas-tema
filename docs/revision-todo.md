@@ -100,7 +100,12 @@ Cada fase deja algo que funciona.
 - [ ] **Historial de citas** en la cuenta del cliente.
 - [x] **5 % en higiene** después de la cita (hecho y probado el 19/11/2026, `app/lib/discounts.server.js`): al marcar la cita como **completada** se crea un código único `PELU5-XXXXXX` (un uso, 30 días, combinable con envío gratis) para la colección automática «Higiene» (handle `pack-de-higiene`, etiqueta `higiene`). Se guarda en la cita y se envía en un email de agradecimiento con un enlace que aplica el código. Si el cliente no tiene email, la agenda lo muestra para dárselo en persona. La colección se renombró de «Pack de higiene» a «Higiene» el mismo día; el handle no cambia porque lo usa la app. Los productos de higiene nuevos deben llevar la etiqueta `higiene`.
 - [ ] **Señal o pago por adelantado** en el checkout, para reducir las citas a las que no viene nadie.
-- [ ] **Capacidad por peluquero** (varias citas a la misma hora si hay varios).
+- [x] **Varias peluqueras** (hecho y probado el 19/11/2026, `app/lib/groomers.server.js`): en la app, **Peluqueras** para darlas de alta (nombre, presentación, color, orden, activa). Con una sola activa (o ninguna) nada cambia. Con varias:
+  - **A.** Cada peluquera tiene su agenda (las citas sin peluquera cuentan para la primera). «Sin preferencia» asigna la libre con menos citas ese día. Selector de peluquera en las citas del admin.
+  - **B.** El formulario web pregunta «¿Con quién quieres la cita?» en el paso 2; las horas libres son las de esa peluquera (o las de cualquiera).
+  - **C.** **Favorita por perro**: el formulario propone la favorita o la última que lo atendió, y con sesión iniciada ofrece «Guardar como favorita». También se cambia en Mis perros y en la ficha del perro del admin.
+  - **D.** La peluquera sale en los emails, en el aviso al salón, en la agenda (inicial y color, con leyenda) y en Mis perros.
+  - Pruebas: peluqueras «Ana (PRUEBA)» y «Marta (PRUEBA)» y citas «(PRUEBA GRUPO)» del 15 y 16/12; borrar o desactivar antes de publicar.
 
 ### Fase 6. Producción
 - [ ] Servidor de pago para la app, pruebas completas y datos reales del salón (WhatsApp y dirección: ahora son de ejemplo, `+34 612 345 678` y `Calle Amor de Mascota 12`).
