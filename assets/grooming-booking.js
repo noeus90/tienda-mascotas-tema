@@ -565,7 +565,6 @@
         this.whatsappCta.addEventListener('click', () => {
           this.bookingData.channel = 'whatsapp';
           this.saveToInternalAgenda('whatsapp');
-          this.syncCustomerWithShopifyAdmin('whatsapp');
           if (this.successBanner) {
             this.successBanner.removeAttribute('hidden');
           }
@@ -577,7 +576,6 @@
         this.emailConfirmBtn.addEventListener('click', () => {
           this.bookingData.channel = 'email';
           this.saveToInternalAgenda('email');
-          this.syncCustomerWithShopifyAdmin('email');
           if (this.successBanner) {
             this.successBanner.removeAttribute('hidden');
           }
@@ -589,7 +587,6 @@
         this.smsConfirmBtn.addEventListener('click', () => {
           this.bookingData.channel = 'sms';
           this.saveToInternalAgenda('sms');
-          this.syncCustomerWithShopifyAdmin('sms');
           if (this.successBanner) {
             this.successBanner.removeAttribute('hidden');
           }
@@ -1146,8 +1143,6 @@
         this.bookingData.specialNeeds = tags;
 
         this.populateSummary();
-        this.populateCustomerSyncForm();
-        this.syncCustomerWithShopifyAdmin();
         this.currentStep = 4;
       }
 
@@ -1315,7 +1310,9 @@
     }
 
     /**
-     * Paso 2: Procesamiento y formateo de datos de cliente y mascota para Shopify Admin
+     * Customer and pet data in the shape Shopify expects. Kept for the booking app (phase 1 of
+     * docs/revision-todo.md): the old hidden newsletter form subscribed every booking to marketing
+     * without consent, so it was removed on 2026-11-19.
      */
     prepareCustomerPayload(channel = 'whatsapp') {
       const activeChannel = channel || this.bookingData.channel || 'whatsapp';
@@ -1388,78 +1385,6 @@
         tags: tagsString,
         note: customerNote,
       };
-    }
-
-    /**
-     * Rellenar campos del formulario nativo oculto con los datos procesados
-     */
-    populateCustomerSyncForm(channel = 'whatsapp') {
-      const form = this.section.querySelector('#grooming-customer-sync-form');
-      if (!form) return null;
-
-      const payload = this.prepareCustomerPayload(channel);
-
-      const fnInput = form.querySelector('[data-sync-customer="firstName"]');
-      const lnInput = form.querySelector('[data-sync-customer="lastName"]');
-      const emInput = form.querySelector('[data-sync-customer="email"]');
-      const phInput = form.querySelector('[data-sync-customer="phone"]');
-      const tagCust = form.querySelector('[data-sync-customer="customerTags"]');
-      const tagCont = form.querySelector('[data-sync-customer="contactTags"]');
-      const ntInput = form.querySelector('[data-sync-customer="note"]');
-
-      if (fnInput) fnInput.value = payload.firstName;
-      if (lnInput) lnInput.value = payload.lastName;
-      if (emInput) emInput.value = payload.email;
-      if (phInput) phInput.value = payload.phone;
-      if (tagCust) tagCust.value = payload.tags;
-      if (tagCont) tagCont.value = payload.tags;
-      if (ntInput) ntInput.value = payload.note;
-
-      return { form, payload };
-    }
-
-    /**
-     * Paso 3: Sincronización asíncrona en segundo plano con Shopify Admin (AJAX).
-     * Registra o actualiza la ficha del cliente en Shopify Admin > Clientes sin recargar la página.
-     */
-    syncCustomerWithShopifyAdmin(channel = 'whatsapp') {
-      const activeChannel = channel || this.bookingData.channel || 'whatsapp';
-      const formObj = this.populateCustomerSyncForm(activeChannel);
-      if (!formObj || !formObj.form) return;
-
-      const { form, payload } = formObj;
-
-      // Shopify requiere al menos un identificador (email o teléfono) para crear/vincular cliente
-      if (!payload.email && !payload.phone) return;
-
-      // Evita envíos duplicados en la misma sesión si los datos no han variado
-      const currentSignature = `${payload.email}|${payload.phone}|${payload.firstName}|${payload.lastName}|${payload.tags}|${activeChannel}|${this.bookingData.date}|${this.bookingData.slot}`;
-      if (this._lastSyncedSignature === currentSignature) {
-        return;
-      }
-
-      const formData = new FormData(form);
-      const actionUrl = form.getAttribute('action') || '/contact';
-
-      fetch(actionUrl, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        },
-      })
-        .then((response) => {
-          if (response.ok || response.status === 302 || response.type === 'opaqueredirect') {
-            this._lastSyncedSignature = currentSignature;
-            console.info('Grooming: Ficha de cliente sincronizada con éxito en Shopify Admin.');
-          } else {
-            console.warn('Grooming: Respuesta al sincronizar ficha de cliente:', response.status);
-          }
-        })
-        .catch((err) => {
-          // Mecanismo fail-safe: no interrumpe el flujo ni la confirmación de la cita si falla la conexión
-          console.warn('Grooming: Envío silencioso de cliente omitido por conexión:', err);
-        });
     }
 
     copyBookingDetails() {

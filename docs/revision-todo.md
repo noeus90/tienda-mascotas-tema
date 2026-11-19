@@ -50,9 +50,9 @@ Situación el 19/11/2026: el formulario de reservas (`grooming-booking`, página
 Cada fase deja algo que funciona.
 
 ### Fase 0. Preparación
-- [ ] 🔴 **Quitar la suscripción a la newsletter del formulario** (tema, independiente de la app). `grooming-booking-customer-sync.liquid` usa el formulario de suscripción de Shopify: cada reserva da de alta al cliente como suscrito al marketing sin pedirle permiso (RGPD), y el teléfono y la nota probablemente no se guardan.
-- [ ] **Crear la app** con Shopify CLI en una carpeta y repositorio aparte (no dentro del tema) e instalarla en la tienda de desarrollo. *(tú: iniciar sesión en Shopify CLI la primera vez)*
-- [ ] **Definir el metaobjeto "Cita de peluquería"**, propiedad de la app: fecha, hora, duración, servicio, tamaño, extras, precio, perro (nombre, raza, cuidados), tutor (nombre, teléfono, email), estado (pendiente, confirmada, completada, cancelada), canal y notas.
+- [x] 🔴 **Quitar la suscripción a la newsletter del formulario** (hecho el 19/11/2026; falta probar el formulario entero en Chrome cuando CLAUDIA vuelva a tener la contraseña de la tienda). Se borró `grooming-booking-customer-sync.liquid` y sus llamadas en `grooming-booking.js`. Antes: `grooming-booking-customer-sync.liquid` usa el formulario de suscripción de Shopify: cada reserva da de alta al cliente como suscrito al marketing sin pedirle permiso (RGPD), y el teléfono y la nota probablemente no se guardan.
+- [x] **Crear la app** (hecho el 19/11/2026): `../peluqueria-reservas` (plantilla React Router de Shopify, JavaScript), instalada en la tienda de desarrollo. Se arranca con `shopify app dev --store brudabrey.myshopify.com` desde esa carpeta; en el admin sale en *Apps → peluqueria-reservas*. Falta subirla a su propio repositorio de GitHub.
+- [x] **Definir el metaobjeto "Cita de peluquería"** (hecho el 19/11/2026, `$app:appointment` en `shopify.app.toml`; solo admin, no se ve en la tienda). Campos: resumen, fecha, hora, duración, servicio, tamaño, extras, precio, perro (nombre, raza, edad, cuidados), tutor (nombre, teléfono, email), estado (pending, confirmed, completed, cancelled), canal y notas. El enlace a la ficha del cliente se añade en la fase 4 (necesita permisos de clientes).
 
 ### Fase 1. La peluquería recibe las citas
 - [ ] **Guardar la cita en Shopify:** endpoint del app proxy que comprueba la firma de Shopify, valida los datos y crea la cita en estado "pendiente".
