@@ -10,6 +10,13 @@
 
         <div class="booking-submit-status is-error" role="alert" data-booking-slot-taken hidden></div>
 
+        <!-- Several groomers (from the booking app): who the client wants; filled by grooming-booking.js -->
+        <div class="booking-groomers" data-booking-groomers hidden>
+          <p class="booking-my-dogs-title" data-i18n-es="✂️ ¿Con quién quieres la cita?" data-i18n-en="✂️ Who would you like to book with?">✂️ ¿Con quién quieres la cita?</p>
+          <div class="booking-my-dogs-list" data-booking-groomers-list role="radiogroup"></div>
+          <p class="booking-field-hint" data-booking-groomers-hint hidden></p>
+        </div>
+
         <div class="booking-datetime-grid">
           <!-- Direct 30-Day Visual Calendar -->
           <div class="booking-calendar-widget" data-booking-calendar-widget>

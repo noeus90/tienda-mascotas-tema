@@ -239,6 +239,70 @@
         .catch(() => {});
     }
 
+    /** Groomer picker (step 2), only when the salon has two or more active groomers. */
+    renderGroomers(groomers) {
+      const box = this.section.querySelector('[data-booking-groomers]');
+      const list = this.section.querySelector('[data-booking-groomers-list]');
+      this.groomers = groomers;
+      if (!box || !list) return;
+      if (groomers.length < 2) {
+        box.hidden = true;
+        this.bookingData.groomer = 'any';
+        return;
+      }
+      if (this.groomersRendered) {
+        this.markGroomer();
+        return;
+      }
+      this.groomersRendered = true;
+      const isEn = document.documentElement.lang === 'en';
+      const options = [{ id: 'any', name: isEn ? 'No preference' : 'Sin preferencia', bio: isEn ? 'Whoever is free' : 'La que esté libre' }, ...groomers];
+      options.forEach((g) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'booking-my-dog';
+        button.dataset.groomerId = g.id;
+        button.setAttribute('role', 'radio');
+        button.textContent = g.name;
+        if (g.bio) {
+          const small = document.createElement('small');
+          small.textContent = g.bio;
+          button.appendChild(small);
+        }
+        button.addEventListener('click', () => this.selectGroomer(g.id));
+        list.appendChild(button);
+      });
+      if (!this.bookingData.groomer) this.bookingData.groomer = 'any';
+      this.markGroomer();
+      box.hidden = false;
+    }
+
+    markGroomer(note) {
+      this.section.querySelectorAll('[data-booking-groomers-list] [data-groomer-id]').forEach((b) => {
+        const on = b.dataset.groomerId === (this.bookingData.groomer || 'any');
+        b.classList.toggle('is-selected', on);
+        b.setAttribute('aria-checked', on ? 'true' : 'false');
+      });
+      const hint = this.section.querySelector('[data-booking-groomers-hint]');
+      if (hint) {
+        hint.textContent = note || '';
+        hint.hidden = !note;
+      }
+    }
+
+    /** Changes the groomer and reloads her free times. */
+    selectGroomer(id, note) {
+      if ((this.bookingData.groomer || 'any') === id && !note) return;
+      this.bookingData.groomer = id;
+      this.markGroomer(note);
+      this.loadBusySlots();
+    }
+
+    groomerName() {
+      const g = (this.groomers || []).find((x) => x.id === this.bookingData.groomer);
+      return g ? g.name : '';
+    }
+
     prefillContact(customer) {
       if (!customer) return;
       const fill = (key, value) => {
@@ -324,11 +388,14 @@
     loadBusySlots() {
       const from = this.formatDateKey(this.today);
       const to = this.formatDateKey(this.maxDate);
-      return fetch(`/apps/reservas/disponibilidad?from=${from}&to=${to}`, { headers: { Accept: 'application/json' } })
+      // Several groomers: busy times of the chosen one, or of nobody free for "any".
+      const groomer = encodeURIComponent(this.bookingData.groomer || 'any');
+      return fetch(`/apps/reservas/disponibilidad?from=${from}&to=${to}&groomer=${groomer}`, { headers: { Accept: 'application/json' } })
         .then((response) => (response.ok ? response.json() : null))
         .then((result) => {
           if (!result || !result.ok) return;
           this.busy = result.busy || {};
+          this.renderGroomers(result.groomers || []);
           this.updateAvailableSlots();
           this.renderMiniCalendar();
         })
@@ -1369,6 +1436,14 @@
       if (priceEl) priceEl.textContent = this.bookingData.price;
       if (serviceEl) serviceEl.textContent = this.bookingData.serviceName;
       if (scheduleEl) scheduleEl.textContent = `${this.formatHumanDate(this.bookingData.date)} · ${this.bookingData.slot} - ${endSlot} h (${durationTag})`;
+      const groomerRow = this.section.querySelector('[data-summary-groomer-row]');
+      if (groomerRow) {
+        const several = (this.groomers || []).length > 1;
+        groomerRow.hidden = !several;
+        const isEnSummary = document.documentElement.lang === 'en';
+        const groomerEl = this.section.querySelector('[data-summary="groomer"]');
+        if (groomerEl) groomerEl.textContent = this.groomerName() || (isEnSummary ? 'No preference (whoever is free)' : 'Sin preferencia (la que esté libre)');
+      }
       if (customerEl) customerEl.textContent = `${this.bookingData.customerName} · ${this.bookingData.customerPhone}`;
       if (specialEl) {
         specialEl.textContent = this.bookingData.specialNeeds.length > 0 ? this.bookingData.specialNeeds.join(', ') : (isEn ? 'No special needs' : 'Sin particularidades especiales');
@@ -1566,6 +1641,7 @@
         ownerPhone: this.bookingData.customerPhone,
         ownerEmail: this.bookingData.customerEmail,
         notes: this.bookingData.notes,
+        groomer: this.bookingData.groomer || 'any',
         website: websiteInput ? websiteInput.value : '',
         marketingOptIn: !!(marketingInput && marketingInput.checked),
         locale: document.documentElement.lang || 'es',

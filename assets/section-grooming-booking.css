@@ -1162,6 +1162,19 @@
   background: rgba(5, 150, 105, 0.05);
 }
 
+.booking-groomers {
+  margin: 0 0 2rem;
+  padding: 1.4rem 1.6rem;
+  border: 1px solid rgba(var(--color-foreground), 0.12);
+  border-radius: 12px;
+}
+
+.booking-groomers[hidden],
+.booking-groomers [hidden],
+[data-summary-groomer-row][hidden] {
+  display: none !important;
+}
+
 .booking-my-dogs[hidden] {
   display: none !important;
 }
