@@ -8,6 +8,13 @@
           </p>
         </div>
 
+        <!-- Logged-in customers: their dogs from the booking app (/apps/reservas/mis-perros), filled by grooming-booking.js -->
+        <div class="booking-my-dogs" data-booking-my-dogs hidden>
+          <p class="booking-my-dogs-title" data-i18n-es="🐾 ¿Para cuál de tus perros es la cita?" data-i18n-en="🐾 Which of your dogs is this appointment for?">🐾 ¿Para cuál de tus perros es la cita?</p>
+          <div class="booking-my-dogs-list" data-booking-my-dogs-list role="group"></div>
+          <p class="booking-field-hint" data-i18n-es="Rellenamos su tamaño, raza y cuidados con lo que ya sabemos; puedes cambiarlos." data-i18n-en="We fill in its size, breed and care needs with what we already know; you can change them.">Rellenamos su tamaño, raza y cuidados con lo que ya sabemos; puedes cambiarlos.</p>
+        </div>
+
         <div class="booking-services-grid" role="radiogroup" aria-label="Servicios de peluquería">
           {%- if has_custom_services -%}
             {%- for service in meta_services -%}

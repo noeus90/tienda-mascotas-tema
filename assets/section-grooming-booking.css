@@ -1153,6 +1153,61 @@
   transition: all 0.15s ease;
 }
 
+/* "Which of your dogs?" picker (logged-in customers). Dawn scale: 1rem = 10px. */
+.booking-my-dogs {
+  margin: 0 0 2rem;
+  padding: 1.4rem 1.6rem;
+  border: 1px solid rgba(5, 150, 105, 0.35);
+  border-radius: 12px;
+  background: rgba(5, 150, 105, 0.05);
+}
+
+.booking-my-dogs[hidden] {
+  display: none !important;
+}
+
+.booking-my-dogs-title {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.booking-my-dogs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.booking-my-dog {
+  min-height: 44px;
+  padding: 0.8rem 1.6rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(var(--color-foreground), 0.2);
+  background: #ffffff;
+  color: inherit;
+  font: inherit;
+  font-size: 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.booking-my-dog:hover {
+  border-color: #059669;
+}
+
+.booking-my-dog.is-selected {
+  border-color: #059669;
+  background: rgba(5, 150, 105, 0.12);
+  color: #047857;
+}
+
+.booking-my-dog small {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 400;
+  opacity: 0.75;
+}
+
 .booking-field-hint {
   /* Dawn scale (1rem = 10px); the rest of this file still assumes 16px, see docs/revision-todo.md */
   margin: 0.6rem 0 0;

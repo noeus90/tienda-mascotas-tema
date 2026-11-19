@@ -221,6 +221,100 @@
       this.updateAvailableSlots();
       this.renderMiniCalendar();
       this.loadBusySlots();
+      this.loadMyDogs();
+    }
+
+    /**
+     * Logged-in customers: fills in their contact details and offers their dogs (from the booking
+     * app, /apps/reservas/mis-perros). Logged-out visitors or an app that does not answer: nothing changes.
+     */
+    loadMyDogs() {
+      return fetch('/apps/reservas/mis-perros', { headers: { Accept: 'application/json' } })
+        .then((response) => (response.ok ? response.json() : null))
+        .then((result) => {
+          if (!result || !result.ok || !result.loggedIn) return;
+          this.prefillContact(result.customer);
+          this.renderMyDogs(result.dogs || []);
+        })
+        .catch(() => {});
+    }
+
+    prefillContact(customer) {
+      if (!customer) return;
+      const fill = (key, value) => {
+        const input = this.section.querySelector(`[data-booking-input="${key}"]`);
+        // Never overwrite what the visitor has already typed.
+        if (input && value && !input.value.trim()) input.value = value;
+      };
+      fill('customerName', customer.name);
+      fill('customerPhone', customer.phone);
+      fill('customerEmail', customer.email);
+    }
+
+    renderMyDogs(dogs) {
+      const box = this.section.querySelector('[data-booking-my-dogs]');
+      const list = this.section.querySelector('[data-booking-my-dogs-list]');
+      if (!box || !list || !dogs.length) return;
+      const isEn = document.documentElement.lang === 'en';
+      const sizeLabels = isEn
+        ? { mini: 'Mini / Toy', medium: 'Medium', large: 'Large' }
+        : { mini: 'Mini / Toy', medium: 'Mediano', large: 'Grande' };
+
+      const buttons = [];
+      const addButton = (label, detail, onSelect) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'booking-my-dog';
+        button.setAttribute('aria-pressed', 'false');
+        button.textContent = label;
+        if (detail) {
+          const small = document.createElement('small');
+          small.textContent = detail;
+          button.appendChild(small);
+        }
+        button.addEventListener('click', () => {
+          buttons.forEach((b) => {
+            b.classList.toggle('is-selected', b === button);
+            b.setAttribute('aria-pressed', b === button ? 'true' : 'false');
+          });
+          onSelect();
+        });
+        buttons.push(button);
+        list.appendChild(button);
+      };
+
+      dogs.forEach((dog) => {
+        const detail = [dog.breed, sizeLabels[dog.size]].filter(Boolean).join(' · ');
+        addButton(`🐶 ${dog.name}`, detail, () => this.applyDog(dog));
+      });
+      addButton(isEn ? '➕ Another dog' : '➕ Otro perro', '', () => this.applyDog(null));
+      box.hidden = false;
+    }
+
+    /** Fills the dog fields with a saved dog, or clears them for a new one (null). */
+    applyDog(dog) {
+      const set = (key, value) => {
+        const input = this.section.querySelector(`[data-booking-input="${key}"]`);
+        if (input) {
+          input.value = value || '';
+          input.classList.remove('is-invalid');
+        }
+      };
+      set('petName', dog ? dog.name : '');
+      set('petBreed', dog ? dog.breed : '');
+      set('petAge', dog ? dog.age : '');
+      this.bookingData.petBreed = dog ? dog.breed || '' : '';
+      const care = new Set(dog ? dog.careNotes || [] : []);
+      this.section.querySelectorAll('[data-booking-tag]').forEach((tag) => {
+        tag.checked = care.has(tag.value);
+      });
+      if (dog && ['mini', 'medium', 'large'].includes(dog.size)) {
+        const radio = this.section.querySelector(`input[name="dog_size"][value="${dog.size}"]`);
+        if (radio && !radio.checked) {
+          radio.checked = true;
+          radio.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }
     }
 
     /**
