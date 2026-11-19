@@ -1647,11 +1647,19 @@
       const text = box.querySelector('[data-booking-deposit-text]');
       const link = box.querySelector('[data-booking-deposit-link]');
       const note = box.querySelector('[data-booking-deposit-note]');
+      let until = '';
+      if (deposit.dueAt) {
+        const due = new Date(deposit.dueAt);
+        const opts = { timeZone: 'Europe/Madrid' };
+        const day = due.toLocaleDateString(isEn ? 'en-GB' : 'es-ES', { ...opts, weekday: 'long', day: 'numeric', month: 'long' });
+        const time = due.toLocaleTimeString('es-ES', { ...opts, hour: '2-digit', minute: '2-digit', hour12: false });
+        until = isEn ? ` before ${day} at ${time}` : ` antes del ${day} a las ${time}`;
+      }
       text.textContent =
         deposit.mode === 'required'
           ? (isEn
-              ? `To confirm your appointment, pay a ${amount} deposit. It is taken off the final price.`
-              : `Para confirmar tu cita, paga una señal de ${amount}. Se descuenta del precio final.`)
+              ? `To confirm your appointment, pay a ${amount} deposit${until}; otherwise the time will be released. It is taken off the final price.`
+              : `Para confirmar tu cita, paga una señal de ${amount}${until}; si no, la hora se liberará. Se descuenta del precio final.`)
           : (isEn
               ? `Want to secure your appointment? Pay a ${amount} deposit now; it is taken off the final price.`
               : `¿Quieres asegurar tu cita? Paga ahora una señal de ${amount}; se descuenta del precio final.`);
