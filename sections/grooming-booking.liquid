@@ -147,7 +147,6 @@
   data-whatsapp-number="{{ section.settings.whatsapp_number | default: '+34 612 345 678' | escape }}"
   data-salon-address="{{ section.settings.salon_address | default: 'Calle Amor de Mascota 12, Madrid' | escape }}"
   data-salon-email="{{ section.settings.salon_email | default: shop.email | escape }}"
-  data-sync-agenda="{% if section.settings.enable_sync_agenda != false %}true{% else %}false{% endif %}"
 >
   <script type="application/json" data-grooming-config>
     {
@@ -305,13 +304,6 @@
       "id": "salon_email",
       "label": "Email de contacto del salón",
       "info": "Si se deja en blanco se utilizará el correo principal de la tienda."
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_sync_agenda",
-      "label": "t:sections.grooming_booking.settings.enable_sync_agenda.label",
-      "info": "t:sections.grooming_booking.settings.enable_sync_agenda.info",
-      "default": true
     },
     {
       "type": "color_scheme",

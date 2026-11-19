@@ -94,7 +94,8 @@
       this.whatsappNumber = section.dataset.whatsappNumber || '+34 612 345 678';
       this.salonAddress = section.dataset.salonAddress || 'Calle Amor de Mascota 12, Madrid';
       this.salonEmail = section.dataset.salonEmail || '';
-      this.syncAgenda = section.dataset.syncAgenda !== 'false';
+      // Busy time ranges per day from the booking app ({ 'YYYY-MM-DD': [[startMin, endMin]] }).
+      this.busy = {};
       this._lastSyncedSignature = null;
 
       // Elements
@@ -219,6 +220,25 @@
       this.updatePriceEstimate();
       this.updateAvailableSlots();
       this.renderMiniCalendar();
+      this.loadBusySlots();
+    }
+
+    /**
+     * Loads the busy times of the next months from the booking app (/apps/reservas/disponibilidad).
+     * If the app does not answer, every slot stays available and the app still checks on save.
+     */
+    loadBusySlots() {
+      const from = this.formatDateKey(this.today);
+      const to = this.formatDateKey(this.maxDate);
+      return fetch(`/apps/reservas/disponibilidad?from=${from}&to=${to}`, { headers: { Accept: 'application/json' } })
+        .then((response) => (response.ok ? response.json() : null))
+        .then((result) => {
+          if (!result || !result.ok) return;
+          this.busy = result.busy || {};
+          this.updateAvailableSlots();
+          this.renderMiniCalendar();
+        })
+        .catch(() => {});
     }
 
     formatDateKey(dateObj) {
@@ -573,7 +593,6 @@
       if (this.whatsappCta) {
         this.whatsappCta.addEventListener('click', () => {
           this.bookingData.channel = 'whatsapp';
-          this.saveToInternalAgenda('whatsapp');
           if (this.successBanner) {
             this.successBanner.removeAttribute('hidden');
           }
@@ -584,7 +603,6 @@
       if (this.emailConfirmBtn) {
         this.emailConfirmBtn.addEventListener('click', () => {
           this.bookingData.channel = 'email';
-          this.saveToInternalAgenda('email');
           if (this.successBanner) {
             this.successBanner.removeAttribute('hidden');
           }
@@ -595,7 +613,6 @@
       if (this.smsConfirmBtn) {
         this.smsConfirmBtn.addEventListener('click', () => {
           this.bookingData.channel = 'sms';
-          this.saveToInternalAgenda('sms');
           if (this.successBanner) {
             this.successBanner.removeAttribute('hidden');
           }
@@ -766,23 +783,31 @@
     }
 
     /**
-     * Read already booked appointment start times for a given date from internal calendar
+     * Slot start times of a day that overlap an existing appointment, using the busy ranges from
+     * the booking app. A slot is taken when [slot, slot + duration) overlaps a busy range, where
+     * duration is the longer of the slot length and the length of the booking being made.
      */
     getBookedSlotsForDate(dateStr) {
-      if (!dateStr) return [];
-      try {
-        const STORAGE_KEY = 'grooming_calendar_appointments';
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return [];
-        const list = JSON.parse(raw);
-        if (!Array.isArray(list)) return [];
-        return list
-          .filter((apt) => apt && apt.date === dateStr && apt.status !== 'cancelled')
-          .map((apt) => String(apt.startTime).trim());
-      } catch (e) {
-        console.warn('Error reading booked slots from agenda', e);
-        return [];
-      }
+      const ranges = (dateStr && this.busy[dateStr]) || [];
+      if (!ranges.length) return [];
+      const toMinutes = (time) => {
+        const [h, m] = String(time).split(':').map(Number);
+        return h * 60 + m;
+      };
+      const length = Math.max(this.config.slotDurationMins || 60, this.bookingData.durationMinutes || 0);
+      const slots = new Set([
+        ...(this.config.morningSlots || []),
+        ...(this.config.afternoonSlots || []),
+        ...(this.config.saturdayMorningSlots || []),
+        ...(this.config.saturdayAfternoonSlots || []),
+      ]);
+      return [...slots]
+        .map((time) => String(time).trim())
+        .filter((time) => {
+          const start = toMinutes(time);
+          const end = start + length;
+          return ranges.some(([busyStart, busyEnd]) => start < busyEnd && busyStart < end);
+        });
     }
 
     /**
@@ -1210,6 +1235,10 @@
       // If opening Step 2, re-render mini calendar
       if (this.currentStep === 2) {
         this.renderMiniCalendar();
+        this.loadBusySlots();
+      } else {
+        const notice = this.section.querySelector('[data-booking-slot-taken]');
+        if (notice) notice.hidden = true;
       }
 
       // If opening Step 3, pre-fill breed input if already defined in Step 1
@@ -1334,10 +1363,6 @@
         this.mapsBtn.href = this.buildMapsNavigationUrl('auto');
       }
 
-      // Sync with internal agenda localStorage if enabled
-      if (this.syncAgenda) {
-        this.saveToInternalAgenda();
-      }
     }
 
     /**
@@ -1467,6 +1492,10 @@
             this.onBookingSaved(isEn);
             return;
           }
+          if (result && result.error === 'slot_taken') {
+            this.onSlotTaken(isEn, label, originalLabel);
+            return;
+          }
           const fieldNames = isEn
             ? { date: 'date', time: 'time', service: 'service', dogSize: 'dog size', petName: "dog's name", ownerName: 'your name', ownerPhone: 'phone', ownerEmail: 'email' }
             : { date: 'fecha', time: 'hora', service: 'servicio', dogSize: 'tamaño', petName: 'nombre del perro', ownerName: 'tu nombre', ownerPhone: 'teléfono', ownerEmail: 'email' };
@@ -1505,6 +1534,26 @@
       // The booking is saved: going back to edit would create a second one.
       const prevBtn = this.section.querySelector('[data-step-panel="4"] [data-wizard-action="prev"]');
       if (prevBtn) prevBtn.hidden = true;
+    }
+
+    // The time was booked by someone else meanwhile: reload busy times and go back to step 2.
+    onSlotTaken(isEn, label, originalLabel) {
+      this.submitting = false;
+      this.submitBtn.disabled = false;
+      this.submitBtn.removeAttribute('aria-busy');
+      label.textContent = originalLabel;
+      this.showSubmitStatus('', '');
+      const notice = this.section.querySelector('[data-booking-slot-taken]');
+      if (notice) {
+        notice.textContent = isEn
+          ? 'Sorry, someone has just booked that time. Please choose another one.'
+          : 'Vaya, alguien acaba de reservar esa hora. Elige otra, por favor.';
+        notice.hidden = false;
+      }
+      this.loadBusySlots().then(() => {
+        this.currentStep = 2;
+        this.updateStepUI();
+      });
     }
 
     onBookingFailed(message, label, originalLabel) {
@@ -1560,66 +1609,6 @@
         });
       } else {
         alert('Detalles de la cita:\n\n' + summaryText);
-      }
-    }
-
-    saveToInternalAgenda(channel = 'whatsapp') {
-      try {
-        const activeChannel = channel || this.bookingData.channel || 'whatsapp';
-        const STORAGE_KEY = 'grooming_calendar_appointments';
-        let saved = [];
-        try {
-          const raw = localStorage.getItem(STORAGE_KEY);
-          if (raw) saved = JSON.parse(raw);
-        } catch (e) {
-          saved = [];
-        }
-        if (!Array.isArray(saved)) saved = [];
-
-        // Assign a persistent bookingId per wizard session to avoid ghost duplicates
-        if (!this.bookingData.bookingId) {
-          this.bookingData.bookingId = 'booking-' + Date.now();
-        }
-
-        const hasAddons = Array.isArray(this.bookingData.addons) && this.bookingData.addons.length > 0;
-        const addonsNotes = hasAddons
-          ? 'Extras: ' + this.bookingData.addons.map((a) => `${a.name} (+${a.price}€)`).join(', ') + ' | '
-          : '';
-
-        const newApt = {
-          id: this.bookingData.bookingId,
-          channel: activeChannel,
-          date: this.bookingData.date,
-          startTime: this.bookingData.slot,
-          endTime: this.calculateEndTime(this.bookingData.slot),
-          customerName: this.bookingData.customerName,
-          customerPhone: this.bookingData.customerPhone,
-          customerEmail: this.bookingData.customerEmail,
-          petName: this.bookingData.petName,
-          petBreed: this.bookingData.petBreed,
-          petSize: this.bookingData.dogSize,
-          serviceId: this.bookingData.serviceId,
-          serviceNameEs: this.bookingData.serviceName,
-          serviceNameEn: this.bookingData.serviceName,
-          addons: this.bookingData.addons || [],
-          status: 'pending',
-          price: this.bookingData.price,
-          notes: (addonsNotes + this.bookingData.specialNeeds.join(', ') + (this.bookingData.notes ? ' | ' + this.bookingData.notes : '')).trim(),
-        };
-
-        const existingIdx = saved.findIndex((a) => a.id === this.bookingData.bookingId);
-        if (existingIdx >= 0) {
-          saved[existingIdx] = newApt;
-        } else {
-          saved.push(newApt);
-        }
-
-        // Always sort chronologically by date and startTime
-        saved.sort((a, b) => (a.date + ' ' + a.startTime).localeCompare(b.date + ' ' + b.startTime));
-
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
-      } catch (e) {
-        console.warn('Unable to sync booking with internal calendar', e);
       }
     }
 
