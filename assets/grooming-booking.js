@@ -1201,6 +1201,8 @@
             medium: s.medium || 34,
             large: s.large || 42,
             duration: formatDuration(s.duration),
+            // Base length in minutes (the booking app uses the same number).
+            minutes: Number.parseInt(s.duration, 10) || 60,
             name: s.name,
           };
         });
@@ -1227,10 +1229,10 @@
       this.bookingData.price = `${totalNumPrice},00 €`;
       this.bookingData.priceAmount = totalNumPrice;
 
-      // Calcular duración total (base 60 mins + extras)
-      const totalMins = 60 + addonsTotalMins;
+      // Total length: the service's minutes (60 by default) + extras, as the booking app counts it.
+      const totalMins = (selected.minutes || 60) + addonsTotalMins;
       this.bookingData.durationMinutes = totalMins;
-      if (totalMins > 60) {
+      if (addonsTotalMins > 0) {
         const hours = Math.floor(totalMins / 60);
         const mins = totalMins % 60;
         this.bookingData.duration = mins > 0 ? `${hours} h ${mins} min` : `${hours} ${isEn ? 'hours' : 'horas'}`;
@@ -1700,6 +1702,9 @@
         date: this.bookingData.date,
         time: this.bookingData.slot,
         service: this.bookingData.serviceName,
+        // Ids (metaobject handles): the booking app works out the price and length from them.
+        serviceId: this.bookingData.serviceId,
+        addonIds: (this.bookingData.addons || []).map((addon) => addon.id),
         dogSize: this.bookingData.dogSize,
         durationMinutes: this.bookingData.durationMinutes,
         price: this.bookingData.priceAmount,
@@ -1739,6 +1744,16 @@
           }
           if (result && result.error === 'slot_taken') {
             this.onSlotTaken(isEn, label, originalLabel);
+            return;
+          }
+          if (result && result.error === 'too_many_pending') {
+            this.onBookingFailed(
+              isEn
+                ? 'You already have several bookings waiting for confirmation. We will contact you soon; if you need another one, write to us on WhatsApp.'
+                : 'Ya tienes varias reservas pendientes de confirmar. Te contactaremos pronto; si necesitas otra, escríbenos por WhatsApp.',
+              label,
+              originalLabel
+            );
             return;
           }
           const fieldNames = isEn
