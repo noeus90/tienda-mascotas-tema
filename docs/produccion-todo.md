@@ -46,7 +46,7 @@ Prioridad: 🔴 bloquea la apertura · 🟠 conviene tenerlo el primer día · �
 ## 5. Tema
 
 - [ ] 🔴 **Quitar o condicionar el banner "Modo Desarrollo Activo"** de `layout/theme.liquid` (p. ej. mostrarlo solo con `request.design_mode`).
-- [ ] 🟠 **Actualizar desde la última versión de Dawn** (`revision-todo.md` §7), con cuidado por las personalizaciones.
+- [x] 🟠 *(hecho el 20/11/2026, Dawn 16.2.0)* **Actualizar desde la última versión de Dawn** (`revision-todo.md` §7), con cuidado por las personalizaciones.
 - [x] 🟠 *(hecho el 19/11/2026)* **CSS del formulario de reservas** a la escala de Dawn (1rem = 10 px) y **traducir sus textos fijos** (los `data-i18n-*` no los aplica nada; en inglés sale mezclado).
 - [x] 🟠 *(hecho el 20/11/2026)* **Revisar los enlaces a Google Calendar y mapas** del formulario (zonas horarias y dirección codificada).
 - [ ] 🟠 **Suscripción**: instalar una app de suscripciones y enviar el `selling_plan`, o dejar el selector oculto.
