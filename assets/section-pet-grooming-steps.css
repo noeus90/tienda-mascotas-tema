@@ -1,3 +1,4 @@
+/* Sizes use Dawn's scale (1rem = 10px); converted from 1rem = 16px (×1.6) on 20/11/2026. */
 /* ==========================================================================
    CRO Section: Step-by-Step Pet Grooming & Hygiene Routine
    File: assets/section-pet-grooming-steps.css
@@ -6,40 +7,40 @@
 .grooming-steps-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 2.4rem;
   font-family: inherit;
 }
 
 .grooming-steps-header {
   text-align: center;
   max-width: 700px;
-  margin: 0 auto 3rem auto;
+  margin: 0 auto 4.8rem auto;
 }
 
 .grooming-steps-header .grooming-steps-kicker {
   display: inline-block;
-  font-size: 0.8rem;
+  font-size: 1.28rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: #047857;
   background: #ecfdf5;
-  padding: 0.35rem 0.85rem;
+  padding: 0.56rem 1.36rem;
   border-radius: 9999px;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1.2rem;
 }
 
 .grooming-steps-header h2 {
-  font-size: 2.25rem;
+  font-size: 3.6rem;
   font-weight: 700;
   color: rgb(var(--color-foreground, 15, 23, 42));
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 1.2rem 0;
   line-height: 1.2;
 }
 
 .grooming-steps-header p {
   color: rgba(var(--color-foreground, 15, 23, 42), 0.7);
-  font-size: 1.05rem;
+  font-size: 1.68rem;
   margin: 0;
   line-height: 1.5;
 }
@@ -51,16 +52,16 @@
   justify-content: space-between;
   position: relative;
   max-width: 900px;
-  margin: 0 auto 2.5rem auto;
-  padding: 0 1rem;
+  margin: 0 auto 4rem auto;
+  padding: 0 1.6rem;
 }
 
 .grooming-steps-timeline::before {
   content: '';
   position: absolute;
   top: 50%;
-  left: 2rem;
-  right: 2rem;
+  left: 3.2rem;
+  right: 3.2rem;
   height: 2px;
   background: rgba(var(--color-foreground, 15, 23, 42), 0.14);
   transform: translateY(-50%);
@@ -74,7 +75,7 @@
   border: 2px solid #059669;
   color: #065f46;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 1.44rem;
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -88,8 +89,8 @@
 .grooming-steps-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 3rem;
+  gap: 2.4rem;
+  margin-bottom: 4.8rem;
 }
 
 @media (max-width: 768px) {
@@ -98,7 +99,7 @@
   }
   .grooming-steps-grid {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
+    gap: 1.6rem;
   }
 }
 
@@ -106,7 +107,7 @@
   background: rgb(var(--color-background, 255, 255, 255));
   border: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.12);
   border-radius: 14px;
-  padding: 1.25rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -124,22 +125,22 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.85rem;
+  margin-bottom: 1.36rem;
 }
 
 .grooming-steps-badge {
-  font-size: 0.75rem;
+  font-size: 1.2rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #065f46;
   background: #d1fae5;
-  padding: 0.25rem 0.6rem;
+  padding: 0.4rem 0.96rem;
   border-radius: 6px;
 }
 
 .grooming-steps-timing-tag {
-  font-size: 0.7rem;
+  font-size: 1.2rem;
   color: rgba(var(--color-foreground, 15, 23, 42), 0.65);
   font-weight: 500;
 }
@@ -151,7 +152,7 @@
   background: rgba(var(--color-foreground, 15, 23, 42), 0.04);
   border-radius: 10px;
   overflow: hidden;
-  margin-bottom: 1rem;
+  margin-bottom: 1.6rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -182,19 +183,19 @@
 }
 
 .grooming-steps-category-title {
-  font-size: 0.8rem;
+  font-size: 1.28rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: rgba(var(--color-foreground, 15, 23, 42), 0.65);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.4rem;
 }
 
 .grooming-steps-product-title {
-  font-size: 1.05rem;
+  font-size: 1.68rem;
   font-weight: 700;
   color: rgb(var(--color-foreground, 15, 23, 42));
-  margin: 0 0 0.4rem 0;
+  margin: 0 0 0.64rem 0;
   line-height: 1.3;
 }
 
@@ -208,25 +209,25 @@
 }
 
 .grooming-steps-desc {
-  font-size: 0.85rem;
+  font-size: 1.36rem;
   color: rgba(var(--color-foreground, 15, 23, 42), 0.7);
   line-height: 1.45;
-  margin: 0 0 1rem 0;
+  margin: 0 0 1.6rem 0;
 }
 
 /* Step Card Footer */
 .grooming-steps-card-footer {
   margin-top: auto;
-  padding-top: 0.85rem;
+  padding-top: 1.36rem;
   border-top: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.08);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: 0.8rem;
 }
 
 .grooming-steps-card-price {
-  font-size: 1.1rem;
+  font-size: 1.76rem;
   font-weight: 700;
   color: rgb(var(--color-foreground, 15, 23, 42));
 }
@@ -234,12 +235,12 @@
 .grooming-steps-btn-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  font-size: 0.85rem;
+  gap: 0.56rem;
+  font-size: 1.36rem;
   font-weight: 600;
   color: #047857;
   text-decoration: none;
-  padding: 0.4rem 0.75rem;
+  padding: 0.64rem 1.2rem;
   border-radius: 6px;
   background: #ecfdf5;
   transition: all 0.2s ease;
@@ -254,45 +255,45 @@
 .grooming-steps-bundle-banner {
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
   border-radius: 16px;
-  padding: 2rem 2.5rem;
+  padding: 3.2rem 4rem;
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 3.2rem;
 }
 
 @media (max-width: 768px) {
   .grooming-steps-bundle-banner {
     flex-direction: column;
     text-align: center;
-    padding: 1.75rem 1.25rem;
+    padding: 2.8rem 2rem;
   }
 }
 
 .grooming-steps-bundle-info h3 {
   color: #ffffff;
-  font-size: 1.35rem;
+  font-size: 2.16rem;
   font-weight: 700;
-  margin: 0 0 0.35rem 0;
+  margin: 0 0 0.56rem 0;
 }
 
 .grooming-steps-bundle-info p {
   color: #94a3b8;
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 1.52rem;
 }
 
 .grooming-steps-bundle-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.8rem;
   background: #047857;
   color: #ffffff;
   font-weight: 600;
-  font-size: 0.95rem;
-  padding: 0.85rem 1.75rem;
+  font-size: 1.52rem;
+  padding: 1.36rem 2.8rem;
   border-radius: 9999px;
   text-decoration: none;
   white-space: nowrap;

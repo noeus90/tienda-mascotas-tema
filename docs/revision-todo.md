@@ -123,6 +123,8 @@ Cada fase deja algo que funciona.
 ### Fase 6. Producción
 - [ ] Servidor de pago para la app, pruebas completas y datos reales del salón (WhatsApp y dirección: ahora son de ejemplo, `+34 612 345 678` y `Calle Amor de Mascota 12`).
 
+- [x] 🟠 **Letra pequeña en el resto de la tienda** (hecho el 20/11/2026). Los pasos de peluquería, los sellos de confianza y el escaparate de colecciones estaban escritos para 1rem = 16 px (textos de 7–9 px): pasados a la escala de Dawn (×1,6). Las etiquetas pequeñas (mascota en las tarjetas, «Online» del botón de reservar, ES/EN, sellos, frecuencia de los pasos, tamaños y extras de la reserva) suben a 12 px. Medido en portada, colección, carrito, búsqueda, reserva y contacto: solo quedan por debajo de 12 px los textos de Dawn (cabeceras del carrito, etiquetas de formulario y copyright, 10–11 px). Sin desbordes en móvil.
+
 ## 2. Rendimiento
 
 - [x] 🔴 **Peso del JavaScript de peluquería** (hecho el 18/11/2026). La portada cargaba el formulario de reservas completo (`grooming-booking.js` 82 KB + `section-grooming-booking.css` 33 KB). Ahora el formulario está solo en la página "Bookings" (`/pages/bookings`, en español `/es/pages/bookings`): va en la plantilla de página normal (`templates/page.json`) y la sección solo se pinta en esa página, porque el admin solo deja asignar plantillas del tema publicado. De paso se arregló el botón "Reservar cita": en español llevaba a `/es/pages/reservas`, que daba 404, y en inglés a una página vacía. El calendario (`grooming-calendar.js`) no lo carga ninguna página: `/pages/grooming-calendar` no existe (va con la revisión del calendario). El título de la página se tradujo al español ("Reservar cita") con Translate & Adapt; la dirección sigue siendo `bookings` en los dos idiomas.

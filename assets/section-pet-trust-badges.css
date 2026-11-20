@@ -1,3 +1,4 @@
+/* Sizes use Dawn's scale (1rem = 10px); converted from 1rem = 16px (×1.6) on 20/11/2026. */
 /* ==========================================================================
    CRO Section: Veterinary & Pet Care Trust Badges + Verified Reviews
    File: assets/section-pet-trust-badges.css
@@ -11,7 +12,7 @@
 .trust-badges-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 2.4rem;
   font-family: inherit;
 }
 
@@ -21,32 +22,32 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 4rem;
 }
 
 .trust-badges-review-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 1.04rem;
   background: rgb(var(--color-background, 255, 255, 255));
   border: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.16);
-  padding: 0.5rem 1.15rem;
+  padding: 0.8rem 1.84rem;
   border-radius: 9999px;
   box-shadow: 0 2px 6px rgba(var(--color-shadow, 15, 23, 42), 0.04);
-  margin-bottom: 1rem;
+  margin-bottom: 1.6rem;
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .trust-badges-stars {
   color: #f59e0b;
-  font-size: 1rem;
+  font-size: 1.6rem;
   letter-spacing: 2px;
   line-height: 1;
 }
 
 .trust-badges-review-text {
-  font-size: 0.85rem;
+  font-size: 1.36rem;
   color: rgb(var(--color-foreground, 15, 23, 42));
   font-weight: 600;
 }
@@ -54,27 +55,27 @@
 .trust-badges-verified-tag {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.4rem;
   background: #ecfdf5;
   color: #065f46;
-  font-size: 0.72rem;
+  font-size: 1.2rem;
   font-weight: 700;
-  padding: 0.2rem 0.55rem;
+  padding: 0.32rem 0.88rem;
   border-radius: 999px;
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
 
 .trust-badges-review-header h2 {
-  font-size: 2rem;
+  font-size: 3.2rem;
   font-weight: 700;
   color: rgb(var(--color-foreground, 15, 23, 42));
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.8rem 0;
 }
 
 .trust-badges-review-header p {
   color: rgba(var(--color-foreground, 15, 23, 42), 0.7);
-  font-size: 1rem;
+  font-size: 1.6rem;
   max-width: 620px;
   margin: 0;
 }
@@ -83,14 +84,14 @@
 .trust-badges-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 1.5rem;
+  gap: 2.4rem;
 }
 
 .trust-badge-card {
   background: rgb(var(--color-background, 255, 255, 255));
   border: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.12);
   border-radius: 14px;
-  padding: 1.5rem 1.25rem;
+  padding: 2.4rem 2rem;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -113,31 +114,31 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.6rem;
   border: 1px solid #a7f3d0;
 }
 
 .trust-badge-cert-tag {
-  font-size: 0.68rem;
+  font-size: 1.2rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: #065f46;
   background: #d1fae5;
-  padding: 0.2rem 0.55rem;
+  padding: 0.32rem 0.88rem;
   border-radius: 4px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
 }
 
 .trust-badge-card h3 {
-  font-size: 1.05rem;
+  font-size: 1.68rem;
   font-weight: 700;
   color: rgb(var(--color-foreground, 15, 23, 42));
-  margin: 0 0 0.4rem 0;
+  margin: 0 0 0.64rem 0;
 }
 
 .trust-badge-card p {
-  font-size: 0.85rem;
+  font-size: 1.36rem;
   color: rgba(var(--color-foreground, 15, 23, 42), 0.7);
   line-height: 1.45;
   margin: 0;

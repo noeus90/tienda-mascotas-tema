@@ -454,7 +454,7 @@
 .size-badge {
   display: inline-block;
   align-self: flex-start;
-  font-size: 1.12rem;
+  font-size: 1.2rem;
   font-weight: 800;
   text-transform: uppercase;
   color: #047857;
@@ -501,7 +501,7 @@
   display: inline-flex;
   align-items: center;
   padding: 0.4rem 1.04rem;
-  font-size: 1.12rem;
+  font-size: 1.2rem;
   font-weight: 700;
   background: #ecfdf5;
   color: #065f46;
@@ -634,7 +634,7 @@
 
 .booking-addon-duration {
   margin-top: 0.32rem;
-  font-size: 1.12rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: rgba(var(--color-foreground), 0.7);
   display: inline-flex;
