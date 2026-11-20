@@ -7,6 +7,9 @@
 (function () {
   'use strict';
 
+  // Same time zone the booking app uses for the salon schedule.
+  const SALON_TIME_ZONE = 'Europe/Madrid';
+
   /**
    * Catálogo Inteligente de Razas Caninas y Mestizos
    * Los perros mestizos/cruces tienen size: null porque su peso no puede inferirse automáticamente.
@@ -1230,7 +1233,7 @@
       if (totalMins > 60) {
         const hours = Math.floor(totalMins / 60);
         const mins = totalMins % 60;
-        this.bookingData.duration = mins > 0 ? `${hours} h ${mins} min` : `${hours} horas`;
+        this.bookingData.duration = mins > 0 ? `${hours} h ${mins} min` : `${hours} ${isEn ? 'hours' : 'horas'}`;
       } else {
         this.bookingData.duration = selected.duration || defaultDuration;
       }
@@ -1567,22 +1570,18 @@
         this.whatsappCta.href = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`;
       }
 
-      // Build Google Calendar Link (strict 1-hour event)
+      // Google Calendar link, in the salon's time zone
       if (this.gcalLink && this.bookingData.date && this.bookingData.slot) {
-        const [y, m, d] = this.bookingData.date.split('-');
-        const [sh, sm] = this.bookingData.slot.split(':');
-        const startIso = `${y}${m}${d}T${sh}${sm}00`;
-        const endIso = `${y}${m}${d}T${endSlot.replace(':', '')}00`;
-
-        const addonsGCalStr = hasAddons
-          ? `\nExtras añadidos: ` + this.bookingData.addons.map((a) => `${a.name} (+${a.price},00 €)`).join(', ')
-          : '';
-
-        const title = `Peluquería Canina: ${this.bookingData.serviceName} para ${this.bookingData.petName}`;
-        const details = `Cita de peluquería canina para ${this.bookingData.petName} (${this.bookingData.petBreed}).\nHorario: ${this.bookingData.slot} - ${endSlot} h (${durationTag})\nServicio: ${this.bookingData.serviceName}${addonsGCalStr}\nPrecio estimado: ${this.bookingData.price}\nContacto: ${this.bookingData.customerPhone}`;
-        const location = this.section.dataset.salonAddress || 'Peluquería Canina';
-
-        this.gcalLink.href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startIso}/${endIso}&details=${encodeURIComponent(details)}&location=${encodeURIComponent(location)}`;
+        const ev = this.calendarEventData();
+        const params = new URLSearchParams({
+          action: 'TEMPLATE',
+          text: ev.title,
+          dates: `${ev.start}/${ev.end}`,
+          ctz: SALON_TIME_ZONE,
+          details: ev.details,
+          location: ev.location,
+        });
+        this.gcalLink.href = `https://calendar.google.com/calendar/render?${params.toString()}`;
       }
 
       // Build Email Confirmation Link (Funcionalidad 5)
@@ -1924,50 +1923,90 @@
      * Compatible con Apple Calendar (iOS / macOS), Microsoft Outlook y Android nativo.
      * Incorpora dos alarmas automáticas (VALARM): 2 horas antes y 1 día antes para evitar no-shows.
      */
+    /**
+     * Shared event data for Google Calendar and the .ics file, in the page language.
+     * start/end are local salon times (YYYYMMDDTHHMMSS) to be read in SALON_TIME_ZONE.
+     */
+    calendarEventData() {
+      const isEn = document.documentElement.lang === 'en';
+      const d = this.bookingData;
+      const dateClean = d.date.replace(/-/g, '');
+      const toStamp = (time) => {
+        const [h, m] = time.split(':');
+        return `${dateClean}T${h.padStart(2, '0')}${m.padStart(2, '0')}00`;
+      };
+      const endSlot = this.calculateEndTime(d.slot);
+      const petName = d.petName || (isEn ? 'your dog' : 'tu peludo');
+      const location = this.salonAddress || (isEn ? 'Grooming salon' : 'Peluquería canina');
+      const lines = [
+        isEn
+          ? `Dog grooming appointment for ${petName}${d.petBreed ? ` (${d.petBreed})` : ''}.`
+          : `Cita de peluquería canina para ${petName}${d.petBreed ? ` (${d.petBreed})` : ''}.`,
+        `${isEn ? 'Time' : 'Horario'}: ${d.slot} - ${endSlot} h`,
+        `${isEn ? 'Service' : 'Servicio'}: ${d.serviceName}`,
+      ];
+      if (Array.isArray(d.addons) && d.addons.length) {
+        lines.push(`Extras: ${d.addons.map((a) => `${a.name} (+${a.price} €)`).join(', ')}`);
+      }
+      const groomer = this.groomerName();
+      if (groomer) lines.push(`${isEn ? "Groomer" : "Peluquera"}: ${groomer}`);
+      if (d.price) lines.push(`${isEn ? 'Estimated price' : 'Precio estimado'}: ${d.price}`);
+      if (Array.isArray(d.specialNeeds) && d.specialNeeds.length) {
+        lines.push(`${isEn ? 'Special care' : 'Cuidados especiales'}: ${d.specialNeeds.join(', ')}`);
+      }
+      if (d.notes) lines.push(`${isEn ? 'Notes' : 'Observaciones'}: ${d.notes}`);
+      lines.push(`${isEn ? 'Address' : 'Dirección'}: ${location}`);
+      return {
+        isEn,
+        petName,
+        title: isEn
+          ? `🐾 Dog grooming: ${d.serviceName} for ${petName}`
+          : `🐾 Peluquería canina: ${d.serviceName} para ${petName}`,
+        details: lines.join('\n'),
+        location,
+        start: toStamp(d.slot),
+        end: toStamp(endSlot),
+      };
+    }
+
+    /**
+     * iCalendar file (RFC 5545) for Apple Calendar, Outlook and Android, with the salon time zone
+     * and two reminders (1 day and 2 hours before).
+     */
     generateIcsContent() {
       if (!this.bookingData.date || !this.bookingData.slot) return null;
-
-      const dateClean = this.bookingData.date.replace(/-/g, ''); // YYYYMMDD
-      const [sh, sm] = this.bookingData.slot.split(':');
-      const dtStart = `${dateClean}T${sh.padStart(2, '0')}${sm.padStart(2, '0')}00`;
-
-      const endSlot = this.calculateEndTime(this.bookingData.slot);
-      const [eh, em] = endSlot.split(':');
-      const dtEnd = `${dateClean}T${eh.padStart(2, '0')}${em.padStart(2, '0')}00`;
+      const ev = this.calendarEventData();
+      // Escape TEXT values: backslash, comma, semicolon and line breaks.
+      const esc = (value) =>
+        String(value)
+          .replace(/\\/g, '\\\\')
+          .replace(/;/g, '\\;')
+          .replace(/,/g, '\\,')
+          .replace(/\r?\n/g, '\\n');
+      // Fold lines longer than 75 bytes (continuation lines start with a space).
+      const encoder = new TextEncoder();
+      const fold = (line) => {
+        const out = [];
+        let current = '';
+        let bytes = 0;
+        for (const ch of line) {
+          const size = encoder.encode(ch).length;
+          if (bytes + size > (out.length ? 74 : 75)) {
+            out.push(current);
+            current = '';
+            bytes = 0;
+          }
+          current += ch;
+          bytes += size;
+        }
+        out.push(current);
+        return out.join('\r\n ');
+      };
 
       const dtStamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-      const domain = typeof window !== 'undefined' && window.location && window.location.hostname ? window.location.hostname : 'shopify-store';
-      const uid = (this.bookingData.bookingId || ('grooming-' + Date.now())) + '@' + domain;
-
-      const petName = this.bookingData.petName || 'Tu peludo';
-      const petBreed = this.bookingData.petBreed || '';
-      const summary = `🐾 Cita de Peluquería Canina: ${this.bookingData.serviceName} para ${petName}`;
-
-      const location = (this.section.dataset.salonAddress || 'Calle Amor de Mascota 12, Madrid')
-        .replace(/,/g, '\\,')
-        .replace(/;/g, '\\;');
-
-      const hasAddons = Array.isArray(this.bookingData.addons) && this.bookingData.addons.length > 0;
-      const addonsText = hasAddons
-        ? `\\nExtras incluidos: ` + this.bookingData.addons.map((a) => `${a.name} (+${a.price}€)`).join(', ')
-        : '';
-
-      const careText = this.bookingData.specialNeeds && this.bookingData.specialNeeds.length > 0
-        ? `\\nCuidados especiales: ${this.bookingData.specialNeeds.join(', ')}`
-        : '';
-
-      const notesText = this.bookingData.notes
-        ? `\\nObservaciones: ${this.bookingData.notes}`
-        : '';
-
-      const description =
-        `Cita de Peluquería Canina y Spa para ${petName} (${petBreed} - ${this.bookingData.dogSize.toUpperCase()}).\\n` +
-        `Servicio: ${this.bookingData.serviceName} (${this.bookingData.price})` +
-        addonsText +
-        careText +
-        notesText +
-        `\\nTutor: ${this.bookingData.customerName || 'Cliente'} (${this.bookingData.customerPhone || ''})\\n` +
-        `Ubicación: ${this.section.dataset.salonAddress || 'En tienda'}`;
+      const domain = window.location.hostname || 'shopify-store';
+      const uid = (this.bookingData.bookingId || 'grooming-' + Date.now()) + '@' + domain;
+      const reminder = ev.isEn ? `Reminder: grooming for ${ev.petName}` : `Recordatorio: peluquería de ${ev.petName}`;
 
       return [
         'BEGIN:VCALENDAR',
@@ -1975,28 +2014,48 @@
         'PRODID:-//Shopify Grooming Booking//ES',
         'CALSCALE:GREGORIAN',
         'METHOD:PUBLISH',
+        // Europe/Madrid rules (CET/CEST), so the event keeps its time in any device time zone.
+        'BEGIN:VTIMEZONE',
+        `TZID:${SALON_TIME_ZONE}`,
+        'BEGIN:DAYLIGHT',
+        'TZOFFSETFROM:+0100',
+        'TZOFFSETTO:+0200',
+        'TZNAME:CEST',
+        'DTSTART:19700329T020000',
+        'RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU',
+        'END:DAYLIGHT',
+        'BEGIN:STANDARD',
+        'TZOFFSETFROM:+0200',
+        'TZOFFSETTO:+0100',
+        'TZNAME:CET',
+        'DTSTART:19701025T030000',
+        'RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU',
+        'END:STANDARD',
+        'END:VTIMEZONE',
         'BEGIN:VEVENT',
         `UID:${uid}`,
         `DTSTAMP:${dtStamp}`,
-        `DTSTART:${dtStart}`,
-        `DTEND:${dtEnd}`,
-        `SUMMARY:${summary}`,
-        `DESCRIPTION:${description}`,
-        `LOCATION:${location}`,
+        `DTSTART;TZID=${SALON_TIME_ZONE}:${ev.start}`,
+        `DTEND;TZID=${SALON_TIME_ZONE}:${ev.end}`,
+        `SUMMARY:${esc(ev.title)}`,
+        `DESCRIPTION:${esc(ev.details)}`,
+        `LOCATION:${esc(ev.location)}`,
         'STATUS:CONFIRMED',
         'BEGIN:VALARM',
         'TRIGGER:-PT2H',
         'ACTION:DISPLAY',
-        `DESCRIPTION:🐾 Recordatorio: Cita de peluquería para ${petName} en 2 horas`,
+        `DESCRIPTION:${esc(reminder)}`,
         'END:VALARM',
         'BEGIN:VALARM',
         'TRIGGER:-P1D',
         'ACTION:DISPLAY',
-        `DESCRIPTION:🐾 Recordatorio: Cita de peluquería para ${petName} mañana`,
+        `DESCRIPTION:${esc(reminder)}`,
         'END:VALARM',
         'END:VEVENT',
         'END:VCALENDAR',
-      ].join('\r\n');
+      ]
+        .map(fold)
+        .join('\r\n') + '\r\n';
     }
 
     /**
@@ -2038,7 +2097,7 @@
       if (this.appleCalendarBtn) {
         const origText = this.appleCalendarBtn.textContent;
         const isEn = document.documentElement.lang === 'en';
-        this.appleCalendarBtn.textContent = isEn ? 'Descargado' : 'Descargado';
+        this.appleCalendarBtn.textContent = isEn ? 'Downloaded' : 'Descargado';
         this.appleCalendarBtn.classList.add('is-active');
         setTimeout(() => {
           this.appleCalendarBtn.textContent = origText;
