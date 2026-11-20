@@ -820,8 +820,9 @@
   font-weight: 700;
   line-height: 1;
   padding: 0.45rem 0.7rem;
-  min-width: 2.8rem;
-  min-height: 2.4rem;
+  /* 32 px: Lighthouse asks for at least 24 px free around each touch target (WCAG 2.5.8). */
+  min-width: 3.2rem;
+  min-height: 3.2rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
