@@ -56,7 +56,7 @@ Prioridad: 🔴 bloquea la apertura · 🟠 conviene tenerlo el primer día · �
 
 ## 6. App de reservas (`peluqueria-reservas`)
 
-- [ ] 🔴 **Repositorio en GitHub** (ahora solo hay git local): es la única copia del código.
+- [x] 🔴 *(hecho el 20/11/2026)* **Repositorio en GitHub**: privado en `noeus90/peluqueria-reservas`, rama `main`. Sin `.env` ni base de datos (están en `.gitignore`).
 - [ ] 🔴 **Servidor de pago siempre encendido** (Fly.io, Render, Railway… ≈5–10 €/mes; ya hay `Dockerfile`). Tiene que estar **siempre en marcha, sin "dormir"**: el temporizador de recordatorios (`app/lib/reminders.server.js`) vive dentro del proceso, y si el servidor se apaga no salen los recordatorios ni se guardan reservas.
 - [ ] 🔴 **Base de datos de sesiones**: ahora es SQLite (`prisma/dev.sqlite`). En el servidor, o un disco persistente para SQLite o pasar a PostgreSQL; si no, cada despliegue borra las sesiones y la app deja de funcionar hasta reinstalarla.
 - [ ] 🔴 **Variables de entorno en el servidor**: `SHOPIFY_API_KEY`, `SHOPIFY_API_SECRET`, `SHOPIFY_APP_URL`, `SCOPES`, las claves de Brevo y las que hay en `.env`. Nunca subir el `.env` a GitHub.
