@@ -1,15 +1,16 @@
-{% comment %}
-  Renders product buy-buttons.
-  Accepts:
-  - product: {Object} product object.
-  - block: {Object} passing the block information.
-  - product_form_id: {String} product form id.
-  - section_id: {String} id of section to which this snippet belongs.
-  - show_pickup_availability: {Boolean} for the pickup availability. If true the pickup availability is rendered, false - not rendered (optional).
+{% doc %}
+  Renders a product form with add-to-cart and dynamic checkout buttons.
 
-  Usage:
+  @param {block} block - The buy-buttons block, whose settings control the form and whose attributes are added to the wrapper.
+  @param {product} product - The product to purchase.
+  @param {string} product_form_id - The product form's unique ID.
+  @param {string} section_id - The section ID used to namespace the form and submit button.
+  @param {boolean} [show_pickup_availability] - Whether to render pickup availability. Defaults to `false`.
+  @param {object} [section] - The current section context, supplied implicitly when rendered from a section and used for IDs and pickup-availability colors.
+
+  @example
   {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true %}
-{% endcomment %}
+{% enddoc %}
 <div {{ block.shopify_attributes }}>
   {%- if product != blank -%}
     {%- liquid
@@ -35,6 +36,8 @@
         </span>
         <span class="product-form__error-message"></span>
       </div>
+
+      {%- assign quantity_rule_soldout = false -%}
 
       {%- form 'product',
         product,
@@ -121,15 +124,24 @@
   {%- if show_pickup_availability -%}
     {{ 'component-pickup-availability.css' | asset_url | stylesheet_tag }}
 
-    {%- assign pick_up_availabilities = product.selected_or_first_available_variant.store_availabilities
-      | where: 'pick_up_enabled', true
+    {%- liquid
+      assign show_physical_stores = block.settings.show_physical_stores
+      assign listed_store_count = 0
+      for availability in product.selected_or_first_available_variant.store_availabilities
+        if availability.pick_up_enabled
+          assign listed_store_count = listed_store_count | plus: 1
+        elsif show_physical_stores and availability.physical_storefront and availability.available_without_transfer
+          assign listed_store_count = listed_store_count | plus: 1
+        endif
+      endfor
     -%}
 
     <pickup-availability
       class="product__pickup-availabilities quick-add-hidden"
-      {% if product.selected_or_first_available_variant.available and pick_up_availabilities.size > 0 %}
+      {% if product.selected_or_first_available_variant.available and listed_store_count > 0 %}
         available
       {% endif %}
+      data-availability-section="{% if show_physical_stores %}store-availability{% else %}pickup-availability{% endif %}"
       data-root-url="{{ routes.root_url }}"
       data-variant-id="{{ product.selected_or_first_available_variant.id }}"
       data-has-only-default-variant="{{ product.has_only_default_variant }}"

@@ -1,18 +1,5 @@
-Updates the header to use Shopify's customer account experience, adds a Customer accounts theme setting, and removes the legacy customer account pages.
-
-### Removed
-
-- Important: [Customer accounts] Removed the legacy customer account templates and sections. Stores on legacy customer accounts must upgrade to new customer accounts before publishing this version. See information on [upgrading to customer accounts from legacy customer accounts](https://help.shopify.com/manual/customers/customer-accounts/upgrade)
+This update adds the ability to display physical retail stores that have inventory in stock in the product page pickup availability drawer, including locations that do not offer in-store pickup.
 
 ### Added
 
-- [Customer accounts] New Customer accounts theme setting with a Menu setting for the customer account popover.
-
-### Changed
-
-- [Customer accounts] The header account icon now opens Shopify's customer account popover instead of a separate login page.
-
-### Fixes and improvements
-
-- [Mobile menu] Country/region and language selectors now respect their Header section settings, matching the desktop header.
-- [Mobile menu] Fixed footer spacing when social links aren't shown.
+- [Product] Added the option to show physical stores that have a product in stock in the product page pickup availability, including stores that don't offer pickup. The option is enabled by default.
