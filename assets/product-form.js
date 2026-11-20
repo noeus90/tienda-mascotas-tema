@@ -48,7 +48,11 @@ if (!customElements.get('product-form')) {
 
         fetch(`${routes.cart_add_url}`, config)
           .then((response) => response.json())
-          .then((response) => {
+          .then(async (response) => {
+            // "Sold out" for a variant that is in stock: the cart has an address outside the
+            // shipping zones (islands, Ceuta, Melilla), so Shopify cannot deliver it there.
+            const zoneBlocked = response.status && (await this.isShippingZoneBlock(response, variantId));
+            if (zoneBlocked) response.description = window.shippingZoneStrings.blocked;
             if (response.status) {
               publish(PUB_SUB_EVENTS.cartError, {
                 source: 'product-form',
@@ -61,7 +65,7 @@ if (!customElements.get('product-form')) {
               linesUpdateDeferred?.reject(new Error(response.description || response.message));
 
               const soldOutMessage = this.submitButton.querySelector('.sold-out-message');
-              if (!soldOutMessage) return;
+              if (!soldOutMessage || zoneBlocked) return;
               this.submitButton.setAttribute('aria-disabled', true);
               this.submitButtonText.classList.add('hidden');
               soldOutMessage.classList.remove('hidden');
@@ -118,6 +122,20 @@ if (!customElements.get('product-form')) {
 
             CartPerformance.measureFromEvent("add:user-action", evt);
           });
+      }
+
+      async isShippingZoneBlock(response, variantId) {
+        if (response.status !== 422 || !window.shippingZoneStrings?.blocked) return false;
+        if (!/sold out|agotad/i.test(response.description || response.message || '')) return false;
+        const productUrl = this.closest('product-info')?.dataset.url;
+        if (!productUrl) return false;
+        try {
+          const product = await (await fetch(`${productUrl}.js`)).json();
+          const variant = product.variants.find((item) => String(item.id) === String(variantId));
+          return Boolean(variant && variant.available);
+        } catch (error) {
+          return false;
+        }
       }
 
       handleErrorMessage(errorMessage = false) {

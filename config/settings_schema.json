@@ -1469,6 +1469,13 @@
         "default": 65
       },
       {
+        "type": "checkbox",
+        "id": "show_shipping_zone_note",
+        "label": "Avisar de que solo se envía a la península",
+        "info": "Muestra el aviso en la ficha de producto y en el carrito. Debe coincidir con las zonas de los perfiles de envío (Configuración → Envío y entrega).",
+        "default": true
+      },
+      {
         "type": "header",
         "content": "Productos congelados (BARF)"
       },

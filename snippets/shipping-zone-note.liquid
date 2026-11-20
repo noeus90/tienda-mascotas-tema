@@ -1,0 +1,29 @@
+{%- doc -%}
+  "We only ship to mainland Spain" notice (theme setting `show_shipping_zone_note`). Frozen products
+  skip it on the product page: their chilled shipping notice already says it.
+
+  @param {product} [product] - Product page: the product shown.
+  @param {boolean} [in_cart] - Cart: shows the cart version.
+
+  @example
+  {% render 'shipping-zone-note', product: product %}
+  {% render 'shipping-zone-note', in_cart: true %}
+{%- enddoc -%}
+
+{%- liquid
+  assign show_zone = settings.show_shipping_zone_note
+  assign frozen_tag = settings.frozen_tag | default: 'congelado' | strip
+  if product and product.tags contains frozen_tag
+    assign show_zone = false
+  endif
+-%}
+
+{%- if show_zone -%}
+  {%- if in_cart -%}
+    <p class="cro-zone-note cro-zone-note--cart">{{ 'pet_cro.shipping_zone.cart_html' | t }}</p>
+  {%- else -%}
+    <p class="cro-zone-note">
+      <span aria-hidden="true">📍</span> {{ 'pet_cro.shipping_zone.product_html' | t }}
+    </p>
+  {%- endif -%}
+{%- endif -%}

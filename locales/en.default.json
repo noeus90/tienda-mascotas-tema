@@ -844,6 +844,11 @@
       "day_names": "Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday",
       "days_range": "{{ first }} to {{ last }}",
       "in_stock_html": "<strong>In stock</strong> · Frozen, ready for the next chilled shipment"
+    },
+    "shipping_zone": {
+      "product_html": "We only ship to <strong>mainland Spain</strong> (not to the Balearic or Canary Islands, Ceuta or Melilla).",
+      "cart_html": "📍 We only ship to mainland Spain: no deliveries to the Balearic or Canary Islands, Ceuta or Melilla.",
+      "blocked": "We can't add it: we only ship to mainland Spain and your cart has an address in the Balearic or Canary Islands, Ceuta or Melilla. If you live on the mainland, change the address at checkout."
     }
   }
 }

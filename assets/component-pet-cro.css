@@ -841,6 +841,19 @@
   margin: 0 0 1.6rem;
 }
 
+/* 8c. Mainland-only shipping notice (snippets/shipping-zone-note.liquid) */
+.cro-zone-note {
+  margin: 1rem 0 0;
+  font-size: 1.25rem;
+  line-height: 1.45;
+  color: rgba(var(--color-foreground, 15, 23, 42), 0.75);
+}
+
+.cro-zone-note--cart {
+  margin: 0 0 1.6rem;
+  text-align: center;
+}
+
 /* 9. Header Language Switcher Pill (snippets/header-language-switcher.liquid) */
 .header-lang-switcher-form {
   display: inline-flex;
