@@ -14,7 +14,7 @@ Prioridad: 🔴 bloquea la apertura · 🟠 conviene tenerlo el primer día · �
 - [ ] 🔴 **Pagos.** Activar Shopify Payments (pide datos de la empresa, cuenta bancaria y verificación de identidad; lo haces tú). Valorar Bizum/PayPal. Desactivar el modo de prueba y la "pasarela falsa" si se usó.
 - [ ] 🔴 **Impuestos.** IVA de España incluido en los precios; decidir qué pasa con Canarias, Ceuta y Melilla (no llevan IVA) y con ventas a otros países de la UE (régimen OSS a partir de 10.000 €/año).
 - [ ] 🔴 **Mercados.** Ahora hay mercados de EE. UU. y Canadá activos. Decidir si se vende fuera de España; si no, desactivarlos. Si sí, precios, aduanas y envíos para cada uno.
-- [ ] 🔴 **Envíos.** Tarifas reales (peninsular, Baleares, Canarias si se vende allí), umbral de envío gratis que coincida con la barra del carrito, y transportista. **Envío refrigerado** antes de vender BARF congelado.
+- [ ] 🔴 **Envíos.** Tarifas reales (peninsular, Baleares, Canarias si se vende allí), umbral de envío gratis que coincida con la barra del carrito, y transportista. **Envío refrigerado** (preparado el 20/11/2026 con importes de ejemplo; revisar precio y transportista) antes de vender BARF congelado.
 - [ ] 🟠 **Stock real** en la ubicación de la tienda y política de qué hacer con los agotados ("seguir vendiendo" o no).
 
 ## 2. Dominio y correo

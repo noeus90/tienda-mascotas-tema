@@ -56,6 +56,7 @@
         <div class="js-contents">
           {%- if cart != empty -%}
             {% render 'free-shipping-bar' %}
+            {% render 'frozen-shipping-note', in_cart: true %}
             <table class="cart-items">
               <caption class="visually-hidden">
                 {{ 'sections.cart.title' | t }}

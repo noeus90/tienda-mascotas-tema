@@ -834,6 +834,16 @@
       "status_all": "All Pets ✨",
       "status_one_html": "Showing <strong>__COUNT__</strong> product for <strong>__PET__</strong>__CATEGORY__",
       "status_other_html": "Showing <strong>__COUNT__</strong> products for <strong>__PET__</strong>__CATEGORY__"
+    },
+    "frozen": {
+      "title": "Frozen product",
+      "product_html": "Chilled delivery in an insulated box, <strong>mainland Spain only</strong>. Ships {{ days }}; arrives in 24 h. {{ price }}, <strong>free from {{ threshold }}</strong> per order.",
+      "cart_html": "❄️ Your order includes frozen products: they ship separately in a chilled box ({{ price }}, free from {{ threshold }}). Mainland Spain only, ships {{ days }}.",
+      "order_within_html": "Order within <strong>{{ time }}</strong>: ships chilled today and arrives on <strong>{{ date }}</strong>",
+      "next_dispatch_html": "Ships chilled on <strong>{{ dispatch }}</strong> and arrives on <strong>{{ date }}</strong>",
+      "day_names": "Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday",
+      "days_range": "{{ first }} to {{ last }}",
+      "in_stock_html": "<strong>In stock</strong> · Frozen, ready for the next chilled shipment"
     }
   }
 }

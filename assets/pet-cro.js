@@ -122,45 +122,93 @@ window.updateDeliveryFrequency = function (sectionId, frequencyValue) {
   }
 };
 
+// Date and hour in the warehouse's time zone (Madrid), not the visitor's computer.
+function croMadridNow() {
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Europe/Madrid',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hourCycle: 'h23',
+    })
+      .formatToParts(new Date())
+      .map((p) => [p.type, p.value])
+  );
+  // A UTC date that holds Madrid's calendar day: only used for day arithmetic and weekday names.
+  const day = new Date(Date.UTC(+parts.year, +parts.month - 1, +parts.day, 12));
+  return { day, hour: +parts.hour, minute: +parts.minute };
+}
+
+function croAddDays(date, days) {
+  const next = new Date(date);
+  next.setUTCDate(next.getUTCDate() + days);
+  return next;
+}
+
+// ISO weekday: 1 = Monday … 7 = Sunday.
+const croWeekday = (date) => date.getUTCDay() || 7;
+
 function initCroDeliveryCountdown(root = document) {
   const deliveryNodes = root.querySelectorAll('[data-cro-delivery]');
   if (!deliveryNodes.length) return;
 
-  const now = new Date();
-  const cutoffHour = 16; // 16:00h warehouse dispatch cutoff
-  let remainingHours = cutoffHour - now.getHours() - 1;
-  let remainingMinutes = 60 - now.getMinutes();
-
+  const cutoffHour = 16; // 16:00h warehouse dispatch cutoff (Madrid time)
+  const { day: today, hour, minute } = croMadridNow();
+  const beforeCutoff = hour < cutoffHour;
+  let remainingHours = cutoffHour - hour - 1;
+  let remainingMinutes = 60 - minute;
   if (remainingMinutes === 60) {
     remainingHours += 1;
     remainingMinutes = 0;
   }
-
-  const daysToAdd = now.getHours() < cutoffHour ? 1 : 2;
-  const deliveryDate = new Date(now);
-  deliveryDate.setDate(now.getDate() + daysToAdd);
-
-  if (deliveryDate.getDay() === 0) {
-    deliveryDate.setDate(deliveryDate.getDate() + 1);
-  }
+  const countdown = `${remainingHours}h ${remainingMinutes}m`;
 
   const locale = (document.documentElement.lang || 'es').toLowerCase().slice(0, 2);
-  const formattedDate = new Intl.DateTimeFormat(locale, {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'short',
-  }).format(deliveryDate);
+  const formatDate = (date) =>
+    new Intl.DateTimeFormat(locale, { weekday: 'long', day: 'numeric', month: 'short', timeZone: 'UTC' }).format(date);
+  const formatWeekday = (date) => new Intl.DateTimeFormat(locale, { weekday: 'long', timeZone: 'UTC' }).format(date);
 
   deliveryNodes.forEach((deliveryEl) => {
+    const shipDays = (deliveryEl.dataset.shipDays || '')
+      .split(',')
+      .map((n) => parseInt(n, 10))
+      .filter((n) => n >= 1 && n <= 7);
+
+    if (shipDays.length) {
+      // Frozen products: they leave on the next dispatch day (today if before the cutoff) and
+      // arrive the next working day (Monday to Friday).
+      let dispatch = today;
+      if (!(shipDays.includes(croWeekday(today)) && beforeCutoff)) {
+        dispatch = croAddDays(today, 1);
+        for (let i = 0; i < 7 && !shipDays.includes(croWeekday(dispatch)); i += 1) dispatch = croAddDays(dispatch, 1);
+      }
+      let arrival = croAddDays(dispatch, 1);
+      while (croWeekday(arrival) > 5) arrival = croAddDays(arrival, 1);
+
+      const sameDay = dispatch.getTime() === today.getTime();
+      const tpl = sameDay ? deliveryEl.dataset.tplCutoffFrozen : deliveryEl.dataset.tplNextFrozen;
+      if (tpl) {
+        deliveryEl.innerHTML = tpl
+          .replace('__TIME__', countdown)
+          .replace('__DISPATCH__', formatWeekday(dispatch))
+          .replace('__DATE__', formatDate(arrival));
+      }
+      return;
+    }
+
+    // Other products: next day before the cutoff, two days after it; no deliveries on Sunday.
+    let deliveryDate = croAddDays(today, beforeCutoff ? 1 : 2);
+    if (croWeekday(deliveryDate) === 7) deliveryDate = croAddDays(deliveryDate, 1);
+
     const tplCutoff = deliveryEl.dataset.tplCutoff || '';
     const tplExpress = deliveryEl.dataset.tplExpress || '';
-
-    if (now.getHours() < cutoffHour && remainingHours >= 0 && tplCutoff) {
-      deliveryEl.innerHTML = tplCutoff
-        .replace('__TIME__', `${remainingHours}h ${remainingMinutes}m`)
-        .replace('__DATE__', formattedDate);
+    if (beforeCutoff && remainingHours >= 0 && tplCutoff) {
+      deliveryEl.innerHTML = tplCutoff.replace('__TIME__', countdown).replace('__DATE__', formatDate(deliveryDate));
     } else if (tplExpress) {
-      deliveryEl.innerHTML = tplExpress.replace('__DATE__', formattedDate);
+      deliveryEl.innerHTML = tplExpress.replace('__DATE__', formatDate(deliveryDate));
     }
   });
 }

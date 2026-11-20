@@ -846,6 +846,16 @@
       "status_all": "Todos los Peludos ✨",
       "status_one_html": "Mostrando <strong>__COUNT__</strong> producto para <strong>__PET__</strong>__CATEGORY__",
       "status_other_html": "Mostrando <strong>__COUNT__</strong> productos para <strong>__PET__</strong>__CATEGORY__"
+    },
+    "frozen": {
+      "title": "Producto congelado",
+      "product_html": "Envío refrigerado en caja isotérmica, <strong>solo península</strong>. Salidas de {{ days }}; llega en 24 h. {{ price }}, <strong>gratis desde {{ threshold }}</strong> de pedido.",
+      "cart_html": "❄️ Tu pedido incluye productos congelados: van aparte en caja refrigerada ({{ price }}, gratis desde {{ threshold }}). Solo península, salidas de {{ days }}.",
+      "order_within_html": "Pídelo en <strong>{{ time }}</strong>: sale hoy refrigerado y llega el <strong>{{ date }}</strong>",
+      "next_dispatch_html": "Sale refrigerado el <strong>{{ dispatch }}</strong> y llega el <strong>{{ date }}</strong>",
+      "day_names": "lunes,martes,miércoles,jueves,viernes,sábado,domingo",
+      "days_range": "{{ first }} a {{ last }}",
+      "in_stock_html": "<strong>En stock</strong> · Congelado, listo para el próximo envío refrigerado"
     }
   }
 }

@@ -414,7 +414,10 @@
                   %}
                 {%- when 'buy_buttons' -%}
                   {%- unless placeholder -%}
-                    {% render 'free-shipping-bar' %}
+                    {%- assign frozen_tag = settings.frozen_tag | default: 'congelado' | strip -%}
+                    {%- unless product.tags contains frozen_tag -%}
+                      {% render 'free-shipping-bar' %}
+                    {%- endunless -%}
                     {% render 'subscription-selector', product: product, product_form_id: product_form_id %}
                   {%- endunless -%}
                   {%- render 'buy-buttons',

@@ -499,7 +499,11 @@
                     product_form_id: product_form_id
                   %}
                 {%- when 'buy_buttons' -%}
-                  {% render 'free-shipping-bar' %}
+                  {%- comment -%} Frozen products have their own chilled shipping notice and threshold. {%- endcomment -%}
+                  {%- assign frozen_tag = settings.frozen_tag | default: 'congelado' | strip -%}
+                  {%- unless product.tags contains frozen_tag -%}
+                    {% render 'free-shipping-bar' %}
+                  {%- endunless -%}
                   {% render 'subscription-selector', product: product, product_form_id: product_form_id %}
                   {%- render 'buy-buttons',
                     block: block,

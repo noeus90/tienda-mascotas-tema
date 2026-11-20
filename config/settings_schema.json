@@ -1469,6 +1469,38 @@
         "default": 65
       },
       {
+        "type": "header",
+        "content": "Productos congelados (BARF)"
+      },
+      {
+        "type": "text",
+        "id": "frozen_tag",
+        "label": "Etiqueta de los productos congelados",
+        "info": "Los productos con esta etiqueta muestran el aviso de envío refrigerado. Pon también esos productos en el perfil de envío «Refrigerado BARF» (Configuración → Envío y entrega).",
+        "default": "congelado"
+      },
+      {
+        "type": "text",
+        "id": "frozen_shipping_price",
+        "label": "Precio del envío refrigerado",
+        "info": "Solo se muestra en los avisos: el precio real es el de la tarifa del perfil de envío.",
+        "default": "€6,95"
+      },
+      {
+        "type": "number",
+        "id": "frozen_free_threshold",
+        "label": "Envío refrigerado gratis desde",
+        "info": "Importe del pedido, sin decimales. Debe coincidir con la tarifa del perfil de envío.",
+        "default": 60
+      },
+      {
+        "type": "text",
+        "id": "frozen_ship_days",
+        "label": "Días de salida de los congelados",
+        "info": "Números de los días en que se envían, separados por comas (1 = lunes … 5 = viernes). Por defecto de lunes a miércoles, para que no pasen el fin de semana en el almacén.",
+        "default": "1,2,3"
+      },
+      {
         "type": "text",
         "id": "need_filter_tags",
         "label": "Etiquetas del filtro Necesidad",

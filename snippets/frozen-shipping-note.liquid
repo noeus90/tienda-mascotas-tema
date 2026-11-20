@@ -1,0 +1,75 @@
+{%- doc -%}
+  Chilled shipping notice for frozen products (BARF), shown on the product page and in the cart.
+  A product is frozen when it has the tag of the theme setting `frozen_tag` (default "congelado").
+  Price, threshold and dispatch days are the theme settings of "Productos congelados (BARF)"; they
+  must match the shipping profile "Refrigerado BARF" in Shopify, which is what really charges.
+
+  @param {product} [product] - Product page: shows the notice when this product is frozen.
+  @param {boolean} [in_cart] - Cart: shows the notice when any cart item is frozen.
+
+  @example
+  {% render 'frozen-shipping-note', product: product %}
+  {% render 'frozen-shipping-note', in_cart: true %}
+{%- enddoc -%}
+
+{%- liquid
+  assign frozen_tag = settings.frozen_tag | default: 'congelado' | strip
+  assign show_note = false
+  if in_cart
+    for item in cart.items
+      if item.product.tags contains frozen_tag
+        assign show_note = true
+        break
+      endif
+    endfor
+  elsif product and product.tags contains frozen_tag
+    assign show_note = true
+  endif
+-%}
+
+{%- if show_note -%}
+  {%- liquid
+    assign frozen_price = settings.frozen_shipping_price | default: '€6,95'
+    assign frozen_threshold = settings.frozen_free_threshold | default: 60 | times: 100 | money_without_trailing_zeros
+    # Dispatch days from the setting "1,2,3": consecutive days read "lunes a miércoles", others are listed.
+    assign day_names = 'pet_cro.frozen.day_names' | t | split: ','
+    assign day_numbers = settings.frozen_ship_days | default: '1,2,3' | remove: ' ' | split: ','
+    assign frozen_days = ''
+    assign consecutive = true
+    assign previous = 0
+    for n in day_numbers
+      assign num = n | plus: 0
+      assign expected = previous | plus: 1
+      if forloop.first == false and num != expected
+        assign consecutive = false
+      endif
+      assign previous = num
+    endfor
+    assign first_idx = day_numbers.first | plus: 0 | minus: 1
+    assign last_idx = day_numbers.last | plus: 0 | minus: 1
+    assign first_name = day_names[first_idx]
+    assign last_name = day_names[last_idx]
+    if day_numbers.size > 2 and consecutive
+      assign frozen_days = 'pet_cro.frozen.days_range' | t: first: first_name, last: last_name
+    else
+      for n in day_numbers
+        assign idx = n | plus: 0 | minus: 1
+        assign frozen_days = frozen_days | append: day_names[idx]
+        unless forloop.last
+          assign frozen_days = frozen_days | append: ', '
+        endunless
+      endfor
+    endif
+  -%}
+  <div class="cro-frozen-note{% if in_cart %} cro-frozen-note--cart{% endif %}">
+    {%- if in_cart -%}
+      <p>{{ 'pet_cro.frozen.cart_html' | t: price: frozen_price, threshold: frozen_threshold, days: frozen_days }}</p>
+    {%- else -%}
+      <span class="cro-frozen-note__icon" aria-hidden="true">❄️</span>
+      <p>
+        <strong>{{ 'pet_cro.frozen.title' | t }}.</strong>
+        {{ 'pet_cro.frozen.product_html' | t: price: frozen_price, threshold: frozen_threshold, days: frozen_days }}
+      </p>
+    {%- endif -%}
+  </div>
+{%- endif -%}

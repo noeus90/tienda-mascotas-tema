@@ -62,7 +62,12 @@
         <span
           class="cro-stock-text"
         >
-          {{ 'pet_cro.stock.in_stock_html' | t }}
+          {%- assign frozen_tag = settings.frozen_tag | default: 'congelado' | strip -%}
+          {%- if product.tags contains frozen_tag -%}
+            {{ 'pet_cro.frozen.in_stock_html' | t }}
+          {%- else -%}
+            {{ 'pet_cro.stock.in_stock_html' | t }}
+          {%- endif -%}
         </span>
     {%- endcase -%}
   </div>
@@ -88,9 +93,18 @@
         data-cro-delivery
         data-tpl-cutoff="{{ 'pet_cro.stock.order_within_html' | t: time: '__TIME__', date: '__DATE__' | escape }}"
         data-tpl-express="{{ 'pet_cro.stock.express_shipping_html' | t: date: '__DATE__' | escape }}"
+        {%- comment -%} Frozen products: they only leave on the dispatch days of the theme settings. {%- endcomment -%}
+        {%- assign frozen_tag = settings.frozen_tag | default: 'congelado' | strip -%}
+        {%- if product.tags contains frozen_tag %}
+          data-ship-days="{{ settings.frozen_ship_days | default: '1,2,3' | remove: ' ' }}"
+          data-tpl-cutoff-frozen="{{ 'pet_cro.frozen.order_within_html' | t: time: '__TIME__', date: '__DATE__' | escape }}"
+          data-tpl-next-frozen="{{ 'pet_cro.frozen.next_dispatch_html' | t: dispatch: '__DISPATCH__', date: '__DATE__' | escape }}"
+        {%- endif %}
       >
         {{ 'pet_cro.stock.delivery_default_html' | t }}
       </span>
     </div>
   {%- endif -%}
+
+  {%- render 'frozen-shipping-note', product: product -%}
 </div>
