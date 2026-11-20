@@ -95,7 +95,8 @@
       <span
         class="cro-milestone-label"
       >
-        {{- 'pet_cro.free_shipping.milestone_shipping' | t }} ({{ shipping_goal | money_without_trailing_zeros }})
+        {%- comment -%} Only the amount is visible (the dot icon says what it is); the name is for screen readers. {%- endcomment -%}
+        <span class="visually-hidden">{{ 'pet_cro.free_shipping.milestone_shipping' | t }}</span> {{ shipping_goal | money_without_trailing_zeros -}}
       </span>
     </div>
 
@@ -111,7 +112,8 @@
       <span
         class="cro-milestone-label"
       >
-        {{- 'pet_cro.free_shipping.milestone_gift' | t }} ({{ gift_goal | money_without_trailing_zeros }})
+        {%- comment -%} Only the amount is visible (the dot icon says what it is); the name is for screen readers. {%- endcomment -%}
+        <span class="visually-hidden">{{ 'pet_cro.free_shipping.milestone_gift' | t }}</span> {{ gift_goal | money_without_trailing_zeros -}}
       </span>
     </div>
   </div>
