@@ -1045,6 +1045,12 @@
       "code_label": "Código de descuento",
       "code_apply": "Aplicar",
       "code_note": "Las tarjetas regalo se usan en el último paso del pago."
+    },
+    "booking_header": {
+      "badge": "Peluquería canina",
+      "heading": "Reserva cita en la peluquería",
+      "subheading": "Elige el servicio y el tamaño de tu perro, el día y la hora. Verás el precio estimado antes de confirmar.",
+      "cancel": "¿No puedes venir? Avísanos cuanto antes respondiendo al email de confirmación."
     }
   }
 }

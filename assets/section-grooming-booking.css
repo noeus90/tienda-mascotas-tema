@@ -53,6 +53,21 @@
   line-height: 1.5;
 }
 
+/* UX-23: address, hours and what to do if you can't come, under the subtitle. */
+.grooming-booking-facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem 2rem;
+  margin: 1.2rem auto 0;
+  padding: 0;
+  max-width: 72rem;
+  list-style: none;
+  font-size: 1.4rem;
+  color: rgba(var(--color-foreground), 0.8);
+}
+
+
 /* ==========================================================================
    STEPPER PROGRESS BAR
    ========================================================================== */

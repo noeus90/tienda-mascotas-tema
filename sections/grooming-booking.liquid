@@ -233,24 +233,46 @@
       <span
         class="grooming-booking-badge"
       >
-        {% if booking_en %}🐾 Stress-Free Dog Grooming{% else %}🐾 Peluquería Canina Sin Estrés{% endif %}
+        🐾 {{ 'pet_cro.booking_header.badge' | t }}
       </span>
       {%- comment -%}
         Heading and subheading are editor settings: the store translates them in Settings → Languages
         (theme content). The untouched Spanish default heading gets its English version here.
       {%- endcomment -%}
-      {%- assign booking_heading = section.settings.heading | default: 'Reserva Cita de Peluquería Canina & Spa' -%}
-      {%- if booking_en and booking_heading == 'Reserva Cita de Peluquería Canina & Spa' -%}
-        {%- assign booking_heading = 'Book a Dog Grooming & Spa Appointment' -%}
-      {%- endif -%}
-      <h2 class="grooming-booking-title">
+      {%- liquid
+        assign booking_heading = section.settings.heading | default: 'Reserva cita en la peluquería'
+        assign booking_sub = section.settings.subheading
+        if booking_en
+          if booking_heading == 'Reserva cita en la peluquería' or booking_heading == 'Reserva Cita de Peluquería Canina & Spa'
+            assign booking_heading = 'pet_cro.booking_header.heading' | t
+          endif
+          if booking_sub == 'Elige el servicio y el tamaño de tu perro, el día y la hora. Verás el precio estimado antes de confirmar.'
+            assign booking_sub = 'pet_cro.booking_header.subheading' | t
+          endif
+        endif
+        assign booking_address = shop.address.address1
+        if shop.address.city != blank
+          assign booking_address = booking_address | append: ', ' | append: shop.address.city
+        endif
+      -%}
+      {%- comment -%} The only title of the bookings page (main-page hides its own there). {%- endcomment -%}
+      <h1 class="grooming-booking-title">
         {{ booking_heading }}
-      </h2>
-      {%- if section.settings.subheading != blank -%}
+      </h1>
+      {%- if booking_sub != blank -%}
         <p class="grooming-booking-subtitle">
-          {{ section.settings.subheading }}
+          {{ booking_sub }}
         </p>
       {%- endif -%}
+      <ul class="grooming-booking-facts" role="list">
+        {%- if shop.address.address1 != blank -%}
+          <li><span aria-hidden="true">📍</span> {{ booking_address }}</li>
+        {%- endif -%}
+        {%- if settings.salon_hours != blank -%}
+          <li><span aria-hidden="true">🕒</span> {{ settings.salon_hours | newline_to_br }}</li>
+        {%- endif -%}
+        <li><span aria-hidden="true">↩️</span> {{ 'pet_cro.booking_header.cancel' | t }}</li>
+      </ul>
       {%- comment -%} Link to the first gift card product of the catalogue, if there is one. {%- endcomment -%}
       {%- for p in collections.all.products -%}
         {%- if p.gift_card? -%}
@@ -291,7 +313,7 @@
       "type": "text",
       "id": "heading",
       "label": "t:sections.grooming_booking.settings.heading.label",
-      "default": "Reserva Cita de Peluquería Canina & Spa"
+      "default": "Reserva cita en la peluquería"
     },
     {
       "type": "text",

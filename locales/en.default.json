@@ -1045,6 +1045,12 @@
       "code_label": "Discount code",
       "code_apply": "Apply",
       "code_note": "Gift cards are entered in the last step of checkout."
+    },
+    "booking_header": {
+      "badge": "Dog grooming",
+      "heading": "Book a grooming appointment",
+      "subheading": "Choose the service, your dog's size, the day and the time. You will see the estimated price before confirming.",
+      "cancel": "Can't make it? Let us know as soon as possible by replying to the confirmation email."
     }
   }
 }

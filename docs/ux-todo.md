@@ -215,11 +215,12 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 
 ## 🟠 Reserva de peluquería
 
-- [ ] 🟠 **UX-23 · Cabecera de la reserva.** **(yo)**
-  - Problemas:
-    - Hay dos títulos: «Reservar cita» y «Reserva Cita de Peluquería Canina & Spa».
-    - El texto nombra servicios que no coinciden con los reales («Baño Dermoprotector»).
-  - Propuesta: un solo título, un texto corto y una línea con dirección, horario y la política de cancelación.
+- [x] 🟠 **UX-23 · Cabecera de la reserva.** *(hecho el 23/11/2026)*
+  - **Un solo título** (h1): «Reserva cita en la peluquería». En la página de reservas, `main-page` ya no pinta el título de la página; sí su contenido, si lo hay.
+  - **Textos reales:** etiqueta «Peluquería canina» (sin «sin estrés») y subtítulo «Elige el servicio y el tamaño de tu perro, el día y la hora. Verás el precio estimado antes de confirmar.» (ya no nombra servicios que no existen).
+  - **Línea de datos:** dirección de la tienda, horario (cuando se rellene en *Datos del salón*) y «¿No puedes venir? Avísanos cuanto antes respondiendo al email de confirmación.».
+  - **Paso 1:** «Elige uno; los extras opcionales están al final de este paso.».
+  - En español e inglés.
 - [ ] 🟠 **UX-24 · Servicios.** **(juntos)**
   - Problemas:
     - Todos duran «1 hora» y llevan el mismo icono.
