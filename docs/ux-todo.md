@@ -183,9 +183,9 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 
 ## 🟠 Ficha de producto
 
-- [ ] 🟠 **UX-20 · Calculadora de ración.** **(yo)**
-  - Problema: en un pienso de cachorro arranca en «Adulto».
-  - Propuesta: preseleccionar la edad según la etiqueta (cachorro, gatito, senior).
+- [x] 🟠 **UX-20 · Calculadora de ración.** *(hecho el 23/11/2026)*
+  - La edad arranca según la etiqueta del pienso: cachorro / gatito → «Cachorro» / «Gatito», senior → «Senior», el resto → «Adulto».
+  - Probado: pienso cachorro con 10 kg da «405 g al día (3 × 135 g)». Antes, con «Adulto», salía la mitad (205 g), un error importante para un cachorro.
 - [ ] 🟠 **UX-21 · Orden de la columna derecha.** **(yo)**
   - Problema: entre el precio y la descripción hay 9 bloques: stock, envío, tallas, cantidad, barra de envío, botones, calculadora, sellos y «se suelen comprar juntos».
   - Propuesta:

@@ -1,6 +1,7 @@
 {%- doc -%}
   "How much should I feed?" calculator for dry food (product types of the theme setting
-  `ration_product_types`, default "Pienso"). The visitor enters the pet's weight, age and activity;
+  `ration_product_types`, default "Pienso"). The visitor enters the pet's weight, age and activity
+  (the age starts at the food's life stage: tags cachorro / gatito → young, senior → senior);
   it shows grams per day and how long the selected bag lasts.
   Energy: dogs 130 × kg^0.75 kcal/day, cats 100 × kg^0.67 (×2 puppies/kittens, ×0.8 seniors,
   ×0.85 / ×1.2 low / high activity). Food energy: product metafield custom.kcal_kg, or 3600 kcal/kg
@@ -26,6 +27,13 @@
   assign is_cat = false
   if product.tags contains 'gato' or product.tags contains 'gatito' or product.tags contains 'cat'
     assign is_cat = true
+  endif
+  # Life stage of the food, from its tags: the age select starts there (UX-20).
+  assign stage = 'adult'
+  if product.tags contains 'cachorro' or product.tags contains 'gatito'
+    assign stage = 'young'
+  elsif product.tags contains 'senior'
+    assign stage = 'senior'
   endif
   assign kcal_kg = product.metafields.custom.kcal_kg.value | default: 0
   if kcal_kg == 0
@@ -75,9 +83,9 @@
       <label class="ration-calc__field">
         <span>{{ 'pet_cro.ration.age' | t }}</span>
         <select data-ration-age>
-          <option value="young">{% if is_cat %}{{ 'pet_cro.ration.age_kitten' | t }}{% else %}{{ 'pet_cro.ration.age_puppy' | t }}{% endif %}</option>
-          <option value="adult" selected>{{ 'pet_cro.ration.age_adult' | t }}</option>
-          <option value="senior">{{ 'pet_cro.ration.age_senior' | t }}</option>
+          <option value="young"{% if stage == 'young' %} selected{% endif %}>{% if is_cat %}{{ 'pet_cro.ration.age_kitten' | t }}{% else %}{{ 'pet_cro.ration.age_puppy' | t }}{% endif %}</option>
+          <option value="adult"{% if stage == 'adult' %} selected{% endif %}>{{ 'pet_cro.ration.age_adult' | t }}</option>
+          <option value="senior"{% if stage == 'senior' %} selected{% endif %}>{{ 'pet_cro.ration.age_senior' | t }}</option>
         </select>
       </label>
       <label class="ration-calc__field">
