@@ -144,9 +144,11 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
   - **Contador:** fuera «Mostrando 27 productos para Perros», porque Dawn ya da el número de productos.
   - **«Limpiar filtros»:** solo aparece con algún filtro activo (también la necesidad, aunque Shopify no la cuente en `/es/`) y vuelve a la colección de la mascota, no a todo el catálogo.
   - **Resultado:** los productos empiezan unos 100-150 px más arriba (escritorio y móvil). Probado sin filtros, con categoría (por AJAX) y con necesidad.
-- [ ] 🟠 **UX-16 · Añadir desde la colección.** **(yo)**
-  - Problema: las tarjetas no tienen botón de compra.
-  - Propuesta: activar el «Añadir» rápido de Dawn y mostrar el precio por kg en los piensos.
+- [x] 🟠 **UX-16 · Añadir desde la colección.** *(hecho el 23/11/2026)*
+  - **«Añadir al carrito» en las tarjetas** de colecciones y de «Nuestros favoritos» (Añadir rápido de Dawn). En productos con tallas pone «Seleccionar opciones» y abre el selector.
+  - **Precio por kg / por litro** con el precio unitario de Shopify (obligatorio en la UE para comida vendida a peso). Lo pinta Dawn bajo el precio en tarjetas y ficha, y cambia con la variante: pienso cachorro 8,30 €/kg en 3 kg y 5,83 €/kg en 12 kg.
+    - Guardado en 17 productos con su **contenido neto**, no el peso de envío (que incluye el envase): [`textos-productos/precio-unitario.py`](textos-productos/precio-unitario.py).
+  - **Pendiente:** sin contenido neto conocido no se muestra en snack dental, oreja de cerdo, malta, lata de conejo, pienso light, pienso digestión sensible, pienso bolas de pelo, suplementos en comprimidos o sobres. Completarlo con el envase real en el script o en el admin (variante → «Precio por unidad»).
 - [ ] 🟠 **UX-17 · Nombres de producto.** **(yo, con tu visto bueno)**
   - Problemas:
     - Mayúsculas y nombres poco claros: «Arbol» (sin tilde y sin decir que es rascador), «cama con pelo», «cortauñas», «juguete ratón», «malta».
