@@ -1551,5 +1551,32 @@
         "label": "t:settings_schema.customer_accounts.settings.customer_account_menu.label"
       }
     ]
+  },
+  {
+    "name": "Datos del salón",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Salen en el pie de página. La dirección y el teléfono se toman de Configuración → Detalles de la tienda."
+      },
+      {
+        "type": "textarea",
+        "id": "salon_hours",
+        "label": "Horario",
+        "info": "Por ejemplo: Lunes a viernes, 10:00-14:00 y 16:30-20:00. Vacío: no se muestra."
+      },
+      {
+        "type": "text",
+        "id": "salon_whatsapp",
+        "label": "WhatsApp",
+        "info": "Con prefijo, por ejemplo +34 600 000 000. Vacío: no se muestra."
+      },
+      {
+        "type": "text",
+        "id": "salon_email",
+        "label": "Email público",
+        "info": "El que verán los clientes en el pie. Vacío: no se muestra (el email de la tienda no se publica)."
+      }
+    ]
   }
 ]

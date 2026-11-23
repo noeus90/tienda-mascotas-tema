@@ -1,0 +1,106 @@
+{%- doc -%}
+  Footer columns of the pet shop (UX-06): the salon (store address and phone from Settings → Store
+  details; opening hours, WhatsApp and public email from the theme settings "Datos del salón"), Shop, Grooming and
+  Help (contact, account and every policy published in Settings → Policies). Built in the theme, so
+  the texts are translated with the locale files and nothing has to be set up in Navigation.
+
+  @example
+  {% render 'footer-pet-columns' %}
+{%- enddoc -%}
+
+{%- liquid
+  assign booking_url = pages['bookings'].url | default: '/pages/bookings'
+  assign contact_url = pages['contact'].url | default: '/pages/contact'
+  assign gift_card = all_products['tarjeta-regalo-de-peluqueria-y-tienda']
+  assign whatsapp = settings.salon_whatsapp | remove: ' ' | remove: '+' | remove: '-'
+  assign phone = shop.phone | strip
+  assign phone_link = phone | remove: ' ' | remove: '-'
+-%}
+
+<div class="footer-pet">
+  <div class="footer-pet__col footer-pet__col--salon">
+    <h2 class="footer-pet__title">{{ shop.name }}</h2>
+    <ul class="footer-pet__list" role="list">
+      {%- if shop.address.address1 != blank -%}
+        <li class="footer-pet__info">
+          <span aria-hidden="true">📍</span>
+          <span>
+            {{- shop.address.address1 -}}
+            {%- if shop.address.zip != blank or shop.address.city != blank -%}, {{ shop.address.zip }} {{ shop.address.city }}{%- endif -%}
+          </span>
+        </li>
+      {%- endif -%}
+      {%- if settings.salon_hours != blank -%}
+        <li class="footer-pet__info">
+          <span aria-hidden="true">🕒</span>
+          <span>{{ settings.salon_hours | newline_to_br }}</span>
+        </li>
+      {%- endif -%}
+      {%- if phone != blank -%}
+        <li class="footer-pet__info">
+          <span aria-hidden="true">📞</span>
+          <a href="tel:{{ phone_link }}">{{ phone }}</a>
+        </li>
+      {%- endif -%}
+      {%- if whatsapp != blank -%}
+        <li class="footer-pet__info">
+          <span aria-hidden="true">💬</span>
+          <a href="https://wa.me/{{ whatsapp }}" target="_blank" rel="noopener">{{ 'pet_cro.footer_cols.whatsapp' | t }}</a>
+        </li>
+      {%- endif -%}
+      {%- if settings.salon_email != blank -%}
+        <li class="footer-pet__info">
+          <span aria-hidden="true">✉️</span>
+          <a href="mailto:{{ settings.salon_email | strip }}">{{ settings.salon_email | strip }}</a>
+        </li>
+      {%- endif -%}
+    </ul>
+  </div>
+
+  <div class="footer-pet__col">
+    <h2 class="footer-pet__title">{{ 'pet_cro.footer_cols.shop' | t }}</h2>
+    <ul class="footer-pet__list" role="list">
+      {%- if collections['perros'].products_count > 0 -%}
+        <li><a href="{{ collections['perros'].url }}">{{ 'pet_cro.footer_cols.dogs' | t }}</a></li>
+      {%- endif -%}
+      {%- if collections['gatos'].products_count > 0 -%}
+        <li><a href="{{ collections['gatos'].url }}">{{ 'pet_cro.footer_cols.cats' | t }}</a></li>
+      {%- endif -%}
+      {%- if collections['packs'].products_count > 0 -%}
+        <li><a href="{{ collections['packs'].url }}">{{ 'pet_cro.footer_cols.packs' | t }}</a></li>
+      {%- endif -%}
+      <li><a href="{{ routes.all_products_collection_url }}">{{ 'pet_cro.footer_cols.all' | t }}</a></li>
+      {%- if gift_card != blank -%}
+        <li><a href="{{ gift_card.url }}">{{ 'pet_cro.footer_cols.gift_card' | t }}</a></li>
+      {%- endif -%}
+    </ul>
+  </div>
+
+  <div class="footer-pet__col">
+    <h2 class="footer-pet__title">{{ 'pet_cro.footer_cols.grooming' | t }}</h2>
+    <ul class="footer-pet__list" role="list">
+      <li><a href="{{ booking_url }}">{{ 'pet_cro.footer_cols.book' | t }}</a></li>
+      {%- if shop.customer_accounts_enabled -%}
+        <li><a href="{{ routes.account_url }}">{{ 'pet_cro.footer_cols.my_dogs' | t }}</a></li>
+      {%- endif -%}
+      {%- if gift_card != blank -%}
+        <li><a href="{{ gift_card.url }}">{{ 'pet_cro.footer_cols.gift_grooming' | t }}</a></li>
+      {%- endif -%}
+    </ul>
+  </div>
+
+  <div class="footer-pet__col">
+    <h2 class="footer-pet__title">{{ 'pet_cro.footer_cols.help' | t }}</h2>
+    <ul class="footer-pet__list" role="list">
+      <li><a href="{{ contact_url }}">{{ 'pet_cro.footer_cols.contact' | t }}</a></li>
+      {%- if shop.customer_accounts_enabled -%}
+        <li><a href="{{ routes.account_url }}">{{ 'pet_cro.footer_cols.account' | t }}</a></li>
+      {%- endif -%}
+      {%- for policy in shop.policies -%}
+        {%- if policy.body != blank -%}
+          <li><a href="{{ policy.url }}">{{ policy.title }}</a></li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>

@@ -969,6 +969,22 @@
         "one": "{{ count }} product",
         "other": "{{ count }} products"
       }
+    },
+    "footer_cols": {
+      "whatsapp": "Message us on WhatsApp",
+      "shop": "Shop",
+      "dogs": "Dogs",
+      "cats": "Cats",
+      "packs": "Bundles -10%",
+      "all": "All products",
+      "gift_card": "Gift card",
+      "grooming": "Grooming",
+      "book": "Book an appointment",
+      "my_dogs": "My dogs and appointments",
+      "gift_grooming": "Gift a grooming session",
+      "help": "Help",
+      "contact": "Contact",
+      "account": "My account"
     }
   }
 }

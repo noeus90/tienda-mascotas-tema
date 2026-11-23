@@ -63,13 +63,19 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
   - Selector Perro / Gato (recuerda la última elección en el dispositivo) y una baldosa por categoría con la imagen de un producto de ese tipo y cuántos hay. Perro: pienso, comida húmeda, BARF, snacks, suplementos, higiene, juguetes, accesorios, packs y ver todo.
   - Sale sola de las colecciones Perros y Gatos: las categorías vacías no aparecen y los productos nuevos se suman solos. Enlaza con los mismos filtros que el menú.
   - Escritorio: dos filas iguales (5 + 5 en perro, 4 + 4 en gato). Móvil: dos filas que se deslizan de lado. En español e inglés.
-- [ ] 🔴 **UX-06 · Pie de página vacío.** **(juntos)**
-  - Problema: solo tiene newsletter, país e idioma.
-  - Propuesta:
-    - Columnas Tienda / Peluquería / Ayuda (envíos, devoluciones, preguntas frecuentes, contacto).
-    - Datos del salón: dirección, horario, teléfono o WhatsApp.
-    - Páginas legales.
-  - Quitar el segundo selector de idioma (ya está en la cabecera).
+- [x] 🔴 **UX-06 · Pie de página vacío.** *(hecho el 23/11/2026; faltan datos tuyos)*
+  - **Cuatro columnas nuevas** (`snippets/footer-pet-columns.liquid`), traducidas con los archivos de idioma y sin menús que montar en el admin:
+    - **El salón:** dirección de *Configuración → Detalles de la tienda* y, si se rellenan, teléfono, horario, WhatsApp y email público.
+    - **Tienda:** perros, gatos, packs, todos los productos y tarjeta regalo.
+    - **Peluquería:** reservar cita, mis perros y citas, regalar peluquería.
+    - **Ayuda:** contacto, mi cuenta y todas las políticas publicadas.
+  - **Datos que no se publican solos:** el email de la tienda (es un Gmail personal) no se muestra; el email público es un ajuste aparte.
+  - **Quitado el segundo selector de idioma** (ya está en la cabecera).
+  - **Pendiente (tú):**
+    - teléfono en *Detalles de la tienda*;
+    - horario, WhatsApp y email público en *Configuración del tema → Datos del salón*;
+    - publicar las políticas de envíos, devoluciones, términos y aviso legal en *Configuración → Políticas* (aparecerán solas en «Ayuda»).
+  - **Ojo:** la sección de reserva tiene un WhatsApp de ejemplo (+34 612 345 678) en sus ajustes; hay que poner el real o quitarlo.
 - [ ] 🔴 **UX-07 · Página de contacto.** **(juntos)**
   - Problemas:
     - El título sale en inglés («Contact»).

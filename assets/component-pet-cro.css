@@ -1122,3 +1122,69 @@
     object-position: 84% 60%;
   }
 }
+
+/* Footer columns (snippets/footer-pet-columns.liquid) */
+.footer-pet {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 3.2rem;
+  padding-bottom: 3.2rem;
+  margin-bottom: 3.2rem;
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+}
+
+.footer-pet__title {
+  margin: 0 0 1.2rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.footer-pet__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1.4rem;
+  line-height: 1.5;
+}
+
+.footer-pet__list a {
+  color: rgba(var(--color-foreground), 0.8);
+  text-decoration: none;
+}
+
+.footer-pet__list a:hover {
+  color: rgb(var(--color-foreground));
+  text-decoration: underline;
+}
+
+.footer-pet__info {
+  display: flex;
+  gap: 0.8rem;
+  color: rgba(var(--color-foreground), 0.8);
+}
+
+@media screen and (max-width: 989px) {
+  .footer-pet {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-pet__col--salon {
+    grid-column: 1 / -1;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .footer-pet {
+    gap: 2.4rem 1.6rem;
+  }
+
+  /* Links tall enough to tap. */
+  .footer-pet__list a {
+    display: inline-block;
+    padding: 0.6rem 0;
+  }
+}

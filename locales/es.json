@@ -969,6 +969,22 @@
         "one": "{{ count }} producto",
         "other": "{{ count }} productos"
       }
+    },
+    "footer_cols": {
+      "whatsapp": "Escríbenos por WhatsApp",
+      "shop": "Tienda",
+      "dogs": "Perros",
+      "cats": "Gatos",
+      "packs": "Packs -10 %",
+      "all": "Todos los productos",
+      "gift_card": "Tarjeta regalo",
+      "grooming": "Peluquería",
+      "book": "Reservar cita",
+      "my_dogs": "Mis perros y citas",
+      "gift_grooming": "Regalar peluquería",
+      "help": "Ayuda",
+      "contact": "Contacto",
+      "account": "Mi cuenta"
     }
   }
 }
