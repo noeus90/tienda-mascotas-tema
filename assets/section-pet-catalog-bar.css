@@ -149,23 +149,9 @@
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
 }
 
-/* Active Filter Banner & Status */
-.pet-catalog-status-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.6rem;
-  padding-top: 0.8rem;
-  font-size: 1.32rem;
-  color: rgba(var(--color-foreground), 0.7);
-  border-top: 1px dashed rgba(var(--color-foreground), 0.1);
-}
-
-.pet-catalog-status-text strong {
-  color: rgb(var(--color-foreground));
-}
 
 .pet-catalog-reset-btn {
+  margin-left: auto;
   display: inline-flex;
   align-items: center;
   gap: 0.56rem;
@@ -185,11 +171,47 @@
   background: #fef2f2;
 }
 
+.pet-catalog-reset-btn[hidden] {
+  display: none;
+}
+
+/* Stage / need chips folded in a disclosure (UX-15). */
+.pet-needs__summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 4.4rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: rgba(var(--color-foreground), 0.8);
+  cursor: pointer;
+  list-style: none;
+}
+
+.pet-needs__summary::-webkit-details-marker {
+  display: none;
+}
+
+.pet-needs__summary .svg-wrapper,
+.pet-needs__summary svg {
+  width: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.pet-needs[open] .pet-needs__summary svg {
+  transform: rotate(180deg);
+}
+
+.pet-needs__active {
+  color: #047857;
+}
+
 .pet-needs-pills {
   display: flex;
   align-items: center;
   gap: 0.8rem;
   flex-wrap: wrap;
+  padding-top: 0.4rem;
 }
 
 .pet-category-count {
@@ -247,9 +269,17 @@
     flex-shrink: 0;
     white-space: nowrap;
   }
-  .pet-catalog-status-bar {
-    flex-wrap: wrap;
-    gap: 0 1.2rem;
-  }
 }
 
+
+/* UX-15: Dawn's "Product type" filter repeats the category pills above. This stylesheet only loads
+   with the pet catalog bar (collections), so the search page keeps it. */
+details[id^='Details-filter.p.product_type'],
+details[id^='Details-Mobile-filter.p.product_type'] {
+  display: none;
+}
+
+.pet-needs__summary .icon-caret {
+  width: 1rem;
+  height: 0.6rem;
+}

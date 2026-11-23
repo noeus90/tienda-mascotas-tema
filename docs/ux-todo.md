@@ -138,13 +138,12 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 
 ## 🟠 Colecciones y búsqueda
 
-- [ ] 🟠 **UX-15 · Demasiadas capas de filtro.** **(yo)**
-  - Problemas:
-    - Se acumulan cuatro capas: mascota, categoría, etapa o necesidad, y la barra de filtros de Dawn. Son unos 300 px antes del primer producto.
-    - «Tipo de producto» duplica las categorías.
-    - «Limpiar filtros» aparece sin filtros activos.
-    - El número de productos sale dos veces.
-  - Propuesta: una fila de categorías deslizable, las necesidades dentro de «Filtrar» y un solo contador.
+- [x] 🟠 **UX-15 · Demasiadas capas de filtro.** *(hecho el 23/11/2026)*
+  - **Filtros de Dawn:** fuera «Tipo de producto» en las colecciones, porque ya están las pastillas de categoría. Se oculta con la hoja de estilos de la barra de catálogo, que solo se carga en las colecciones; la búsqueda lo conserva.
+  - **Etapa o necesidad:** plegado en «Por etapa o necesidad ▾». Se abre solo si hay una marcada y la muestra en el resumen («· Cachorros»).
+  - **Contador:** fuera «Mostrando 27 productos para Perros», porque Dawn ya da el número de productos.
+  - **«Limpiar filtros»:** solo aparece con algún filtro activo (también la necesidad, aunque Shopify no la cuente en `/es/`) y vuelve a la colección de la mascota, no a todo el catálogo.
+  - **Resultado:** los productos empiezan unos 100-150 px más arriba (escritorio y móvil). Probado sin filtros, con categoría (por AJAX) y con necesidad.
 - [ ] 🟠 **UX-16 · Añadir desde la colección.** **(yo)**
   - Problema: las tarjetas no tienen botón de compra.
   - Propuesta: activar el «Añadir» rápido de Dawn y mostrar el precio por kg en los piensos.

@@ -860,7 +860,8 @@
       "status_cats": "Cats 🐱",
       "status_all": "All Pets ✨",
       "status_one_html": "Showing <strong>__COUNT__</strong> product for <strong>__PET__</strong>__CATEGORY__",
-      "status_other_html": "Showing <strong>__COUNT__</strong> products for <strong>__PET__</strong>__CATEGORY__"
+      "status_other_html": "Showing <strong>__COUNT__</strong> products for <strong>__PET__</strong>__CATEGORY__",
+      "needs_toggle": "By life stage or need"
     },
     "frozen": {
       "title": "Frozen product",

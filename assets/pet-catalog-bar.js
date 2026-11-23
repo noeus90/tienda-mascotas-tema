@@ -80,6 +80,15 @@
       if (isActive) chip.setAttribute('aria-current', 'true');
       else chip.removeAttribute('aria-current');
     });
+    // The need tag filter is not in collection.filters on translated pages: open the stage / need
+    // list, name the active one in its summary and show "Clear filters".
+    const activeChip = root.querySelector('[data-pet-need].is-active');
+    const needs = root.querySelector('[data-pet-needs-toggle]');
+    if (needs && activeChip) needs.open = true;
+    const activeLabel = root.querySelector('[data-pet-needs-active]');
+    if (activeLabel) activeLabel.textContent = activeChip ? `· ${activeChip.textContent.trim()}` : '';
+    const reset = root.querySelector('[data-pet-reset]');
+    if (reset && activeTags.length) reset.hidden = false;
   }
 
   function refreshBars(searchParams) {

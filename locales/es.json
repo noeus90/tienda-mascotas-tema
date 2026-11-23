@@ -860,7 +860,8 @@
       "status_cats": "Gatos 🐱",
       "status_all": "Todos los Peludos ✨",
       "status_one_html": "Mostrando <strong>__COUNT__</strong> producto para <strong>__PET__</strong>__CATEGORY__",
-      "status_other_html": "Mostrando <strong>__COUNT__</strong> productos para <strong>__PET__</strong>__CATEGORY__"
+      "status_other_html": "Mostrando <strong>__COUNT__</strong> productos para <strong>__PET__</strong>__CATEGORY__",
+      "needs_toggle": "Por etapa o necesidad"
     },
     "frozen": {
       "title": "Producto congelado",
