@@ -16,6 +16,7 @@ Prioridad: 🔴 bloquea la apertura · 🟠 conviene tenerlo el primer día · �
 - [ ] 🔴 **Mercados.** Ahora hay mercados de EE. UU. y Canadá activos. Decidir si se vende fuera de España; si no, desactivarlos. Si sí, precios, aduanas y envíos para cada uno.
 - [ ] 🔴 **Envíos.** *(20/11/2026: de momento solo península, en los dos perfiles de envío.)* Tarifas reales (peninsular, Baleares, Canarias si se vende allí), umbral de envío gratis que coincida con la barra del carrito, y transportista. **Envío refrigerado** (preparado el 20/11/2026 con importes de ejemplo; revisar precio y transportista) antes de vender BARF congelado.
 - [ ] 🟠 **Stock real** en la ubicación de la tienda y política de qué hacer con los agotados ("seguir vendiendo" o no).
+- [ ] 🟠 **Fotos reales de producto.** *(23/11/2026: los 42 productos tienen ilustraciones provisionales; ver `docs/imagenes-productos/`.)* Sustituirlas por fotos del envase real (fondo claro, cuadradas) y borrar la ilustración.
 
 ## 2. Dominio y correo
 
