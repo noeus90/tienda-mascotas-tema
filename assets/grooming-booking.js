@@ -220,11 +220,47 @@
 
     init() {
       this.initEvents();
+      this.applyUrlPrefill();
       this.updatePriceEstimate();
       this.updateAvailableSlots();
       this.renderMiniCalendar();
       this.loadBusySlots();
       this.loadMyDogs();
+    }
+
+    /**
+     * Booking links from the "time for the next visit" email: ?servicio=<handle>&tamano=<size>
+     * &perro=<name>&raza=<breed>&peluquera=<id>. Unknown values are ignored.
+     */
+    applyUrlPrefill() {
+      let params;
+      try {
+        params = new URLSearchParams(window.location.search);
+      } catch (error) {
+        return;
+      }
+      const pick = (name, value) => {
+        if (!value) return;
+        const radio = [...this.section.querySelectorAll(`input[name="${name}"]`)].find((input) => input.value === value);
+        if (radio && !radio.checked) {
+          radio.checked = true;
+          radio.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      };
+      pick('grooming_service', params.get('servicio'));
+      pick('dog_size', params.get('tamano'));
+      const fill = (key, value) => {
+        const input = this.section.querySelector(`[data-booking-input="${key}"]`);
+        if (input && value && !input.value) input.value = value.slice(0, 80);
+      };
+      fill('petName', params.get('perro'));
+      fill('petBreed', params.get('raza'));
+      const groomer = params.get('peluquera');
+      if (groomer && /^\d+$/.test(groomer)) {
+        // The groomer list arrives with the availability: renderGroomers applies it.
+        this.bookingData.groomer = groomer;
+        this.groomerNoteKind = 'last';
+      }
     }
 
     /**
