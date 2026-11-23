@@ -126,9 +126,12 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - rascador, cuerda y cama.
   - **Portada:** la sección pasa a «Nuestros favoritos» («Our favourites» en inglés) y muestra esa colección en lugar de los 8 primeros por orden alfabético.
   - **Para cambiarlos:** en *Productos → Colecciones → Favoritos*, añadir, quitar o reordenar (orden manual). Cuando haya ventas, se puede ordenar por «Más vendidos».
-- [ ] 🟠 **UX-13 · Packs.** **(juntos)**
-  - Problema: la sección muestra un solo pack con mucho hueco vacío.
-  - Propuesta: ocultarla hasta que haya 2 o más packs, o convertirla en un banner.
+- [x] 🟠 **UX-13 · Packs.** *(hecho el 23/11/2026)*
+  - Con **un solo pack**, la sección lo muestra como banner:
+    - imagen, título, lo que incluye (sacado de su descripción) y precio con «Ahorras 3,70 € frente a comprarlos por separado»;
+    - botones «Añadir al carrito» y «Ver el pack».
+  - Con **dos o más**, vuelve sola a la rejilla de tarjetas de siempre.
+  - Probado: el banner añade el pack al carrito; se ve bien en móvil y en inglés.
 - [x] 🟠 **UX-14 · Sellos de confianza en móvil.** *(hecho con UX-02 el 23/11/2026: rejilla 2 × 2, unos 700 px)*
   - Problema: son 4 tarjetas altas apiladas (unos 600 px).
   - Propuesta: rejilla 2 × 2 compacta. Va junto con UX-02.

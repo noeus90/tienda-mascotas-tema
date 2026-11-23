@@ -4,6 +4,8 @@
   10 % cheaper than their products bought separately). Each card shows the "you save" line from
   snippets/price.liquid. Texts come from the theme locales (pet_cro.packs), so they follow the language.
   Nothing is rendered when the collection has no products, except in the theme editor.
+  With a single pack it is shown as a banner (image, what it includes, price with the saving and
+  buttons) instead of a lonely card in an empty grid; with two or more, the usual grid (UX-13).
 {% endcomment %}
 
 {%- liquid
@@ -48,7 +50,41 @@
         {%- endif -%}
       </div>
 
-      {%- if has_packs -%}
+      {%- if has_packs and packs_collection.products_count == 1 -%}
+        {%- assign pack = packs_collection.products.first -%}
+        {%- liquid
+          # What the pack includes: the first paragraph and the list of its description.
+          assign pack_summary = pack.description | split: '</ul>' | first
+          if pack.description contains '</ul>'
+            assign pack_summary = pack_summary | append: '</ul>'
+          else
+            assign pack_summary = pack.description | strip_html | truncatewords: 40
+          endif
+          assign pack_variant = pack.selected_or_first_available_variant
+        -%}
+        <div class="pack-banner">
+          <a class="pack-banner__media" href="{{ pack.url }}" tabindex="-1" aria-hidden="true">
+            {%- if pack.featured_image -%}
+              {{ pack.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '360, 540, 720, 900', sizes: '(min-width: 990px) 440px, 100vw', alt: '' }}
+            {%- endif -%}
+          </a>
+          <div class="pack-banner__content">
+            <p class="pack-banner__kicker">📦 {{ 'pet_cro.packs.kicker' | t }}</p>
+            <h3 class="pack-banner__title h2"><a href="{{ pack.url }}">{{ pack.title }}</a></h3>
+            <div class="pack-banner__summary rte">{{ pack_summary }}</div>
+            {% render 'price', product: pack, use_variant: true, show_badges: true %}
+            <div class="pack-banner__buttons">
+              {%- if pack_variant.available -%}
+                {%- form 'product', pack, class: 'pack-banner__form' -%}
+                  <input type="hidden" name="id" value="{{ pack_variant.id }}">
+                  <button type="submit" class="button button--primary">{{ 'products.product.add_to_cart' | t }}</button>
+                {%- endform -%}
+              {%- endif -%}
+              <a class="button button--secondary" href="{{ pack.url }}">{{ 'pet_cro.packs.view_pack' | t }}</a>
+            </div>
+          </div>
+        </div>
+      {%- elsif has_packs -%}
         <ul
           class="grid product-grid contains-card--product grid--{{ section.settings.columns_desktop }}-col-desktop grid--2-col-tablet-down"
           role="list"

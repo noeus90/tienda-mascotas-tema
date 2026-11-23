@@ -745,7 +745,9 @@
       "heading": "Packs con un 10 % de descuento",
       "subheading": "Packs temáticos que cuestan un 10 % menos que sus productos por separado.",
       "view_all": "Ver todos los packs",
-      "editor_empty": "Crea packs con Shopify Bundles y ponles la etiqueta \"pack\" para que salgan aquí."
+      "editor_empty": "Crea packs con Shopify Bundles y ponles la etiqueta \"pack\" para que salgan aquí.",
+      "kicker": "Pack",
+      "view_pack": "Ver el pack"
     },
     "showcase": {
       "empty_state": "Selecciona una colección de productos para mascotas desde la barra lateral del editor"

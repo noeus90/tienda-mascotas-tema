@@ -745,7 +745,9 @@
       "heading": "Bundles with 10% off",
       "subheading": "Themed bundles that cost 10% less than their products bought separately.",
       "view_all": "View all bundles",
-      "editor_empty": "Create bundles with Shopify Bundles and tag them \"pack\" to show them here."
+      "editor_empty": "Create bundles with Shopify Bundles and tag them \"pack\" to show them here.",
+      "kicker": "Bundle",
+      "view_pack": "See the bundle"
     },
     "showcase": {
       "empty_state": "Select a pet product collection from the theme editor sidebar"

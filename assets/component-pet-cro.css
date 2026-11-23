@@ -1268,3 +1268,91 @@
     animation: none;
   }
 }
+
+/* UX-13: a single pack as a banner (sections/pet-packs.liquid) */
+.pack-banner {
+  display: grid;
+  grid-template-columns: minmax(0, 44rem) 1fr;
+  gap: 3.2rem;
+  align-items: center;
+  padding: 2.4rem;
+  border: 1px solid rgba(var(--color-foreground), 0.1);
+  border-radius: 2rem;
+  background: #fff7f7;
+}
+
+.pack-banner__media {
+  display: block;
+  border-radius: 1.4rem;
+  overflow: hidden;
+}
+
+.pack-banner__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pack-banner__kicker {
+  margin: 0 0 0.6rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #b91c1c;
+}
+
+.pack-banner__title {
+  margin: 0 0 1.2rem;
+}
+
+.pack-banner__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.pack-banner__summary {
+  margin-bottom: 1.6rem;
+  font-size: 1.5rem;
+}
+
+.pack-banner__summary p {
+  margin: 0 0 0.8rem;
+}
+
+.pack-banner__summary ul {
+  margin: 0;
+  padding-left: 2rem;
+}
+
+.pack-banner .price {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.pack-banner__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+
+.pack-banner__buttons .button {
+  margin: 0;
+}
+
+@media screen and (max-width: 749px) {
+  .pack-banner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 1.6rem;
+  }
+
+  .pack-banner__form,
+  .pack-banner__buttons .button {
+    flex: 1 1 100%;
+  }
+
+  .pack-banner__form .button {
+    width: 100%;
+  }
+}
