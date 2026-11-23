@@ -4,8 +4,8 @@
  * Includes:
  *  1. WAI-ARIA Product Tabs Navigation (switchPetTab, handlePetTabKeydown)
  *  2. Auto-Delivery Subscription Selector (selectPurchaseMode, handleSubscriptionKeydown, updateDeliveryFrequency)
- *  3. Real-Time 24/48h Dispatch & Delivery Countdown (initCroDeliveryCountdown)
- *  4. Real-Time 2-Tier Free Shipping + Free Pet Treat Progress Bar Sync (PUB_SUB_EVENTS.cartUpdate)
+ *  3. Estimated delivery dates; frozen products: dispatch countdown (initCroDeliveryCountdown)
+ *  4. Free Shipping Progress Bar Sync (PUB_SUB_EVENTS.cartUpdate)
  *  5. Dynamic Variant Change Synchronization (PUB_SUB_EVENTS.variantChange)
  */
 
@@ -199,16 +199,29 @@ function initCroDeliveryCountdown(root = document) {
       return;
     }
 
-    // Other products: next day before the cutoff, two days after it; no deliveries on Sunday.
-    let deliveryDate = croAddDays(today, beforeCutoff ? 1 : 2);
-    if (croWeekday(deliveryDate) === 7) deliveryDate = croAddDays(deliveryDate, 1);
-
-    const tplCutoff = deliveryEl.dataset.tplCutoff || '';
-    const tplExpress = deliveryEl.dataset.tplExpress || '';
-    if (beforeCutoff && remainingHours >= 0 && tplCutoff) {
-      deliveryEl.innerHTML = tplCutoff.replace('__TIME__', countdown).replace('__DATE__', formatDate(deliveryDate));
-    } else if (tplExpress) {
-      deliveryEl.innerHTML = tplExpress.replace('__DATE__', formatDate(deliveryDate));
+    // Other products: standard shipping, delivered between delivery_days_min and delivery_days_max
+    // business days (Monday to Friday) after the order; after the cutoff or at the weekend the
+    // count starts on the next business day.
+    const daysMin = parseInt(deliveryEl.dataset.daysMin, 10) || 3;
+    const daysMax = Math.max(daysMin, parseInt(deliveryEl.dataset.daysMax, 10) || 5);
+    let start = today;
+    if (!(beforeCutoff && croWeekday(today) <= 5)) {
+      start = croAddDays(today, 1);
+      while (croWeekday(start) > 5) start = croAddDays(start, 1);
+    }
+    const addBusinessDays = (date, days) => {
+      let next = date;
+      for (let added = 0; added < days; ) {
+        next = croAddDays(next, 1);
+        if (croWeekday(next) <= 5) added += 1;
+      }
+      return next;
+    };
+    const tplWindow = deliveryEl.dataset.tplWindow || '';
+    if (tplWindow) {
+      deliveryEl.innerHTML = tplWindow
+        .replace('__FROM__', formatDate(addBusinessDays(start, daysMin)))
+        .replace('__TO__', formatDate(addBusinessDays(start, daysMax)));
     }
   });
 }

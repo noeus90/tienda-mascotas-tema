@@ -1,5 +1,5 @@
 {%- doc -%}
-  Real-Time Stock & 24h Estimated Delivery CRO Widget for Pet Store products.
+  Real-Time Stock & Estimated Delivery CRO Widget for Pet Store products.
   Evaluates Shopify's 4 inventory properties (available, inventory_management, inventory_quantity, inventory_policy)
   and calculates the same-day dispatch cutoff time and estimated delivery date.
 
@@ -79,7 +79,7 @@
     </div>
   {%- endif -%}
 
-  <!-- Row 2: Dynamic 24/48h Delivery Estimation (only when available) -->
+  <!-- Row 2: Estimated delivery dates (only when available). Standard shipping: theme settings delivery_days_min/max business days. -->
   {%- if current_variant.available -%}
     <div class="cro-delivery-row">
       <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -91,8 +91,9 @@
       <span
         id="cro-delivery-text-{{ section.id }}"
         data-cro-delivery
-        data-tpl-cutoff="{{ 'pet_cro.stock.order_within_html' | t: time: '__TIME__', date: '__DATE__' | escape }}"
-        data-tpl-express="{{ 'pet_cro.stock.express_shipping_html' | t: date: '__DATE__' | escape }}"
+        data-days-min="{{ settings.delivery_days_min | default: 3 }}"
+        data-days-max="{{ settings.delivery_days_max | default: 5 }}"
+        data-tpl-window="{{ 'pet_cro.stock.delivery_window_html' | t: from: '__FROM__', to: '__TO__' | escape }}"
         {%- comment -%} Frozen products: they only leave on the dispatch days of the theme settings. {%- endcomment -%}
         {%- assign frozen_tag = settings.frozen_tag | default: 'congelado' | strip -%}
         {%- if product.tags contains frozen_tag %}
@@ -101,7 +102,7 @@
           data-tpl-next-frozen="{{ 'pet_cro.frozen.next_dispatch_html' | t: dispatch: '__DISPATCH__', date: '__DATE__' | escape }}"
         {%- endif %}
       >
-        {{ 'pet_cro.stock.delivery_default_html' | t }}
+        {{ 'pet_cro.stock.delivery_default_html' | t: min: settings.delivery_days_min, max: settings.delivery_days_max }}
       </span>
     </div>
   {%- endif -%}

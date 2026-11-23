@@ -1463,14 +1463,20 @@
       },
       {
         "type": "header",
-        "content": "Newsletter"
+        "content": "Plazo de entrega"
       },
       {
-        "type": "text",
-        "id": "newsletter_discount_code",
-        "label": "Código de bienvenida",
-        "info": "Se muestra al suscribirse en el pie de página. Tiene que existir en Descuentos (ahora BIENVENIDA10: 10 %, una vez por cliente). Vacío: no se muestra ningún código.",
-        "default": "BIENVENIDA10"
+        "type": "number",
+        "id": "delivery_days_min",
+        "label": "Entrega estándar: días laborables mínimos",
+        "info": "Para la fecha estimada de la ficha. Debe coincidir con la tarifa de envío de Shopify. Los congelados usan sus propios días de salida.",
+        "default": 3
+      },
+      {
+        "type": "number",
+        "id": "delivery_days_max",
+        "label": "Entrega estándar: días laborables máximos",
+        "default": 5
       },
       {
         "type": "header",

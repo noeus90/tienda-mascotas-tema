@@ -37,7 +37,7 @@
           {%- liquid
             assign raw_ann_text = section.blocks.first.settings.text
             assign is_default_ann = false
-            if raw_ann_text == 'Welcome to our store' or raw_ann_text == 'Bienvenido a nuestra tienda' or raw_ann_text contains 'Envío 24h GRATIS en pedidos +' or raw_ann_text contains 'FREE 24h Shipping on orders over'
+            if raw_ann_text == 'Welcome to our store' or raw_ann_text == 'Bienvenido a nuestra tienda' or raw_ann_text contains 'Envío 24h GRATIS en pedidos +' or raw_ann_text contains 'Envío GRATIS en pedidos de más de' or raw_ann_text contains 'FREE 24h Shipping on orders over'
               assign is_default_ann = true
             endif
           -%}
@@ -110,7 +110,7 @@
                     {%- liquid
                       assign raw_slide_text = block.settings.text
                       assign is_default_slide_ann = false
-                      if raw_slide_text == 'Welcome to our store' or raw_slide_text == 'Bienvenido a nuestra tienda' or raw_slide_text contains 'Envío 24h GRATIS en pedidos +' or raw_slide_text contains 'FREE 24h Shipping on orders over'
+                      if raw_slide_text == 'Welcome to our store' or raw_slide_text == 'Bienvenido a nuestra tienda' or raw_slide_text contains 'Envío 24h GRATIS en pedidos +' or raw_slide_text contains 'Envío GRATIS en pedidos de más de' or raw_slide_text contains 'FREE 24h Shipping on orders over'
                         assign is_default_slide_ann = true
                       endif
                     -%}

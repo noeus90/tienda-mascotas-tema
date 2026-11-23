@@ -547,7 +547,7 @@
   "pet_cro": {
     "general": {
       "dev_mode_banner": "Modo Desarrollo Activo: {{ shop_name }}",
-      "announcement_default": "🐾 Envío 24h GRATIS en pedidos +{{ amount }} · Reserva online tu cita de Peluquería Canina",
+      "announcement_default": "🐾 Envío GRATIS en pedidos de más de {{ amount }} · Reserva online tu cita de peluquería canina",
       "related_heading_default": "También te puede gustar para tu peludo"
     },
     "nav": {
@@ -604,10 +604,7 @@
       "mission_text": "Cuidamos la salud y felicidad de tu compañero con nutrición 100% natural y sesiones de peluquería canina respetuosas y sin estrés.",
       "newsletter_note": "Novedades y ofertas de la tienda y la peluquería, como mucho un par de emails al mes. Puedes darte de baja cuando quieras.",
       "newsletter_privacy": "Política de privacidad",
-      "newsletter_code_html": "¡Gracias por suscribirte! Tu código de bienvenida es <strong>{{ code }}</strong>: 10 % en tu primer pedido.",
-      "newsletter_copy": "Copiar código",
-      "newsletter_copied": "Copiado",
-      "newsletter_apply": "Aplicarlo a mi compra"
+      "newsletter_sent": "¡Gracias por suscribirte! Te hemos enviado por email tu código del 10 % para el primer pedido. Si en unos minutos no lo ves, mira en Promociones o en Spam."
     },
     "savings": {
       "discount_tag": "({{ percent }}% DTO)"
@@ -687,8 +684,8 @@
     },
     "free_shipping": {
       "aria_label": "Progreso hacia el envío gratis",
-      "missing_shipping_html": "🚚 Te faltan <strong>{{ amount }}</strong> para conseguir <strong>Envío 24h GRATIS</strong>",
-      "completed_html": "🎉 ¡Tienes <strong>Envío 24h GRATIS</strong>!",
+      "missing_shipping_html": "🚚 Te faltan <strong>{{ amount }}</strong> para el <strong>envío GRATIS</strong>",
+      "completed_html": "🎉 ¡Tienes el <strong>envío GRATIS</strong>!",
       "milestone_shipping": "Envío Gratis"
     },
     "stock": {
@@ -698,10 +695,9 @@
       },
       "preorder_html": "📦 Lote agotado · Disponible bajo <strong>reserva prioritaria</strong> (envío en 5 días)",
       "sold_out": "Agotado temporalmente · Reponiendo nuevo lote fresco de fábrica",
-      "in_stock_html": "<strong>En stock</strong> · Lote fresco listo para envío inmediato 24h",
-      "delivery_default_html": "Pídelo hoy y recíbelo en <strong>24/48h laborables</strong>",
-      "order_within_html": "Pídelo en <strong>{{ time }}</strong> y recíbelo el <strong>{{ date }}</strong>",
-      "express_shipping_html": "Envío urgente 24h · Recíbelo el <strong>{{ date }}</strong>"
+      "in_stock_html": "<strong>En stock</strong> · Listo para enviar",
+      "delivery_default_html": "Recíbelo en <strong>{{ min }}-{{ max }} días laborables</strong>",
+      "delivery_window_html": "Recíbelo entre el <strong>{{ from }}</strong> y el <strong>{{ to }}</strong>"
     },
     "grooming_steps": {
       "kicker": "Así lo hacemos en la peluquería",

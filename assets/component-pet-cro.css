@@ -1098,7 +1098,7 @@
   flex-wrap: wrap;
 }
 
-/* Newsletter in the footer: consent note and welcome code (sections/footer.liquid) */
+/* Newsletter in the footer: consent note (sections/footer.liquid) */
 .newsletter-form__note {
   margin: 1rem 0 0;
   font-size: 1.3rem;
@@ -1111,20 +1111,3 @@
   color: inherit;
 }
 
-.newsletter-code {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 1.2rem 2rem;
-  margin-top: 1.2rem;
-}
-
-.newsletter-code__copy {
-  min-height: 4.4rem;
-}
-
-.newsletter-code__apply {
-  font-size: 1.4rem;
-  font-weight: 600;
-}

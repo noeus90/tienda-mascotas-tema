@@ -10,14 +10,18 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 ## 🔴 Confianza y promesas
 
 - [x] 🔴 **UX-01 · Promesas que hoy no se cumplen.** *(hecho el 23/11/2026)*
-  - **Snack de regalo a partir de 65 €:** quitado. La barra del carrito y de la ficha solo marca el envío gratis (50 €). También se quitó el ajuste «Importe para el regalo».
-  - **10 % de la newsletter:** ahora existe el código `BIENVENIDA10` (10 % en todo el pedido, una vez por cliente; se suma al envío gratis pero no a otros descuentos).
-    - Al suscribirse en el pie sale «¡Gracias por suscribirte! Tu código de bienvenida es BIENVENIDA10», con «Copiar código» y «Aplicarlo a mi compra» (lo deja aplicado en el carrito).
-    - El código se cambia en *Configuración del tema → Carrito → Newsletter*.
-    - Nuevo título del pie: «Suscríbete y llévate un 10 % en tu primer pedido» (sirve también para quien tiene gato, UX-28), y una nota de qué se envía con enlace a la política de privacidad.
-    - Probado: suscripción (cliente creado con etiqueta `newsletter` y consentimiento de marketing; luego borrado), código visible y descuento aplicado en el carrito (24,90 € → 22,41 €).
-  - Pendiente aparte: el código lo ve cualquiera que se suscriba (vale una vez por cliente). Para enviarlo también por email, crear la automatización «Bienvenida a nuevos suscriptores» de Shopify Email con este código.
-  - Pendiente aparte: la barra promete «Envío 24h», pero la tarifa estándar de Shopify tarda 3-5 días hábiles (ver la nota de 17/11 en `revision-todo.md`).
+  - **Snack de regalo a partir de 65 €:** quitado. La barra de la ficha y del carrito solo marca el envío gratis (50 €). También se quitó el ajuste «Importe para el regalo».
+  - **Envío en 24 h:** no existe, así que se quitó de los envíos normales.
+    - Ahora: aviso superior «Envío GRATIS en pedidos de más de 50 €», barra «Te faltan X para el envío GRATIS» y en stock «Listo para enviar».
+    - La ficha calcula «Recíbelo entre el X y el Y» con días laborables. Ajustes del tema *Plazo de entrega*: 3-5 días; deben coincidir con la tarifa de Shopify.
+    - Los congelados BARF mantienen su envío refrigerado de 24 h (tarifa propia).
+  - **10 % de la newsletter:** existe el código `BIENVENIDA10` (10 % en todo el pedido, una vez por cliente; se suma al envío gratis pero no a otros descuentos).
+    - **Solo se envía por email.** La web dice «Te hemos enviado por email tu código del 10 %…».
+    - El email lo envía la app de reservas (Brevo) a quien se suscribe en el pie: cada 10 minutos, una sola vez, en su idioma, con el código, un botón que lo deja aplicado en el carrito y un enlace para darse de baja de la newsletter (retira el consentimiento en Shopify).
+    - Se configura en la app, *Ajustes → Bienvenida de la newsletter* (activar, código, %). Si el código no existe o caduca, avisa y no envía nada.
+    - Shopify Messaging no se usa porque no está instalada (pide verificar la identidad).
+    - Nuevo título del pie: «Suscríbete y llévate un 10 % en tu primer pedido» (sirve también para gatos, UX-28), con nota de qué se envía y enlace a la política de privacidad.
+    - Probado el 23/11/2026: suscripción con `noeus90+newsletter@gmail.com`, email enviado y página de baja con firma válida (y rechazo de una firma falsa).
 - [ ] 🔴 **UX-02 · Datos y sellos sin respaldo.** **(juntos)**
   - Frases afectadas:
     - Portada: «4.9 / 5 · +2.400 familias perrunas felices», «Peluquería & tienda verificada», «Aval clínico · Revisado por veterinarios», «Respaldada por expertos».

@@ -535,7 +535,7 @@
   "pet_cro": {
     "general": {
       "dev_mode_banner": "Active Development Mode: {{ shop_name }}",
-      "announcement_default": "🐾 FREE 24h Shipping on orders over {{ amount }} · Book your Dog Grooming appointment online",
+      "announcement_default": "🐾 FREE shipping on orders over {{ amount }} · Book your dog grooming appointment online",
       "related_heading_default": "You may also like for your pet"
     },
     "nav": {
@@ -592,10 +592,7 @@
       "mission_text": "We care for your companion's health and happiness with 100% natural nutrition and gentle, stress-free dog grooming sessions.",
       "newsletter_note": "News and offers from the shop and the grooming salon, a couple of emails a month at most. Unsubscribe any time.",
       "newsletter_privacy": "Privacy policy",
-      "newsletter_code_html": "Thanks for subscribing! Your welcome code is <strong>{{ code }}</strong>: 10% off your first order.",
-      "newsletter_copy": "Copy code",
-      "newsletter_copied": "Copied",
-      "newsletter_apply": "Apply it to my order"
+      "newsletter_sent": "Thanks for subscribing! We have emailed you your 10% code for your first order. If you can't see it in a few minutes, check your Promotions or Spam folder."
     },
     "savings": {
       "discount_tag": "({{ percent }}% OFF)"
@@ -675,8 +672,8 @@
     },
     "free_shipping": {
       "aria_label": "Progress towards free shipping",
-      "missing_shipping_html": "🚚 You are <strong>{{ amount }}</strong> away from <strong>FREE 24h Shipping</strong>",
-      "completed_html": "🎉 You've got <strong>FREE 24h shipping</strong>!",
+      "missing_shipping_html": "🚚 You are <strong>{{ amount }}</strong> away from <strong>FREE shipping</strong>",
+      "completed_html": "🎉 You've got <strong>FREE shipping</strong>!",
       "milestone_shipping": "Free Shipping"
     },
     "stock": {
@@ -686,10 +683,9 @@
       },
       "preorder_html": "📦 Batch sold out · Available for <strong>priority pre-order</strong> (ships in 5 days)",
       "sold_out": "Temporarily out of stock · Fresh batch arriving from manufacturer",
-      "in_stock_html": "<strong>In stock</strong> · Fresh batch ready for immediate 24h dispatch",
-      "delivery_default_html": "Order today and receive it in <strong>24/48 business hours</strong>",
-      "order_within_html": "Order within <strong>{{ time }}</strong> to receive it on <strong>{{ date }}</strong>",
-      "express_shipping_html": "Express 24h shipping · Receive it on <strong>{{ date }}</strong>"
+      "in_stock_html": "<strong>In stock</strong> · Ready to ship",
+      "delivery_default_html": "Delivered in <strong>{{ min }}-{{ max }} business days</strong>",
+      "delivery_window_html": "Get it between <strong>{{ from }}</strong> and <strong>{{ to }}</strong>"
     },
     "grooming_steps": {
       "kicker": "How we do it at the salon",
