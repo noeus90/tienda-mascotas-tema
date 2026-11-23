@@ -1,0 +1,160 @@
+{%- doc -%}
+  "How much should I feed?" calculator for dry food (product types of the theme setting
+  `ration_product_types`, default "Pienso"). The visitor enters the pet's weight, age and activity;
+  it shows grams per day and how long the selected bag lasts.
+  Energy: dogs 130 × kg^0.75 kcal/day, cats 100 × kg^0.67 (×2 puppies/kittens, ×0.8 seniors,
+  ×0.85 / ×1.2 low / high activity). Food energy: product metafield custom.kcal_kg, or 3600 kcal/kg
+  for dogs and 3900 for cats. Cats: products tagged gato / gatito.
+
+  @param {product} product - The product of the page.
+
+  @example
+  {% render 'ration-calculator', product: product %}
+{%- enddoc -%}
+
+{%- liquid
+  assign types = settings.ration_product_types | default: 'Pienso' | downcase | split: ','
+  assign product_type = product.type | downcase | strip
+  assign is_food = false
+  for t in types
+    assign clean_type = t | strip
+    if clean_type == product_type
+      assign is_food = true
+      break
+    endif
+  endfor
+  assign is_cat = false
+  if product.tags contains 'gato' or product.tags contains 'gatito' or product.tags contains 'cat'
+    assign is_cat = true
+  endif
+  assign kcal_kg = product.metafields.custom.kcal_kg.value | default: 0
+  if kcal_kg == 0
+    if is_cat
+      assign kcal_kg = 3900
+    else
+      assign kcal_kg = 3600
+    endif
+  endif
+-%}
+
+{%- if is_food -%}
+  {%- capture bag_kilos -%}
+    {
+    {%- for variant in product.variants -%}
+      {%- liquid
+        assign kilos = variant.weight | times: 1.0 | divided_by: 1000
+        if kilos == 0
+          assign title = variant.title | downcase | replace: ',', '.' | replace: ' ', ''
+          if title contains 'kg'
+            assign kilos = title | split: 'kg' | first | plus: 0
+          elsif title contains 'g'
+            assign kilos = title | split: 'g' | first | plus: 0 | divided_by: 1000.0
+          endif
+        endif
+      -%}
+      "{{ variant.id }}": {{ kilos | json }}{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+    }
+  {%- endcapture -%}
+  <div
+    class="ration-calc"
+    data-ration-calc
+    data-species="{% if is_cat %}cat{% else %}dog{% endif %}"
+    data-kcal-kg="{{ kcal_kg }}"
+    data-bags='{{ bag_kilos | strip }}'
+    data-variant="{{ product.selected_or_first_available_variant.id }}"
+    data-tpl-result="{{ 'pet_cro.ration.result_html' | t: grams: '__GRAMS__', meal: '__MEAL__' | escape }}"
+    data-tpl-bag="{{ 'pet_cro.ration.bag_html' | t: kilos: '__KILOS__', days: '__DAYS__' | escape }}"
+  >
+    <p class="ration-calc__title">🥣 {{ 'pet_cro.ration.title' | t }}</p>
+    <div class="ration-calc__fields">
+      <label class="ration-calc__field">
+        <span>{% if is_cat %}{{ 'pet_cro.ration.weight_cat' | t }}{% else %}{{ 'pet_cro.ration.weight_dog' | t }}{% endif %}</span>
+        <input type="number" inputmode="decimal" min="0.5" max="90" step="0.5" placeholder="{% if is_cat %}4{% else %}12{% endif %}" data-ration-weight>
+      </label>
+      <label class="ration-calc__field">
+        <span>{{ 'pet_cro.ration.age' | t }}</span>
+        <select data-ration-age>
+          <option value="young">{% if is_cat %}{{ 'pet_cro.ration.age_kitten' | t }}{% else %}{{ 'pet_cro.ration.age_puppy' | t }}{% endif %}</option>
+          <option value="adult" selected>{{ 'pet_cro.ration.age_adult' | t }}</option>
+          <option value="senior">{{ 'pet_cro.ration.age_senior' | t }}</option>
+        </select>
+      </label>
+      <label class="ration-calc__field">
+        <span>{{ 'pet_cro.ration.activity' | t }}</span>
+        <select data-ration-activity>
+          <option value="low">{{ 'pet_cro.ration.activity_low' | t }}</option>
+          <option value="normal" selected>{{ 'pet_cro.ration.activity_normal' | t }}</option>
+          <option value="high">{{ 'pet_cro.ration.activity_high' | t }}</option>
+        </select>
+      </label>
+    </div>
+    <p class="ration-calc__result" data-ration-result aria-live="polite">{{ 'pet_cro.ration.prompt' | t }}</p>
+    <p class="ration-calc__note">{{ 'pet_cro.ration.note' | t }}</p>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.currentScript.previousElementSibling;
+      if (!root || root.dataset.ready) return;
+      root.dataset.ready = '1';
+      const cat = root.dataset.species === 'cat';
+      const kcalKg = Number(root.dataset.kcalKg) || 3600;
+      let bags = {};
+      try {
+        bags = JSON.parse(root.dataset.bags || '{}');
+      } catch (error) {}
+      let variantId = root.dataset.variant;
+      const weightEl = root.querySelector('[data-ration-weight]');
+      const ageEl = root.querySelector('[data-ration-age]');
+      const activityEl = root.querySelector('[data-ration-activity]');
+      const result = root.querySelector('[data-ration-result]');
+      const prompt = result.textContent;
+      const lang = (document.documentElement.lang || 'es').slice(0, 2);
+      const number = (value, digits = 0) =>
+        new Intl.NumberFormat(lang, { maximumFractionDigits: digits }).format(value);
+
+      const update = () => {
+        const kg = Number(String(weightEl.value).replace(',', '.'));
+        if (!(kg > 0 && kg <= 90)) {
+          result.textContent = prompt;
+          return;
+        }
+        const age = { young: 2, adult: 1, senior: 0.8 }[ageEl.value] || 1;
+        const activity = { low: 0.85, normal: 1, high: 1.2 }[activityEl.value] || 1;
+        const kcal = (cat ? 100 * Math.pow(kg, 0.67) : 130 * Math.pow(kg, 0.75)) * age * activity;
+        // Rounded to 5 g; two meals a day (three for puppies and kittens).
+        const grams = Math.max(10, Math.round(kcal / (kcalKg / 1000) / 5) * 5);
+        const meals = ageEl.value === 'young' ? 3 : 2;
+        let html = root.dataset.tplResult
+          .replace('__GRAMS__', number(grams))
+          .replace('__MEAL__', `${meals} × ${number(Math.round(grams / meals / 5) * 5)} g`);
+        const kilos = Number(bags[variantId]) || 0;
+        if (kilos > 0) {
+          html += ' ' + root.dataset.tplBag
+            .replace('__KILOS__', number(kilos, 1))
+            .replace('__DAYS__', number(Math.floor((kilos * 1000) / grams)));
+        }
+        result.innerHTML = html;
+      };
+
+      [weightEl, ageEl, activityEl].forEach((el) => {
+        el.addEventListener('input', update);
+        el.addEventListener('change', update);
+      });
+      // Another bag size chosen on the product page. Dawn's pub/sub (deferred scripts) is only
+      // there once the page has loaded.
+      const listen = () => {
+        if (typeof subscribe !== 'function' || typeof PUB_SUB_EVENTS === 'undefined') return;
+        subscribe(PUB_SUB_EVENTS.variantChange, (event) => {
+          if (event?.data?.variant?.id) {
+            variantId = String(event.data.variant.id);
+            update();
+          }
+        });
+      };
+      if (document.readyState === 'complete') listen();
+      else window.addEventListener('load', listen);
+    })();
+  </script>
+{%- endif -%}

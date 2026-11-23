@@ -854,6 +854,70 @@
   text-align: center;
 }
 
+/* 8d. Ration calculator on dry food (snippets/ration-calculator.liquid) */
+.ration-calc {
+  margin-top: 1.6rem;
+  padding: 1.6rem 2rem;
+  border: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.14);
+  border-radius: 1.2rem;
+  background: #fffbeb;
+}
+
+.ration-calc__title {
+  margin: 0 0 1.2rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.ration-calc__fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+@media screen and (max-width: 749px) {
+  .ration-calc__fields {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ration-calc__field:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+.ration-calc__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 1.3rem;
+  color: rgba(var(--color-foreground, 15, 23, 42), 0.75);
+}
+
+.ration-calc__field input,
+.ration-calc__field select {
+  width: 100%;
+  min-height: 4.4rem;
+  padding: 0 1rem;
+  border: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.3);
+  border-radius: 0.8rem;
+  background: #ffffff;
+  font: inherit;
+  font-size: 1.5rem;
+  color: rgb(var(--color-foreground, 15, 23, 42));
+}
+
+.ration-calc__result {
+  margin: 1.2rem 0 0.6rem;
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+
+.ration-calc__note {
+  margin: 0;
+  font-size: 1.2rem;
+  color: rgba(var(--color-foreground, 15, 23, 42), 0.65);
+}
+
 /* 9. Header Language Switcher Pill (snippets/header-language-switcher.liquid) */
 .header-lang-switcher-form {
   display: inline-flex;

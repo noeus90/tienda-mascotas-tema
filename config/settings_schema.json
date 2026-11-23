@@ -1469,6 +1469,17 @@
         "default": 65
       },
       {
+        "type": "header",
+        "content": "Calculadora de ración"
+      },
+      {
+        "type": "text",
+        "id": "ration_product_types",
+        "label": "Tipos de producto con calculadora",
+        "info": "Separados por comas. En sus fichas sale «¿Cuánto le doy?». La energía del pienso se toma del metacampo custom.kcal_kg (kcal por kilo) o, si no está, 3600 para perro y 3900 para gato.",
+        "default": "Pienso"
+      },
+      {
         "type": "checkbox",
         "id": "show_shipping_zone_note",
         "label": "Avisar de que solo se envía a la península",

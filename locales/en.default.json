@@ -860,6 +860,24 @@
       "promo_text": "A bath, a cut or a spa day for their best friend. Delivered by email on the day you choose, and valid in the store too.",
       "promo_button": "Give a gift card",
       "booking_link": "Is it a gift? Give a grooming gift card"
+    },
+    "ration": {
+      "title": "How much should I feed per day?",
+      "weight_dog": "Dog's weight (kg)",
+      "weight_cat": "Cat's weight (kg)",
+      "age": "Age",
+      "age_puppy": "Puppy",
+      "age_kitten": "Kitten",
+      "age_adult": "Adult",
+      "age_senior": "Senior (7+ years)",
+      "activity": "Activity",
+      "activity_low": "Low",
+      "activity_normal": "Normal",
+      "activity_high": "High",
+      "prompt": "Enter their weight to see the daily ration.",
+      "result_html": "About <strong>{{ grams }} g a day</strong> ({{ meal }}).",
+      "bag_html": "This {{ kilos }} kg bag lasts about <strong>{{ days }} days</strong>.",
+      "note": "A guide only: adjust it to their body condition and to the bag or your vet's advice."
     }
   }
 }

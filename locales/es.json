@@ -872,6 +872,24 @@
       "promo_text": "Un baño, un corte o un spa para su mejor amigo. Llega por email el día que elijas y sirve también en la tienda.",
       "promo_button": "Regalar una tarjeta",
       "booking_link": "¿Es un regalo? Regala una tarjeta de peluquería"
+    },
+    "ration": {
+      "title": "¿Cuánto le doy al día?",
+      "weight_dog": "Peso del perro (kg)",
+      "weight_cat": "Peso del gato (kg)",
+      "age": "Edad",
+      "age_puppy": "Cachorro",
+      "age_kitten": "Gatito",
+      "age_adult": "Adulto",
+      "age_senior": "Senior (+7 años)",
+      "activity": "Actividad",
+      "activity_low": "Poca",
+      "activity_normal": "Normal",
+      "activity_high": "Mucha",
+      "prompt": "Escribe su peso para ver la ración diaria.",
+      "result_html": "Unos <strong>{{ grams }} g al día</strong> ({{ meal }}).",
+      "bag_html": "Este saco de {{ kilos }} kg le dura unos <strong>{{ days }} días</strong>.",
+      "note": "Orientativo: ajústalo según su condición física y lo que indique el envase o tu veterinario."
     }
   }
 }
