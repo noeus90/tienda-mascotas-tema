@@ -96,9 +96,10 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
   - «Añadir al carrito» es siempre el botón principal (relleno) y «Comprar ahora» de Shopify pasa a secundario (con borde).
   - Vocabulario de España en `es.json`: «Añadir» en lugar de «Agregar» (carrito, direcciones, Apple Wallet, cantidades) y «carrito» en lugar de «cesta» («Añadir 3 al carrito · 39,70 €»).
   - Probado: añade el producto y sale «Artículo añadido a tu carrito».
-- [ ] 🔴 **UX-10 · Ficha en móvil.** **(yo)**
-  - Problema: el botón de compra queda a unos 1000 px de la parte de arriba y luego desaparece al bajar.
-  - Propuesta: una barra fija abajo con precio y «Añadir» cuando el botón sale de la pantalla.
+- [x] 🔴 **UX-10 · Ficha en móvil.** *(hecho el 23/11/2026)*
+  - Barra fija abajo (`snippets/sticky-add-to-cart.liquid`) con nombre, precio y «Añadir al carrito». Solo en móvil, y solo cuando los botones de compra ya han quedado por encima de la pantalla.
+  - Pulsa el botón real, así que respeta variante y cantidad. Copia su estado («Agotado» desactivado) y el precio sigue al selector de variantes.
+  - Probado: aparece al bajar y se oculta al volver arriba; al elegir 12 kg muestra 69,90 € y añade esa variante; en la pelota agotada sale «Agotado» desactivado.
 
 ## 🟠 Portada
 

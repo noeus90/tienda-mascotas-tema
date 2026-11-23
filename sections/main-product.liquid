@@ -727,6 +727,9 @@
 
       {% render 'product-media-modal', variant_images: variant_images %}
 
+      {%- comment -%} Mobile: price + "Añadir al carrito" fixed at the bottom once the buy buttons scroll away (UX-10). {%- endcomment -%}
+      {% render 'sticky-add-to-cart', product: product, section_id: section.id %}
+
       {% assign popups = section.blocks | where: 'type', 'popup' %}
       {%- for block in popups -%}
         <modal-dialog id="PopupModal-{{ block.id }}" class="product-popup-modal" {{ block.shopify_attributes }}>

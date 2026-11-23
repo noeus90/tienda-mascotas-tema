@@ -1,0 +1,91 @@
+{%- doc -%}
+  Mobile bar with the price and "Add to cart" (UX-10). It appears once the product's own buy
+  buttons have scrolled off the top of the screen and hides again when they come back. The button
+  presses the real "Add to cart" button, so the chosen variant and quantity are respected, and it
+  copies that button's text and state (sold out, unavailable). The price follows the variant picker.
+
+  @param {product} product - The product of the page.
+  @param {string} section_id - The main product section id (its button is #ProductSubmitButton-<id>).
+
+  @example
+  {% render 'sticky-add-to-cart', product: product, section_id: section.id %}
+{%- enddoc -%}
+
+{%- unless product.gift_card? -%}
+  {%- assign variant = product.selected_or_first_available_variant -%}
+  <div
+    class="sticky-atc"
+    data-sticky-atc
+    data-section="{{ section_id }}"
+    data-money-format="{{ shop.money_format | escape }}"
+    aria-hidden="true"
+    hidden
+  >
+    <div class="sticky-atc__info">
+      <span class="sticky-atc__title">{{ product.title }}</span>
+      <span class="sticky-atc__price" data-sticky-atc-price>{{ variant.price | money }}</span>
+    </div>
+    <button type="button" class="button button--primary sticky-atc__button" data-sticky-atc-button tabindex="-1">
+      {{ 'products.product.add_to_cart' | t }}
+    </button>
+  </div>
+
+  <script>
+    (() => {
+      const bar = document.currentScript.previousElementSibling;
+      if (!bar || bar.dataset.ready) return;
+      bar.dataset.ready = '1';
+      const main = document.getElementById(`ProductSubmitButton-${bar.dataset.section}`);
+      if (!main) return;
+      const button = bar.querySelector('[data-sticky-atc-button]');
+      const price = bar.querySelector('[data-sticky-atc-price]');
+      const watched = main.closest('.product-form__buttons') || main;
+
+      // Same text and state as the real button (Añadir al carrito / Agotado / No disponible).
+      const sync = () => {
+        button.textContent = main.textContent.trim();
+        button.disabled = main.disabled || main.getAttribute('aria-disabled') === 'true';
+      };
+      sync();
+      new MutationObserver(sync).observe(main, { attributes: true, childList: true, subtree: true, characterData: true });
+
+      // Visible only after the real buttons have gone above the screen (not before reaching them).
+      const setVisible = (visible) => {
+        bar.hidden = !visible;
+        bar.setAttribute('aria-hidden', String(!visible));
+        button.tabIndex = visible ? 0 : -1;
+        document.body.classList.toggle('has-sticky-atc', visible);
+      };
+      // Checked on scroll (once per frame): an IntersectionObserver misses jumps straight past them.
+      let queued = false;
+      const check = () => {
+        queued = false;
+        setVisible(watched.getBoundingClientRect().bottom < 0);
+      };
+      const queue = () => {
+        if (!queued) {
+          queued = true;
+          requestAnimationFrame(check);
+        }
+      };
+      window.addEventListener('scroll', queue, { passive: true });
+      window.addEventListener('resize', queue);
+      check();
+
+      button.addEventListener('click', () => main.click());
+
+      // Another variant chosen. Dawn's pub/sub (deferred scripts) is only there once the page has loaded.
+      const listen = () => {
+        if (typeof subscribe !== 'function' || typeof PUB_SUB_EVENTS === 'undefined') return;
+        subscribe(PUB_SUB_EVENTS.variantChange, (event) => {
+          const variant = event?.data?.variant;
+          if (variant && typeof formatCroMoney === 'function') {
+            price.textContent = formatCroMoney(variant.price, bar.dataset.moneyFormat);
+          }
+        });
+      };
+      if (document.readyState === 'complete') listen();
+      else window.addEventListener('load', listen);
+    })();
+  </script>
+{%- endunless -%}
