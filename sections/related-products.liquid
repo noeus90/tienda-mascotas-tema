@@ -20,36 +20,140 @@
   }
 {%- endstyle -%}
 
-<div class="color-{{ section.settings.color_scheme }} gradient">
-  <product-recommendations
-    class="related-products page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-    data-url="{{ routes.product_recommendations_url }}?limit={{ section.settings.products_to_show }}"
-    data-section-id="{{ section.id }}"
-    data-product-id="{{ product.id }}"
-  >
-    {% if recommendations.performed and recommendations.products_count > 0 %}
-      {%- liquid
-        assign raw_rel_heading = section.settings.heading | strip
-        assign is_default_rel_heading = false
-        if raw_rel_heading == 'You may also like' or raw_rel_heading == 'También te puede gustar' or raw_rel_heading == 'También te puede gustar para tu peludo' or raw_rel_heading == 'You may also like for your pet'
-          assign is_default_rel_heading = true
-        endif
-      -%}
-      <h2
-        class="related-products__heading inline-richtext {{ section.settings.heading_size }}"
-      >
-        {%- if is_default_rel_heading -%}
-          {{- 'pet_cro.general.related_heading_default' | t -}}
-        {%- else -%}
-          {{ section.settings.heading }}
-        {%- endif -%}
-      </h2>
+{%- comment -%}
+  "You may also like" (UX-18): chosen in the theme instead of Shopify's recommendations, which pair
+  products almost at random while there are no sales. From the collection of the product's pet
+  (perros / gatos): first products of the same life stage (puppy, kitten, senior), then other
+  products of the same type, then types that go with it (dry food →
+  treats, wet food, supplements; BARF → BARF and packs…), then anything else of that pet. Only
+  available products. Rendered with the page, so it needs no extra request.
+{%- endcomment -%}
+{%- liquid
+  assign pet_handle = 'all'
+  if product.tags contains 'perro'
+    assign pet_handle = 'perros'
+  elsif product.tags contains 'gato' or product.tags contains 'gatito'
+    assign pet_handle = 'gatos'
+  endif
+  assign pool = collections[pet_handle].products
+
+  case product.type
+    when 'Pienso'
+      assign wanted = 'Pienso,Snack,Comida húmeda,Suplemento'
+    when 'Comida húmeda'
+      assign wanted = 'Comida húmeda,Pienso,Snack'
+    when 'Dieta BARF'
+      assign wanted = 'Dieta BARF,Pack,Suplemento'
+    when 'Pack'
+      assign wanted = 'Dieta BARF,Pack,Suplemento'
+    when 'Snack'
+      assign wanted = 'Snack,Juguete,Higiene'
+    when 'Juguete'
+      assign wanted = 'Juguete,Snack,Accesorio'
+    when 'Higiene'
+      assign wanted = 'Higiene,Accesorio,Snack'
+    when 'Accesorio'
+      assign wanted = 'Accesorio,Juguete,Higiene'
+    when 'Suplemento'
+      assign wanted = 'Suplemento,Pienso,Snack'
+    else
+      assign wanted = product.type
+  endcase
+  assign wanted_types = wanted | split: ','
+  assign limit = section.settings.products_to_show
+
+  # Handles chosen, in order, separated by "|".
+  assign picked = '|'
+  assign picked_count = 0
+  assign is_frozen_type = false
+  if product.type == 'Dieta BARF' or product.type == 'Pack'
+    assign is_frozen_type = true
+  endif
+
+  # Puppies, kittens and seniors first see things for their own life stage (a puppy's dry food
+  # brings the teething toy and other puppy products before adult food).
+  assign stage = ''
+  for tag in product.tags
+    if tag == 'cachorro' or tag == 'gatito' or tag == 'senior'
+      assign stage = tag
+      break
+    endif
+  endfor
+  if stage != blank
+    for item in pool
+      if picked_count >= limit
+        break
+      endif
+      assign item_frozen = false
+      if item.type == 'Dieta BARF' or item.type == 'Pack'
+        assign item_frozen = true
+      endif
+      if item.tags contains stage and item.available and item.id != product.id and item_frozen == is_frozen_type
+        assign picked = picked | append: item.handle | append: '|'
+        assign picked_count = picked_count | plus: 1
+      endif
+    endfor
+  endif
+
+  for type in wanted_types
+    for item in pool
+      if picked_count >= limit
+        break
+      endif
+      assign key = '|' | append: item.handle | append: '|'
+      assign other_stage = false
+      if stage != blank and item.tags contains 'cachorro' or stage != blank and item.tags contains 'gatito' or stage != blank and item.tags contains 'senior'
+        unless item.tags contains stage
+          assign other_stage = true
+        endunless
+      endif
+      if item.type == type and item.available and item.id != product.id and other_stage == false
+        unless picked contains key
+          assign picked = picked | append: item.handle | append: '|'
+          assign picked_count = picked_count | plus: 1
+        endunless
+      endif
+    endfor
+  endfor
+  # Not enough: other products of the same pet (never frozen BARF next to non-frozen products).
+  for item in pool
+    if picked_count >= limit
+      break
+    endif
+    assign key = '|' | append: item.handle | append: '|'
+    assign other_stage = false
+    if stage != blank and item.tags contains 'cachorro' or stage != blank and item.tags contains 'gatito' or stage != blank and item.tags contains 'senior'
+      unless item.tags contains stage
+        assign other_stage = true
+      endunless
+    endif
+    if item.available and item.id != product.id and item.type != 'Dieta BARF' and item.type != 'Pack' and other_stage == false
+      unless picked contains key
+        assign picked = picked | append: item.handle | append: '|'
+        assign picked_count = picked_count | plus: 1
+      endunless
+    endif
+  endfor
+  assign picked_handles = picked | remove_first: '|' | split: '|'
+
+  assign heading = section.settings.heading
+  if heading == 'También te puede gustar para tu peludo' or heading == 'You may also like' or heading == 'También te puede gustar'
+    assign heading = 'pet_cro.general.related_heading_default' | t
+  endif
+-%}
+
+{%- if picked_count > 0 -%}
+  <div class="color-{{ section.settings.color_scheme }} gradient">
+    <div class="related-products page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      <h2 class="related-products__heading inline-richtext {{ section.settings.heading_size }}">{{ heading }}</h2>
       <ul
         class="grid product-grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
         role="list"
       >
-        {% assign skip_card_product_styles = false %}
-        {% for recommendation in recommendations.products %}
+        {%- assign skip_card_product_styles = false -%}
+        {%- for handle in picked_handles -%}
+          {%- assign recommendation = all_products[handle] -%}
+          {%- if recommendation == blank -%}{%- continue -%}{%- endif -%}
           <li class="grid__item">
             {% render 'card-product',
               card_product: recommendation,
@@ -63,14 +167,14 @@
             %}
           </li>
           {%- assign skip_card_product_styles = true -%}
-        {% endfor %}
+        {%- endfor -%}
       </ul>
-    {% endif %}
-  </product-recommendations>
-  {% if section.settings.image_shape == 'arch' %}
-    {{ 'mask-arch.svg' | inline_asset_content }}
-  {%- endif -%}
-</div>
+    </div>
+    {% if section.settings.image_shape == 'arch' %}
+      {{ 'mask-arch.svg' | inline_asset_content }}
+    {%- endif -%}
+  </div>
+{%- endif -%}
 
 {% schema %}
 {

@@ -162,9 +162,16 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
   - **Tallas:** 3kg/12kg → 3 kg/12 kg, 1,5kg/1.5kg → 1,5 kg, 4kg → 4 kg, 400 gramos → 400 g, pequeño/mediano/grande → Pequeña/Mediana/Grande. Nombres de opción unificados («Tamaño del saco de pienso», «Tamaño»).
   - Se mantiene el patrón «producto + mascota» del resto (y de las ilustraciones). Los handles no cambian, así que no se rompe ningún enlace.
   - Script: [`textos-productos/nombres.py`](textos-productos/nombres.py). `precio-unitario.py` usa ya las tallas nuevas.
-- [ ] 🟠 **UX-18 · «También te puede gustar».** **(yo)**
-  - Problema: en un pienso de cachorro recomienda BARF congelado.
-  - Propuesta: recomendar por mascota y tipo (otros piensos y snacks de perro), o configurar los productos complementarios en Search & Discovery.
+- [x] 🟠 **UX-18 · «También te puede gustar».** *(hecho el 23/11/2026)*
+  - **Se elige en el tema** (`sections/related-products.liquid`) en lugar de las recomendaciones de Shopify, que sin ventas emparejaban casi al azar. Se pinta con la página, sin petición extra.
+  - **Orden:**
+    1. productos de la misma mascota y la misma etapa (cachorro, gatito, senior);
+    2. productos del mismo tipo;
+    3. tipos que encajan (pienso → snacks, húmeda, suplementos; BARF → BARF y packs…);
+    4. el resto de esa mascota.
+  - **Reglas:** solo productos disponibles; nunca productos de otra etapa; el BARF congelado solo junto a BARF.
+  - **Ejemplos:** pienso cachorro → mordedor de dentición, otros piensos y snack hipoalergénico; pienso senior → suplemento de articulaciones; menú BARF → los otros BARF y el pack.
+  - Cuando haya ventas, se puede volver a las recomendaciones de Shopify o completar «Productos relacionados» en Search & Discovery.
 - [ ] 🟢 **UX-19 · Búsqueda.** **(yo)**
   - Problema: «pienso perro» devuelve también piensos de gato.
   - Propuesta: sinónimos y filtros en Search & Discovery, y mostrar la búsqueda predictiva con precio.
