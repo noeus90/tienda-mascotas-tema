@@ -143,6 +143,7 @@
         {%- if search.results_count == 0 and search.filters == empty -%}
           <p role="status">{{ 'templates.search.no_results' | t: terms: search.terms }}</p>
         {%- endif -%}
+        {%- render 'search-pet-scope' -%}
       {%- endif -%}
     </div>
     {%- if search.performed -%}

@@ -1030,6 +1030,12 @@
     },
     "favorites": {
       "title": "Nuestros favoritos"
+    },
+    "search_scope": {
+      "dog": "perro",
+      "cat": "gato",
+      "showing": "Mostrando: __WHAT__.",
+      "see_all": "Ver todos los resultados"
     }
   }
 }

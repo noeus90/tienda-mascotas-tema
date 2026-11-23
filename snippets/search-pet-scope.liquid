@@ -1,0 +1,88 @@
+{%- doc -%}
+  Search by pet and type (UX-19). Shopify's search returns everything that matches any word, so
+  "pienso perro" also brought cat food. When the search names one pet (perro, cachorro, gato,
+  gatito…) and/or a product type (pienso, lata, barf, snack, juguete…), this script adds the same
+  filters as the collections (filter.p.tag=perro|gato, filter.p.product_type) and shows a line to
+  see every result instead. "todo=1" in the URL turns it off; "auto=1" marks filters it added.
+
+  @example
+  {% render 'search-pet-scope' %}
+{%- enddoc -%}
+
+{%- if search.performed -%}
+  <p class="search-pet-scope" data-search-pet-scope hidden>
+    <span data-search-pet-scope-text></span>
+    <a href="#" data-search-pet-scope-all>{{ 'pet_cro.search_scope.see_all' | t }}</a>
+  </p>
+  <script>
+    (() => {
+      const box = document.currentScript.previousElementSibling;
+      const url = new URL(window.location.href);
+      const params = url.searchParams;
+      const query = params.get('q') || '';
+      if (!query || params.get('todo') === '1') return;
+      const words = query
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[̀-ͯ]/g, '')
+        .split(/[^a-z0-9ñ]+/)
+        .filter(Boolean);
+      const has = (list) => words.some((w) => list.includes(w));
+      const dog = has(['perro', 'perros', 'cachorro', 'cachorros', 'canino', 'caninos', 'dog', 'dogs', 'puppy']);
+      const cat = has(['gato', 'gatos', 'gatito', 'gatitos', 'felino', 'felinos', 'cat', 'cats', 'kitten']);
+      const types = [
+        ['Pienso', ['pienso', 'piensos', 'croquetas', 'kibble']],
+        ['Comida húmeda', ['lata', 'latas', 'humeda', 'sobre', 'sobres', 'pate']],
+        ['Dieta BARF', ['barf', 'cruda', 'crudo']],
+        ['Snack', ['snack', 'snacks', 'premio', 'premios', 'chuche', 'chuches', 'treat', 'treats']],
+        ['Juguete', ['juguete', 'juguetes', 'toy', 'toys']],
+        ['Suplemento', ['suplemento', 'suplementos', 'vitaminas']],
+      ];
+      const type = (types.find(([, list]) => has(list)) || [])[0];
+
+      const strings = {
+        dog: {{ 'pet_cro.search_scope.dog' | t | json }},
+        cat: {{ 'pet_cro.search_scope.cat' | t | json }},
+        showing: {{ 'pet_cro.search_scope.showing' | t | json }},
+        types: {
+          Pienso: {{ 'pet_cro.categories.kibble' | t | json }},
+          'Comida húmeda': {{ 'pet_cro.categories.wet' | t | json }},
+          'Dieta BARF': {{ 'pet_cro.categories.barf' | t | json }},
+          Snack: {{ 'pet_cro.categories.snacks' | t | json }},
+          Juguete: {{ 'pet_cro.categories.toys' | t | json }},
+          Suplemento: {{ 'pet_cro.categories.supplements' | t | json }},
+        },
+      };
+
+      // Add the filters once (the page reloads with them, marked auto=1).
+      if (params.get('auto') !== '1') {
+        let changed = false;
+        if (dog !== cat && !params.getAll('filter.p.tag').length) {
+          params.append('filter.p.tag', dog ? 'perro' : 'gato');
+          changed = true;
+        }
+        if (type && !params.getAll('filter.p.product_type').length) {
+          params.append('filter.p.product_type', type);
+          changed = true;
+        }
+        if (changed) {
+          params.set('auto', '1');
+          window.location.replace(url.toString());
+        }
+        return;
+      }
+
+      // Filters added by us: say so and offer every result.
+      const pet = params.getAll('filter.p.tag').includes('perro') ? strings.dog : params.getAll('filter.p.tag').includes('gato') ? strings.cat : '';
+      const typeValue = params.get('filter.p.product_type');
+      const label = [strings.types[typeValue] || typeValue, pet].filter(Boolean).join(' · ');
+      if (!label) return;
+      box.querySelector('[data-search-pet-scope-text]').textContent = strings.showing.replace('__WHAT__', label);
+      const all = new URL(url.pathname, window.location.origin);
+      all.searchParams.set('q', query);
+      all.searchParams.set('todo', '1');
+      box.querySelector('[data-search-pet-scope-all]').href = `${all.pathname}${all.search}`;
+      box.hidden = false;
+    })();
+  </script>
+{%- endif -%}

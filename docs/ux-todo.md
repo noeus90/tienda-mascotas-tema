@@ -172,9 +172,14 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
   - **Reglas:** solo productos disponibles; nunca productos de otra etapa; el BARF congelado solo junto a BARF.
   - **Ejemplos:** pienso cachorro → mordedor de dentición, otros piensos y snack hipoalergénico; pienso senior → suplemento de articulaciones; menú BARF → los otros BARF y el pack.
   - Cuando haya ventas, se puede volver a las recomendaciones de Shopify o completar «Productos relacionados» en Search & Discovery.
-- [ ] 🟢 **UX-19 · Búsqueda.** **(yo)**
-  - Problema: «pienso perro» devuelve también piensos de gato.
-  - Propuesta: sinónimos y filtros en Search & Discovery, y mostrar la búsqueda predictiva con precio.
+- [x] 🟢 **UX-19 · Búsqueda.** *(hecho el 23/11/2026)*
+  - **Búsquedas con mascota o tipo:** si nombran una mascota (perro, cachorro, gato, gatito… también en inglés) o un tipo (pienso, lata, sobres, barf, snack, premios, juguete, suplemento), se aplican los mismos filtros que en las colecciones (`snippets/search-pet-scope.liquid`). Ejemplos:
+    - «pienso perro» → solo los 4 piensos de perro (antes 24 resultados con productos de gato);
+    - «latas gatito» → latas y sobres de gato;
+    - «dog treats» → snacks de perro.
+  - **Aviso:** sale «Mostrando: Pienso · perro.» con «Ver todos los resultados», que quita esos filtros. Las búsquedas sin mascota ni tipo («champú») no cambian.
+  - **Búsqueda predictiva** de la cabecera: ahora enseña el precio.
+  - Los sinónimos de Search & Discovery quedan para más adelante; requieren la app.
 
 ## 🟠 Ficha de producto
 

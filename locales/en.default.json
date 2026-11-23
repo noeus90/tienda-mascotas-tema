@@ -1030,6 +1030,12 @@
     },
     "favorites": {
       "title": "Our favourites"
+    },
+    "search_scope": {
+      "dog": "dog",
+      "cat": "cat",
+      "showing": "Showing: __WHAT__.",
+      "see_all": "See all results"
     }
   }
 }

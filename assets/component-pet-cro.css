@@ -1356,3 +1356,21 @@
     width: 100%;
   }
 }
+
+/* UX-19: search narrowed to a pet / type (snippets/search-pet-scope.liquid) */
+.search-pet-scope {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.2rem;
+  margin: 1.2rem 0 0;
+  font-size: 1.4rem;
+}
+
+.search-pet-scope[hidden] {
+  display: none;
+}
+
+.search-pet-scope a {
+  font-weight: 600;
+  color: #047857;
+}
