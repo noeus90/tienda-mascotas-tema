@@ -127,7 +127,7 @@ Cada fase deja algo que funciona.
 
 - [x] 🟢 **Tarjeta regalo de peluquería y tienda** (hecho el 23/11/2026). Producto de tarjeta regalo de 25, 50, 75 y 100 € con imagen propia; sección «Regala peluquería canina» en la portada, debajo del banner; ficha con «Cómo funciona» en lugar del stock y la barra de envío; envío al destinatario con el formulario de Dawn; enlace «¿Es un regalo?» en la reserva. En la app de reservas, la ficha de la cita tiene «Pago en el salón»: comprobar el saldo y cobrar con el código de la tarjeta (solo se guardan las últimas 4 cifras). Probado con una tarjeta de prueba de 50 € (código `pruebaregalo2026`): cobro de 20 €, saldo 30 € en Shopify, y aviso si se intenta cobrar más del saldo.
   - [x] compra de prueba (23/11/2026, pedidos #1003 y #1004 con envío al destinatario). Las tarjetas no se emitían porque *Configuración → General → Procesamiento de pedidos* estaba en «No preparar automáticamente»: cambiado a «Preparar automáticamente solo las tarjetas de regalo del pedido» y los dos pedidos marcados como preparados a mano. Emitidas ···hg44 y ···5a5g (25 € cada una).
-  - [ ] confirmar que han llegado los correos a los destinatarios y revisar la página de la tarjeta.
+  - [x] los correos han llegado a los dos destinatarios (confirmado por el usuario el 23/11/2026).
   - [ ] desactivar la tarjeta de prueba `···2026` cuando ya no haga falta (*Productos → Tarjetas de regalo*).
 
 ## 2. Rendimiento
