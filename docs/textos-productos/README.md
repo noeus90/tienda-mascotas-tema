@@ -115,7 +115,7 @@ Una vez abierta, guárdala tapada en la nevera y gástala en 2 o 3 días. La rac
 
 *Buscadores:* Comida húmeda monoproteína de cordero para perro, lata de 400 g. Envío gratis desde 50 € a la península.
 
-## Lata para gatos de conejo
+## Lata conejo gato
 
 Comida húmeda con conejo para gatos.
 
@@ -270,7 +270,7 @@ Sigue la dosis del envase. Si tu mascota toma medicación o tiene algún problem
 
 *Buscadores:* Aceite de salmón para perros y gatos, botella de 250 ml. Envío gratis desde 50 € a la península.
 
-## malta
+## Malta para gatos
 
 Malta para gatos, para ayudar a expulsar las bolas de pelo.
 
@@ -347,7 +347,7 @@ Cepilla a favor del pelo y sin apretar. En épocas de muda, 2 o 3 veces por sema
 
 *Buscadores:* Cepillo deslanador para quitar el pelo muerto de perros y gatos. Envío gratis desde 50 € a la península.
 
-## cortauñas
+## Cortauñas gato
 
 Cortauñas para gato.
 
@@ -357,7 +357,7 @@ Corta solo la punta transparente de la uña, sin llegar a la parte rosada. Si no
 
 *Buscadores:* Cortauñas para gato. Si no te atreves, te cortamos las uñas en nuestra peluquería. Envío gratis desde 50 €.
 
-## Pelota mordedor perro
+## Pelota mordedora perro
 
 Pelota mordedora para perro, para lanzar y morder.
 
@@ -388,7 +388,7 @@ Vigílale mientras juega y retira el juguete si se rompe o se desgasta.
 
 *Buscadores:* Mordedor de caucho blando para cachorros en dentición. Envío gratis desde 50 € a la península.
 
-## juguete ratón
+## Ratón de juguete gato
 
 Juguete en forma de ratón para gato.
 
@@ -426,7 +426,7 @@ Túnel de tela plegable para que el gato juegue y se esconda.
 
 *Buscadores:* Túnel de tela plegable para que tu gato juegue y se esconda. Envío gratis desde 50 € a la península.
 
-## Correa nylon
+## Correa de nylon perro
 
 Correa de nylon para pasear al perro.
 
@@ -435,7 +435,7 @@ Correa de nylon para pasear al perro.
 
 *Buscadores:* Correa de nylon de 1,2 m para pasear a tu perro. Envío gratis desde 50 € a la península.
 
-## cama con pelo
+## Cama de pelo perro
 
 Cama de pelo para que tu perro descanse.
 
@@ -446,7 +446,7 @@ Elige una talla en la que pueda estirarse del todo.
 
 *Buscadores:* Cama de pelo para perro en talla pequeña, mediana o grande. Envío gratis desde 50 € a la península.
 
-## Arbol
+## Árbol rascador gato
 
 Árbol rascador para que el gato trepe, rasque y descanse.
 

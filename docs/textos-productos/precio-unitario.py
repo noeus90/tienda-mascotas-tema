@@ -7,11 +7,11 @@ import json, subprocess
 STORE = "brudabrey.myshopify.com"
 # handle -> {variant title (or "*" for the only variant): (quantity, unit)}; reference 1 KG or 1 L.
 NET = {
-    "pienso-pollo-cachorro": {"3kg": (3, "KG"), "12kg": (12, "KG")},
+    "pienso-pollo-cachorro": {"3 kg": (3, "KG"), "12 kg": (12, "KG")},
     "pienso-gato-estirilizado": {"*": (1.5, "KG")},
-    "pienso-hipoalergenico-salmon-perro": {"3kg": (3, "KG"), "12kg": (12, "KG")},
-    "pienso-senior-pollo-arroz-perro": {"3kg": (3, "KG"), "12kg": (12, "KG")},
-    "pienso-gatito-pollo": {"1,5kg": (1.5, "KG"), "4kg": (4, "KG")},
+    "pienso-hipoalergenico-salmon-perro": {"3 kg": (3, "KG"), "12 kg": (12, "KG")},
+    "pienso-senior-pollo-arroz-perro": {"3 kg": (3, "KG"), "12 kg": (12, "KG")},
+    "pienso-gatito-pollo": {"1,5 kg": (1.5, "KG"), "4 kg": (4, "KG")},
     "lata-pate-perro-adulto": {"*": (400, "G")},
     "lata-cordero-monoproteina-perro": {"*": (400, "G")},
     "sobres-gatito-pollo-salsa": {"*": (1020, "G")},

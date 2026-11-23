@@ -149,11 +149,19 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
   - **Precio por kg / por litro** con el precio unitario de Shopify (obligatorio en la UE para comida vendida a peso). Lo pinta Dawn bajo el precio en tarjetas y ficha, y cambia con la variante: pienso cachorro 8,30 €/kg en 3 kg y 5,83 €/kg en 12 kg.
     - Guardado en 17 productos con su **contenido neto**, no el peso de envío (que incluye el envase): [`textos-productos/precio-unitario.py`](textos-productos/precio-unitario.py).
   - **Pendiente:** sin contenido neto conocido no se muestra en snack dental, oreja de cerdo, malta, lata de conejo, pienso light, pienso digestión sensible, pienso bolas de pelo, suplementos en comprimidos o sobres. Completarlo con el envase real en el script o en el admin (variante → «Precio por unidad»).
-- [ ] 🟠 **UX-17 · Nombres de producto.** **(yo, con tu visto bueno)**
-  - Problemas:
-    - Mayúsculas y nombres poco claros: «Arbol» (sin tilde y sin decir que es rascador), «cama con pelo», «cortauñas», «juguete ratón», «malta».
-    - Tallas sin espacio: «3kg».
-  - Propuesta: nombres claros y homogéneos («Árbol rascador para gato», «3 kg»).
+- [x] 🟠 **UX-17 · Nombres de producto.** *(hecho el 23/11/2026)*
+  - **Títulos corregidos:**
+    - Arbol → Árbol rascador gato;
+    - cama con pelo → Cama de pelo perro;
+    - cortauñas → Cortauñas gato;
+    - juguete ratón → Ratón de juguete gato;
+    - malta → Malta para gatos;
+    - Correa nylon → Correa de nylon perro;
+    - Lata para gatos de conejo → Lata conejo gato;
+    - Pelota mordedor perro → Pelota mordedora perro.
+  - **Tallas:** 3kg/12kg → 3 kg/12 kg, 1,5kg/1.5kg → 1,5 kg, 4kg → 4 kg, 400 gramos → 400 g, pequeño/mediano/grande → Pequeña/Mediana/Grande. Nombres de opción unificados («Tamaño del saco de pienso», «Tamaño»).
+  - Se mantiene el patrón «producto + mascota» del resto (y de las ilustraciones). Los handles no cambian, así que no se rompe ningún enlace.
+  - Script: [`textos-productos/nombres.py`](textos-productos/nombres.py). `precio-unitario.py` usa ya las tallas nuevas.
 - [ ] 🟠 **UX-18 · «También te puede gustar».** **(yo)**
   - Problema: en un pienso de cachorro recomienda BARF congelado.
   - Propuesta: recomendar por mascota y tipo (otros piensos y snacks de perro), o configurar los productos complementarios en Search & Discovery.
