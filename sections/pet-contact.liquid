@@ -1,0 +1,162 @@
+{% comment %}
+  Contact page (UX-07): title, the salon details (store address with a "how to get there" link,
+  and the phone, hours, WhatsApp and public email when filled in), a booking shortcut and the
+  frequently asked questions. The contact form section goes right after it (#escribenos).
+  Amounts and days come from the theme settings, so the answers stay true when they change.
+  Texts in the locale files (pet_cro.contact.*), so the English page is translated too.
+{% endcomment %}
+
+{{ 'section-pet-contact.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .pet-contact-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .pet-contact-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign booking_url = pages['bookings'].url | default: '/pages/bookings'
+  assign free_amount = settings.free_shipping_threshold | default: 50 | times: 100 | money_without_trailing_zeros
+  assign frozen_amount = settings.frozen_free_threshold | default: 60 | times: 100 | money_without_trailing_zeros
+  assign min_days = settings.delivery_days_min | default: 3
+  assign max_days = settings.delivery_days_max | default: 5
+  assign days = min_days | append: '-' | append: max_days
+  assign phone = shop.phone | strip
+  assign phone_link = phone | remove: ' ' | remove: '-'
+  assign whatsapp = settings.salon_whatsapp | remove: ' ' | remove: '+' | remove: '-'
+  assign address = shop.address.address1
+  if shop.address.zip != blank or shop.address.city != blank
+    assign address = address | append: ', ' | append: shop.address.zip | append: ' ' | append: shop.address.city
+  endif
+  assign maps_query = address | append: ' ' | append: shop.address.country | url_encode
+-%}
+
+<div class="pet-contact pet-contact-{{ section.id }} color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width page-width--narrow">
+    <h1 class="pet-contact__title h1">{{ 'pet_cro.contact.title' | t }}</h1>
+    <p class="pet-contact__intro">{{ 'pet_cro.contact.intro' | t }}</p>
+
+    <ul class="pet-contact__cards" role="list">
+      {%- if shop.address.address1 != blank -%}
+        <li class="pet-contact__card">
+          <span class="pet-contact__icon" aria-hidden="true">📍</span>
+          <h2 class="pet-contact__card-title">{{ 'pet_cro.contact.visit' | t }}</h2>
+          <p>{{ address }}</p>
+          <a href="https://www.google.com/maps/search/?api=1&query={{ maps_query }}" target="_blank" rel="noopener">
+            {{- 'pet_cro.contact.directions' | t -}}
+          </a>
+        </li>
+      {%- endif -%}
+      {%- if settings.salon_hours != blank -%}
+        <li class="pet-contact__card">
+          <span class="pet-contact__icon" aria-hidden="true">🕒</span>
+          <h2 class="pet-contact__card-title">{{ 'pet_cro.contact.hours' | t }}</h2>
+          <p>{{ settings.salon_hours | newline_to_br }}</p>
+        </li>
+      {%- endif -%}
+      {%- if phone != blank or whatsapp != blank -%}
+        <li class="pet-contact__card">
+          <span class="pet-contact__icon" aria-hidden="true">📞</span>
+          <h2 class="pet-contact__card-title">{{ 'pet_cro.contact.call' | t }}</h2>
+          {%- if phone != blank -%}
+            <p><a href="tel:{{ phone_link }}">{{ phone }}</a></p>
+          {%- endif -%}
+          {%- if whatsapp != blank -%}
+            <a href="https://wa.me/{{ whatsapp }}" target="_blank" rel="noopener">{{ 'pet_cro.footer_cols.whatsapp' | t }}</a>
+          {%- endif -%}
+        </li>
+      {%- endif -%}
+      <li class="pet-contact__card">
+        <span class="pet-contact__icon" aria-hidden="true">✉️</span>
+        <h2 class="pet-contact__card-title">{{ 'pet_cro.contact.write' | t }}</h2>
+        {%- if settings.salon_email != blank -%}
+          <p><a href="mailto:{{ settings.salon_email | strip }}">{{ settings.salon_email | strip }}</a></p>
+        {%- endif -%}
+        <a href="#escribenos">{{ 'pet_cro.contact.form_link' | t }}</a>
+      </li>
+    </ul>
+
+    <div class="pet-contact__booking">
+      <p>✂️ {{ 'pet_cro.contact.booking_text' | t }}</p>
+      <a class="button button--primary" href="{{ booking_url }}">{{ 'pet_cro.contact.booking_button' | t }}</a>
+    </div>
+
+    <h2 class="pet-contact__faq-title h2">{{ 'pet_cro.contact.faq_title' | t }}</h2>
+    <div class="pet-contact__faq">
+      <details>
+        <summary>{{ 'pet_cro.contact.q_shipping' | t }}</summary>
+        <p>{{ 'pet_cro.contact.a_shipping' | t: days: days, amount: free_amount, frozen_amount: frozen_amount }}</p>
+      </details>
+      <details>
+        <summary>{{ 'pet_cro.contact.q_islands' | t }}</summary>
+        <p>{{ 'pet_cro.contact.a_islands' | t }}</p>
+      </details>
+      <details>
+        <summary>{{ 'pet_cro.contact.q_returns' | t }}</summary>
+        <p>{{ 'pet_cro.contact.a_returns' | t }}</p>
+      </details>
+      <details>
+        <summary>{{ 'pet_cro.contact.q_booking' | t }}</summary>
+        <p>{{ 'pet_cro.contact.a_booking' | t }}</p>
+      </details>
+      <details>
+        <summary>{{ 'pet_cro.contact.q_change' | t }}</summary>
+        <p>{{ 'pet_cro.contact.a_change' | t }}</p>
+      </details>
+      <details>
+        <summary>{{ 'pet_cro.contact.q_loyalty' | t }}</summary>
+        <p>{{ 'pet_cro.contact.a_loyalty' | t }}</p>
+      </details>
+    </div>
+
+    <h2 id="escribenos" class="pet-contact__form-title h2">{{ 'pet_cro.contact.form_title' | t }}</h2>
+    <p class="pet-contact__form-intro">{{ 'pet_cro.contact.form_intro' | t }}</p>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.pet_contact.name",
+  "tag": "section",
+  "class": "section-pet-contact",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.pet_contact.settings.paragraph.content"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.pet_contact.settings.padding_top.label",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.pet_contact.settings.padding_bottom.label",
+      "default": 0
+    }
+  ]
+}
+{% endschema %}

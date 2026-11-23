@@ -3641,6 +3641,20 @@
           "label": "Bottom padding"
         }
       }
+    },
+    "pet_contact": {
+      "name": "Contact: details and FAQ",
+      "settings": {
+        "paragraph": {
+          "content": "Title, salon details (from Store details and Theme settings → Datos del salón), booking shortcut and FAQ. The form goes in the next section."
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
+        }
+      }
     }
   }
 }

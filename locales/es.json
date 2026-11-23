@@ -985,6 +985,33 @@
       "help": "Ayuda",
       "contact": "Contacto",
       "account": "Mi cuenta"
+    },
+    "contact": {
+      "title": "Contacto",
+      "intro": "¿Tienes dudas con un pedido, un producto o una cita de peluquería? Aquí tienes cómo encontrarnos y las respuestas a lo que más nos preguntan.",
+      "visit": "Visítanos",
+      "directions": "Cómo llegar",
+      "hours": "Horario",
+      "call": "Llámanos",
+      "write": "Escríbenos",
+      "form_link": "Ir al formulario",
+      "booking_text": "¿Quieres reservar cita en la peluquería? Elige servicio, día y hora en un par de minutos.",
+      "booking_button": "Reservar cita",
+      "faq_title": "Preguntas frecuentes",
+      "q_shipping": "¿Cuánto tarda el envío y cuánto cuesta?",
+      "a_shipping": "A la península llega en {{ days }} días laborables, y el envío es gratis a partir de {{ amount }}. El BARF congelado viaja aparte, refrigerado en caja isotérmica, llega en 24 h desde que sale y su envío es gratis a partir de {{ frozen_amount }}.",
+      "q_islands": "¿Enviáis a Baleares, Canarias, Ceuta o Melilla?",
+      "a_islands": "De momento solo enviamos a la península. Si vives en las islas, Ceuta o Melilla, escríbenos y te avisaremos cuando podamos llegar.",
+      "q_returns": "¿Puedo devolver un producto?",
+      "a_returns": "Sí: tienes 14 días desde que lo recibes para devolver los productos sin abrir. Los congelados no se pueden devolver. Escríbenos desde el formulario con tu número de pedido y te explicamos cómo hacerlo.",
+      "q_booking": "¿Cómo reservo cita en la peluquería y cuánto cuesta?",
+      "a_booking": "Desde «Reservar cita»: eliges el servicio, el tamaño de tu perro, el día y la hora, y antes de confirmar ves el precio estimado. Te llega un email de confirmación y un recordatorio el día antes.",
+      "q_change": "¿Puedo cambiar o cancelar mi cita?",
+      "a_change": "Sí. Avísanos cuanto antes respondiendo al email de confirmación o desde el formulario de esta página, y así liberamos la hora para otro peludo.",
+      "q_loyalty": "¿Tenéis tarjeta de fidelidad?",
+      "a_loyalty": "Sí: cada visita a la peluquería suma un sello y cada 10 visitas tu perro tiene un baño de regalo. Lo ves en tu cuenta, en «Mis perros».",
+      "form_title": "Escríbenos",
+      "form_intro": "Te respondemos por email lo antes posible."
     }
   }
 }

@@ -76,11 +76,15 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - horario, WhatsApp y email público en *Configuración del tema → Datos del salón*;
     - publicar las políticas de envíos, devoluciones, términos y aviso legal en *Configuración → Políticas* (aparecerán solas en «Ayuda»).
   - **Ojo:** la sección de reserva tiene un WhatsApp de ejemplo (+34 612 345 678) en sus ajustes; hay que poner el real o quitarlo.
-- [ ] 🔴 **UX-07 · Página de contacto.** **(juntos)**
-  - Problemas:
-    - El título sale en inglés («Contact»).
-    - Solo hay un formulario.
-  - Propuesta: dirección, horario, mapa, teléfono o WhatsApp, botón de reservar cita y 4-5 preguntas frecuentes (envíos, devoluciones, qué incluye el baño, cancelar una cita).
+- [x] 🔴 **UX-07 · Página de contacto.** *(hecho el 23/11/2026)*
+  - Nueva sección `pet-contact` en la plantilla de contacto:
+    - título «Contacto» en español (también en la pestaña del navegador) y «Contact» en inglés;
+    - tarjetas del salón: dirección con «Cómo llegar» (Google Maps), horario, teléfono, WhatsApp y email público cuando estén rellenos;
+    - acceso a «Reservar cita»;
+    - 6 preguntas frecuentes: envío y plazos, islas, devoluciones, cómo reservar, cambiar o cancelar cita, tarjeta de fidelidad;
+    - el formulario debajo, con el ancla `#escribenos`.
+  - Las respuestas toman importes y días de los ajustes del tema, así que no se desfasan. Solo dicen lo que es cierto: por ejemplo, cancelar una cita se pide respondiendo al email, porque no hay botón para cancelar.
+  - Faltan los mismos datos que en UX-06: teléfono, horario y WhatsApp.
 
 ## 🔴 Compra
 

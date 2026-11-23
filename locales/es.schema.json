@@ -3641,6 +3641,20 @@
           "label": "Espaciado inferior"
         }
       }
+    },
+    "pet_contact": {
+      "name": "Contacto: datos y preguntas",
+      "settings": {
+        "paragraph": {
+          "content": "Título, datos del salón (de Detalles de la tienda y de Configuración del tema → Datos del salón), acceso a reservar y preguntas frecuentes. El formulario va en la sección siguiente."
+        },
+        "padding_top": {
+          "label": "Espaciado superior"
+        },
+        "padding_bottom": {
+          "label": "Espaciado inferior"
+        }
+      }
     }
   }
 }

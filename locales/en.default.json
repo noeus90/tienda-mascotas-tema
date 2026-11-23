@@ -985,6 +985,33 @@
       "help": "Help",
       "contact": "Contact",
       "account": "My account"
+    },
+    "contact": {
+      "title": "Contact",
+      "intro": "Questions about an order, a product or a grooming appointment? Here is how to find us and the answers to what we are asked most.",
+      "visit": "Visit us",
+      "directions": "Get directions",
+      "hours": "Opening hours",
+      "call": "Call us",
+      "write": "Write to us",
+      "form_link": "Go to the form",
+      "booking_text": "Want to book a grooming appointment? Pick the service, day and time in a couple of minutes.",
+      "booking_button": "Book an appointment",
+      "faq_title": "Frequently asked questions",
+      "q_shipping": "How long does shipping take and how much is it?",
+      "a_shipping": "To mainland Spain it takes {{ days }} business days, and shipping is free over {{ amount }}. Frozen BARF travels separately, chilled in an insulated box, arrives within 24 h of dispatch and ships free over {{ frozen_amount }}.",
+      "q_islands": "Do you ship to the Balearic or Canary Islands, Ceuta or Melilla?",
+      "a_islands": "For now we only ship to mainland Spain. If you live on the islands, in Ceuta or Melilla, write to us and we will let you know when we can reach you.",
+      "q_returns": "Can I return a product?",
+      "a_returns": "Yes: you have 14 days from delivery to return unopened products. Frozen products cannot be returned. Write to us from the form with your order number and we will tell you how.",
+      "q_booking": "How do I book grooming and how much is it?",
+      "a_booking": "From “Book an appointment”: choose the service, your dog's size, the day and time, and see the estimated price before confirming. You get an email confirmation and a reminder the day before.",
+      "q_change": "Can I change or cancel my appointment?",
+      "a_change": "Yes. Let us know as soon as possible by replying to the confirmation email or from the form on this page, so we can free the slot for another dog.",
+      "q_loyalty": "Do you have a loyalty card?",
+      "a_loyalty": "Yes: every grooming visit earns a stamp, and every 10 visits your dog gets a free bath. See it in your account, under “My dogs”.",
+      "form_title": "Write to us",
+      "form_intro": "We will reply by email as soon as we can."
     }
   }
 }
