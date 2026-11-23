@@ -176,10 +176,15 @@
         "products_to_show": 4,
         "columns_desktop": 4
       }
+    },
+    "gift_card_promo": {
+      "type": "gift-card-promo",
+      "settings": {}
     }
   },
   "order": [
     "image_banner",
+    "gift_card_promo",
     "pet_trust_badges",
     "pet_grooming_steps",
     "pet_packs",

@@ -849,6 +849,17 @@
       "product_html": "We only ship to <strong>mainland Spain</strong> (not to the Balearic or Canary Islands, Ceuta or Melilla).",
       "cart_html": "📍 We only ship to mainland Spain: no deliveries to the Balearic or Canary Islands, Ceuta or Melilla.",
       "blocked": "We can't add it: we only ship to mainland Spain and your cart has an address in the Balearic or Canary Islands, Ceuta or Melilla. If you live on the mainland, change the address at checkout."
+    },
+    "gift_card": {
+      "how_title": "How it works",
+      "step_1_html": "<strong>Choose the amount</strong> and, if it's a gift, add the recipient's email, your message and the delivery date.",
+      "step_2_html": "<strong>They get it by email</strong>: a card with their code, right away or on the day you choose.",
+      "step_3_html": "<strong>They use it when booking</strong> grooming or shopping in the store. It never expires and can be spent over several visits.",
+      "promo_kicker": "A gift for furry friends",
+      "promo_heading": "Give dog grooming",
+      "promo_text": "A bath, a cut or a spa day for their best friend. Delivered by email on the day you choose, and valid in the store too.",
+      "promo_button": "Give a gift card",
+      "booking_link": "Is it a gift? Give a grooming gift card"
     }
   }
 }

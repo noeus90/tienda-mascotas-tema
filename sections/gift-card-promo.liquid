@@ -1,0 +1,154 @@
+{%- comment -%}
+  Gift card promo: image of the card, short text and a button to the gift card product.
+  Texts left blank in the editor use the theme translations (pet_cro.gift_card.*), so they follow
+  the page language. The product is the setting "Tarjeta regalo"; without it, the first gift card
+  product of the catalogue is used.
+{%- endcomment -%}
+{{ 'section-gift-card-promo.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign gift_product = section.settings.product
+  if gift_product == blank
+    for p in collections.all.products
+      if p.gift_card?
+        assign gift_product = p
+        break
+      endif
+    endfor
+  endif
+  assign kicker = 'pet_cro.gift_card.promo_kicker' | t
+  if section.settings.kicker != blank
+    assign kicker = section.settings.kicker
+  endif
+  assign heading = 'pet_cro.gift_card.promo_heading' | t
+  if section.settings.heading != blank
+    assign heading = section.settings.heading
+  endif
+  assign text = 'pet_cro.gift_card.promo_text' | t
+  if section.settings.text != blank
+    assign text = section.settings.text
+  endif
+  assign button = 'pet_cro.gift_card.promo_button' | t
+  if section.settings.button_label != blank
+    assign button = section.settings.button_label
+  endif
+-%}
+
+{%- if gift_product != blank -%}
+  <div class="gift-card-promo section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+    <div class="page-width">
+      <div class="gift-card-promo__inner">
+        <a class="gift-card-promo__media" href="{{ gift_product.url }}" tabindex="-1" aria-hidden="true">
+          {%- if section.settings.image != blank -%}
+            {{ section.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 750px) 45vw, 90vw', alt: '' }}
+          {%- elsif gift_product.featured_image -%}
+            {{ gift_product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 750px) 45vw, 90vw', alt: '' }}
+          {%- else -%}
+            <img src="{{ 'tarjeta-regalo.jpg' | asset_url }}" alt="" width="1600" height="1600" loading="lazy">
+          {%- endif -%}
+        </a>
+        <div class="gift-card-promo__content">
+          <p class="gift-card-promo__kicker">{{ kicker | escape }}</p>
+          <h2 class="gift-card-promo__heading h2">{{ heading | escape }}</h2>
+          <p class="gift-card-promo__text">{{ text | escape }}</p>
+          <p class="gift-card-promo__amounts">
+            {%- for variant in gift_product.variants -%}
+              <span class="gift-card-promo__amount">{{ variant.price | money_without_trailing_zeros }}</span>
+            {%- endfor -%}
+          </p>
+          <a class="button gift-card-promo__button" href="{{ gift_product.url }}">🎁 {{ button | escape }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Tarjeta regalo",
+  "tag": "section",
+  "class": "section-gift-card-promo",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Tarjeta regalo",
+      "info": "Producto de tarjeta regalo al que lleva el botón. Si lo dejas vacío, se usa la primera tarjeta regalo de la tienda."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen",
+      "info": "Si no eliges ninguna, se usa la imagen de la tarjeta regalo."
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Antetítulo",
+      "info": "Vacío: «Regalo para peludos» (y su traducción)."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "info": "Vacío: «Regala peluquería canina» (y su traducción)."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Texto",
+      "info": "Vacío: el texto por defecto, traducido."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto del botón",
+      "info": "Vacío: «Regalar una tarjeta» (y su traducción)."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Esquema de color",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margen superior",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margen inferior",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tarjeta regalo"
+    }
+  ]
+}
+{% endschema %}

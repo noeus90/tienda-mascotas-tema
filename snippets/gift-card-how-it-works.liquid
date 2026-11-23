@@ -1,0 +1,18 @@
+{%- doc -%}
+  "How it works" steps on the gift card product page (replaces the stock and delivery widget,
+  which make no sense for a gift card).
+
+  @example
+  {% render 'gift-card-how-it-works' %}
+{%- enddoc -%}
+
+{{ 'section-gift-card-promo.css' | asset_url | stylesheet_tag }}
+
+<div class="gift-card-how">
+  <p class="gift-card-how__title">🎁 {{ 'pet_cro.gift_card.how_title' | t }}</p>
+  <ol class="gift-card-how__steps">
+    <li>{{ 'pet_cro.gift_card.step_1_html' | t }}</li>
+    <li>{{ 'pet_cro.gift_card.step_2_html' | t }}</li>
+    <li>{{ 'pet_cro.gift_card.step_3_html' | t }}</li>
+  </ol>
+</div>

@@ -251,6 +251,14 @@
           {{ section.settings.subheading }}
         </p>
       {%- endif -%}
+      {%- comment -%} Link to the first gift card product of the catalogue, if there is one. {%- endcomment -%}
+      {%- for p in collections.all.products -%}
+        {%- if p.gift_card? -%}
+          {{ 'section-gift-card-promo.css' | asset_url | stylesheet_tag }}
+          <a class="booking-gift-link" href="{{ p.url }}">🎁 {{ 'pet_cro.gift_card.booking_link' | t }} →</a>
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
     </header>
 
 {% render 'grooming-booking-stepper' %}

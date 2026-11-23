@@ -115,7 +115,11 @@
                       price_class: 'price--large'
                     -%}
                     {% render 'savings-badge', product: product %}
-                    {% render 'stock-urgency-widget', product: product %}
+                    {%- if product.gift_card? -%}
+                      {% render 'gift-card-how-it-works' %}
+                    {%- else -%}
+                      {% render 'stock-urgency-widget', product: product %}
+                    {%- endif -%}
                   </div>
                   {%- if product.quantity_price_breaks_configured? -%}
                     <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
@@ -501,7 +505,7 @@
                 {%- when 'buy_buttons' -%}
                   {%- comment -%} Frozen products have their own chilled shipping notice and threshold. {%- endcomment -%}
                   {%- assign frozen_tag = settings.frozen_tag | default: 'congelado' | strip -%}
-                  {%- unless product.tags contains frozen_tag -%}
+                  {%- unless product.tags contains frozen_tag or product.gift_card? -%}
                     {% render 'free-shipping-bar' %}
                   {%- endunless -%}
                   {% render 'subscription-selector', product: product, product_form_id: product_form_id %}
@@ -512,7 +516,9 @@
                     section_id: section.id,
                     show_pickup_availability: true
                   -%}
-                  {% render 'pet-product-trust', product: product %}
+                  {%- unless product.gift_card? -%}
+                    {% render 'pet-product-trust', product: product %}
+                  {%- endunless -%}
                 {%- when 'rating' -%}
                   {%- if product.metafields.reviews.rating.value != blank -%}
                     <div class="rating-wrapper">
@@ -552,7 +558,9 @@
                     </div>
                   {%- endif -%}
                 {%- when 'bought_together' -%}
-                  {% render 'pet-bought-together', block: block, product: product, section: section, recommendations: recommendations %}
+                  {%- unless product.gift_card? -%}
+                    {% render 'pet-bought-together', block: block, product: product, section: section, recommendations: recommendations %}
+                  {%- endunless -%}
                 {%- when 'complementary' -%}
                   <product-recommendations
                     class="complementary-products quick-add-hidden{% if block.settings.make_collapsible_row %} is-accordion{% endif %}{% if block.settings.enable_quick_add %} complementary-products-contains-quick-add{% endif %}"

@@ -861,6 +861,17 @@
       "product_html": "Enviamos solo a la <strong>península</strong> (no a Baleares, Canarias, Ceuta ni Melilla).",
       "cart_html": "📍 Enviamos solo a la península: no hacemos envíos a Baleares, Canarias, Ceuta ni Melilla.",
       "blocked": "No podemos añadirlo: solo enviamos a la península y tu carrito tiene una dirección de Baleares, Canarias, Ceuta o Melilla. Si vives en la península, cambia la dirección en el pago."
+    },
+    "gift_card": {
+      "how_title": "Cómo funciona",
+      "step_1_html": "<strong>Elige el importe</strong> y, si es un regalo, escribe el email de quien la recibe, tu mensaje y el día de envío.",
+      "step_2_html": "<strong>Le llega por email</strong> una tarjeta con su código, en el momento o el día que elijas.",
+      "step_3_html": "<strong>La usa al reservar</strong> en la peluquería o al comprar en la tienda. No caduca y puede gastarla en varias veces.",
+      "promo_kicker": "Regalo para peludos",
+      "promo_heading": "Regala peluquería canina",
+      "promo_text": "Un baño, un corte o un spa para su mejor amigo. Llega por email el día que elijas y sirve también en la tienda.",
+      "promo_button": "Regalar una tarjeta",
+      "booking_link": "¿Es un regalo? Regala una tarjeta de peluquería"
     }
   }
 }
