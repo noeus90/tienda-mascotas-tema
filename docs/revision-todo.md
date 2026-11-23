@@ -141,6 +141,7 @@ Cada fase deja algo que funciona.
   - [ ] cuando haya productos reales, rellenar `custom.kcal_kg` de cada pienso (viene en el envase) para que la ración sea exacta.
 
 - [x] 🟢 **Lista de espera para días completos** (hecho el 23/11/2026). En el calendario de la reserva los días completos se pueden pulsar: sale «¿Te avisamos si se libera una hora?» con turno (cualquiera, mañana o tarde), nombre, email y teléfono. La app guarda la lista (página «Lista de espera» del admin, con «Quitar») y, cuando se cancela o se borra una cita de ese día o se libera por no pagar la señal, avisa por email a todos los apuntados de ese turno con un enlace a la reserva en ese día y hora; se lo queda quien reserve antes. Máximo 3 días por email. Probado con una cita de prueba el 18/12: apuntarse, aparecer en el admin, cancelar («Avisada 1 persona de la lista de espera»), correo enviado y enlace que abre la reserva el 18/12 a las 10:00.
+- [x] 🟢 **Tarjeta de fidelidad** (hecho el 23/11/2026, app peluqueria-reservas). Cada visita de peluquería completada es un sello; cada 10 visitas el perro gana un premio (por defecto «un baño gratis», hasta 30 €). Se configura en Ajustes de la app (activar, nº de visitas, valor máximo, texto del premio). El premio se canjea desde la ficha de la cita en el admin (solo citas pendientes o confirmadas) y descuenta el importe; la visita premiada no suma sello. El cliente ve sus sellos en «Mi cuenta → Mis perros» y en el correo de cita completada. Activada a 10 visitas; decidir si se deja activa hasta abrir la tienda.
 
 ## 2. Rendimiento
 
