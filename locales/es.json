@@ -890,6 +890,18 @@
       "result_html": "Unos <strong>{{ grams }} g al día</strong> ({{ meal }}).",
       "bag_html": "Este saco de {{ kilos }} kg le dura unos <strong>{{ days }} días</strong>.",
       "note": "Orientativo: ajústalo según su condición física y lo que indique el envase o tu veterinario."
+    },
+    "back_in_stock": {
+      "title": "¿Lo quieres? Te avisamos cuando vuelva",
+      "text": "Esta opción está agotada ahora mismo. Déjanos tu email y te escribimos en cuanto vuelva a estar disponible.",
+      "email": "Tu email",
+      "button": "Avísame",
+      "note": "Solo te enviaremos un email, cuando vuelva. Nada de publicidad.",
+      "done": "¡Hecho! Te escribiremos en cuanto vuelva a estar disponible.",
+      "error": "No hemos podido guardar el aviso. Inténtalo de nuevo en un momento.",
+      "error_email": "Escribe un email válido.",
+      "error_many": "Ya tienes muchos avisos pendientes con este email.",
+      "available": "¡Buenas noticias! Ya vuelve a estar disponible: recarga la página para comprarlo."
     }
   }
 }

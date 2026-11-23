@@ -878,6 +878,18 @@
       "result_html": "About <strong>{{ grams }} g a day</strong> ({{ meal }}).",
       "bag_html": "This {{ kilos }} kg bag lasts about <strong>{{ days }} days</strong>.",
       "note": "A guide only: adjust it to their body condition and to the bag or your vet's advice."
+    },
+    "back_in_stock": {
+      "title": "Want it? We'll tell you when it's back",
+      "text": "This option is sold out right now. Leave your email and we'll write as soon as it's available again.",
+      "email": "Your email",
+      "button": "Notify me",
+      "note": "We'll only send one email, when it's back. No marketing.",
+      "done": "Done! We'll email you as soon as it's available again.",
+      "error": "We couldn't save your request. Please try again in a moment.",
+      "error_email": "Please enter a valid email.",
+      "error_many": "You already have many pending requests with this email.",
+      "available": "Good news! It's available again: reload the page to buy it."
     }
   }
 }

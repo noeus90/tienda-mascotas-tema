@@ -516,6 +516,7 @@
                     section_id: section.id,
                     show_pickup_availability: true
                   -%}
+                  {% render 'back-in-stock', product: product %}
                   {% render 'ration-calculator', product: product %}
                   {%- unless product.gift_card? -%}
                     {% render 'pet-product-trust', product: product %}

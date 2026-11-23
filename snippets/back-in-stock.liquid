@@ -1,0 +1,143 @@
+{%- doc -%}
+  "Email me when it is back" box under the buy buttons. Shown while the selected variant cannot be
+  bought (it follows the variant picker). The email goes to the booking app
+  (/apps/reservas/avisame), which emails once when that variant is available again.
+  Not shown on gift cards or when every variant is available.
+
+  @param {product} product - The product of the page.
+
+  @example
+  {% render 'back-in-stock', product: product %}
+{%- enddoc -%}
+
+{%- unless product.gift_card? or product.available and product.variants.size == 1 -%}
+  {%- capture availability -%}
+    {
+    {%- for variant in product.variants -%}
+      "{{ variant.id }}": {{ variant.available | json }}{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+    }
+  {%- endcapture -%}
+  {%- assign current = product.selected_or_first_available_variant -%}
+  <div
+    class="back-in-stock"
+    data-back-in-stock
+    data-availability='{{ availability | strip }}'
+    data-variant="{{ current.id }}"
+    data-error="{{ 'pet_cro.back_in_stock.error' | t | escape }}"
+    data-error-email="{{ 'pet_cro.back_in_stock.error_email' | t | escape }}"
+    data-error-many="{{ 'pet_cro.back_in_stock.error_many' | t | escape }}"
+    data-available="{{ 'pet_cro.back_in_stock.available' | t | escape }}"
+    {% if current.available %}
+      hidden
+    {% endif %}
+  >
+    <form class="back-in-stock__form" data-back-in-stock-form novalidate>
+      <p class="back-in-stock__title">🔔 {{ 'pet_cro.back_in_stock.title' | t }}</p>
+      <p class="back-in-stock__text">{{ 'pet_cro.back_in_stock.text' | t }}</p>
+      <div class="back-in-stock__row">
+        <label class="visually-hidden" for="BackInStock-{{ product.id }}">{{ 'pet_cro.back_in_stock.email' | t }}</label>
+        <input
+          id="BackInStock-{{ product.id }}"
+          type="email"
+          name="email"
+          autocomplete="email"
+          required
+          placeholder="{{ 'pet_cro.back_in_stock.email' | t }}"
+          value="{{ customer.email | escape }}"
+        >
+        <button type="submit" class="button button--secondary">{{ 'pet_cro.back_in_stock.button' | t }}</button>
+      </div>
+      <div class="back-in-stock__hp" aria-hidden="true">
+        <input type="text" name="website" tabindex="-1" autocomplete="off">
+      </div>
+      <p class="back-in-stock__note">{{ 'pet_cro.back_in_stock.note' | t }}</p>
+      <p class="back-in-stock__message" data-back-in-stock-message role="status" aria-live="polite"></p>
+    </form>
+    <p class="back-in-stock__done" data-back-in-stock-done hidden>✅ {{ 'pet_cro.back_in_stock.done' | t }}</p>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.currentScript.previousElementSibling;
+      if (!root || root.dataset.ready) return;
+      root.dataset.ready = '1';
+      let availability = {};
+      try {
+        availability = JSON.parse(root.dataset.availability || '{}');
+      } catch (error) {}
+      let variantId = root.dataset.variant;
+      const form = root.querySelector('[data-back-in-stock-form]');
+      const done = root.querySelector('[data-back-in-stock-done]');
+      const message = root.querySelector('[data-back-in-stock-message]');
+      const button = form.querySelector('button');
+      // Variants already requested on this page view.
+      const requested = new Set();
+
+      const show = () => {
+        root.hidden = availability[variantId] !== false;
+        const isDone = requested.has(variantId);
+        form.hidden = isDone;
+        done.hidden = !isDone;
+        message.textContent = '';
+      };
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const email = form.email.value.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+          message.textContent = root.dataset.errorEmail;
+          form.email.focus();
+          return;
+        }
+        button.disabled = true;
+        message.textContent = '';
+        fetch('/apps/reservas/avisame', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            variantId,
+            email,
+            website: form.website.value,
+            locale: (document.documentElement.lang || 'es').slice(0, 2),
+          }),
+        })
+          .then((response) => response.json().catch(() => ({})))
+          .then((result) => {
+            if (result.ok) {
+              requested.add(variantId);
+              show();
+            } else if (result.error === 'too_many') {
+              message.textContent = root.dataset.errorMany;
+            } else if (result.error === 'available') {
+              message.textContent = root.dataset.available;
+            } else if (result.error === 'validation' && (result.fields || []).includes('email')) {
+              message.textContent = root.dataset.errorEmail;
+            } else {
+              message.textContent = root.dataset.error;
+            }
+          })
+          .catch(() => {
+            message.textContent = root.dataset.error;
+          })
+          .finally(() => {
+            button.disabled = false;
+          });
+      });
+
+      // Another variant chosen. Dawn's pub/sub (deferred scripts) is only there once the page has loaded.
+      const listen = () => {
+        if (typeof subscribe !== 'function' || typeof PUB_SUB_EVENTS === 'undefined') return;
+        subscribe(PUB_SUB_EVENTS.variantChange, (event) => {
+          const variant = event?.data?.variant;
+          if (!variant?.id) return;
+          variantId = String(variant.id);
+          availability[variantId] = Boolean(variant.available);
+          show();
+        });
+      };
+      if (document.readyState === 'complete') listen();
+      else window.addEventListener('load', listen);
+    })();
+  </script>
+{%- endunless -%}
