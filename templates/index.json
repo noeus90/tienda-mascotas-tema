@@ -187,10 +187,20 @@
     "gift_card_promo": {
       "type": "gift-card-promo",
       "settings": {}
+    },
+    "pet_categories": {
+      "type": "pet-categories",
+      "settings": {
+        "heading": "¿Qué estás buscando?",
+        "color_scheme": "scheme-1",
+        "padding_top": 40,
+        "padding_bottom": 24
+      }
     }
   },
   "order": [
     "image_banner",
+    "pet_categories",
     "gift_card_promo",
     "pet_trust_badges",
     "pet_grooming_steps",

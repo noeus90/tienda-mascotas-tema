@@ -3620,6 +3620,23 @@
           "label": "Enlace del botón"
         }
       }
+    },
+    "pet_categories": {
+      "name": "Comprar por categoría",
+      "settings": {
+        "paragraph": {
+          "content": "Las categorías salen solas de las colecciones Perros y Gatos según el tipo de producto; las vacías no se muestran."
+        },
+        "heading": {
+          "label": "Título"
+        },
+        "padding_top": {
+          "label": "Espaciado superior"
+        },
+        "padding_bottom": {
+          "label": "Espaciado inferior"
+        }
+      }
     }
   }
 }

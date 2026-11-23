@@ -58,9 +58,11 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - Texto: «Pienso, BARF, snacks e higiene para perro y gato, con envío gratis desde 50 €. Y cita de peluquería canina online en un par de minutos.».
   - **Botones:** «Ver la tienda» (principal) y «Reservar peluquería». En inglés: «Their food, their care and their grooming», «Shop now» y «Book grooming».
   - **Pendiente (tú):** cambiarla por una foto real del salón o de un perro arreglado. Que el sujeto quede a la derecha, porque el texto va a la izquierda. Se cambia en el editor del tema, sección «Banner con imagen».
-- [ ] 🔴 **UX-05 · Portada: falta «comprar por categoría».** **(yo)**
-  - Problema: no hay accesos directos a Pienso, Húmeda, BARF, Snacks, Higiene o Juguetes. Para llegar hay que abrir el menú.
-  - Propuesta: una fila de categorías con icono, separada para perro y gato, justo debajo de la cabecera.
+- [x] 🔴 **UX-05 · Portada: «comprar por categoría».** *(hecho el 23/11/2026)*
+  - Nueva sección «¿Qué estás buscando?» (`sections/pet-categories.liquid`) justo debajo de la cabecera.
+  - Selector Perro / Gato (recuerda la última elección en el dispositivo) y una baldosa por categoría con la imagen de un producto de ese tipo y cuántos hay. Perro: pienso, comida húmeda, BARF, snacks, suplementos, higiene, juguetes, accesorios, packs y ver todo.
+  - Sale sola de las colecciones Perros y Gatos: las categorías vacías no aparecen y los productos nuevos se suman solos. Enlaza con los mismos filtros que el menú.
+  - Escritorio: dos filas iguales (5 + 5 en perro, 4 + 4 en gato). Móvil: dos filas que se deslizan de lado. En español e inglés.
 - [ ] 🔴 **UX-06 · Pie de página vacío.** **(juntos)**
   - Problema: solo tiene newsletter, país e idioma.
   - Propuesta:

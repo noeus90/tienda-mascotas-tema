@@ -949,6 +949,26 @@
         "button_1": "Ver la tienda",
         "button_2": "Reservar peluquería"
       }
+    },
+    "categories": {
+      "heading": "What are you looking for?",
+      "switch_label": "Choose your pet",
+      "dog": "Dog",
+      "cat": "Cat",
+      "kibble": "Dry food",
+      "wet": "Wet food",
+      "barf": "BARF diet",
+      "snacks": "Treats",
+      "supplements": "Supplements",
+      "grooming": "Hygiene",
+      "toys": "Toys",
+      "accessories": "Accessories",
+      "packs": "Bundles -10%",
+      "all": "See all",
+      "count": {
+        "one": "{{ count }} product",
+        "other": "{{ count }} products"
+      }
     }
   }
 }
