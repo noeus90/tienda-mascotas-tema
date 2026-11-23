@@ -78,8 +78,10 @@
               </div>
               <div class="booking-form-field">
                 <label for="booking-cust-email-{{ section.id }}" class="booking-field-label">{% if booking_en %}Email address (optional){% else %}Correo electrónico (opcional){% endif %}</label>
-                <input type="email" id="booking-cust-email-{{ section.id }}" class="booking-form-input" data-booking-input="customerEmail" placeholder="{% if booking_en %}laura@example.com{% else %}laura@ejemplo.com{% endif %}" aria-describedby="booking-email-hint-{{ section.id }}">
+                <input type="email" id="booking-cust-email-{{ section.id }}" class="booking-form-input" data-booking-input="customerEmail" placeholder="{% if booking_en %}laura@example.com{% else %}laura@ejemplo.com{% endif %}" aria-describedby="booking-email-hint-{{ section.id }} booking-rebook-hint-{{ section.id }}">
                 <p id="booking-email-hint-{{ section.id }}" class="booking-field-hint">{% if booking_en %}🎁 Leave your email and, after the appointment, we will send you 5% off hygiene products.{% else %}🎁 Déjanos tu email y, después de la cita, te enviaremos un 5 % de descuento en productos de higiene.{% endif %}</p>
+                {%- comment -%} Shown by grooming-booking.js only when the "time for the next visit" email is on in the booking app (LSSI art. 21.2: tell it when collecting the email). {%- endcomment -%}
+                <p id="booking-rebook-hint-{{ section.id }}" class="booking-field-hint" data-booking-rebook-note hidden>{% if booking_en %}📅 We will also email you when it's time for the next grooming. You can unsubscribe at any time from the email itself.{% else %}📅 También te avisaremos por email cuando le toque volver a la peluquería. Puedes darte de baja en cualquier momento desde el propio correo.{% endif %}</p>
               </div>
               <div class="booking-hp-field" aria-hidden="true">
                 <label for="booking-website-{{ section.id }}">Web</label>

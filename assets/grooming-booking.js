@@ -494,6 +494,8 @@
           this.busy = result.busy || {};
           this.renderGroomers(result.groomers || []);
           this.renderPaymentNote(result.deposit);
+          const rebookNote = this.section.querySelector('[data-booking-rebook-note]');
+          if (rebookNote) rebookNote.hidden = !result.rebook;
           this.updateAvailableSlots();
           this.renderMiniCalendar();
         })

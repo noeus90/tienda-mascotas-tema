@@ -131,7 +131,7 @@ Cada fase deja algo que funciona.
   - [ ] desactivar la tarjeta de prueba `···2026` cuando ya no haga falta (*Productos → Tarjetas de regalo*).
 
 - [x] 🟢 **Recordatorio para volver a la peluquería** (hecho el 23/11/2026). Unas semanas después de la última cita completada de cada perro (6 por defecto, o lo de su ficha), si no tiene otra cita, el cliente recibe «¿Le toca ya peluquería a Lola?» con un botón que abre la reserva rellenada (servicio, tamaño, nombre, raza y peluquera) en su idioma. Se activa y se ve la lista de próximos envíos en *Ajustes* de la app; cada perro puede tener sus semanas o «No enviar»; cada correo lleva un enlace firmado para darse de baja. Probado con una cita de prueba de Lola (PRUEBA) del 01/10/2026: correo enviado, reserva rellenada y baja correcta (también rechaza enlaces con la firma cambiada).
-  - [ ] *(legal)* estos correos son comerciales: la LSSI (art. 21.2) los permite a clientes con los que ya hay relación, si se ofrece la baja en cada envío (hecho) y al recoger el email. Añadir en el formulario de reserva una frase del tipo «Te avisaremos cuando le toque volver; puedes darte de baja cuando quieras» y revisarlo con quien lleve el RGPD.
+  - [x] *(legal)* aviso en el formulario (23/11/2026): junto al email del paso 3, «📅 También te avisaremos por email cuando le toque volver a la peluquería. Puedes darte de baja en cualquier momento desde el propio correo» (y en inglés). Solo sale si el recordatorio está activo en Ajustes. La LSSI (art. 21.2) lo permite a clientes con relación previa si se informa al recoger el email y se ofrece la baja en cada envío; revisarlo con quien lleve el RGPD.
 
 ## 2. Rendimiento
 
