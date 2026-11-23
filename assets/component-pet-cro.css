@@ -1102,3 +1102,23 @@
   color: inherit;
 }
 
+
+/* Home banner (UX-04): text over the calm left side of the illustration, never over the scene. */
+@media screen and (min-width: 750px) {
+  .banner.banner--desktop-transparent .banner__content--middle-left .banner__box {
+    max-width: min(46rem, 40vw);
+    padding-left: 0;
+  }
+}
+
+/* Mobile: the home illustration keeps its characters (right side) at a usable size. The aspect
+   padding is set inline by image-banner.liquid with an id selector, hence !important. */
+@media screen and (max-width: 749px) {
+  .banner.banner--adapt.banner--mobile-bottom .banner__media::before {
+    padding-bottom: 72% !important;
+  }
+
+  .banner.banner--adapt.banner--mobile-bottom .banner__media img {
+    object-position: 84% 60%;
+  }
+}

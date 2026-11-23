@@ -49,15 +49,15 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 
 ## 🔴 Primera impresión y navegación
 
-- [ ] 🔴 **UX-04 · Portada: cabecera principal.** **(juntos)**
-  - Problemas:
-    - La imagen es la ilustración de ejemplo de Dawn (dos personas en un lago): no hay ni perros ni tienda.
-    - Un solo botón, «Ver Tienda Animal».
-    - La peluquería, que os diferencia, no aparece.
-  - Propuesta:
-    - Una foto real (salón o perro recién arreglado).
-    - Título en estilo español, por ejemplo «Comida natural y peluquería canina sin estrés».
-    - Dos botones: «Comprar para mi perro / gato» y «Reservar peluquería».
+- [x] 🔴 **UX-04 · Portada: cabecera principal.** *(hecho el 23/11/2026 con una ilustración provisional; falta la foto real)*
+  - **Imagen:** nueva ilustración provisional (perro recién bañado, gato, saco de pienso y útiles de peluquería) en lugar de la de ejemplo de Dawn.
+    - Generada con [`imagenes-productos/portada.py`](imagenes-productos/portada.py) y subida a *Contenido → Archivos* como `portada-provisional.png`.
+    - En escritorio el texto va sobre la parte lisa de la izquierda; en móvil, debajo, con la imagen encuadrada en los personajes.
+  - **Textos:**
+    - Título: «Su comida, sus cuidados y su peluquería» (en estilo español).
+    - Texto: «Pienso, BARF, snacks e higiene para perro y gato, con envío gratis desde 50 €. Y cita de peluquería canina online en un par de minutos.».
+  - **Botones:** «Ver la tienda» (principal) y «Reservar peluquería». En inglés: «Their food, their care and their grooming», «Shop now» y «Book grooming».
+  - **Pendiente (tú):** cambiarla por una foto real del salón o de un perro arreglado. Que el sujeto quede a la derecha, porque el texto va a la izquierda. Se cambia en el editor del tema, sección «Banner con imagen».
 - [ ] 🔴 **UX-05 · Portada: falta «comprar por categoría».** **(yo)**
   - Problema: no hay accesos directos a Pienso, Húmeda, BARF, Snacks, Higiene o Juguetes. Para llegar hay que abrir el menú.
   - Propuesta: una fila de categorías con icono, separada para perro y gato, justo debajo de la cabecera.

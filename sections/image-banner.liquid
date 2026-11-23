@@ -121,39 +121,48 @@
         {%- case block.type -%}
           {%- when 'heading' -%}
             {%- liquid
-              assign raw_banner_h = block.settings.heading | strip
-              assign is_default_pet_banner = false
-              if raw_banner_h == 'Nutrición Natural y Peluquería Canina sin Estrés' or raw_banner_h == 'Natural Nutrition & Stress-Free Dog Grooming'
-                assign is_default_pet_banner = true
+              # Spanish default texts: in English they come from the locale files (pet_cro.hero.*).
+              assign banner_heading = block.settings.heading
+              if request.locale.iso_code == 'en'
+                assign es_default = 'pet_cro.hero.default_es.heading' | t
+                if banner_heading == es_default or banner_heading == 'Nutrición Natural y Peluquería Canina sin Estrés'
+                  assign banner_heading = 'pet_cro.hero.heading' | t
+                endif
               endif
-              assign banner_locale = request.locale.iso_code | downcase | slice: 0, 2
             -%}
             <h2
               class="banner__heading inline-richtext {{ block.settings.heading_size }}"
               {{ block.shopify_attributes }}
             >
-              {%- if is_default_pet_banner -%}
-                {%- if banner_locale == 'en' -%}
-                  Natural Nutrition & Stress-Free Dog Grooming
-                {%- else -%}
-                  Nutrición Natural y Peluquería Canina sin Estrés
-                {%- endif -%}
-              {%- else -%}
-                {{ block.settings.heading }}
-              {%- endif -%}
+              {{ banner_heading }}
             </h2>
           {%- when 'text' -%}
+            {%- liquid
+              assign banner_text = block.settings.text
+              if request.locale.iso_code == 'en'
+                assign es_default = 'pet_cro.hero.default_es.text' | t
+                if banner_text == es_default
+                  assign banner_text = 'pet_cro.hero.text' | t
+                endif
+              endif
+            -%}
             <div class="banner__text rte {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
-              <p>{{ block.settings.text }}</p>
+              <p>{{ banner_text }}</p>
             </div>
           {%- when 'buttons' -%}
             {%- liquid
-              assign raw_btn_1 = block.settings.button_label_1 | strip
-              assign is_default_pet_btn = false
-              if raw_btn_1 == 'Ver Tienda Animal' or raw_btn_1 == 'Shop Pet Store'
-                assign is_default_pet_btn = true
+              assign label_1 = block.settings.button_label_1
+              assign label_2 = block.settings.button_label_2
+              if request.locale.iso_code == 'en'
+                assign es_1 = 'pet_cro.hero.default_es.button_1' | t
+                assign es_2 = 'pet_cro.hero.default_es.button_2' | t
+                if label_1 == es_1 or label_1 == 'Ver Tienda Animal'
+                  assign label_1 = 'pet_cro.hero.button_1' | t
+                endif
+                if label_2 == es_2
+                  assign label_2 = 'pet_cro.hero.button_2' | t
+                endif
               endif
-              assign btn_locale = request.locale.iso_code | downcase | slice: 0, 2
             -%}
             <div
               class="banner__buttons{% if block.settings.button_label_1 != blank and block.settings.button_label_2 != blank %} banner__buttons--multiple{% endif %}"
@@ -168,11 +177,7 @@
                   {% endif %}
                   class="button{% if block.settings.button_style_secondary_1 %} button--secondary{% else %} button--primary{% endif %}"
                 >
-                  {%- if is_default_pet_btn -%}
-                    {%- if btn_locale == 'en' -%}Shop Pet Store{%- else -%}Ver Tienda Animal{%- endif -%}
-                  {%- else -%}
-                    {{- block.settings.button_label_1 | escape -}}
-                  {%- endif -%}
+                  {{- label_1 | escape -}}
                 </a>
               {%- endif -%}
               {%- if block.settings.button_label_2 != blank -%}
@@ -184,7 +189,7 @@
                   {% endif %}
                   class="button{% if block.settings.button_style_secondary_2 %} button--secondary{% else %} button--primary{% endif %}"
                 >
-                  {{- block.settings.button_label_2 | escape -}}
+                  {{- label_2 | escape -}}
                 </a>
               {%- endif -%}
             </div>

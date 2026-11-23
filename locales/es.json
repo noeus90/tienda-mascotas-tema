@@ -937,6 +937,18 @@
         "title_4": "Cada 10 visitas, un baño de regalo",
         "text_4": "Tu perro suma un sello en cada visita a la peluquería. Lo ves en tu cuenta, en «Mis perros»."
       }
+    },
+    "hero": {
+      "heading": "Su comida, sus cuidados y su peluquería",
+      "text": "Pienso, BARF, snacks e higiene para perro y gato, con envío gratis desde 50 €. Y cita de peluquería canina online en un par de minutos.",
+      "button_1": "Ver la tienda",
+      "button_2": "Reservar peluquería",
+      "default_es": {
+        "heading": "Su comida, sus cuidados y su peluquería",
+        "text": "Pienso, BARF, snacks e higiene para perro y gato, con envío gratis desde 50 €. Y cita de peluquería canina online en un par de minutos.",
+        "button_1": "Ver la tienda",
+        "button_2": "Reservar peluquería"
+      }
     }
   }
 }
