@@ -6,7 +6,7 @@
             {% if booking_en %}2. Choose date and preferred time slot{% else %}2. Elige el día y la franja horaria{% endif %}
           </h3>
           <p class="step-panel-desc">
-            {% if booking_en %}Select the day that best fits your schedule. Open Monday to Saturday.{% else %}Selecciona el día que mejor se adapte a tu agenda. Abrimos de Lunes a Sábado.{% endif %}
+            {% if booking_en %}Select the day that best fits your schedule.{% else %}Selecciona el día que mejor se adapte a tu agenda.{% endif %}
           </p>
         </div>
 
@@ -80,7 +80,7 @@
             </div>
 
             <div class="booking-cal-legend">
-              <span class="cal-legend-pill is-open">{% if booking_en %}🟢 Monday to Saturday: Available{% else %}🟢 Lunes a Sábado: Disponible{% endif %}</span>
+              <span class="cal-legend-pill is-open">{% if booking_en %}🟢 Available{% else %}🟢 Disponible{% endif %}</span>
               <span class="cal-legend-pill is-closed">{% if booking_en %}🔴 Sundays: Closed{% else %}🔴 Domingos: Cerrado{% endif %}</span>
             </div>
           </div>
@@ -92,7 +92,7 @@
             </span>
             <div class="booking-shifts-container">
               <div class="shift-group" data-shift-group="morning">
-                <span class="shift-group-title">{% if booking_en %}☀️ Morning Shift{% else %}☀️ Turno de Mañana{% endif %}</span>
+                <span class="shift-group-title">{% if booking_en %}☀️ Morning Shift{% else %}☀️ Turno de mañana{% endif %}</span>
                 <div class="shift-slots-grid" data-slots-grid="morning">
                   {%- for slot in morning_slots_arr -%}
                     {%- assign s_time = slot | strip -%}
@@ -107,7 +107,7 @@
               </div>
 
               <div class="shift-group" data-shift-group="afternoon">
-                <span class="shift-group-title">{% if booking_en %}🌆 Afternoon Shift{% else %}🌆 Turno de Tarde{% endif %}</span>
+                <span class="shift-group-title">{% if booking_en %}🌆 Afternoon Shift{% else %}🌆 Turno de tarde{% endif %}</span>
                 <div class="shift-slots-grid" data-slots-grid="afternoon">
                   {%- for slot in afternoon_slots_arr -%}
                     {%- assign s_time = slot | strip -%}
@@ -192,7 +192,7 @@
             <span>{% if booking_en %}Back{% else %}Atrás{% endif %}</span>
           </button>
           <button type="button" class="grooming-booking-btn-primary" data-wizard-action="next">
-            <span>{% if booking_en %}Continue to Pet Details{% else %}Continuar a Ficha del Peludo{% endif %}</span>
+            <span>{% if booking_en %}Continue to Pet Details{% else %}Continuar a ficha del peludo{% endif %}</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
         </div>

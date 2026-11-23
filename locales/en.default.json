@@ -678,11 +678,11 @@
     },
     "stock": {
       "low_stock_html": {
-        "one": "🔥 High demand! Only <strong>{{ count }} unit</strong> left in warehouse",
-        "other": "🔥 High demand! Only <strong>{{ count }} units</strong> left in warehouse"
+        "one": "🔥 Only <strong>{{ count }} unit</strong> left",
+        "other": "🔥 Only <strong>{{ count }} units</strong> left"
       },
-      "preorder_html": "📦 Batch sold out · Available for <strong>priority pre-order</strong> (ships in 5 days)",
-      "sold_out": "Temporarily out of stock · Fresh batch arriving from manufacturer",
+      "preorder_html": "📦 Sold out · Order it and we will ship it as soon as it arrives",
+      "sold_out": "Temporarily sold out",
       "in_stock_html": "<strong>In stock</strong> · Ready to ship",
       "delivery_default_html": "Delivered in <strong>{{ min }}-{{ max }} business days</strong>",
       "delivery_window_html": "Get it between <strong>{{ from }}</strong> and <strong>{{ to }}</strong>"

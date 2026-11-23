@@ -231,9 +231,18 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 
 ## 🟢 Estilo y detalles
 
-- [ ] 🟢 **UX-25 · Mayúsculas al estilo inglés.** **(yo)**
-  - Problema: títulos como «Nutrición Natural y Peluquería Canina sin Estrés» o «Favoritos para tu Mascota».
-  - Propuesta: en español solo va en mayúscula la primera palabra; revisar los títulos de todo el tema.
+- [x] 🟢 **UX-25 · Mayúsculas al estilo inglés.** *(hecho el 23/11/2026)*
+  - **Unas 60 etiquetas pasadas a estilo español:**
+    - en `es.json`: menú («Pienso seco», «Snacks y premios», «Higiene y cuidados»…), pastillas de colecciones, pasos de la reserva («Servicio y tamaño», «Fecha y turno», «Ficha del peludo»), pestañas, suscripción, agenda antigua y aviso de modo desarrollo;
+    - textos escritos en las plantillas de la reserva: «Continuar a fecha y hora», «Turno de mañana», «Datos del tutor / contacto»…
+  - Los «&» de las etiquetas pasan a «y».
+  - **De paso, promesas sin respaldo quitadas:**
+    - «¡Alta demanda!… unidades frescas en almacén» → «Solo quedan X unidades»;
+    - «Reponiendo nuevo lote fresco de fábrica» → «Agotado temporalmente»;
+    - «reserva prioritaria (envío en 5 días)» → «Puedes pedirlo y te lo enviamos en cuanto llegue»;
+    - «Abrimos de lunes a sábado» (los días salen del horario de la app);
+    - «Servicio Premium», «Snacks naturales» y «Peluquería & Spa».
+  - Los servicios de ejemplo de la reserva (solo salen si no hay metaobjetos) se dejan como están.
 - [ ] 🟢 **UX-26 · Inglés en la versión española.** **(yo)**
   - Problema: etiquetas como «GRAIN-FREE», «ZERO STRESS» o «Cruelty-Free».
   - Propuesta: pasarlas al español o quitarlas (ver UX-02).

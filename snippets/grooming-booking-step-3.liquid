@@ -13,7 +13,7 @@
         <div class="booking-form-sections">
           <!-- Datos del Perro -->
           <fieldset class="booking-fieldset">
-            <legend class="booking-legend">{% if booking_en %}🐾 Dog Details{% else %}🐾 Datos del Perro{% endif %}</legend>
+            <legend class="booking-legend">{% if booking_en %}🐾 Dog Details{% else %}🐾 Datos del perro{% endif %}</legend>
             <div class="booking-form-grid">
               <div class="booking-form-field">
                 <label for="booking-pet-name-{{ section.id }}" class="booking-field-label">{% if booking_en %}Dog name *{% else %}Nombre del perro *{% endif %}</label>
@@ -66,7 +66,7 @@
 
           <!-- Datos del Tutor -->
           <fieldset class="booking-fieldset">
-            <legend class="booking-legend">{% if booking_en %}👤 Pet Parent / Contact Info{% else %}👤 Datos del Tutor / Contacto{% endif %}</legend>
+            <legend class="booking-legend">{% if booking_en %}👤 Pet Parent / Contact Info{% else %}👤 Datos del tutor / contacto{% endif %}</legend>
             <div class="booking-form-grid">
               <div class="booking-form-field">
                 <label for="booking-cust-name-{{ section.id }}" class="booking-field-label">{% if booking_en %}Your full name *{% else %}Tu nombre y apellidos *{% endif %}</label>
@@ -111,7 +111,7 @@
                   target="_blank"
                   rel="noopener noreferrer"
                   class="booking-privacy-link"
-                >{% if booking_en %}Privacy Policy{% else %}Política de Privacidad{% endif %}</a>
+                >{% if booking_en %}Privacy Policy{% else %}política de privacidad{% endif %}</a>
                 <span> {% if booking_en %} and the processing of my data to manage the appointment and my pet file. *{% else %} y el tratamiento de mis datos para gestionar la cita y la ficha de mi peludo. *{% endif %}</span>
               </span>
             </label>
@@ -173,7 +173,7 @@
             <span>{% if booking_en %}Back{% else %}Atrás{% endif %}</span>
           </button>
           <button type="button" class="grooming-booking-btn-primary" data-wizard-action="next">
-            <span>{% if booking_en %}Review Appointment{% else %}Revisar Cita{% endif %}</span>
+            <span>{% if booking_en %}Review Appointment{% else %}Revisar cita{% endif %}</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
         </div>
