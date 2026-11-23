@@ -92,11 +92,10 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
   - **Tema:** quitado el código de moneda (ajuste «Mostrar códigos de moneda» desactivado).
   - **Admin:** formato de moneda cambiado en *Configuración → General → Visualización de la moneda → Cambiar formato de moneda*: `{{amount_with_comma_separator}} €`, y `… EUR` en los formatos «con moneda» (web y emails).
   - Antes «€24,90 EUR», ahora «24,90 €» en la web, en lo que calcula JavaScript (barra de envío gratis, «Se suelen comprar juntos», rutina de higiene) y en los emails de Shopify.
-- [ ] 🔴 **UX-09 · Botones de la ficha.** **(yo)**
-  - Problemas:
-    - «Agregar al carrito» va con borde y «Comprar ahora» va relleno, así que el botón principal parece el de pago rápido.
-    - Se mezclan «Agregar», «Añadir», «carrito» y «cesta».
-  - Propuesta: «Añadir al carrito» como botón principal y el mismo vocabulario en toda la web (carrito, añadir).
+- [x] 🔴 **UX-09 · Botones de la ficha.** *(hecho el 23/11/2026)*
+  - «Añadir al carrito» es siempre el botón principal (relleno) y «Comprar ahora» de Shopify pasa a secundario (con borde).
+  - Vocabulario de España en `es.json`: «Añadir» en lugar de «Agregar» (carrito, direcciones, Apple Wallet, cantidades) y «carrito» en lugar de «cesta» («Añadir 3 al carrito · 39,70 €»).
+  - Probado: añade el producto y sale «Artículo añadido a tu carrito».
 - [ ] 🔴 **UX-10 · Ficha en móvil.** **(yo)**
   - Problema: el botón de compra queda a unos 1000 px de la parte de arriba y luego desaparece al bajar.
   - Propuesta: una barra fija abajo con precio y «Añadir» cuando el botón sale de la pantalla.

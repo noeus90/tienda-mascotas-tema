@@ -1188,3 +1188,15 @@
     padding: 0.6rem 0;
   }
 }
+
+/* UX-09: "Add to cart" is the main button; Shopify's "Buy it now" (unbranded dynamic checkout)
+   looks secondary, outlined like Dawn's .button--secondary. */
+.product-form__buttons .shopify-payment-button__button--unbranded {
+  background-color: transparent;
+  color: rgb(var(--color-foreground));
+  box-shadow: inset 0 0 0 0.1rem rgba(var(--color-foreground), 0.75);
+}
+
+.product-form__buttons .shopify-payment-button__button--unbranded:hover:not([disabled]) {
+  background-color: rgba(var(--color-foreground), 0.06);
+}

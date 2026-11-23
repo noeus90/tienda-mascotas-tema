@@ -41,7 +41,7 @@
     },
     "cart": {
       "view": "Ver carrito ({{ count }})",
-      "item_added": "Artículo agregado a tu carrito",
+      "item_added": "Artículo añadido a tu carrito",
       "view_empty_cart": "Ver carrito"
     },
     "share": {
@@ -107,7 +107,7 @@
   },
   "products": {
     "product": {
-      "add_to_cart": "Agregar al carrito",
+      "add_to_cart": "Añadir al carrito",
       "description": "Descripción",
       "on_sale": "Oferta",
       "quantity": {
@@ -299,7 +299,7 @@
       "product_disclosure": "Aviso sobre el producto",
       "product_disclosures": "Avisos sobre el producto",
       "cart_error": "Hubo un error al actualizar tu carrito de compra. Inténtalo de nuevo.",
-      "cart_quantity_error_html": "Solo puedes agregar {{ quantity }} de este artículo a tu carrito.",
+      "cart_quantity_error_html": "Solo puedes añadir {{ quantity }} de este artículo a tu carrito.",
       "headings": {
         "product": "Producto",
         "price": "Precio",
@@ -373,9 +373,9 @@
       "variant": "Variante",
       "variant_total": "Total de variantes",
       "items_added": {
-        "one": "{{ quantity }} artículo agregado",
-        "other": "{{ quantity }} artículos agregados",
-        "many": "{{ quantity }} artículos agregados"
+        "one": "{{ quantity }} artículo añadido",
+        "other": "{{ quantity }} artículos añadidos",
+        "many": "{{ quantity }} artículos añadidos"
       },
       "items_removed": {
         "one": "{{ quantity }} artículo eliminado",
@@ -390,7 +390,7 @@
       "remove_all_single_item_confirmation": "¿Eliminar 1 artículo de tu carrito?",
       "min_error": "Este artículo tiene un mínimo de {{ min }}.",
       "max_error": "Este artículo tiene un máximo de {{ max }}.",
-      "step_error": "Solo puedes agregar este artículo en incrementos de {{ step }}"
+      "step_error": "Solo puedes añadir este artículo en incrementos de {{ step }}"
     }
   },
   "localization": {
@@ -420,7 +420,7 @@
     "addresses": {
       "title": "Direcciones",
       "default": "Predeterminada",
-      "add_new": "Agregar una nueva dirección",
+      "add_new": "Añadir una nueva dirección",
       "edit_address": "Editar dirección",
       "first_name": "Nombre",
       "last_name": "Apellido",
@@ -433,7 +433,7 @@
       "zip": "Código postal",
       "phone": "Teléfono",
       "set_default": "Establecer como dirección predeterminada",
-      "add": "Agregar dirección",
+      "add": "Añadir dirección",
       "update": "Actualizar dirección",
       "cancel": "Cancelar",
       "edit": "Editar",
@@ -518,7 +518,7 @@
       "subtext": "Tu tarjeta de regalo",
       "gift_card_code": "Código de tarjeta de regalo",
       "shop_link": "Visitar la tienda online",
-      "add_to_apple_wallet": "Agregar a Apple Wallet",
+      "add_to_apple_wallet": "Añadir a Apple Wallet",
       "qr_image_alt": "Código QR: escanea para canjear la tarjeta de regalo",
       "copy_code": "Copiar el código de la tarjeta de regalo",
       "expired": "Vencido",
@@ -733,10 +733,10 @@
       "this_item": "Este producto",
       "add_item_label": "Añadir {{ title }}",
       "variant_label": "Opción de {{ title }}",
-      "add_cta": "Añadir {{ count }} a la cesta · {{ total }}",
+      "add_cta": "Añadir {{ count }} al carrito · {{ total }}",
       "select_one": "Elige al menos un producto",
-      "added": "Añadido a la cesta",
-      "add_error": "No se han podido añadir los productos a la cesta."
+      "added": "Añadido al carrito",
+      "add_error": "No se han podido añadir los productos al carrito."
     },
     "pack": {
       "savings": "Ahorras {{ amount }} frente a comprarlos por separado"
