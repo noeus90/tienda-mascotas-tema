@@ -890,8 +890,8 @@
 }
 
 .cal-day-cell.is-fully-booked {
-  opacity: 0.45;
-  cursor: not-allowed;
+  opacity: 0.6;
+  cursor: pointer;
   background: rgba(220, 38, 38, 0.05);
   color: #b91c1c;
   text-decoration: line-through;
@@ -1854,4 +1854,71 @@
 /* Summary rows hidden from JS (no add-ons, one groomer): display: flex beat [hidden]. */
 .conf-item[hidden] {
   display: none !important;
+}
+
+
+/* Waiting list of a full day (step 2) */
+.booking-waitlist[hidden],
+.booking-waitlist [hidden] {
+  display: none !important;
+}
+
+.booking-waitlist {
+  margin-top: 1.6rem;
+  padding: 1.6rem;
+  border: 1px solid #fcd34d;
+  border-radius: 1.2rem;
+  background: #fffbeb;
+}
+
+.booking-waitlist__title {
+  margin: 0 0 1.2rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.booking-waitlist__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+@media screen and (max-width: 749px) {
+  .booking-waitlist__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.booking-waitlist__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 1.3rem;
+}
+
+.booking-waitlist__field input,
+.booking-waitlist__field select {
+  min-height: 4.4rem;
+  padding: 0 1rem;
+  border: 1px solid rgba(var(--color-foreground), 0.3);
+  border-radius: 0.8rem;
+  background: #ffffff;
+  font: inherit;
+  font-size: 1.6rem;
+}
+
+.booking-waitlist__button {
+  margin-bottom: 0.8rem;
+}
+
+.booking-waitlist__status {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #b91c1c;
+}
+
+.booking-waitlist__status.is-success {
+  color: #047857;
+  font-weight: 600;
 }

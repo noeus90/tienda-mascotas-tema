@@ -136,8 +136,43 @@
               <span
                 class="notice-text"
               >
-                {% if booking_en %}All time slots for this date are fully booked. Please select another available date in the calendar.{% else %}Todos los turnos de este día están ocupados. Por favor, selecciona otra fecha disponible en el calendario.{% endif %}
+                {% if booking_en %}All time slots for this date are fully booked. Choose another date, or join the waiting list below.{% else %}Todos los turnos de este día están ocupados. Elige otra fecha o apúntate abajo a la lista de espera.{% endif %}
               </span>
+            </div>
+
+            {%- comment -%} Waiting list of a full day: sent to the booking app (/apps/reservas/lista-espera) by grooming-booking.js. {%- endcomment -%}
+            <div class="booking-waitlist" data-booking-waitlist hidden>
+              <p class="booking-waitlist__title">🔔 {% if booking_en %}Want us to let you know if a time frees up?{% else %}¿Te avisamos si se libera una hora?{% endif %}</p>
+              <div data-waitlist-form>
+                <div class="booking-waitlist__grid">
+                  <label class="booking-waitlist__field">
+                    <span>{% if booking_en %}Preferred time{% else %}Turno que te va bien{% endif %}</span>
+                    <select data-waitlist="shift">
+                      <option value="any">{% if booking_en %}Any time{% else %}Cualquier hora{% endif %}</option>
+                      <option value="morning">{% if booking_en %}Morning{% else %}Mañana{% endif %}</option>
+                      <option value="afternoon">{% if booking_en %}Afternoon{% else %}Tarde{% endif %}</option>
+                    </select>
+                  </label>
+                  <label class="booking-waitlist__field">
+                    <span>{% if booking_en %}Your name{% else %}Tu nombre{% endif %}</span>
+                    <input type="text" data-waitlist="name" autocomplete="name" maxlength="100">
+                  </label>
+                  <label class="booking-waitlist__field">
+                    <span>Email</span>
+                    <input type="email" data-waitlist="email" autocomplete="email" maxlength="254">
+                  </label>
+                  <label class="booking-waitlist__field">
+                    <span>{% if booking_en %}Phone (optional){% else %}Teléfono (opcional){% endif %}</span>
+                    <input type="tel" data-waitlist="phone" autocomplete="tel" maxlength="25">
+                  </label>
+                </div>
+                <input type="text" data-waitlist="website" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+                <button type="button" class="grooming-booking-btn-secondary booking-waitlist__button" data-waitlist-submit>
+                  {% if booking_en %}Notify me{% else %}Avísame{% endif %}
+                </button>
+                <p class="booking-field-hint">{% if booking_en %}If someone cancels, everyone on the list gets an email: whoever books first gets the slot.{% else %}Si alguien cancela, avisamos por email a todos los apuntados: se lo queda quien reserve antes.{% endif %}</p>
+              </div>
+              <p class="booking-waitlist__status" data-waitlist-status role="status" aria-live="polite" hidden></p>
             </div>
 
             <div class="booking-shift-info-box">

@@ -228,6 +228,91 @@
       this.loadMyDogs();
     }
 
+    /** Shows the waiting list form under the "fully booked" notice, filled with known contact data. */
+    toggleWaitlist(show) {
+      const box = this.section.querySelector('[data-booking-waitlist]');
+      if (!box) return;
+      box.hidden = !show;
+      if (!show) return;
+      const status = box.querySelector('[data-waitlist-status]');
+      if (box.dataset.date !== this.bookingData.date) {
+        box.dataset.date = this.bookingData.date;
+        if (status) status.hidden = true;
+        const form = box.querySelector('[data-waitlist-form]');
+        if (form) form.hidden = false;
+      }
+      const copy = (from, to) => {
+        const source = this.section.querySelector(`[data-booking-input="${from}"]`);
+        const target = box.querySelector(`[data-waitlist="${to}"]`);
+        if (source && target && source.value && !target.value) target.value = source.value;
+      };
+      copy('customerName', 'name');
+      copy('customerEmail', 'email');
+      copy('customerPhone', 'phone');
+      if (!box.dataset.bound) {
+        box.dataset.bound = '1';
+        box.querySelector('[data-waitlist-submit]')?.addEventListener('click', () => this.submitWaitlist(box));
+      }
+    }
+
+    submitWaitlist(box) {
+      const isEn = document.documentElement.lang === 'en';
+      const value = (key) => (box.querySelector(`[data-waitlist="${key}"]`)?.value || '').trim();
+      const status = box.querySelector('[data-waitlist-status]');
+      const button = box.querySelector('[data-waitlist-submit]');
+      const say = (text, ok) => {
+        if (!status) return;
+        status.textContent = text;
+        status.hidden = false;
+        status.classList.toggle('is-success', Boolean(ok));
+      };
+      if (!value('name') || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value('email'))) {
+        say(isEn ? 'Please enter your name and a valid email.' : 'Escribe tu nombre y un email válido.', false);
+        return;
+      }
+      const petInput = this.section.querySelector('[data-booking-input="petName"]');
+      button.disabled = true;
+      fetch('/apps/reservas/lista-espera', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          date: this.bookingData.date,
+          shift: value('shift') || 'any',
+          name: value('name'),
+          email: value('email'),
+          phone: value('phone'),
+          service: this.bookingData.serviceName,
+          serviceId: this.bookingData.serviceId,
+          dogSize: this.bookingData.dogSize,
+          petName: petInput ? petInput.value.trim() : '',
+          website: value('website'),
+          locale: document.documentElement.lang || 'es',
+        }),
+      })
+        .then((response) => response.json().catch(() => ({ ok: false })))
+        .then((result) => {
+          button.disabled = false;
+          if (result && result.ok) {
+            const form = box.querySelector('[data-waitlist-form]');
+            if (form) form.hidden = true;
+            say(
+              result.already
+                ? (isEn ? 'You were already on the waiting list for this day. We will email you if a time frees up.' : 'Ya estabas en la lista de espera de este día. Te escribiremos si se libera una hora.')
+                : (isEn ? "Done! You're on the waiting list. If a time frees up, we'll email you straight away." : '¡Listo! Estás en la lista de espera. Si se libera una hora, te escribiremos enseguida.'),
+              true
+            );
+          } else if (result && result.error === 'too_many') {
+            say(isEn ? 'You are already waiting for several days. Write to us on WhatsApp and we will help you.' : 'Ya estás esperando en varios días. Escríbenos por WhatsApp y te ayudamos.', false);
+          } else {
+            say(isEn ? 'We could not add you. Please try again or write to us on WhatsApp.' : 'No hemos podido apuntarte. Vuelve a intentarlo o escríbenos por WhatsApp.', false);
+          }
+        })
+        .catch(() => {
+          button.disabled = false;
+          say(isEn ? 'No connection. Please try again.' : 'Sin conexión. Vuelve a intentarlo.', false);
+        });
+    }
+
     /**
      * Booking links from the "time for the next visit" email: ?servicio=<handle>&tamano=<size>
      * &perro=<name>&raza=<breed>&peluquera=<id>. Unknown values are ignored.
@@ -255,6 +340,18 @@
       };
       fill('petName', params.get('perro'));
       fill('petBreed', params.get('raza'));
+      // Waiting list email: the freed date and time.
+      const date = params.get('fecha');
+      if (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) {
+        const [y, m, d] = date.split('-').map(Number);
+        const day = new Date(y, m - 1, d);
+        if (day >= this.today && day <= this.maxDate) {
+          this.bookingData.date = date;
+          this.currentCalDate = new Date(y, m - 1, 1);
+          const time = params.get('hora');
+          if (time && /^\d{2}:\d{2}$/.test(time)) this.bookingData.slot = time;
+        }
+      }
       const groomer = params.get('peluquera');
       if (groomer && /^\d+$/.test(groomer)) {
         // The groomer list arrives with the availability: renderGroomers applies it.
@@ -1011,10 +1108,16 @@
           btn.setAttribute('aria-label', btn.title);
           btn.disabled = true;
         } else if (isFullyBooked) {
-          btn.classList.add('is-fully-booked', 'is-closed');
-          btn.title = isEn ? `${dayName} ${dayNum} (Fully booked)` : `${dayName} ${dayNum} (Completo / Sin citas disponibles)`;
+          // Full day: still clickable, to join its waiting list (step 2).
+          btn.classList.add('is-fully-booked');
+          btn.title = isEn ? `${dayName} ${dayNum} (Fully booked: join the waiting list)` : `${dayName} ${dayNum} (Completo: apúntate a la lista de espera)`;
           btn.setAttribute('aria-label', btn.title);
-          btn.disabled = true;
+          btn.addEventListener('click', () => {
+            this.bookingData.date = dateKey;
+            this.updateSelectedDateDisplay();
+            this.updateAvailableSlots();
+            this.renderMiniCalendar();
+          });
         } else {
           // Clickable available day
           btn.title = isEn ? `${dayName} ${dayNum} (Available for booking)` : `${dayName} ${dayNum} (Disponible para reserva)`;
@@ -1133,14 +1236,16 @@
       const allDaySlots = [...cleanMorning, ...(cleanAfternoon.length > 0 ? cleanAfternoon : [])];
       const availableUnbooked = allDaySlots.filter((time) => !bookedSlots.includes(time));
 
-      // Show/Hide Fully Booked Alert
+      // Show/Hide Fully Booked Alert and the waiting list form
+      const dayIsFull = allDaySlots.length > 0 && availableUnbooked.length === 0;
       if (this.fullyBookedNotice) {
-        if (allDaySlots.length > 0 && availableUnbooked.length === 0) {
+        if (dayIsFull) {
           this.fullyBookedNotice.removeAttribute('hidden');
         } else {
           this.fullyBookedNotice.setAttribute('hidden', '');
         }
       }
+      this.toggleWaitlist(dayIsFull);
 
       // Ensure valid, unbooked slot selection
       if (!availableUnbooked.includes(this.bookingData.slot)) {
