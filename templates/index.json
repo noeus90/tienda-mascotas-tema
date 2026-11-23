@@ -73,33 +73,37 @@
         "step_1": {
           "type": "step",
           "settings": {
-            "category": "Paso 1: Cepillado y Deslanado",
-            "short_description": "Elimina pelo muerto y nudos antes del baño sin irritar la piel de tu perro.",
-            "application_time": "🐾 2-3 veces por semana"
+            "product": "cepillo-deslanador-perro-gato",
+            "category": "Cepillado",
+            "application_time": "2-3 veces por semana",
+            "short_description": "Quita el pelo muerto y los nudos antes de mojarlo: con el agua, los nudos se aprietan."
           }
         },
         "step_2": {
           "type": "step",
           "settings": {
-            "category": "Paso 2: Champú pH Neutro",
-            "short_description": "Limpia en profundidad respetando el pH canino (7.0) con avena y aloe vera.",
-            "application_time": "🛁 Cada 3-4 semanas"
+            "product": "champu-avena-perro",
+            "category": "Baño",
+            "application_time": "Cada 3-4 semanas",
+            "short_description": "Champú suave de avena y un buen aclarado. Sin pasarse: bañarlo demasiado reseca la piel."
           }
         },
         "step_3": {
           "type": "step",
           "settings": {
-            "category": "Paso 3: Mascarilla & Brillo",
-            "short_description": "Hidrata el manto, facilita el peinado sin tirones y aporta suavidad duradera.",
-            "application_time": "✨ Tras el aclarado"
+            "product": "snack-dental-perro",
+            "category": "Dientes",
+            "application_time": "A diario",
+            "short_description": "Un snack dental al día ayuda a frenar el sarro y el mal aliento entre limpiezas."
           }
         },
         "step_4": {
           "type": "step",
           "settings": {
-            "category": "Paso 4: Almohadillas y Oídos",
-            "short_description": "Protege trufa y almohadillas frente al asfalto y mantiene oídos limpios y sanos.",
-            "application_time": "🛡️ Cuidado semanal"
+            "product": "balsamo-almohadillas-perro",
+            "category": "Almohadillas",
+            "application_time": "1-2 veces por semana",
+            "short_description": "Un poco de bálsamo tras el paseo evita las grietas del asfalto, el frío y el calor."
           }
         }
       },
@@ -110,9 +114,11 @@
         "step_4"
       ],
       "settings": {
-        "kicker": "Guía de Peluquería Canina",
-        "heading": "Su Rutina de Higiene y Manto en 4 Pasos",
-        "subheading": "Sigue el orden recomendado por nuestros peluqueros caninos y veterinarios para mantener su pelo sano, limpio y brillante."
+        "kicker": "Así lo hacemos en la peluquería",
+        "heading": "Su rutina de higiene y manto en 4 pasos",
+        "subheading": "Lo que hacemos en cada visita, para que lo sigas en casa entre cita y cita.",
+        "show_add_all": true,
+        "show_booking": true
       }
     },
     "pet_trust_badges": {

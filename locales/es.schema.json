@@ -3408,7 +3408,7 @@
           "name": "Paso de Cuidado",
           "settings": {
             "category": {
-              "label": "Función del paso (ej. 1. Cepillado / 2. Baño)"
+              "label": "Nombre del paso (ej. Cepillado)"
             },
             "application_time": {
               "label": "Frecuencia recomendada"
@@ -3420,7 +3420,7 @@
               "label": "Imagen personalizada (opcional, sustituye la del producto)"
             },
             "short_description": {
-              "label": "Beneficio clave en este paso"
+              "label": "Para qué sirve este paso"
             }
           }
         }
@@ -3436,22 +3436,7 @@
           "label": "Subtítulo explicativo"
         },
         "header__1": {
-          "content": "Banner Inferior de Pack / Peluquería (CRO)"
-        },
-        "show_bundle_banner": {
-          "label": "Mostrar banner promocional inferior"
-        },
-        "bundle_heading": {
-          "label": "Título del banner"
-        },
-        "bundle_subheading": {
-          "label": "Subtítulo del banner"
-        },
-        "bundle_button_label": {
-          "label": "Texto del botón"
-        },
-        "bundle_link": {
-          "label": "Enlace del botón"
+          "content": "Compra y peluquería"
         },
         "header__2": {
           "content": "Espaciado de la sección"
@@ -3461,6 +3446,15 @@
         },
         "padding_bottom": {
           "label": "Espaciado inferior"
+        },
+        "show_add_all": {
+          "label": "Mostrar «Añadir la rutina al carrito»"
+        },
+        "show_booking": {
+          "label": "Mostrar el enlace a la peluquería"
+        },
+        "booking_link": {
+          "label": "Enlace de reserva (vacío: página de reservas)"
         }
       }
     },
