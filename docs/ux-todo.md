@@ -221,16 +221,13 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
   - **Línea de datos:** dirección de la tienda, horario (cuando se rellene en *Datos del salón*) y «¿No puedes venir? Avísanos cuanto antes respondiendo al email de confirmación.».
   - **Paso 1:** «Elige uno; los extras opcionales están al final de este paso.».
   - En español e inglés.
-- [ ] 🟠 **UX-24 · Servicios.** **(juntos)**
-  - Problemas:
-    - Todos duran «1 hora» y llevan el mismo icono.
-    - «Corte de uñas» es a la vez servicio y extra.
-    - El primer servicio y el tamaño vienen ya marcados, y es fácil reservar sin darse cuenta.
-  - Propuesta:
-    - duraciones reales;
-    - un icono por servicio;
-    - decidir si las uñas son servicio o extra;
-    - no preseleccionar nada.
+- [ ] 🟠 **UX-24 · Servicios.** *(en parte, 23/11/2026)*
+  - **Hecho: un icono por servicio** según su nombre: baño 🛁, corte a tijera ✂️, deslanado 🪮, stripping 🖐️, uñas 🐾. Si algún día el metaobjeto tiene campo «icon», se usa ese.
+  - **Hecho: nada preseleccionado.**
+    - El precio muestra «— (elige servicio y tamaño)» y no deja continuar hasta elegir ambos (marca en rojo lo que falta).
+    - Siguen rellenándose solos los enlaces con `servicio` y `tamano` (recordatorios, lista de espera) y el tamaño al elegir uno de «Mis perros».
+  - **Pendiente (tú):** duraciones reales. Los cinco servicios tienen 60 min en *Contenido → Metaobjetos → grooming_service*, campo «duration», en minutos.
+  - **Pendiente (tú):** decidir si el corte de uñas es un servicio o solo un extra (ahora es las dos cosas: servicio desde 5 € y extra «Corte y limado de uñas» +5 €).
 
 ## 🟢 Estilo y detalles
 

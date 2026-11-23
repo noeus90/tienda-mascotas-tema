@@ -1937,3 +1937,16 @@
   color: #047857;
   font-weight: 600;
 }
+
+/* UX-24: nothing is preselected; trying to continue without a service or size marks the grid. */
+.booking-services-grid.is-invalid,
+.booking-size-grid.is-invalid {
+  border-radius: 1.2rem;
+  outline: 2px solid #dc2626;
+  outline-offset: 0.6rem;
+}
+
+.estimate-duration.is-warning {
+  color: #b91c1c;
+  font-weight: 700;
+}

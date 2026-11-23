@@ -25,7 +25,21 @@
               {%- if is_active -%}
                 {%- assign s_id = service.system.handle | default: service.id | default: forloop.index -%}
                 {%- assign s_name = service.name.value | default: service.name -%}
-                {%- assign s_icon = service.icon.value | default: service.icon | default: '🐾' -%}
+                {%- liquid
+                  # One icon per service (UX-24): the metaobject's "icon" field if it has one, otherwise by name.
+                  assign s_name_check = service.name.value | default: service.name | downcase
+                  assign s_icon_default = '🐾'
+                  if s_name_check contains 'baño' or s_name_check contains 'bath'
+                    assign s_icon_default = '🛁'
+                  elsif s_name_check contains 'tijera' or s_name_check contains 'scissor' or s_name_check contains 'haircut'
+                    assign s_icon_default = '✂️'
+                  elsif s_name_check contains 'deslanado' or s_name_check contains 'deshedding'
+                    assign s_icon_default = '🪮'
+                  elsif s_name_check contains 'stripping'
+                    assign s_icon_default = '🖐️'
+                  endif
+                  assign s_icon = service.icon.value | default: service.icon | default: s_icon_default
+                -%}
                 {%- assign s_desc = service.description.value | default: service.description -%}
                 {%- if booking_en -%}{%- assign s_dur_default = '1 hour' -%}{%- else -%}{%- assign s_dur_default = '1 hora' -%}{%- endif -%}
                 {%- assign s_dur = service.duration.value | default: service.duration | default: s_dur_default -%}
@@ -33,8 +47,8 @@
                 {%- assign s_med = service.price_medium.value | default: service.price_medium | default: 34 -%}
                 {%- assign s_lar = service.price_large.value | default: service.price_large | default: 42 -%}
 
-                <label class="booking-service-card{% if forloop.first %} is-selected{% endif %}">
-                  <input type="radio" name="grooming_service" value="{{ s_id }}" {% if forloop.first %}checked{% endif %} class="visually-hidden">
+                <label class="booking-service-card">
+                  <input type="radio" name="grooming_service" value="{{ s_id }}" class="visually-hidden">
                   <span class="service-card-check" aria-hidden="true"></span>
                   <div class="service-card-icon">{{ s_icon }}</div>
                   <div class="service-card-content">
@@ -61,8 +75,8 @@
             {%- endfor -%}
           {%- else -%}
             <!-- Servicio 1: Baño Dermoprotector -->
-            <label class="booking-service-card is-selected">
-              <input type="radio" name="grooming_service" value="bath_hygiene" checked class="visually-hidden">
+            <label class="booking-service-card">
+              <input type="radio" name="grooming_service" value="bath_hygiene" class="visually-hidden">
               <span class="service-card-check" aria-hidden="true"></span>
               <div class="service-card-icon">🛁</div>
               <div class="service-card-content">
@@ -243,8 +257,8 @@
           </div>
 
           <div class="booking-size-grid" role="radiogroup" aria-label="{% if booking_en %}Dog size{% else %}Tamaño del perro{% endif %}">
-            <label class="booking-size-card is-selected">
-              <input type="radio" name="dog_size" value="mini" checked class="visually-hidden">
+            <label class="booking-size-card">
+              <input type="radio" name="dog_size" value="mini" class="visually-hidden">
               <span class="size-badge">Mini / Toy</span>
               <strong class="size-name">{% if booking_en %}Under 5 kg{% else %}Menos de 5 kg{% endif %}</strong>
               <small class="size-hint">{% if booking_en %}Chihuahua, Bichon, Yorkshire, Toy Poodle{% else %}Chihuahua, Bichón, Yorkshire, Caniche Toy{% endif %}</small>
@@ -445,7 +459,7 @@
               {% if booking_en %}Estimated fee for this service:{% else %}Tarifa estimada para este servicio:{% endif %}
             </span>
             <div class="estimate-numbers">
-              <span class="estimate-price" data-booking-estimate-price>28,00 €</span>
+              <span class="estimate-price" data-booking-estimate-price>—</span>
               <span class="estimate-duration" data-booking-estimate-duration>{% if booking_en %}(⏱️ 1 hour){% else %}(⏱️ 1 hora){% endif %}</span>
             </div>
           </div>

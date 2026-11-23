@@ -1384,12 +1384,26 @@
       }
       this.bookingData.serviceName = selected.name;
 
+      // Nothing is preselected (UX-24): no price until the service and the size are chosen.
+      const chosen = this.hasStep1Choice();
       if (this.priceEstimateEl) {
-        this.priceEstimateEl.textContent = this.bookingData.price;
+        this.priceEstimateEl.textContent = chosen ? this.bookingData.price : '—';
       }
       if (this.durationEstimateEl) {
-        this.durationEstimateEl.textContent = `(⏱️ ${this.bookingData.duration})`;
+        this.durationEstimateEl.textContent = chosen
+          ? `(⏱️ ${this.bookingData.duration})`
+          : isEn
+            ? '(choose a service and the size)'
+            : '(elige servicio y tamaño)';
       }
+    }
+
+    /** Whether the client has chosen a service and a dog size in step 1. */
+    hasStep1Choice() {
+      return (
+        !!this.section.querySelector('input[name="grooming_service"]:checked') &&
+        !!this.section.querySelector('input[name="dog_size"]:checked')
+      );
     }
 
     /**
@@ -1454,6 +1468,22 @@
 
     goToNextStep() {
       if (this.currentStep === 1) {
+        // A service and a size must be chosen (nothing is preselected, UX-24).
+        const missing = [
+          [this.section.querySelector('input[name="grooming_service"]:checked'), '.booking-services-grid'],
+          [this.section.querySelector('input[name="dog_size"]:checked'), '.booking-size-grid'],
+        ].find(([input]) => !input);
+        if (missing) {
+          const grid = this.section.querySelector(missing[1]);
+          if (grid) {
+            grid.classList.add('is-invalid');
+            grid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => grid.classList.remove('is-invalid'), 1600);
+          }
+          if (this.durationEstimateEl) this.durationEstimateEl.classList.add('is-warning');
+          return;
+        }
+        if (this.durationEstimateEl) this.durationEstimateEl.classList.remove('is-warning');
         this.currentStep = 2;
       } else if (this.currentStep === 2) {
         if (!this.bookingData.date) {
