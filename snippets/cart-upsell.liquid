@@ -1,0 +1,126 @@
+{%- doc -%}
+  Cart: "a little more for free shipping" (UX-22). While the cart is under the free shipping amount,
+  up to 4 cheap, available products for the pet of the cart (treats, wet food, toys, hygiene) that are
+  not in it yet, cheapest first among those that reach the free shipping amount on their own. "Añadir"
+  adds it and reloads the cart. Not shown for carts with only frozen BARF (they have their own
+  shipping rate) or gift cards.
+
+  @example
+  {% render 'cart-upsell' %}
+{%- enddoc -%}
+
+{%- liquid
+  assign goal = settings.free_shipping_threshold | default: 50 | times: 100
+  assign missing = goal | minus: cart.total_price
+  assign frozen_tag = settings.frozen_tag | default: 'congelado' | strip
+
+  assign dogs = false
+  assign cats = false
+  assign regular_items = 0
+  assign in_cart = '|'
+  for item in cart.items
+    assign in_cart = in_cart | append: item.product.handle | append: '|'
+    if item.product.tags contains 'perro'
+      assign dogs = true
+    endif
+    if item.product.tags contains 'gato' or item.product.tags contains 'gatito'
+      assign cats = true
+    endif
+    unless item.product.tags contains frozen_tag or item.product.gift_card?
+      assign regular_items = regular_items | plus: 1
+    endunless
+  endfor
+  if dogs == false and cats == false
+    assign dogs = true
+    assign cats = true
+  endif
+
+  # Two passes over the products sorted by price: first those that reach free shipping by
+  # themselves (price >= missing), then the cheapest of the rest.
+  assign picked = '|'
+  assign picked_count = 0
+  assign cheap_types = 'Snack,Comida húmeda,Juguete,Higiene' | split: ','
+-%}
+
+{%- if missing > 0 and regular_items > 0 -%}
+  {%- assign candidates = collections['all'].products | sort: 'price' -%}
+  {%- capture cards -%}
+    {%- for pass in (1..2) -%}
+      {%- for item in candidates -%}
+        {%- if picked_count >= 4 -%}{%- break -%}{%- endif -%}
+        {%- liquid
+          assign key = '|' | append: item.handle | append: '|'
+          assign fits_pet = false
+          if dogs and item.tags contains 'perro'
+            assign fits_pet = true
+          endif
+          if cats and item.tags contains 'gato'
+            assign fits_pet = true
+          endif
+          assign ok = false
+          if item.available and fits_pet and cheap_types contains item.type
+            unless in_cart contains key or picked contains key or item.tags contains frozen_tag
+              assign ok = true
+            endunless
+          endif
+          # Pass 1: those that get the cart to free shipping; pass 2: the cheapest of the rest.
+          if pass == 1 and item.price < missing
+            assign ok = false
+          endif
+        -%}
+        {%- if ok -%}
+          {%- assign picked = picked | append: item.handle | append: '|' -%}
+          {%- assign picked_count = picked_count | plus: 1 -%}
+          {%- assign variant = item.selected_or_first_available_variant -%}
+          <li class="cart-upsell__item">
+            <a class="cart-upsell__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+              {%- if item.featured_image -%}
+                {{ item.featured_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: '', width: 80, height: 80 }}
+              {%- endif -%}
+            </a>
+            <div class="cart-upsell__info">
+              <a class="cart-upsell__name" href="{{ item.url }}">{{ item.title }}</a>
+              <span class="cart-upsell__price">{{ variant.price | money }}</span>
+            </div>
+            {%- if item.variants.size == 1 -%}
+              <button type="button" class="cart-upsell__add" data-cart-upsell-add="{{ variant.id }}">
+                {{ 'pet_cro.cart_upsell.add' | t }}
+              </button>
+            {%- else -%}
+              <a class="cart-upsell__add" href="{{ item.url }}">{{ 'pet_cro.cart_upsell.choose' | t }}</a>
+            {%- endif -%}
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+
+  {%- if picked_count > 0 -%}
+    <div class="cart-upsell" data-cart-upsell>
+      {%- assign missing_money = missing | money -%}
+      <h2 class="cart-upsell__title">{{ 'pet_cro.cart_upsell.title' | t: amount: missing_money }}</h2>
+      <ul class="cart-upsell__list" role="list">{{ cards }}</ul>
+    </div>
+    <script>
+      (() => {
+        const box = document.currentScript.previousElementSibling;
+        if (!box || box.dataset.ready) return;
+        box.dataset.ready = '1';
+        box.addEventListener('click', (event) => {
+          const button = event.target.closest('[data-cart-upsell-add]');
+          if (!button) return;
+          button.disabled = true;
+          fetch(`${window.routes.cart_add_url}.js`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ items: [{ id: Number(button.dataset.cartUpsellAdd), quantity: 1 }] }),
+          })
+            .then(() => window.location.reload())
+            .catch(() => {
+              button.disabled = false;
+            });
+        });
+      })();
+    </script>
+  {%- endif -%}
+{%- endif -%}

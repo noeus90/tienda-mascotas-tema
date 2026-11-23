@@ -37,6 +37,10 @@
         </cart-note>
       {%- endif -%}
 
+      {%- comment -%} UX-22: delivery dates and discount code (outside .js-contents, so its script survives cart updates). {%- endcomment -%}
+      {%- if cart != empty -%}
+        {% render 'cart-extras' %}
+      {%- endif -%}
       <div class="cart__blocks">
         {% for block in section.blocks %}
           {%- case block.type -%}

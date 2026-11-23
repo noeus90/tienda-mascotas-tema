@@ -1036,6 +1036,15 @@
       "cat": "cat",
       "showing": "Showing: __WHAT__.",
       "see_all": "See all results"
+    },
+    "cart_upsell": {
+      "title": "You are {{ amount }} away from free shipping. Add something?",
+      "add": "Add",
+      "choose": "Choose",
+      "code_toggle": "Have a discount code?",
+      "code_label": "Discount code",
+      "code_apply": "Apply",
+      "code_note": "Gift cards are entered in the last step of checkout."
     }
   }
 }

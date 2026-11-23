@@ -203,12 +203,15 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 
 ## 🟠 Carrito
 
-- [ ] 🟠 **UX-22 · Carrito más útil.** **(yo)**
-  - Problemas:
-    - No hay sugerencias para llegar al envío gratis (snacks, latas).
-    - No se ve la fecha de entrega estimada.
-    - No hay campo de código de tarjeta o descuento visible.
-  - Propuesta: añadir esas tres cosas. Valorar además un carrito lateral en lugar de la notificación que salta al añadir.
+- [x] 🟠 **UX-22 · Carrito más útil.** *(hecho el 23/11/2026)*
+  - **Sugerencias para llegar al envío gratis** (`snippets/cart-upsell.liquid`): «Te faltan X € para el envío gratis. ¿Le añades algo?», con hasta 4 productos baratos y disponibles.
+    - Son de la mascota del carrito (snacks, latas, juguetes, higiene) y no están ya en él. Primero salen los que por sí solos llegan al envío gratis; si no hay, los más baratos.
+    - «Añadir» los mete en el carrito y lo recarga.
+    - No sale con carritos solo de BARF congelado (tienen su propia tarifa) ni de tarjetas regalo.
+  - **Fecha de entrega estimada** junto al total (el mismo cálculo y plazos que en la ficha).
+  - **«¿Tienes un código de descuento?»**: un campo plegado que aplica el código al carrito (por `/discount/CÓDIGO`) y vuelve a él. Avisa de que las tarjetas regalo se usan en el último paso del pago.
+  - **Probado:** las sugerencias salen (24,90 € → «Te faltan…»), «Añadir» funciona y BIENVENIDA10 se aplica desde el campo (29,80 € → 26,82 €). Después se vació el carrito y se quitó el descuento.
+  - **No cambiado:** sigue la notificación al añadir (no carrito lateral); se puede valorar más adelante.
 
 ## 🟠 Reserva de peluquería
 

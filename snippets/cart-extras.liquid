@@ -1,0 +1,59 @@
+{%- doc -%}
+  Cart footer extras (UX-22): the estimated delivery dates (same calculation as the product page,
+  assets/pet-cro.js, theme settings "Plazo de entrega") and a discount code box that applies the code
+  to the cart through /discount/<code> (gift cards are entered in the last step of checkout).
+
+  @example
+  {% render 'cart-extras' %}
+{%- enddoc -%}
+
+{%- liquid
+  assign frozen_tag = settings.frozen_tag | default: 'congelado' | strip
+  assign has_regular = false
+  for item in cart.items
+    unless item.product.tags contains frozen_tag or item.product.gift_card?
+      assign has_regular = true
+    endunless
+  endfor
+-%}
+
+<div class="cart-extras">
+  {%- if has_regular -%}
+    <p class="cart-extras__delivery">
+      <span aria-hidden="true">🚚</span>
+      <span
+        data-cro-delivery
+        data-days-min="{{ settings.delivery_days_min | default: 3 }}"
+        data-days-max="{{ settings.delivery_days_max | default: 5 }}"
+        data-tpl-window="{{ 'pet_cro.stock.delivery_window_html' | t: from: '__FROM__', to: '__TO__' | escape }}"
+      >
+        {{- 'pet_cro.stock.delivery_default_html' | t: min: settings.delivery_days_min, max: settings.delivery_days_max -}}
+      </span>
+    </p>
+  {%- endif -%}
+
+  <details class="cart-extras__code">
+    <summary>{{ 'pet_cro.cart_upsell.code_toggle' | t }}</summary>
+    <form class="cart-extras__code-form" data-cart-code>
+      <label class="visually-hidden" for="CartDiscountCode">{{ 'pet_cro.cart_upsell.code_label' | t }}</label>
+      <input id="CartDiscountCode" type="text" name="code" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="{{ 'pet_cro.cart_upsell.code_label' | t }}" required>
+      <button type="submit" class="button button--secondary">{{ 'pet_cro.cart_upsell.code_apply' | t }}</button>
+    </form>
+    <p class="cart-extras__code-note">{{ 'pet_cro.cart_upsell.code_note' | t }}</p>
+  </details>
+</div>
+<script>
+  (() => {
+    const form = document.currentScript.previousElementSibling.querySelector('[data-cart-code]');
+    if (!form || form.dataset.ready) return;
+    form.dataset.ready = '1';
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const code = form.code.value.trim();
+      if (!code) return;
+      // Shopify applies the code to this cart and comes back to it.
+      window.location.href = `/discount/${encodeURIComponent(code)}?redirect=${encodeURIComponent(window.routes.cart_url)}`;
+    });
+    if (typeof initCroDeliveryCountdown === 'function') initCroDeliveryCountdown(form.closest('.cart-extras'));
+  })();
+</script>

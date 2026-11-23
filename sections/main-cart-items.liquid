@@ -451,6 +451,8 @@
                 {%- endfor -%}
               </tbody>
             </table>
+            {%- comment -%} UX-22: cheap products to reach free shipping (re-rendered with the cart). {%- endcomment -%}
+            {% render 'cart-upsell' %}
           {%- endif -%}
         </div>
       </div>

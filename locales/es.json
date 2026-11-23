@@ -1036,6 +1036,15 @@
       "cat": "gato",
       "showing": "Mostrando: __WHAT__.",
       "see_all": "Ver todos los resultados"
+    },
+    "cart_upsell": {
+      "title": "Te faltan {{ amount }} para el envío gratis. ¿Le añades algo?",
+      "add": "Añadir",
+      "choose": "Elegir",
+      "code_toggle": "¿Tienes un código de descuento?",
+      "code_label": "Código de descuento",
+      "code_apply": "Aplicar",
+      "code_note": "Las tarjetas regalo se usan en el último paso del pago."
     }
   }
 }
