@@ -37,11 +37,15 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
   - **Reserva:** «sin jaulas» y «cosmética natural pH 7.0» cambiados por «confirmación por email» y «recordatorio el día antes».
   - **Tarjetas de producto:** la etiqueta «100% Natural» pasa a «Natural» (sale solo si el producto lo dice).
   - Si en el futuro hay datos reales (reseñas, un veterinario que revise productos, certificados del fabricante), se pueden volver a añadir.
-- [ ] 🔴 **UX-03 · Textos de prueba visibles en las fichas.** **(tú + yo)**
-  - Problemas:
-    - «Texto de prueba: sustituir por los beneficios reales del producto».
-    - Descripciones automáticas del tipo «Perro de pienso cachorro pollo», que se usan también como meta descripción.
-  - Propuesta: yo redacto borradores por producto a partir de nombre, tipo y etiquetas; tú los revisas.
+- [x] 🔴 **UX-03 · Textos de prueba visibles en las fichas.** *(hecho el 23/11/2026)*
+  - **Textos de prueba borrados:** los metacampos «Texto de prueba: sustituir…» (beneficios, ingredientes, composición y modo de uso) del pienso de cachorro y del champú de avena. Las pestañas vacías se ocultan solas.
+  - **Descripción nueva y meta descripción para buscadores** en los 42 productos:
+    - solo con lo que sabemos (qué es, para qué mascota, tamaño) y un consejo práctico;
+    - sin ingredientes, porcentajes ni beneficios de salud inventados.
+  - Textos en [`textos-productos/`](textos-productos/README.md). `textos.py` es el origen y `subir.py` los vuelve a subir (no toca datos reales, solo borra metacampos que digan «Texto de prueba»).
+  - Pendiente aparte:
+    - cuando lleguen los productos reales, completar ingredientes, composición y ración con el envase;
+    - las versiones en inglés de los productos irán con Translate & Adapt.
 
 ## 🔴 Primera impresión y navegación
 
