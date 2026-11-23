@@ -249,49 +249,29 @@ window.updateFreeShippingBars = function (totalCents) {
   bars.forEach((bar) => {
     bar.dataset.currentTotal = String(totalCents);
     const shippingGoal = parseInt(bar.dataset.shippingGoal, 10) || 5000;
-    const giftGoal = parseInt(bar.dataset.giftGoal, 10) || 6500;
-    const tplShipping = bar.dataset.tplShipping || '';
-    const tplGift = bar.dataset.tplGift || '';
-    const tplComplete = bar.dataset.tplComplete || '';
-
     const msgEl = bar.querySelector('[data-shipping-msg]');
     const trackEl = bar.querySelector('[data-shipping-track]');
     const fillEl = bar.querySelector('[data-shipping-fill]');
-    const shippingMilestone = bar.querySelector('[data-milestone="shipping"]');
-    const giftMilestone = bar.querySelector('[data-milestone="gift"]');
+    const milestone = bar.querySelector('[data-milestone="shipping"]');
+    const reached = totalCents >= shippingGoal;
 
-    const pct = Math.min(100, Math.max(0, Math.round((totalCents * 100) / giftGoal)));
-    if (fillEl) {
-      fillEl.style.width = `${pct}%`;
-    }
-    if (trackEl) {
-      trackEl.setAttribute('aria-valuenow', String(pct));
-    }
+    const pct = Math.min(100, Math.max(0, Math.round((totalCents * 100) / shippingGoal)));
+    if (fillEl) fillEl.style.width = `${pct}%`;
+    if (trackEl) trackEl.setAttribute('aria-valuenow', String(pct));
 
     if (msgEl) {
-      if (totalCents < shippingGoal) {
-        const missing = formatCroMoney(shippingGoal - totalCents, bar.dataset.moneyFormat);
-        msgEl.innerHTML = `<span>${tplShipping.replace('__AMOUNT__', missing)}</span>`;
-      } else if (totalCents < giftGoal) {
-        const missing = formatCroMoney(giftGoal - totalCents, bar.dataset.moneyFormat);
-        msgEl.innerHTML = `<span>${tplGift.replace('__AMOUNT__', missing)}</span>`;
+      if (reached) {
+        msgEl.innerHTML = `<span class="is-complete">${bar.dataset.tplComplete || ''}</span>`;
       } else {
-        msgEl.innerHTML = `<span class="is-complete">${tplComplete}</span>`;
+        const missing = formatCroMoney(shippingGoal - totalCents, bar.dataset.moneyFormat);
+        msgEl.innerHTML = `<span>${(bar.dataset.tplShipping || '').replace('__AMOUNT__', missing)}</span>`;
       }
     }
 
-    if (shippingMilestone) {
-      const reached = totalCents >= shippingGoal;
-      shippingMilestone.classList.toggle('is-reached', reached);
-      const dot = shippingMilestone.querySelector('[data-milestone-dot]');
+    if (milestone) {
+      milestone.classList.toggle('is-reached', reached);
+      const dot = milestone.querySelector('[data-milestone-dot]');
       if (dot) dot.textContent = reached ? '✓' : dot.dataset.milestoneDot || '🚚';
-    }
-
-    if (giftMilestone) {
-      const reached = totalCents >= giftGoal;
-      giftMilestone.classList.toggle('is-reached', reached);
-      const dot = giftMilestone.querySelector('[data-milestone-dot]');
-      if (dot) dot.textContent = reached ? '✓' : dot.dataset.milestoneDot || '🦴';
     }
   });
 };

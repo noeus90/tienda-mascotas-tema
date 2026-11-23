@@ -585,11 +585,17 @@
       "grooming_promo_title": "✂️ Premium Grooming Service"
     },
     "footer": {
-      "newsletter_heading": "Join our Pet Parents Club & get 10% OFF",
+      "newsletter_heading": "Subscribe and get 10% off your first order",
       "quick_links": "Quick links",
       "info_heading": "Pet Store & Grooming Salon",
       "mission_heading": "Our mission",
-      "mission_text": "We care for your companion's health and happiness with 100% natural nutrition and gentle, stress-free dog grooming sessions."
+      "mission_text": "We care for your companion's health and happiness with 100% natural nutrition and gentle, stress-free dog grooming sessions.",
+      "newsletter_note": "News and offers from the shop and the grooming salon, a couple of emails a month at most. Unsubscribe any time.",
+      "newsletter_privacy": "Privacy policy",
+      "newsletter_code_html": "Thanks for subscribing! Your welcome code is <strong>{{ code }}</strong>: 10% off your first order.",
+      "newsletter_copy": "Copy code",
+      "newsletter_copied": "Copied",
+      "newsletter_apply": "Apply it to my order"
     },
     "savings": {
       "discount_tag": "({{ percent }}% OFF)"
@@ -668,13 +674,10 @@
       "prop_frequency": "Delivery Frequency"
     },
     "free_shipping": {
-      "aria_label": "Cart rewards progress",
-      "default_gift": "Natural Dental Chew",
+      "aria_label": "Progress towards free shipping",
       "missing_shipping_html": "🚚 You are <strong>{{ amount }}</strong> away from <strong>FREE 24h Shipping</strong>",
-      "missing_gift_html": "✅ You unlocked <strong>FREE Shipping</strong>! Add <strong>{{ amount }}</strong> more for your <strong>FREE {{ gift }} 🦴</strong>",
-      "completed_html": "🎉 Woof! You unlocked <strong>FREE 24h Shipping</strong> + <strong>Free {{ gift }} 🐾</strong>",
-      "milestone_shipping": "Free Shipping",
-      "milestone_gift": "Free Treat"
+      "completed_html": "🎉 You've got <strong>FREE 24h shipping</strong>!",
+      "milestone_shipping": "Free Shipping"
     },
     "stock": {
       "low_stock_html": {

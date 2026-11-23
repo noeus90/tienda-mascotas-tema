@@ -597,11 +597,17 @@
       "grooming_promo_title": "✂️ Servicio Premium de Peluquería"
     },
     "footer": {
-      "newsletter_heading": "Únete al Club de Familias Perrunas y recibe un 10% DTO",
+      "newsletter_heading": "Suscríbete y llévate un 10 % en tu primer pedido",
       "quick_links": "Enlaces rápidos",
       "info_heading": "Tienda Animal & Peluquería",
       "mission_heading": "Nuestra misión",
-      "mission_text": "Cuidamos la salud y felicidad de tu compañero con nutrición 100% natural y sesiones de peluquería canina respetuosas y sin estrés."
+      "mission_text": "Cuidamos la salud y felicidad de tu compañero con nutrición 100% natural y sesiones de peluquería canina respetuosas y sin estrés.",
+      "newsletter_note": "Novedades y ofertas de la tienda y la peluquería, como mucho un par de emails al mes. Puedes darte de baja cuando quieras.",
+      "newsletter_privacy": "Política de privacidad",
+      "newsletter_code_html": "¡Gracias por suscribirte! Tu código de bienvenida es <strong>{{ code }}</strong>: 10 % en tu primer pedido.",
+      "newsletter_copy": "Copiar código",
+      "newsletter_copied": "Copiado",
+      "newsletter_apply": "Aplicarlo a mi compra"
     },
     "savings": {
       "discount_tag": "({{ percent }}% DTO)"
@@ -680,13 +686,10 @@
       "prop_frequency": "Entrega"
     },
     "free_shipping": {
-      "aria_label": "Progreso de recompensas del carrito",
-      "default_gift": "Snack Natural Dental",
+      "aria_label": "Progreso hacia el envío gratis",
       "missing_shipping_html": "🚚 Te faltan <strong>{{ amount }}</strong> para conseguir <strong>Envío 24h GRATIS</strong>",
-      "missing_gift_html": "✅ ¡Tienes <strong>Envío GRATIS</strong>! Añade <strong>{{ amount }}</strong> más para tu <strong>{{ gift }} GRATIS 🦴</strong>",
-      "completed_html": "🎉 ¡Guau! Tienes <strong>Envío 24h GRATIS</strong> + <strong>{{ gift }} de Regalo 🐾</strong>",
-      "milestone_shipping": "Envío Gratis",
-      "milestone_gift": "Snack Regalo"
+      "completed_html": "🎉 ¡Tienes <strong>Envío 24h GRATIS</strong>!",
+      "milestone_shipping": "Envío Gratis"
     },
     "stock": {
       "low_stock_html": {

@@ -1462,11 +1462,15 @@
         "default": 50
       },
       {
-        "type": "number",
-        "id": "free_gift_threshold",
-        "label": "Importe para el regalo",
-        "info": "Importe a partir del cual se regala el snack. Debe ser mayor que el de envío gratis.",
-        "default": 65
+        "type": "header",
+        "content": "Newsletter"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_discount_code",
+        "label": "Código de bienvenida",
+        "info": "Se muestra al suscribirse en el pie de página. Tiene que existir en Descuentos (ahora BIENVENIDA10: 10 %, una vez por cliente). Vacío: no se muestra ningún código.",
+        "default": "BIENVENIDA10"
       },
       {
         "type": "header",

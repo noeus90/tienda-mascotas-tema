@@ -9,10 +9,15 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 
 ## 🔴 Confianza y promesas
 
-- [ ] 🔴 **UX-01 · Promesas que hoy no se cumplen.** **(juntos)**
-  - Barra del carrito: «Añade X € más para tu Snack Natural Dental GRATIS» a partir de 65 €. No hay ningún descuento que lo regale.
-  - Newsletter: «recibe un 10% DTO». No existe código de bienvenida ni email automático.
-  - Decidir: montarlas de verdad (descuento automático «compra X, llévate Y» y un flujo de Shopify Email con código) o quitar el texto.
+- [x] 🔴 **UX-01 · Promesas que hoy no se cumplen.** *(hecho el 23/11/2026)*
+  - **Snack de regalo a partir de 65 €:** quitado. La barra del carrito y de la ficha solo marca el envío gratis (50 €). También se quitó el ajuste «Importe para el regalo».
+  - **10 % de la newsletter:** ahora existe el código `BIENVENIDA10` (10 % en todo el pedido, una vez por cliente; se suma al envío gratis pero no a otros descuentos).
+    - Al suscribirse en el pie sale «¡Gracias por suscribirte! Tu código de bienvenida es BIENVENIDA10», con «Copiar código» y «Aplicarlo a mi compra» (lo deja aplicado en el carrito).
+    - El código se cambia en *Configuración del tema → Carrito → Newsletter*.
+    - Nuevo título del pie: «Suscríbete y llévate un 10 % en tu primer pedido» (sirve también para quien tiene gato, UX-28), y una nota de qué se envía con enlace a la política de privacidad.
+    - Probado: suscripción (cliente creado con etiqueta `newsletter` y consentimiento de marketing; luego borrado), código visible y descuento aplicado en el carrito (24,90 € → 22,41 €).
+  - Pendiente aparte: el código lo ve cualquiera que se suscriba (vale una vez por cliente). Para enviarlo también por email, crear la automatización «Bienvenida a nuevos suscriptores» de Shopify Email con este código.
+  - Pendiente aparte: la barra promete «Envío 24h», pero la tarifa estándar de Shopify tarda 3-5 días hábiles (ver la nota de 17/11 en `revision-todo.md`).
 - [ ] 🔴 **UX-02 · Datos y sellos sin respaldo.** **(juntos)**
   - Frases afectadas:
     - Portada: «4.9 / 5 · +2.400 familias perrunas felices», «Peluquería & tienda verificada», «Aval clínico · Revisado por veterinarios», «Respaldada por expertos».
@@ -166,7 +171,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - El nombre «brudabrey» se parte en dos líneas.
     - El selector de idioma ocupa sitio.
   - Propuesta: un logo en imagen (tú) y el idioma dentro del menú (yo).
-- [ ] 🟢 **UX-28 · Newsletter solo para perros.** **(yo)**
+- [x] 🟢 **UX-28 · Newsletter solo para perros.** *(hecho con UX-01 el 23/11/2026)*
   - Problema: «Club de Familias Perrunas» deja fuera a quien tiene gato.
   - Propuesta: un nombre neutro. Va junto con UX-01.
 - [ ] 🟢 **UX-29 · Título y descripción de la portada.** **(yo)**

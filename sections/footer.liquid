@@ -199,7 +199,7 @@
                 {%- liquid
                   assign raw_nl_heading = section.settings.newsletter_heading | strip
                   assign is_default_nl = false
-                  if raw_nl_heading == 'Subscribe to our emails' or raw_nl_heading == 'Suscríbete a nuestros correos electrónicos' or raw_nl_heading contains 'Club de Familias Perrunas' or raw_nl_heading contains 'Pet Parents Club'
+                  if raw_nl_heading == 'Subscribe to our emails' or raw_nl_heading == 'Suscríbete a nuestros correos electrónicos' or raw_nl_heading contains 'Club de Familias Perrunas' or raw_nl_heading contains 'Pet Parents Club' or raw_nl_heading == 'Suscríbete y llévate un 10 % en tu primer pedido'
                     assign is_default_nl = true
                   endif
                 -%}
@@ -266,6 +266,7 @@
                   {%- endif -%}
                 </div>
                 {%- if form.posted_successfully? -%}
+                  {%- assign welcome_code = settings.newsletter_discount_code | strip -%}
                   <h3
                     class="newsletter-form__message newsletter-form__message--success form__message"
                     id="ContactFooter-success"
@@ -275,8 +276,43 @@
                     <span class="svg-wrapper">
                       {{- 'icon-success.svg' | inline_asset_content -}}
                     </span>
-                    {{- 'newsletter.success' | t }}
+                    {%- if welcome_code != blank -%}
+                      <span>{{ 'pet_cro.footer.newsletter_code_html' | t: code: welcome_code }}</span>
+                    {%- else -%}
+                      {{- 'newsletter.success' | t }}
+                    {%- endif -%}
                   </h3>
+                  {%- if welcome_code != blank -%}
+                    <div class="newsletter-code">
+                      <button
+                        type="button"
+                        class="button button--secondary newsletter-code__copy"
+                        data-copy-code="{{ welcome_code | escape }}"
+                        data-copied="{{ 'pet_cro.footer.newsletter_copied' | t | escape }}"
+                      >
+                        {{ 'pet_cro.footer.newsletter_copy' | t }}
+                      </button>
+                      <a class="link newsletter-code__apply" href="/discount/{{ welcome_code | url_encode }}?redirect={{ routes.cart_url | url_encode }}">
+                        {{- 'pet_cro.footer.newsletter_apply' | t -}}
+                      </a>
+                    </div>
+                    <script>
+                      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+                        button.addEventListener('click', () => {
+                          navigator.clipboard?.writeText(button.dataset.copyCode).then(() => {
+                            button.textContent = button.dataset.copied;
+                          });
+                        });
+                      });
+                    </script>
+                  {%- endif -%}
+                {%- else -%}
+                  <p class="newsletter-form__note">
+                    {{ 'pet_cro.footer.newsletter_note' | t }}
+                    {% if shop.privacy_policy %}
+                      <a href="{{ shop.privacy_policy.url }}">{{ 'pet_cro.footer.newsletter_privacy' | t }}</a>
+                    {% endif %}
+                  </p>
                 {%- endif -%}
               {%- endform -%}
             </div>
