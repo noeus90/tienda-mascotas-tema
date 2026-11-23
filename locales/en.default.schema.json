@@ -3494,59 +3494,47 @@
       }
     },
     "pet_trust_badges": {
-      "name": "Pet Trust & Reviews",
+      "name": "What we promise",
       "blocks": {
         "badge": {
-          "name": "Trust Badge",
+          "name": "Promise",
           "settings": {
             "icon": {
-              "label": "Badge icon",
-              "options__1": {
-                "label": "100% Natural (Leaf)"
+              "label": "Icon",
+              "options__truck": {
+                "label": "Truck (shipping)"
               },
-              "options__2": {
-                "label": "Animal Welfare (Paw)"
+              "options__return": {
+                "label": "Arrow (returns)"
               },
-              "options__3": {
-                "label": "Vet Approved (Shield)"
+              "options__calendar": {
+                "label": "Calendar (booking)"
               },
-              "options__4": {
-                "label": "Neutral pH / Grain Free (Drop)"
+              "options__star": {
+                "label": "Star (loyalty)"
               },
-              "options__5": {
-                "label": "Premium Quality (Medal)"
+              "options__lock": {
+                "label": "Lock (secure payment)"
+              },
+              "options__snowflake": {
+                "label": "Snowflake (chilled)"
+              },
+              "options__paw": {
+                "label": "Paw"
               }
             },
-            "certificate_tag": {
-              "label": "Certification label"
-            },
             "heading": {
-              "label": "Badge heading"
+              "label": "Heading"
             },
             "description": {
-              "label": "Description"
+              "label": "Text"
             }
           }
         }
       },
       "settings": {
-        "header__1": {
-          "content": "Dynamic Reviews Badge"
-        },
-        "show_review_badge": {
-          "label": "Show top reviews badge"
-        },
-        "review_score": {
-          "label": "Average rating"
-        },
-        "review_text": {
-          "label": "Review volume text"
-        },
-        "verified_label": {
-          "label": "Verification label"
-        },
-        "header__2": {
-          "content": "Header Texts"
+        "paragraph": {
+          "content": "Only add promises the store keeps today. In the texts, [importe] becomes the free shipping amount and [dias] the delivery days (theme settings)."
         },
         "heading": {
           "label": "Section heading"

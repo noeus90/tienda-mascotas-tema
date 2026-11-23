@@ -124,56 +124,48 @@
     "pet_trust_badges": {
       "type": "pet-trust-badges",
       "blocks": {
-        "badge_1": {
+        "promise_1": {
           "type": "badge",
           "settings": {
-            "icon": "natural",
-            "certificate_tag": "Grain-Free",
-            "heading": "Nutrición 100% Natural",
-            "description": "Ingredientes frescos de alta palatabilidad sin cereales, subproductos ni conservantes artificiales."
+            "icon": "truck",
+            "heading": "Envío gratis desde [importe]",
+            "description": "A la península en [dias] días laborables. El BARF congelado viaja aparte, refrigerado en caja isotérmica."
           }
         },
-        "badge_2": {
+        "promise_2": {
           "type": "badge",
           "settings": {
-            "icon": "cruelty_free",
-            "certificate_tag": "Zero Stress",
-            "heading": "Peluquería Amable",
-            "description": "Sesiones de baño, corte y deslanado adaptadas al ritmo de tu perro, sin jaulas de secado."
+            "icon": "return",
+            "heading": "14 días para devolverlo",
+            "description": "Si cambias de idea, tienes 14 días para devolver los productos sin abrir (salvo los congelados)."
           }
         },
-        "badge_3": {
+        "promise_3": {
           "type": "badge",
           "settings": {
-            "icon": "vet_approved",
-            "certificate_tag": "Aval Clínico",
-            "heading": "Revisado por Veterinarios",
-            "description": "Fórmulas hipoalergénicas diseñadas para cuidar articulaciones, digestión y pieles sensibles."
+            "icon": "calendar",
+            "heading": "Cita de peluquería online",
+            "description": "Eliges servicio, día y hora en un par de minutos. Te llega la confirmación por email y un recordatorio el día antes."
           }
         },
-        "badge_4": {
+        "promise_4": {
           "type": "badge",
           "settings": {
-            "icon": "grain_free",
-            "certificate_tag": "pH 7.0 Canino",
-            "heading": "Sin Sulfatos ni Siliconas",
-            "description": "Champús y bálsamos de peluquería profesional que respetan la barrera cutánea de tu mascota."
+            "icon": "star",
+            "heading": "Cada 10 visitas, un baño de regalo",
+            "description": "Tu perro suma un sello en cada visita a la peluquería. Lo ves en tu cuenta, en «Mis perros»."
           }
         }
       },
       "block_order": [
-        "badge_1",
-        "badge_2",
-        "badge_3",
-        "badge_4"
+        "promise_1",
+        "promise_2",
+        "promise_3",
+        "promise_4"
       ],
       "settings": {
-        "show_review_badge": true,
-        "review_score": "4.9 / 5",
-        "review_text": "+2.400 familias perrunas felices",
-        "verified_label": "Peluquería & Tienda Verificada",
-        "heading": "Alimentación Natural y Peluquería Canina Respaldada por Expertos",
-        "subheading": "Todo lo que tu compañero necesita para estar sano por dentro y radiante por fuera."
+        "heading": "Lo que te prometemos",
+        "subheading": "Sin letra pequeña: esto es lo que puedes esperar al comprar o reservar con nosotros."
       }
     },
     "pet_packs": {

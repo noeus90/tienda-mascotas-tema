@@ -22,12 +22,21 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - Shopify Messaging no se usa porque no está instalada (pide verificar la identidad).
     - Nuevo título del pie: «Suscríbete y llévate un 10 % en tu primer pedido» (sirve también para gatos, UX-28), con nota de qué se envía y enlace a la política de privacidad.
     - Probado el 23/11/2026: suscripción con `noeus90+newsletter@gmail.com`, email enviado y página de baja con firma válida (y rechazo de una firma falsa).
-- [ ] 🔴 **UX-02 · Datos y sellos sin respaldo.** **(juntos)**
-  - Frases afectadas:
-    - Portada: «4.9 / 5 · +2.400 familias perrunas felices», «Peluquería & tienda verificada», «Aval clínico · Revisado por veterinarios», «Respaldada por expertos».
-    - Fichas: «Aval veterinario», «Testado por vets», «Cruelty-free», «100% natural».
-  - Riesgo: publicidad engañosa.
-  - Propuesta: sustituirlas por promesas comprobables (envío 24 h en península, cita online, devolución 14 días, pago seguro) y recuperar las valoraciones cuando haya reseñas reales (Judge.me).
+- [x] 🔴 **UX-02 · Datos y sellos sin respaldo.** *(hecho el 23/11/2026)* Se quitó todo lo que no se puede demostrar y se pusieron promesas que la tienda cumple hoy.
+  - **Portada, nueva sección «Lo que te prometemos»:**
+    - Envío gratis desde 50 €, a la península en 3-5 días laborables (BARF aparte, refrigerado).
+    - 14 días para devolver los productos sin abrir (salvo congelados).
+    - Cita de peluquería online con confirmación y recordatorio.
+    - Cada 10 visitas, un baño de regalo.
+    - Fuera las valoraciones inventadas (4.9 / 5, +2.400 familias), «Verificada», «Respaldada por expertos», «Revisado por veterinarios», «Sin sulfatos», «Grain-free», «Zero stress».
+    - Los textos aceptan `[importe]` y `[dias]`, que salen de los ajustes del tema y no se desfasan.
+  - **Ficha:**
+    - Fuera «Aval veterinario», «100% natural», «Cruelty-free», «Testado por vets» y «Sin cereales / sulfatos».
+    - Ahora: envío gratis desde 50 € (60 € en congelados), 14 días para devolver (en congelados: viaja refrigerado), pago seguro y enlace a la cita de peluquería.
+    - Las estrellas solo salen si una app de reseñas da valoraciones reales.
+  - **Reserva:** «sin jaulas» y «cosmética natural pH 7.0» cambiados por «confirmación por email» y «recordatorio el día antes».
+  - **Tarjetas de producto:** la etiqueta «100% Natural» pasa a «Natural» (sale solo si el producto lo dice).
+  - Si en el futuro hay datos reales (reseñas, un veterinario que revise productos, certificados del fabricante), se pueden volver a añadir.
 - [ ] 🔴 **UX-03 · Textos de prueba visibles en las fichas.** **(tú + yo)**
   - Problemas:
     - «Texto de prueba: sustituir por los beneficios reales del producto».
@@ -95,7 +104,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 - [ ] 🟠 **UX-13 · Packs.** **(juntos)**
   - Problema: la sección muestra un solo pack con mucho hueco vacío.
   - Propuesta: ocultarla hasta que haya 2 o más packs, o convertirla en un banner.
-- [ ] 🟠 **UX-14 · Sellos de confianza en móvil.** **(yo)**
+- [x] 🟠 **UX-14 · Sellos de confianza en móvil.** *(hecho con UX-02 el 23/11/2026: rejilla 2 × 2, unos 700 px)*
   - Problema: son 4 tarjetas altas apiladas (unos 600 px).
   - Propuesta: rejilla 2 × 2 compacta. Va junto con UX-02.
 

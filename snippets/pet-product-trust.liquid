@@ -1,6 +1,7 @@
 {%- doc -%}
-  Dynamic Verified Reviews & Veterinary / Pet Care Guarantee Seals for Product Pages.
-  Strategically placed below the Buy Buttons to reduce friction and boost conversion (CRO).
+  Trust box under the buy buttons: real reviews (only when a reviews app provides them) and four
+  promises the store keeps today: free shipping threshold, 14-day returns (frozen products: chilled
+  shipping instead, they cannot be returned), secure payment and online grooming booking.
 
   @param {product} product - (Required) Shopify product object.
 
@@ -17,79 +18,74 @@
     assign has_rating = true
     assign rating_val = rating.rating | round: 1
   endif
+  assign free_amount = settings.free_shipping_threshold | default: 50 | times: 100 | money_without_trailing_zeros
+  assign frozen_tag = settings.frozen_tag | default: 'congelado' | strip
+  assign is_frozen = false
+  if product.tags contains frozen_tag
+    assign is_frozen = true
+    # Frozen products ship apart, with their own free shipping threshold.
+    assign free_amount = settings.frozen_free_threshold | default: 60 | times: 100 | money_without_trailing_zeros
+  endif
+  assign booking_url = pages['bookings'].url | default: '/pages/bookings'
 -%}
 
 <div class="cro-product-trust-box">
-  <!-- Verified Pet Parents Review Bar -->
-  <div class="cro-review-badge-bar">
-    {%- if has_rating -%}
-    <div
-      class="cro-stars"
-      role="img"
-      aria-label="{{ 'pet_cro.trust.aria_rating' | t: rating: rating_val }}"
-    >
-      ★★★★★
+  {%- if has_rating -%}
+    <div class="cro-review-badge-bar">
+      <div
+        class="cro-stars"
+        role="img"
+        aria-label="{{ 'pet_cro.trust.aria_rating' | t: rating: rating_val }}"
+      >
+        ★★★★★
+      </div>
+      <span class="cro-review-score">
+        <strong>{{ rating_val }}/5</strong> ({{ rating_count }} {{ 'pet_cro.trust.verified_reviews' | t }})
+      </span>
     </div>
-    <span
-      class="cro-review-score"
-    >
-      <strong>{{ rating_val }}/5</strong> ({{ rating_count }} {{ 'pet_cro.trust.verified_reviews' | t }})
-    </span>
-    {%- endif -%}
-    <span class="cro-verified-pill">
-      <svg aria-hidden="true" focusable="false" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-        <polyline points="22 4 12 14.01 9 11.01"/>
-      </svg>
-      <span>{{ 'pet_cro.trust.vet_approved_badge' | t }}</span>
-    </span>
-  </div>
+  {%- endif -%}
 
-  <!-- 4 Pet Care Guarantee Seals -->
-  <div class="cro-seals-mini-grid">
-    <div class="cro-seal-mini-item">
+  <ul class="cro-seals-mini-grid" role="list">
+    <li class="cro-seal-mini-item">
       <div class="cro-seal-mini-icon">
-        <!-- 100% Natural (Leaf) -->
         <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
-          <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+          <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
         </svg>
       </div>
-      <span>{{ 'pet_cro.trust.natural' | t }}</span>
-    </div>
+      <span>{{ 'pet_cro.trust.free_shipping' | t: amount: free_amount }}</span>
+    </li>
 
-    <div class="cro-seal-mini-item">
+    <li class="cro-seal-mini-item">
       <div class="cro-seal-mini-icon">
-        <!-- Cruelty-Free / Pet Love (Paw / Heart) -->
+        {%- if is_frozen -%}
+          <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="2" x2="12" y2="22"/><line x1="4.93" y1="6" x2="19.07" y2="18"/><line x1="4.93" y1="18" x2="19.07" y2="6"/>
+          </svg>
+        {%- else -%}
+          <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+          </svg>
+        {%- endif -%}
+      </div>
+      <span>{% if is_frozen %}{{ 'pet_cro.trust.chilled' | t }}{% else %}{{ 'pet_cro.trust.returns' | t }}{% endif %}</span>
+    </li>
+
+    <li class="cro-seal-mini-item">
+      <div class="cro-seal-mini-icon">
         <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="4" r="2"/>
-          <circle cx="18" cy="8" r="2"/>
-          <circle cx="20" cy="16" r="2"/>
-          <path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/>
+          <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
         </svg>
       </div>
-      <span>{{ 'pet_cro.trust.cruelty_free' | t }}</span>
-    </div>
+      <span>{{ 'pet_cro.trust.secure_payment' | t }}</span>
+    </li>
 
-    <div class="cro-seal-mini-item">
+    <li class="cro-seal-mini-item">
       <div class="cro-seal-mini-icon">
-        <!-- Vet Tested (Shield + Check) -->
         <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          <path d="m9 12 2 2 4-4"/>
+          <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
         </svg>
       </div>
-      <span>{{ 'pet_cro.trust.vet_tested' | t }}</span>
-    </div>
-
-    <div class="cro-seal-mini-item">
-      <div class="cro-seal-mini-icon">
-        <!-- Hypoallergenic / Grain & Sulfate Free (Droplet / Pure) -->
-        <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
-        </svg>
-      </div>
-      <span>{{ 'pet_cro.trust.grain_free' | t }}</span>
-    </div>
-  </div>
+      <span><a href="{{ booking_url }}">{{ 'pet_cro.trust.booking' | t }}</a></span>
+    </li>
+  </ul>
 </div>

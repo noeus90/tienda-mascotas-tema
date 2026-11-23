@@ -3494,59 +3494,47 @@
       }
     },
     "pet_trust_badges": {
-      "name": "Garantías y Reseñas Pet",
+      "name": "Lo que te prometemos",
       "blocks": {
         "badge": {
-          "name": "Sello de Garantía",
+          "name": "Promesa",
           "settings": {
             "icon": {
-              "label": "Icono del sello",
-              "options__1": {
-                "label": "100% Natural (Hoja)"
+              "label": "Icono",
+              "options__truck": {
+                "label": "Camión (envío)"
               },
-              "options__2": {
-                "label": "Bienestar Animal (Huella)"
+              "options__return": {
+                "label": "Flecha (devolución)"
               },
-              "options__3": {
-                "label": "Aval Veterinario (Escudo)"
+              "options__calendar": {
+                "label": "Calendario (cita)"
               },
-              "options__4": {
-                "label": "pH Neutro / Sin Cereales (Gota)"
+              "options__star": {
+                "label": "Estrella (fidelidad)"
               },
-              "options__5": {
-                "label": "Calidad Premium (Medalla)"
+              "options__lock": {
+                "label": "Candado (pago seguro)"
+              },
+              "options__snowflake": {
+                "label": "Copo (frío)"
+              },
+              "options__paw": {
+                "label": "Huella"
               }
             },
-            "certificate_tag": {
-              "label": "Etiqueta de certificación"
-            },
             "heading": {
-              "label": "Título del sello"
+              "label": "Título"
             },
             "description": {
-              "label": "Descripción"
+              "label": "Texto"
             }
           }
         }
       },
       "settings": {
-        "header__1": {
-          "content": "Badge Dinámico de Reseñas"
-        },
-        "show_review_badge": {
-          "label": "Mostrar badge superior de reseñas"
-        },
-        "review_score": {
-          "label": "Puntuación media"
-        },
-        "review_text": {
-          "label": "Texto de volumen de reseñas"
-        },
-        "verified_label": {
-          "label": "Etiqueta de verificación"
-        },
-        "header__2": {
-          "content": "Textos de Cabecera"
+        "paragraph": {
+          "content": "Pon solo promesas que se cumplan hoy. En los textos, [importe] se cambia por el importe del envío gratis y [dias] por los días de entrega (ajustes del tema)."
         },
         "heading": {
           "label": "Título de la sección"

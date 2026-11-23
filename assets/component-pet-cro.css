@@ -356,21 +356,11 @@
   color: rgb(var(--color-foreground, 15, 23, 42));
 }
 
-.cro-verified-pill {
-  margin-left: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: #ecfdf5;
-  color: #065f46;
-  font-size: 1.2rem;
-  font-weight: 600;
-  padding: 0.32rem 0.88rem;
-  border-radius: 999px;
-  border: 1px solid #a7f3d0;
-}
 
 .cro-seals-mini-grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.8rem;
@@ -380,9 +370,6 @@
 @media (max-width: 480px) {
   .cro-seals-mini-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-  .cro-verified-pill {
-    margin-left: 0;
   }
 }
 
@@ -407,6 +394,10 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.cro-seal-mini-item a {
+  color: inherit;
 }
 
 /* 6. Selector Compra Única vs. Suscríbete y Ahorra (snippets/selector-suscripcion.liquid) */

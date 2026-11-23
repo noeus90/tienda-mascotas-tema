@@ -618,7 +618,7 @@
       "cat": "🐱 Gato",
       "grain_free": "✨ Sin Cereales",
       "hypoallergenic": "🛡️ Hipoalergénico",
-      "natural": "🌿 100% Natural",
+      "natural": "🌿 Natural",
       "dental": "🦷 Dental",
       "puppy": "🍼 Cachorro",
       "senior": "🐾 Senior",
@@ -658,12 +658,12 @@
     },
     "trust": {
       "aria_rating": "Valoración {{ rating }} de 5 estrellas",
-      "verified_reviews": "familias perrunas verificadas",
-      "vet_approved_badge": "Aval Veterinario",
-      "natural": "100% Natural",
-      "cruelty_free": "Cruelty-Free",
-      "vet_tested": "Testado por Vets",
-      "grain_free": "Sin Cereales / Sulfatos"
+      "verified_reviews": "valoraciones",
+      "free_shipping": "Envío gratis desde {{ amount }}",
+      "returns": "14 días para devolverlo sin abrir",
+      "chilled": "Viaja refrigerado en caja isotérmica",
+      "secure_payment": "Pago seguro",
+      "booking": "Cita de peluquería online"
     },
     "subscription": {
       "heading": "Elige tu modalidad de compra:",
@@ -915,6 +915,28 @@
       "error_email": "Escribe un email válido.",
       "error_many": "Ya tienes muchos avisos pendientes con este email.",
       "available": "¡Buenas noticias! Ya vuelve a estar disponible: recarga la página para comprarlo."
+    },
+    "promises": {
+      "heading": "Lo que te prometemos",
+      "subheading": "Sin letra pequeña: esto es lo que puedes esperar al comprar o reservar con nosotros.",
+      "title_1": "Envío gratis desde [importe]",
+      "text_1": "A la península en [dias] días laborables. El BARF congelado viaja aparte, refrigerado en caja isotérmica.",
+      "title_2": "14 días para devolverlo",
+      "text_2": "Si cambias de idea, tienes 14 días para devolver los productos sin abrir (salvo los congelados).",
+      "title_3": "Cita de peluquería online",
+      "text_3": "Eliges servicio, día y hora en un par de minutos. Te llega la confirmación por email y un recordatorio el día antes.",
+      "title_4": "Cada 10 visitas, un baño de regalo",
+      "text_4": "Tu perro suma un sello en cada visita a la peluquería. Lo ves en tu cuenta, en «Mis perros».",
+      "default_es": {
+        "title_1": "Envío gratis desde [importe]",
+        "text_1": "A la península en [dias] días laborables. El BARF congelado viaja aparte, refrigerado en caja isotérmica.",
+        "title_2": "14 días para devolverlo",
+        "text_2": "Si cambias de idea, tienes 14 días para devolver los productos sin abrir (salvo los congelados).",
+        "title_3": "Cita de peluquería online",
+        "text_3": "Eliges servicio, día y hora en un par de minutos. Te llega la confirmación por email y un recordatorio el día antes.",
+        "title_4": "Cada 10 visitas, un baño de regalo",
+        "text_4": "Tu perro suma un sello en cada visita a la peluquería. Lo ves en tu cuenta, en «Mis perros»."
+      }
     }
   }
 }

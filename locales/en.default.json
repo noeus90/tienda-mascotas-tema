@@ -606,7 +606,7 @@
       "cat": "🐱 Cat",
       "grain_free": "✨ Grain Free",
       "hypoallergenic": "🛡️ Hypoallergenic",
-      "natural": "🌿 100% Natural",
+      "natural": "🌿 Natural",
       "dental": "🦷 Dental Care",
       "puppy": "🍼 Puppy",
       "senior": "🐾 Senior",
@@ -646,12 +646,12 @@
     },
     "trust": {
       "aria_rating": "Rated {{ rating }} out of 5 stars",
-      "verified_reviews": "verified pet parents",
-      "vet_approved_badge": "Vet Approved",
-      "natural": "100% Natural",
-      "cruelty_free": "Cruelty-Free",
-      "vet_tested": "Vet Tested",
-      "grain_free": "Grain & Sulfate Free"
+      "verified_reviews": "reviews",
+      "free_shipping": "Free shipping over {{ amount }}",
+      "returns": "14 days to return it unopened",
+      "chilled": "Ships chilled in an insulated box",
+      "secure_payment": "Secure payment",
+      "booking": "Book grooming online"
     },
     "subscription": {
       "heading": "Choose your purchase option:",
@@ -915,6 +915,28 @@
       "error_email": "Please enter a valid email.",
       "error_many": "You already have many pending requests with this email.",
       "available": "Good news! It's available again: reload the page to buy it."
+    },
+    "promises": {
+      "heading": "What we promise",
+      "subheading": "No small print: this is what you can expect when you shop or book with us.",
+      "title_1": "Free shipping over [importe]",
+      "text_1": "To mainland Spain in [dias] business days. Frozen BARF travels separately, chilled in an insulated box.",
+      "title_2": "14 days to return it",
+      "text_2": "Changed your mind? You have 14 days to return unopened products (except frozen ones).",
+      "title_3": "Book grooming online",
+      "text_3": "Pick the service, day and time in a couple of minutes. You get an email confirmation and a reminder the day before.",
+      "title_4": "Every 10 visits, a free bath",
+      "text_4": "Your dog earns a stamp at every grooming visit. See it in your account, under “My dogs”.",
+      "default_es": {
+        "title_1": "Envío gratis desde [importe]",
+        "text_1": "A la península en [dias] días laborables. El BARF congelado viaja aparte, refrigerado en caja isotérmica.",
+        "title_2": "14 días para devolverlo",
+        "text_2": "Si cambias de idea, tienes 14 días para devolver los productos sin abrir (salvo los congelados).",
+        "title_3": "Cita de peluquería online",
+        "text_3": "Eliges servicio, día y hora en un par de minutos. Te llega la confirmación por email y un recordatorio el día antes.",
+        "title_4": "Cada 10 visitas, un baño de regalo",
+        "text_4": "Tu perro suma un sello en cada visita a la peluquería. Lo ves en tu cuenta, en «Mis perros»."
+      }
     }
   }
 }

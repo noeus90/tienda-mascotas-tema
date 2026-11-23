@@ -1,190 +1,127 @@
 {% comment %}
-  CRO Section: Veterinary & Pet Care Trust Badges + Verified Reviews (sections/pet-trust-badges.liquid)
-  CRO Goal: Build trust with verified pet parent social proof and configurable veterinary/quality guarantees.
-  Full documentation: docs/pet-store-architecture.md
+  Home: "What we promise" (sections/pet-trust-badges.liquid). Only promises the store keeps today
+  (free shipping, returns, online booking, loyalty card); no reviews or seals without proof.
+  In the texts, [importe] becomes the free shipping threshold and [dias] the standard delivery days
+  (theme settings), so they stay in sync. Spanish texts are the defaults; when a text equals its
+  default, the English version comes from the locale files (pet_cro.promises.*).
 {% endcomment %}
 
 {{ 'section-pet-trust-badges.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .trust-badges-section-{{ section.id }} {
-    padding-top: {{ section.settings.padding_top }}px;
-    padding-bottom: {{ section.settings.padding_bottom }}px;
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .trust-badges-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
   }
 {%- endstyle -%}
 
 {%- liquid
-  assign raw_tb_heading = section.settings.heading | strip
-  assign is_default_tb_heading = false
-  if raw_tb_heading == 'Alimentación Natural y Peluquería Canina Respaldada por Expertos' or raw_tb_heading == 'Expert-Backed Natural Pet Food & Dog Grooming'
-    assign is_default_tb_heading = true
+  assign tb_en = false
+  if request.locale.iso_code == 'en'
+    assign tb_en = true
   endif
 
-  assign raw_tb_sub = section.settings.subheading | strip
-  assign is_default_tb_sub = false
-  if raw_tb_sub == 'Todo lo que tu compañero necesita para estar sano por dentro y radiante por fuera.' or raw_tb_sub == 'Everything your companion needs to stay healthy inside and radiant outside.'
-    assign is_default_tb_sub = true
-  endif
+  assign free_amount = settings.free_shipping_threshold | default: 50 | times: 100 | money_without_trailing_zeros
+  assign min_days = settings.delivery_days_min | default: 3
+  assign max_days = settings.delivery_days_max | default: 5
+  assign days = min_days | append: '-' | append: max_days
 
-  assign raw_tb_review = section.settings.review_text | strip
-  assign is_default_tb_review = false
-  if raw_tb_review == '+2.400 familias perrunas felices' or raw_tb_review == '+2,400 happy pet families'
-    assign is_default_tb_review = true
+  assign heading = section.settings.heading
+  if tb_en and heading == 'Lo que te prometemos'
+    assign heading = 'pet_cro.promises.heading' | t
   endif
-
-  assign raw_tb_verified = section.settings.verified_label | strip
-  assign is_default_tb_verified = false
-  if raw_tb_verified == 'Peluquería & Tienda Verificada' or raw_tb_verified == 'Verified Grooming Salon & Store'
-    assign is_default_tb_verified = true
+  assign subheading = section.settings.subheading
+  if tb_en and subheading == 'Sin letra pequeña: esto es lo que puedes esperar al comprar o reservar con nosotros.'
+    assign subheading = 'pet_cro.promises.subheading' | t
   endif
-
-  assign tb_locale = request.locale.iso_code | downcase | slice: 0, 2
 -%}
 
 <section class="trust-badges-section trust-badges-section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient">
   <div class="trust-badges-container">
-    
-    <!-- Header with Dynamic Verified Reviews Pill -->
     <div class="trust-badges-review-header">
-      {%- if section.settings.show_review_badge -%}
-        <div class="trust-badges-review-pill">
-          <span class="trust-badges-stars" aria-hidden="true">★★★★★</span>
-          <span
-            class="trust-badges-review-text"
-          >
-            {%- if is_default_tb_review and tb_locale == 'en' -%}
-              {{ section.settings.review_score }} · +2,400 happy pet families
-            {%- else -%}
-              {{ section.settings.review_score }} · {{ section.settings.review_text }}
-            {%- endif -%}
-          </span>
-          {%- if section.settings.verified_label != blank -%}
-            <span class="trust-badges-verified-tag">
-              <svg aria-hidden="true" focusable="false" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"/>
-              </svg>
-              <span>
-                {%- if is_default_tb_verified and tb_locale == 'en' -%}
-                  Verified Grooming Salon & Store
-                {%- else -%}
-                  {{ section.settings.verified_label }}
-                {%- endif -%}
-              </span>
-            </span>
-          {%- endif -%}
-        </div>
+      {%- if heading != blank -%}
+        <h2>{{ heading }}</h2>
       {%- endif -%}
-
-      {%- if section.settings.heading != blank -%}
-        <h2>
-          {%- if is_default_tb_heading and tb_locale == 'en' -%}
-            Expert-Backed Natural Pet Food & Dog Grooming
-          {%- else -%}
-            {{ section.settings.heading }}
-          {%- endif -%}
-        </h2>
-      {%- endif -%}
-      {%- if section.settings.subheading != blank -%}
-        <p>
-          {%- if is_default_tb_sub and tb_locale == 'en' -%}
-            Everything your companion needs to stay healthy inside and radiant outside.
-          {%- else -%}
-            {{ section.settings.subheading }}
-          {%- endif -%}
-        </p>
+      {%- if subheading != blank -%}
+        <p>{{ subheading }}</p>
       {%- endif -%}
     </div>
 
-    <!-- Configurable Trust Seals Grid -->
-    <div class="trust-badges-grid">
+    <ul class="trust-badges-grid" role="list">
       {%- for block in section.blocks -%}
         {%- liquid
-          assign cert_es = block.settings.certificate_tag
-          assign cert_en = cert_es
-          if cert_es == 'Aval Clínico'
-            assign cert_en = 'Clinical Guarantee'
-          elsif cert_es == 'pH 7.0 Canino'
-            assign cert_en = 'Canine pH 7.0'
+          assign title = block.settings.heading
+          assign text = block.settings.description
+          if tb_en
+            case forloop.index
+              when 1
+                assign es_title = 'pet_cro.promises.default_es.title_1' | t
+                assign es_text = 'pet_cro.promises.default_es.text_1' | t
+                assign en_title = 'pet_cro.promises.title_1' | t
+                assign en_text = 'pet_cro.promises.text_1' | t
+              when 2
+                assign es_title = 'pet_cro.promises.default_es.title_2' | t
+                assign es_text = 'pet_cro.promises.default_es.text_2' | t
+                assign en_title = 'pet_cro.promises.title_2' | t
+                assign en_text = 'pet_cro.promises.text_2' | t
+              when 3
+                assign es_title = 'pet_cro.promises.default_es.title_3' | t
+                assign es_text = 'pet_cro.promises.default_es.text_3' | t
+                assign en_title = 'pet_cro.promises.title_3' | t
+                assign en_text = 'pet_cro.promises.text_3' | t
+              when 4
+                assign es_title = 'pet_cro.promises.default_es.title_4' | t
+                assign es_text = 'pet_cro.promises.default_es.text_4' | t
+                assign en_title = 'pet_cro.promises.title_4' | t
+                assign en_text = 'pet_cro.promises.text_4' | t
+              else
+                assign es_title = ''
+                assign es_text = ''
+            endcase
+            if es_title != blank and title == es_title
+              assign title = en_title
+            endif
+            if es_text != blank and text == es_text
+              assign text = en_text
+            endif
           endif
-
-          assign h_es = block.settings.heading
-          assign h_en = h_es
-          if h_es == 'Nutrición 100% Natural'
-            assign h_en = '100% Natural Nutrition'
-          elsif h_es == 'Peluquería Amable'
-            assign h_en = 'Stress-Free Grooming'
-          elsif h_es == 'Revisado por Veterinarios'
-            assign h_en = 'Veterinary Approved'
-          elsif h_es == 'Sin Sulfatos ni Siliconas'
-            assign h_en = 'Sulfate & Silicone Free'
-          endif
-
-          assign desc_es = block.settings.description
-          assign desc_en = desc_es
-          if desc_es == 'Ingredientes frescos de alta palatabilidad sin cereales, subproductos ni conservantes artificiales.'
-            assign desc_en = 'Fresh, highly palatable ingredients with zero grains, by-products, or artificial preservatives.'
-          elsif desc_es == 'Sesiones de baño, corte y deslanado adaptadas al ritmo de tu perro, sin jaulas de secado.'
-            assign desc_en = "Baths, haircuts, and deshedding sessions tailored to your dog's pace, never using drying cages."
-          elsif desc_es == 'Fórmulas hipoalergénicas diseñadas para cuidar articulaciones, digestión y pieles sensibles.'
-            assign desc_en = 'Hypoallergenic formulas designed to care for sensitive skin, digestion, and joint health.'
-          elsif desc_es == 'Champús y bálsamos de peluquería profesional que respetan la barrera cutánea de tu mascota.'
-            assign desc_en = "Professional grooming shampoos and balms that protect your pet's natural skin barrier."
-          endif
+          assign title = title | replace: '[importe]', free_amount | replace: '[dias]', days
+          assign text = text | replace: '[importe]', free_amount | replace: '[dias]', days
         -%}
-        <div class="trust-badge-card" {{ block.shopify_attributes }}>
+        <li class="trust-badge-card" {{ block.shopify_attributes }}>
           <div class="trust-badge-icon-circle" aria-hidden="true">
-            {%- case block.settings.icon -%}
-              {%- when 'natural' -%}
-                <!-- 100% Natural Ingredients (Leaf) -->
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
-                  <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
-                </svg>
-              {%- when 'cruelty_free' -%}
-                <!-- Pet Friendly / Paw Print -->
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="11" cy="4" r="2"/>
-                  <circle cx="18" cy="8" r="2"/>
-                  <circle cx="20" cy="16" r="2"/>
-                  <path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/>
-                </svg>
-              {%- when 'vet_approved' -%}
-                <!-- Veterinary Approved (Shield + Check) -->
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                  <path d="m9 12 2 2 4-4"/>
-                </svg>
-              {%- when 'grain_free' -%}
-                <!-- Canine Neutral pH / Grain & Sulfate Free -->
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
-                </svg>
-              {%- else -%}
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="8" r="7"/>
-                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
-                </svg>
-            {%- endcase -%}
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              {%- case block.settings.icon -%}
+                {%- when 'truck' -%}
+                  <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+                {%- when 'return' -%}
+                  <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                {%- when 'calendar' -%}
+                  <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/>
+                {%- when 'star' -%}
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                {%- when 'lock' -%}
+                  <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                {%- when 'snowflake' -%}
+                  <line x1="12" y1="2" x2="12" y2="22"/><line x1="4.93" y1="6" x2="19.07" y2="18"/><line x1="4.93" y1="18" x2="19.07" y2="6"/>
+                {%- else -%}
+                  <circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/>
+              {%- endcase -%}
+            </svg>
           </div>
-
-          {%- if block.settings.certificate_tag != blank -%}
-            <span
-              class="trust-badge-cert-tag"
-            >
-              {%- if tb_locale == 'en' -%}{{ cert_en }}{%- else -%}{{ cert_es }}{%- endif -%}
-            </span>
+          <h3>{{ title }}</h3>
+          {%- if text != blank -%}
+            <p>{{ text }}</p>
           {%- endif -%}
-
-          <h3>
-            {%- if tb_locale == 'en' -%}{{ h_en }}{%- else -%}{{ h_es }}{%- endif -%}
-          </h3>
-          <p>
-            {%- if tb_locale == 'en' -%}{{ desc_en }}{%- else -%}{{ desc_es }}{%- endif -%}
-          </p>
-        </div>
+        </li>
       {%- endfor -%}
-    </div>
-
+    </ul>
   </div>
 </section>
 
@@ -195,48 +132,20 @@
   "class": "section-pet-trust-badges",
   "settings": [
     {
-      "type": "header",
-      "content": "t:sections.pet_trust_badges.settings.header__1.content"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_review_badge",
-      "label": "t:sections.pet_trust_badges.settings.show_review_badge.label",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "review_score",
-      "label": "t:sections.pet_trust_badges.settings.review_score.label",
-      "default": "4.9 / 5"
-    },
-    {
-      "type": "text",
-      "id": "review_text",
-      "label": "t:sections.pet_trust_badges.settings.review_text.label",
-      "default": "+2.400 familias perrunas felices"
-    },
-    {
-      "type": "text",
-      "id": "verified_label",
-      "label": "t:sections.pet_trust_badges.settings.verified_label.label",
-      "default": "Peluquería & Tienda Verificada"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.pet_trust_badges.settings.header__2.content"
+      "type": "paragraph",
+      "content": "t:sections.pet_trust_badges.settings.paragraph.content"
     },
     {
       "type": "text",
       "id": "heading",
       "label": "t:sections.pet_trust_badges.settings.heading.label",
-      "default": "Nutrición Honesta y Peluquería Canina sin Estrés"
+      "default": "Lo que te prometemos"
     },
     {
       "type": "textarea",
       "id": "subheading",
       "label": "t:sections.pet_trust_badges.settings.subheading.label",
-      "default": "Seleccionamos alimentación natural sin cereales y productos de dermocosmética canina avalados por veterinarios y estilistas profesionales."
+      "default": "Sin letra pequeña: esto es lo que puedes esperar al comprar o reservar con nosotros."
     },
     {
       "type": "color_scheme",
@@ -273,53 +182,33 @@
     {
       "type": "badge",
       "name": "t:sections.pet_trust_badges.blocks.badge.name",
-      "limit": 4,
+      "limit": 6,
       "settings": [
         {
           "type": "select",
           "id": "icon",
           "label": "t:sections.pet_trust_badges.blocks.badge.settings.icon.label",
           "options": [
-            {
-              "value": "natural",
-              "label": "t:sections.pet_trust_badges.blocks.badge.settings.icon.options__1.label"
-            },
-            {
-              "value": "cruelty_free",
-              "label": "t:sections.pet_trust_badges.blocks.badge.settings.icon.options__2.label"
-            },
-            {
-              "value": "vet_approved",
-              "label": "t:sections.pet_trust_badges.blocks.badge.settings.icon.options__3.label"
-            },
-            {
-              "value": "grain_free",
-              "label": "t:sections.pet_trust_badges.blocks.badge.settings.icon.options__4.label"
-            },
-            {
-              "value": "premium",
-              "label": "t:sections.pet_trust_badges.blocks.badge.settings.icon.options__5.label"
-            }
+            { "value": "truck", "label": "t:sections.pet_trust_badges.blocks.badge.settings.icon.options__truck.label" },
+            { "value": "return", "label": "t:sections.pet_trust_badges.blocks.badge.settings.icon.options__return.label" },
+            { "value": "calendar", "label": "t:sections.pet_trust_badges.blocks.badge.settings.icon.options__calendar.label" },
+            { "value": "star", "label": "t:sections.pet_trust_badges.blocks.badge.settings.icon.options__star.label" },
+            { "value": "lock", "label": "t:sections.pet_trust_badges.blocks.badge.settings.icon.options__lock.label" },
+            { "value": "snowflake", "label": "t:sections.pet_trust_badges.blocks.badge.settings.icon.options__snowflake.label" },
+            { "value": "paw", "label": "t:sections.pet_trust_badges.blocks.badge.settings.icon.options__paw.label" }
           ],
-          "default": "natural"
-        },
-        {
-          "type": "text",
-          "id": "certificate_tag",
-          "label": "t:sections.pet_trust_badges.blocks.badge.settings.certificate_tag.label",
-          "default": "Grado Humano"
+          "default": "truck"
         },
         {
           "type": "text",
           "id": "heading",
           "label": "t:sections.pet_trust_badges.blocks.badge.settings.heading.label",
-          "default": "Ingredientes 100% Naturales"
+          "default": "Envío gratis desde [importe]"
         },
         {
           "type": "textarea",
           "id": "description",
-          "label": "t:sections.pet_trust_badges.blocks.badge.settings.description.label",
-          "default": "Recetas cocinadas a baja temperatura con carne y pescado fresco sin subproductos ni conservantes artificiales."
+          "label": "t:sections.pet_trust_badges.blocks.badge.settings.description.label"
         }
       ]
     }
@@ -328,42 +217,10 @@
     {
       "name": "t:sections.pet_trust_badges.name",
       "blocks": [
-        {
-          "type": "badge",
-          "settings": {
-            "icon": "natural",
-            "certificate_tag": "Grain-Free",
-            "heading": "Nutrición 100% Natural",
-            "description": "Ingredientes frescos de alta palatabilidad sin cereales, azúcares ni conservantes artificiales."
-          }
-        },
-        {
-          "type": "badge",
-          "settings": {
-            "icon": "cruelty_free",
-            "certificate_tag": "Zero Stress",
-            "heading": "Peluquería Amable",
-            "description": "Sesiones de baño, corte y deslanado adaptadas al ritmo de tu perro, sin jaulas de secado."
-          }
-        },
-        {
-          "type": "badge",
-          "settings": {
-            "icon": "vet_approved",
-            "certificate_tag": "Aval Clínico",
-            "heading": "Revisado por Veterinarios",
-            "description": "Fórmulas hipoalergénicas diseñadas para cuidar articulaciones, digestión y pieles atópicas."
-          }
-        },
-        {
-          "type": "badge",
-          "settings": {
-            "icon": "grain_free",
-            "certificate_tag": "pH 7.0 Canino",
-            "heading": "Sin Sulfatos ni Siliconas",
-            "description": "Champús y bálsamos de peluquería profesional que respetan la barrera lipídica de tu mascota."
-          }
-        }
+        { "type": "badge", "settings": { "icon": "truck", "heading": "Envío gratis desde [importe]" } },
+        { "type": "badge", "settings": { "icon": "return", "heading": "14 días para devolverlo" } },
+        { "type": "badge", "settings": { "icon": "calendar", "heading": "Cita de peluquería online" } },
+        { "type": "badge", "settings": { "icon": "star", "heading": "Cada 10 visitas, un baño de regalo" } }
       ]
     }
   ]
