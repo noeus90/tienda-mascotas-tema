@@ -88,10 +88,10 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 
 ## 🔴 Compra
 
-- [ ] 🔴 **UX-08 · Precios.** **(tú en el admin + yo)**
-  - Problema: salen como «€24,90 EUR».
-  - En el tema: quitar el código de moneda (ajuste «Mostrar códigos de moneda»). **(yo)**
-  - En el admin: en España se escribe «24,90 €», con el formato de moneda en *Configuración → General*. **(tú)**
+- [x] 🔴 **UX-08 · Precios.** *(hecho el 23/11/2026)*
+  - **Tema:** quitado el código de moneda (ajuste «Mostrar códigos de moneda» desactivado).
+  - **Admin:** formato de moneda cambiado en *Configuración → General → Visualización de la moneda → Cambiar formato de moneda*: `{{amount_with_comma_separator}} €`, y `… EUR` en los formatos «con moneda» (web y emails).
+  - Antes «€24,90 EUR», ahora «24,90 €» en la web, en lo que calcula JavaScript (barra de envío gratis, «Se suelen comprar juntos», rutina de higiene) y en los emails de Shopify.
 - [ ] 🔴 **UX-09 · Botones de la ficha.** **(yo)**
   - Problemas:
     - «Agregar al carrito» va con borde y «Comprar ahora» va relleno, así que el botón principal parece el de pago rápido.
