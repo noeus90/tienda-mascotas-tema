@@ -7,6 +7,8 @@ Creada el 16/11/2026. Marca cada tarea con `[x]` al terminarla y anota debajo lo
 
 Prioridad: 🔴 alta · 🟠 media · 🟢 baja
 
+**Mejoras de experiencia de usuario:** ver [`ux-todo.md`](ux-todo.md) (revisión del 23/11/2026, 29 tareas UX-01 a UX-29).
+
 ## Medición de referencia (Lighthouse 13.6, móvil)
 
 Medido el 16/11/2026 sobre la vista previa del tema de desarrollo (#189706305839) en los servidores de Shopify. Se tomaron 3 pasadas por página. "Primera visita" es la pasada sin caché; las otras dos ya tenían los ficheros guardados.
