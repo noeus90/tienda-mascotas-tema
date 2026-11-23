@@ -118,9 +118,14 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - botones «Reservar cita» y «Regalar peluquería»;
     - los servicios activos del formulario de reserva con su precio «desde» (el menor de los tres tamaños), leídos de los metaobjetos: siempre son los reales.
   - **Nota:** la sección `promo-banner` (sin usar) anuncia «-20 % en tu 1.ª sesión», que no existe. No ponerla en ninguna página sin cambiar ese texto.
-- [ ] 🟠 **UX-12 · «Favoritos para tu mascota».** **(yo)**
-  - Problema: muestra los 8 primeros de todo el catálogo por orden alfabético (aceite, árbol, bálsamo, cama…).
-  - Propuesta: una colección «Más vendidos» elegida a mano o por ventas.
+- [x] 🟠 **UX-12 · «Favoritos para tu mascota».** *(hecho el 23/11/2026)*
+  - **Nueva colección manual «Favoritos»** (`/collections/favoritos`, publicada en la Tienda online) con 8 productos variados:
+    - pienso cachorro y pienso gato esterilizado;
+    - menú BARF;
+    - snack dental y champú de avena;
+    - rascador, cuerda y cama.
+  - **Portada:** la sección pasa a «Nuestros favoritos» («Our favourites» en inglés) y muestra esa colección en lugar de los 8 primeros por orden alfabético.
+  - **Para cambiarlos:** en *Productos → Colecciones → Favoritos*, añadir, quitar o reordenar (orden manual). Cuando haya ventas, se puede ordenar por «Más vendidos».
 - [ ] 🟠 **UX-13 · Packs.** **(juntos)**
   - Problema: la sección muestra un solo pack con mucho hueco vacío.
   - Propuesta: ocultarla hasta que haya 2 o más packs, o convertirla en un banner.

@@ -75,21 +75,18 @@
     <div class="collection__title title-wrapper title-wrapper--no-top-margin page-width{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% endif %}{% if show_desktop_slider %} collection__title--desktop-slider{% endif %}">
       {%- if section.settings.title != blank -%}
         {%- liquid
-          assign raw_fc_title = section.settings.title | strip
-          assign is_default_fc_title = false
-          if raw_fc_title == 'Favoritos para tu Mascota' or raw_fc_title == 'Favorites for Your Pet' or raw_fc_title == 'Featured products' or raw_fc_title == 'Productos destacados'
-            assign is_default_fc_title = true
+          # Spanish default titles are shown in English from the locale files.
+          assign fc_title = section.settings.title
+          if request.locale.iso_code == 'en'
+            if fc_title == 'Nuestros favoritos' or fc_title == 'Favoritos para tu Mascota' or fc_title == 'Productos destacados'
+              assign fc_title = 'pet_cro.favorites.title' | t
+            endif
           endif
-          assign fc_locale = request.locale.iso_code | downcase | slice: 0, 2
         -%}
         <h2
           class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
         >
-          {%- if is_default_fc_title -%}
-            {%- if fc_locale == 'en' -%}Favorites for Your Pet{%- else -%}Favoritos para tu Mascota{%- endif -%}
-          {%- else -%}
-            {{ section.settings.title }}
-          {%- endif -%}
+          {{ fc_title }}
         </h2>
       {%- endif -%}
       {%- if section.settings.description != blank

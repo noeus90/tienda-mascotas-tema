@@ -1024,6 +1024,9 @@
       "services": "Servicios",
       "from": "desde {{ price }}",
       "note": "El precio depende del tamaño de tu perro."
+    },
+    "favorites": {
+      "title": "Nuestros favoritos"
     }
   }
 }
