@@ -1,0 +1,109 @@
+/* Home: grooming salon (sections/pet-grooming-cta.liquid). Dawn's scale (1rem = 10px). */
+
+.grooming-cta__box {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 3.2rem;
+  align-items: center;
+  padding: 3.2rem;
+  border-radius: 2rem;
+  background: linear-gradient(135deg, #ecfdf5 0%, #fdf6ec 100%);
+}
+
+.grooming-cta__kicker {
+  margin: 0 0 0.8rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #047857;
+}
+
+.grooming-cta__heading {
+  margin: 0 0 1.6rem;
+}
+
+.grooming-cta__points {
+  display: grid;
+  gap: 0.8rem;
+  margin: 0 0 2.4rem;
+  padding: 0;
+  list-style: none;
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+
+.grooming-cta__points li {
+  position: relative;
+  padding-left: 2.6rem;
+}
+
+.grooming-cta__points li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+  color: #047857;
+}
+
+.grooming-cta__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+
+.grooming-cta__buttons .button {
+  margin: 0;
+}
+
+.grooming-cta__services {
+  padding: 2rem 2.4rem;
+  border-radius: 1.4rem;
+  background: rgb(var(--color-background));
+  box-shadow: 0 10px 24px -14px rgba(4, 120, 87, 0.35);
+}
+
+.grooming-cta__services-title {
+  margin: 0 0 1rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.grooming-cta__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.grooming-cta__service {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.2rem;
+  padding: 1rem 0;
+  border-bottom: 1px dashed rgba(var(--color-foreground), 0.15);
+  font-size: 1.5rem;
+}
+
+.grooming-cta__price {
+  flex: none;
+  font-weight: 700;
+  color: #047857;
+}
+
+.grooming-cta__note {
+  margin: 1rem 0 0;
+  font-size: 1.3rem;
+  color: rgba(var(--color-foreground), 0.65);
+}
+
+@media screen and (max-width: 749px) {
+  .grooming-cta__box {
+    grid-template-columns: 1fr;
+    gap: 2.4rem;
+    padding: 2.4rem 1.6rem;
+  }
+
+  .grooming-cta__buttons .button {
+    flex: 1 1 100%;
+  }
+}

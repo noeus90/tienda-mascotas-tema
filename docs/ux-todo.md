@@ -103,17 +103,21 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 
 ## 🟠 Portada
 
-- [ ] 🟠 **UX-11 · Orden de secciones.** **(yo)**
-  - Problema: la tarjeta regalo es la segunda sección. Pesa más que la tienda y la peluquería.
-  - Propuesta:
+- [x] 🟠 **UX-11 · Orden de secciones.** *(hecho el 23/11/2026)*
+  - **Nuevo orden de la portada:**
     1. Cabecera
     2. Categorías
-    3. Peluquería (reserva)
+    3. Peluquería
     4. Rutina de higiene
-    5. Más vendidos
+    5. Favoritos
     6. Packs
     7. Tarjeta regalo
-    8. Sellos de confianza
+    8. «Lo que te prometemos»
+  - **Nueva sección de peluquería** (`sections/pet-grooming-cta.liquid`):
+    - título «Su baño y su corte, con cita online», con tres puntos sobre cómo funciona la reserva;
+    - botones «Reservar cita» y «Regalar peluquería»;
+    - los servicios activos del formulario de reserva con su precio «desde» (el menor de los tres tamaños), leídos de los metaobjetos: siempre son los reales.
+  - **Nota:** la sección `promo-banner` (sin usar) anuncia «-20 % en tu 1.ª sesión», que no existe. No ponerla en ninguna página sin cambiar ese texto.
 - [ ] 🟠 **UX-12 · «Favoritos para tu mascota».** **(yo)**
   - Problema: muestra los 8 primeros de todo el catálogo por orden alfabético (aceite, árbol, bálsamo, cama…).
   - Propuesta: una colección «Más vendidos» elegida a mano o por ventas.

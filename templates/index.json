@@ -196,15 +196,24 @@
         "padding_top": 40,
         "padding_bottom": 24
       }
+    },
+    "pet_grooming_cta": {
+      "type": "pet-grooming-cta",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "padding_top": 32,
+        "padding_bottom": 32
+      }
     }
   },
   "order": [
     "image_banner",
     "pet_categories",
-    "gift_card_promo",
-    "pet_trust_badges",
+    "pet_grooming_cta",
     "pet_grooming_steps",
+    "featured_collection",
     "pet_packs",
-    "featured_collection"
+    "gift_card_promo",
+    "pet_trust_badges"
   ]
 }

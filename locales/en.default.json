@@ -1012,6 +1012,18 @@
       "a_loyalty": "Yes: every grooming visit earns a stamp, and every 10 visits your dog gets a free bath. See it in your account, under “My dogs”.",
       "form_title": "Write to us",
       "form_intro": "We will reply by email as soon as we can."
+    },
+    "grooming_cta": {
+      "kicker": "Dog grooming",
+      "heading": "Their bath and haircut, booked online",
+      "point_1": "Pick the service, size, day and time in a couple of minutes.",
+      "point_2": "See the estimated price before confirming.",
+      "point_3": "Get an email confirmation and a reminder the day before.",
+      "book": "Book an appointment",
+      "gift": "Gift grooming",
+      "services": "Services",
+      "from": "from {{ price }}",
+      "note": "The price depends on your dog's size."
     }
   }
 }

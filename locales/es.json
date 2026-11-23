@@ -1012,6 +1012,18 @@
       "a_loyalty": "Sí: cada visita a la peluquería suma un sello y cada 10 visitas tu perro tiene un baño de regalo. Lo ves en tu cuenta, en «Mis perros».",
       "form_title": "Escríbenos",
       "form_intro": "Te respondemos por email lo antes posible."
+    },
+    "grooming_cta": {
+      "kicker": "Peluquería canina",
+      "heading": "Su baño y su corte, con cita online",
+      "point_1": "Eliges servicio, tamaño, día y hora en un par de minutos.",
+      "point_2": "Ves el precio estimado antes de confirmar.",
+      "point_3": "Te llega la confirmación por email y un recordatorio el día antes.",
+      "book": "Reservar cita",
+      "gift": "Regalar peluquería",
+      "services": "Servicios",
+      "from": "desde {{ price }}",
+      "note": "El precio depende del tamaño de tu perro."
     }
   }
 }

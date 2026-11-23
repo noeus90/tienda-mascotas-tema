@@ -3655,6 +3655,20 @@
           "label": "Espaciado inferior"
         }
       }
+    },
+    "pet_grooming_cta": {
+      "name": "Peluquería: reservar",
+      "settings": {
+        "paragraph": {
+          "content": "Los servicios y precios salen de los del formulario de reserva (metaobjetos «grooming_service»)."
+        },
+        "padding_top": {
+          "label": "Espaciado superior"
+        },
+        "padding_bottom": {
+          "label": "Espaciado inferior"
+        }
+      }
     }
   }
 }

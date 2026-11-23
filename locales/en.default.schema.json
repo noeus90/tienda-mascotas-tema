@@ -3655,6 +3655,20 @@
           "label": "Bottom padding"
         }
       }
+    },
+    "pet_grooming_cta": {
+      "name": "Grooming booking",
+      "settings": {
+        "paragraph": {
+          "content": "Services and prices come from the booking form (grooming_service metaobjects)."
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
+        }
+      }
     }
   }
 }
