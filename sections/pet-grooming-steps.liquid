@@ -85,24 +85,52 @@
             continue
           endif
           assign step_number = step_number | plus: 1
-          assign n = step_number | append: ''
-
           assign title = block.settings.category
           assign text = block.settings.short_description
           assign when = block.settings.application_time
+          # English for the default Spanish texts of steps 1-4 (literal keys, as Theme Check requires).
           if gs_en
-            assign key = 'pet_cro.grooming_steps.step_' | append: n
-            assign default_title = 'pet_cro.grooming_steps.default_es.title_' | append: n | t
-            assign default_text = 'pet_cro.grooming_steps.default_es.text_' | append: n | t
-            assign default_when = 'pet_cro.grooming_steps.default_es.when_' | append: n | t
-            if title == default_title
-              assign title = key | append: '_title' | t
-            endif
-            if text == default_text
-              assign text = key | append: '_text' | t
-            endif
-            if when == default_when
-              assign when = key | append: '_when' | t
+            assign es_title = ''
+            case step_number
+              when 1
+                assign es_title = 'pet_cro.grooming_steps.default_es.title_1' | t
+                assign es_text = 'pet_cro.grooming_steps.default_es.text_1' | t
+                assign es_when = 'pet_cro.grooming_steps.default_es.when_1' | t
+                assign en_title = 'pet_cro.grooming_steps.step_1_title' | t
+                assign en_text = 'pet_cro.grooming_steps.step_1_text' | t
+                assign en_when = 'pet_cro.grooming_steps.step_1_when' | t
+              when 2
+                assign es_title = 'pet_cro.grooming_steps.default_es.title_2' | t
+                assign es_text = 'pet_cro.grooming_steps.default_es.text_2' | t
+                assign es_when = 'pet_cro.grooming_steps.default_es.when_2' | t
+                assign en_title = 'pet_cro.grooming_steps.step_2_title' | t
+                assign en_text = 'pet_cro.grooming_steps.step_2_text' | t
+                assign en_when = 'pet_cro.grooming_steps.step_2_when' | t
+              when 3
+                assign es_title = 'pet_cro.grooming_steps.default_es.title_3' | t
+                assign es_text = 'pet_cro.grooming_steps.default_es.text_3' | t
+                assign es_when = 'pet_cro.grooming_steps.default_es.when_3' | t
+                assign en_title = 'pet_cro.grooming_steps.step_3_title' | t
+                assign en_text = 'pet_cro.grooming_steps.step_3_text' | t
+                assign en_when = 'pet_cro.grooming_steps.step_3_when' | t
+              when 4
+                assign es_title = 'pet_cro.grooming_steps.default_es.title_4' | t
+                assign es_text = 'pet_cro.grooming_steps.default_es.text_4' | t
+                assign es_when = 'pet_cro.grooming_steps.default_es.when_4' | t
+                assign en_title = 'pet_cro.grooming_steps.step_4_title' | t
+                assign en_text = 'pet_cro.grooming_steps.step_4_text' | t
+                assign en_when = 'pet_cro.grooming_steps.step_4_when' | t
+            endcase
+            if es_title != blank
+              if title == es_title
+                assign title = en_title
+              endif
+              if text == es_text
+                assign text = en_text
+              endif
+              if when == es_when
+                assign when = en_when
+              endif
             endif
           endif
           assign variant = product.selected_or_first_available_variant
