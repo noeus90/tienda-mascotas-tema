@@ -3,13 +3,6 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "vendor": {
-          "type": "text",
-          "settings": {
-            "text": "{{ product.vendor }}",
-            "text_style": "uppercase"
-          }
-        },
         "title": {
           "type": "title"
         },
@@ -47,12 +40,16 @@
           "settings": {
             "share_label": "Compartir"
           }
+        },
+        "summary": {
+          "type": "summary",
+          "settings": {}
         }
       },
       "block_order": [
-        "vendor",
         "title",
         "price",
+        "summary",
         "variant_picker",
         "quantity_selector",
         "buy_buttons",

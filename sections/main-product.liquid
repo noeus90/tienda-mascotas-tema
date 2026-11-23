@@ -204,10 +204,26 @@
                       {%- endif -%}
                     {%- endif -%}
                   </p>
+                {%- when 'summary' -%}
+                  {%- comment -%} UX-21: the first paragraph of the description, right under the price. {%- endcomment -%}
+                  {%- if product.description contains '</p>' -%}
+                    <div class="product__summary rte" {{ block.shopify_attributes }}>
+                      {{ product.description | split: '</p>' | first | append: '</p>' }}
+                    </div>
+                  {%- endif -%}
                 {%- when 'description' -%}
+                  {%- liquid
+                    # With a "summary" block, its first paragraph is already shown above: skip it here.
+                    assign description_html = product.description
+                    assign summary_blocks = section.blocks | where: 'type', 'summary'
+                    if summary_blocks.size > 0 and description_html contains '</p>'
+                      assign first_paragraph = description_html | split: '</p>' | first | append: '</p>'
+                      assign description_html = description_html | remove_first: first_paragraph
+                    endif
+                  -%}
                   <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
-                    {%- if product.description != blank -%}
-                      {{ product.description }}
+                    {%- if description_html != blank -%}
+                      {{ description_html }}
                     {%- endif -%}
                     {% render 'product-care-metafield', product: product %}
                     {% render 'pet-product-tabs', product: product %}
@@ -973,6 +989,11 @@
     {
       "type": "description",
       "name": "t:sections.main-product.blocks.description.name",
+      "limit": 1
+    },
+    {
+      "type": "summary",
+      "name": "t:sections.main-product.blocks.summary.name",
       "limit": 1
     },
     {

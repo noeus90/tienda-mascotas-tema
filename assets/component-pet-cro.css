@@ -1374,3 +1374,14 @@
   font-weight: 600;
   color: #047857;
 }
+
+/* UX-21: product summary right under the price (sections/main-product.liquid, block "summary") */
+.product__summary {
+  margin: 0.4rem 0 0;
+  font-size: 1.6rem;
+  line-height: 1.55;
+}
+
+.product__summary p {
+  margin: 0;
+}

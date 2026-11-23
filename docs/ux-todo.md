@@ -186,12 +186,20 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 - [x] 🟠 **UX-20 · Calculadora de ración.** *(hecho el 23/11/2026)*
   - La edad arranca según la etiqueta del pienso: cachorro / gatito → «Cachorro» / «Gatito», senior → «Senior», el resto → «Adulto».
   - Probado: pienso cachorro con 10 kg da «405 g al día (3 × 135 g)». Antes, con «Adulto», salía la mitad (205 g), un error importante para un cachorro.
-- [ ] 🟠 **UX-21 · Orden de la columna derecha.** **(yo)**
-  - Problema: entre el precio y la descripción hay 9 bloques: stock, envío, tallas, cantidad, barra de envío, botones, calculadora, sellos y «se suelen comprar juntos».
-  - Propuesta:
-    - subir el resumen del producto y los beneficios junto al título;
-    - agrupar envío y stock en un solo bloque;
-    - llevar sellos y complementarios debajo.
+- [x] 🟠 **UX-21 · Orden de la columna derecha.** *(hecho el 23/11/2026)*
+  - **Nuevo orden:**
+    1. Título
+    2. Precio (con stock y entrega en un solo recuadro)
+    3. **Resumen**
+    4. Tallas
+    5. Cantidad
+    6. Compra (barra de envío, botones, calculadora y sellos)
+    7. Se suelen comprar juntos
+    8. Descripción (lista, consejo, conservación y pestañas)
+    9. Compartir
+  - **Bloque «Resumen del producto» nuevo:** muestra la primera frase de la descripción bajo el precio; la descripción de abajo ya no la repite.
+  - **Quitada la marca** sobre el título: siempre ponía «brudabrey».
+  - El stock sigue dentro del bloque de precio porque Dawn lo refresca al cambiar de talla.
 
 ## 🟠 Carrito
 
