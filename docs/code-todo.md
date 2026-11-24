@@ -48,9 +48,12 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - Nuevo ajuste del tema *Sugerencias del carrito: colección* (en el grupo del envío gratis). Vacío: todo el catálogo, como antes. Con más de 50 productos, conviene una colección ordenada por precio de menor a mayor.
     - Si no se puede añadir, sale un aviso bajo las sugerencias y el botón vuelve a estar activo. Con un 422 (por ejemplo, agotado) se muestra el motivo que da Shopify, en el idioma de la tienda; si no, «No se ha podido añadir. Prueba otra vez.».
     - Probado en CLAUDIA: carrito con oreja de cerdo y 4 sugerencias. Con una variante agotada sale «El artículo 'Pelota mordedora perro' ya está agotado.». Se vació el carrito al acabar.
-- [ ] 🔴 **CODE-04 · Arreglo del pie que solo carga en la reserva.** S
+- [x] 🔴 **CODE-04 · Arreglo del pie que solo carga en la reserva.** S *(hecho el 24/11/2026)*
   - `section-grooming-booking.css:1860-1867`: la regla `.footer__localization .header-lang-switcher-form` es del pie, pero el CSS solo se carga en /pages/bookings, así que en el resto de páginas no se aplica.
   - Propuesta: moverla al CSS global.
+  - Hecho: la regla pasa a `component-pet-cro.css` (global) y sale de la CSS de la reserva.
+    - Hoy el selector de idioma del pie está desactivado, así que no se notaba. Si se activa, en móvil sale en su propia línea, bajo el país.
+    - Probado en CLAUDIA a 390 px en la portada, activándolo un momento (luego se volvió a desactivar).
 
 ## Tema · 🟠 rendimiento y estructura
 

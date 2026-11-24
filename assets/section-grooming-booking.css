@@ -1857,15 +1857,6 @@
   }
 }
 
-/* Footer: the ES/EN switch went over the country selector on phones. */
-@media screen and (max-width: 749px) {
-  .footer__localization .header-lang-switcher-form {
-    flex-basis: 100%;
-    justify-content: center;
-    margin: 0.8rem 0 0;
-  }
-}
-
 /* Summary rows hidden from JS (no add-ons, one groomer): display: flex beat [hidden]. */
 .conf-item[hidden] {
   display: none !important;
