@@ -1,0 +1,157 @@
+/* ==========================================================================
+   Pet shop CRO components of the cart page (CODE-05: split from component-pet-cro.css).
+   Loaded by sections/main-cart-items.liquid and main-cart-footer.liquid.
+   ========================================================================== */
+
+/* UX-22: cart suggestions to reach free shipping (snippets/cart-upsell.liquid) */
+.cart-upsell {
+  margin: 2.4rem 0 0;
+  padding: 1.8rem 2rem;
+  border-radius: 1.4rem;
+  background: #ecfdf5;
+}
+
+.cart-upsell__error {
+  margin: 1rem 0 0;
+  color: rgb(var(--color-foreground));
+  font-size: 1.4rem;
+}
+
+.cart-upsell__error::before {
+  content: '⚠️ ';
+}
+
+.cart-upsell__title {
+  margin: 0 0 1.4rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.cart-upsell__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cart-upsell__item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 0.8rem;
+  border-radius: 1rem;
+  background: rgb(var(--color-background));
+}
+
+.cart-upsell__media img {
+  display: block;
+  width: 6.4rem;
+  height: 6.4rem;
+  border-radius: 0.8rem;
+  object-fit: cover;
+}
+
+.cart-upsell__info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  font-size: 1.4rem;
+}
+
+.cart-upsell__name {
+  color: rgb(var(--color-foreground));
+  text-decoration: none;
+}
+
+.cart-upsell__price {
+  font-weight: 700;
+}
+
+.cart-upsell__add {
+  flex: none;
+  min-height: 4.4rem;
+  padding: 0 1.6rem;
+  border: 2px solid #047857;
+  border-radius: 99rem;
+  background: transparent;
+  color: #047857;
+  font: inherit;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 4rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.cart-upsell__add:hover {
+  background: #047857;
+  color: #fff;
+}
+
+/* UX-22: delivery dates and discount code in the cart footer (snippets/cart-extras.liquid) */
+.cart-extras {
+  margin-bottom: 1.6rem;
+  font-size: 1.4rem;
+}
+
+.cart-extras__delivery {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin: 0 0 1rem;
+}
+
+.cart-extras__code summary {
+  display: block;
+  text-align: right;
+  cursor: pointer;
+  color: #047857;
+  font-weight: 600;
+  list-style: none;
+}
+
+.cart-extras__code summary::-webkit-details-marker {
+  display: none;
+}
+
+.cart-extras__code-form {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.cart-extras__code-form input {
+  flex: 1;
+  min-width: 0;
+  min-height: 4.4rem;
+  padding: 0 1.2rem;
+  border: 1px solid rgba(var(--color-foreground), 0.3);
+  border-radius: 0.6rem;
+  font: inherit;
+  text-transform: uppercase;
+}
+
+.cart-extras__code-form .button {
+  margin: 0;
+  min-height: 4.4rem;
+}
+
+.cart-extras__code-note {
+  margin: 0.6rem 0 0;
+  font-size: 1.3rem;
+  text-align: right;
+  color: rgba(var(--color-foreground), 0.65);
+}
+
+@media screen and (max-width: 749px) {
+  .cart-extras__delivery,
+  .cart-extras__code summary,
+  .cart-extras__code-note {
+    justify-content: center;
+    text-align: center;
+  }
+}

@@ -57,13 +57,21 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 
 ## Tema · 🟠 rendimiento y estructura
 
-- [ ] 🟠 **CODE-05 · Dividir `component-pet-cro.css`.** M
+- [x] 🟠 **CODE-05 · Dividir `component-pet-cro.css`.** M *(hecho el 24/11/2026)*
   - Son 1540 líneas que bloquean el pintado en todas las páginas.
   - Propuesta:
     - global, unas 300 líneas: insignias, selector de idioma, banner de desarrollo y columnas del pie;
     - `component-pet-product.css`, cargado desde main-product: pestañas, sellos, suscripción, stock, ración, aviso de reposición y barra fija;
     - `component-pet-cart.css`: barra de envío gratis, sugerencias y extras del carrito.
   - De paso, quitar los selectores sin uso (CODE-15).
+  - Hecho: las mismas reglas, solo repartidas (comprobado línea a línea):
+    - `component-pet-cro.css`, global: 1560 → 467 líneas. Barra de envío gratis (también en el cajón del carrito), avisos de congelado y península, selector de idioma, banner de desarrollo, ahorro de packs, newsletter, portada, columnas del pie, pack único y búsqueda.
+    - `component-pet-product.css`: 946 líneas. Se carga en `main-product` y `featured-product`, antes del CSS de Dawn, en el mismo orden que antes.
+    - `component-pet-cart.css`: 157 líneas, en `main-cart-items` y `main-cart-footer`.
+  - Probado en CLAUDIA comparando los estilos calculados de todos los elementos, antes y después, a 390 y 1280 px. Páginas: portada, dos fichas, carrito con producto normal y congelado, búsqueda y colección. Salen las mismas diferencias que dos capturas sin cambios (ruido de imágenes).
+    - El modal de «añadir rápido» de las colecciones también carga el CSS de la ficha.
+  - Los selectores sin uso siguen ahí; se quitan en CODE-15.
+
 - [ ] 🟠 **CODE-06 · Un solo «añadir al carrito».** M
   - Hay tres versiones:
     - `pet-grooming-steps.liquid:219` (script en línea);
