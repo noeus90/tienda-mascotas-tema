@@ -174,10 +174,21 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - La lista usa `listAllMetaobjects` (sin el tope de 20 páginas).
   - Probado en local: el aviso de prueba, en espera para la oreja de cerdo (disponible), da «Enviados 1 de 1» y queda «Avisado»; al pulsar otra vez, no se repite. Además, un cambio rechazado por Shopify devuelve `userErrors`, que es lo que ahora corta el envío.
 
-- [ ] 🔴 **CODE-22 · Firma de los enlaces de baja.** S
+- [x] 🔴 **CODE-22 · Firma de los enlaces de baja.** S *(hecho el 24/11/2026, app `b0cbb9f`)*
   - Hay tres copias iguales: `rebook:92`, `reorder:192` y `welcome:113`.
   - Con `SHOPIFY_API_SECRET || ""`, si falta la variable se firma con una clave vacía y los enlaces se pueden falsificar.
   - Propuesta: `lib/signed-links.server.js` que dé error si falta el secreto.
+  - Hecho: `lib/signed-links.server.js` con `signLink(propósito, id)` y `checkLink(…)`. Lo usan rebook, reposición y newsletter (sus funciones de antes llaman a este módulo).
+    - Sin `SHOPIFY_API_SECRET`, firmar da error (no sale el email) y ningún enlace se da por válido.
+    - El token tiene el mismo formato, así que los enlaces ya enviados siguen valiendo.
+  - Probado:
+    - el token nuevo es igual al antiguo;
+    - no vale para otro propósito ni para otro id;
+    - sin secreto, firmar da error;
+    - en la tienda, la página de baja con un token válido pide confirmar y con uno falso dice «Enlace no válido» (no se pulsó confirmar).
+  - No hecho: que caduquen. Cambiaría el formato y dejaría sin valer los enlaces ya enviados; se puede añadir más adelante aceptando los dos formatos durante un tiempo.
+  - Nota: en local la CLI de Shopify pone el secreto; en producción hay que definir `SHOPIFY_API_SECRET` (ver CODE-28).
+
 - [ ] 🔴 **CODE-23 · Sin tests.** M
   - No hay ninguno. Empezar con Vitest por las funciones puras:
     - `salonInstant`, con el cambio de hora;
