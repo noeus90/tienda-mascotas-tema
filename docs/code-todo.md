@@ -147,9 +147,16 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - el botón de avisos de stock con el candado libre y ocupado.
   - No hecho: marcar «enviando» antes de llamar a Brevo. Con el candado, el único caso de envío doble que queda es que el proceso muera justo entre enviar y marcar, y sería una sola vez.
 
-- [ ] 🔴 **CODE-19 · Tope de 1000 citas.** S
+- [x] 🔴 **CODE-19 · Tope de 1000 citas.** S *(hecho el 24/11/2026, app `6106080`)*
   - `appointments.server.js:194 y 388`: 4 páginas de 250 sin filtrar por fecha, así que también cuentan las citas antiguas. Al pasar de 1000, la disponibilidad deja de ver citas y puede dar citas solapadas.
   - Propuesta: consultar solo desde hoy y paginar sin tope, o dar un error si quedan más páginas.
+  - Hecho: nuevo `lib/metaobjects.server.js` con `listAllMetaobjects`, que lee hasta la última página.
+    - Si la consulta falla, da un error claro. Si pasara de 25.000 elementos, también da error en vez de cortar sin avisar.
+    - Lo usan las citas (disponibilidad y lista) y los perros, que tenían el mismo tope.
+    - El filtro por fecha no se puede usar: Shopify ignora `fields.date:>=…` en estos metaobjetos (comprobado, devuelve también las pasadas), así que se leen todas.
+  - Probado en local: disponibilidad general y por peluquera, agenda del admin y lista de perros, sin errores.
+  - Siguen con su propio tope: `waitlist` (10 × 100), `stock-alerts` (20 × 100) y `reorder` (5 × 100). Se pueden pasar a este helper en CODE-25.
+
 - [ ] 🔴 **CODE-20 · Bienvenidas que se pueden perder.** S
   - `welcome.server.js:86-110`: `customers(first: 100)` sin paginar, y el filtro «no enviado» se aplica después. Con más de 100 clientes actualizados, los nuevos se quedan sin email.
   - Propuesta: paginar, o filtrar en la consulta.
