@@ -254,11 +254,14 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - Página de contraseña: «Opening soon» → «Abrimos muy pronto» y su texto, con traducción al inglés.
     - El «Online» fijo del botón «Reservar cita» pasa a las traducciones.
   - Se dejan préstamos de uso común en España: online, email, snack, stock, pack, BARF, spa.
-- [ ] 🟢 **UX-27 · Cabecera en móvil.** **(juntos)**
+- [x] 🟢 **UX-27 · Cabecera en móvil.** *(mi parte hecha el 24/11/2026)*
   - Problemas:
     - El nombre «brudabrey» se parte en dos líneas.
     - El selector de idioma ocupa sitio.
   - Propuesta: un logo en imagen (tú) y el idioma dentro del menú (yo).
+  - Hecho: por debajo de 990 px el selector ES/EN solo sale dentro del menú, y el nombre va en una línea
+    (probado a 320 y 390 px). En ordenador no cambia nada.
+  - Pendiente (tú): el logo en imagen, en Personalizar → Configuración del tema → Logotipo.
 - [x] 🟢 **UX-28 · Newsletter solo para perros.** *(hecho con UX-01 el 23/11/2026)*
   - Problema: «Club de Familias Perrunas» deja fuera a quien tiene gato.
   - Propuesta: un nombre neutro. Va junto con UX-01.

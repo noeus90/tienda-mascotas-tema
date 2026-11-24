@@ -1055,7 +1055,17 @@
   user-select: none;
 }
 
+/* UX-27: on mobile and tablet the language pill lives in the menu drawer only, so the header has
+   room for the shop name, which stays on one line. */
+@media screen and (max-width: 989px) {
+  .header__icons .desktop-localization-wrapper .header-lang-switcher-form {
+    display: none;
+  }
 
+  .header__heading-link .h2 {
+    white-space: nowrap;
+  }
+}
 
 /* 10. Dev Mode Banner (layout/theme.liquid) */
 .dev-mode-banner {
