@@ -1052,6 +1052,7 @@
       "see_all": "See all results"
     },
     "cart_upsell": {
+      "error": "It couldn't be added. Please try again.",
       "title": "You are {{ amount }} away from free shipping. Add something?",
       "add": "Add",
       "choose": "Choose",

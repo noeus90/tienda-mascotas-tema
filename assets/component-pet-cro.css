@@ -1404,6 +1404,16 @@
   background: #ecfdf5;
 }
 
+.cart-upsell__error {
+  margin: 1rem 0 0;
+  color: rgb(var(--color-foreground));
+  font-size: 1.4rem;
+}
+
+.cart-upsell__error::before {
+  content: '⚠️ ';
+}
+
 .cart-upsell__title {
   margin: 0 0 1.4rem;
   font-size: 1.6rem;

@@ -2,8 +2,11 @@
   Cart: "a little more for free shipping" (UX-22). While the cart is under the free shipping amount,
   up to 4 cheap, available products for the pet of the cart (treats, wet food, toys, hygiene) that are
   not in it yet, cheapest first among those that reach the free shipping amount on their own. "Añadir"
-  adds it and reloads the cart. Not shown for carts with only frozen BARF (they have their own
-  shipping rate) or gift cards.
+  adds it and reloads the cart; if it can't be added (sold out, no stock left), it says why. Not
+  shown for carts with only frozen BARF (they have their own shipping rate) or gift cards.
+
+  Products come from the theme setting "Sugerencias del carrito: colección" (CODE-03); without one,
+  from the whole catalogue, where Liquid only sees the first 50 products.
 
   @example
   {% render 'cart-upsell' %}
@@ -43,7 +46,13 @@
 -%}
 
 {%- if missing > 0 and regular_items > 0 -%}
-  {%- assign candidates = collections['all'].products | sort: 'price' -%}
+  {%- liquid
+    assign source = settings.cart_upsell_collection
+    if source == blank
+      assign source = collections['all']
+    endif
+    assign candidates = source.products | sort: 'price'
+  -%}
   {%- capture cards -%}
     {%- for pass in (1..2) -%}
       {%- for item in candidates -%}
@@ -100,6 +109,7 @@
       {%- assign missing_money = missing | money -%}
       <h2 class="cart-upsell__title">{{ 'pet_cro.cart_upsell.title' | t: amount: missing_money }}</h2>
       <ul class="cart-upsell__list" role="list">{{ cards }}</ul>
+      <p class="cart-upsell__error" role="alert" data-cart-upsell-error hidden></p>
     </div>
     <script>
       (() => {
@@ -109,14 +119,23 @@
         box.addEventListener('click', (event) => {
           const button = event.target.closest('[data-cart-upsell-add]');
           if (!button) return;
+          const error = box.querySelector('[data-cart-upsell-error]');
           button.disabled = true;
+          error.hidden = true;
           fetch(`${window.routes.cart_add_url}.js`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
             body: JSON.stringify({ items: [{ id: Number(button.dataset.cartUpsellAdd), quantity: 1 }] }),
           })
-            .then(() => window.location.reload())
-            .catch(() => {
+            .then((response) => response.json().then((data) => ({ status: response.status, data })))
+            .then(({ status, data }) => {
+              if (status === 200) return window.location.reload();
+              // 422 (e.g. sold out): Shopify says why, in the shop language. Otherwise our message.
+              throw new Error(status === 422 ? data.description || '' : '');
+            })
+            .catch((e) => {
+              error.textContent = (e && e.message) || {{ 'pet_cro.cart_upsell.error' | t | json }};
+              error.hidden = false;
               button.disabled = false;
             });
         });

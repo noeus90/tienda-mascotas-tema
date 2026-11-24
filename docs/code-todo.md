@@ -41,9 +41,13 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
       - con los 4 servicios reales y 5 extras: 15/25/40 €, y 45 € con uñas, sin errores;
       - forzando el caso sin servicios, que se quitó después.
     - Queda: en el aviso, la subcabecera sigue diciendo «Elige el servicio…».
-- [ ] 🔴 **CODE-03 · Sugerencias del carrito con solo 50 productos.** S
+- [x] 🔴 **CODE-03 · Sugerencias del carrito con solo 50 productos.** S *(hecho el 24/11/2026)*
   - `cart-upsell.liquid:46`: `collections['all'].products` solo trae los 50 primeros, así que con más catálogo se pierden candidatos. Además, si el añadir falla (por ejemplo un 422 por agotado), recarga sin avisar.
   - Propuesta: una colección «complementos» elegida en ajustes, y mirar `response.ok`.
+  - Hecho:
+    - Nuevo ajuste del tema *Sugerencias del carrito: colección* (en el grupo del envío gratis). Vacío: todo el catálogo, como antes. Con más de 50 productos, conviene una colección ordenada por precio de menor a mayor.
+    - Si no se puede añadir, sale un aviso bajo las sugerencias y el botón vuelve a estar activo. Con un 422 (por ejemplo, agotado) se muestra el motivo que da Shopify, en el idioma de la tienda; si no, «No se ha podido añadir. Prueba otra vez.».
+    - Probado en CLAUDIA: carrito con oreja de cerdo y 4 sugerencias. Con una variante agotada sale «El artículo 'Pelota mordedora perro' ya está agotado.». Se vació el carrito al acabar.
 - [ ] 🔴 **CODE-04 · Arreglo del pie que solo carga en la reserva.** S
   - `section-grooming-booking.css:1860-1867`: la regla `.footer__localization .header-lang-switcher-form` es del pie, pero el CSS solo se carga en /pages/bookings, así que en el resto de páginas no se aplica.
   - Propuesta: moverla al CSS global.

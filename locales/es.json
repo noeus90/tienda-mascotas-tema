@@ -1052,6 +1052,7 @@
       "see_all": "Ver todos los resultados"
     },
     "cart_upsell": {
+      "error": "No se ha podido añadir. Prueba otra vez.",
       "title": "Te faltan {{ amount }} para el envío gratis. ¿Le añades algo?",
       "add": "Añadir",
       "choose": "Elegir",

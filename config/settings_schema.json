@@ -1462,6 +1462,12 @@
         "default": 50
       },
       {
+        "type": "collection",
+        "id": "cart_upsell_collection",
+        "label": "Sugerencias del carrito: colección",
+        "info": "De aquí salen las sugerencias para llegar al envío gratis. Vacío: todo el catálogo, pero solo los 50 primeros productos. Con más de 50 productos, elige una colección ordenada por «Precio, de menor a mayor»."
+      },
+      {
         "type": "header",
         "content": "Plazo de entrega"
       },
