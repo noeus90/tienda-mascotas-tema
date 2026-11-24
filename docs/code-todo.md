@@ -72,12 +72,23 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - El modal de «añadir rápido» de las colecciones también carga el CSS de la ficha.
   - Los selectores sin uso siguen ahí; se quitan en CODE-15.
 
-- [ ] 🟠 **CODE-06 · Un solo «añadir al carrito».** M
+- [x] 🟠 **CODE-06 · Un solo «añadir al carrito».** M *(hecho el 24/11/2026)*
   - Hay tres versiones:
     - `pet-grooming-steps.liquid:219` (script en línea);
     - `cart-upsell.liquid:104` (script en línea);
     - `pet-bought-together.js:111`.
   - Propuesta: `petCart.add(items, button)` en un asset, que actualice el cajón del carrito, publique `cartUpdate` y muestre los errores. Los scripts en línea pasan a assets.
+  - Hecho: `assets/pet-cart.js` (cargado en todas las páginas, con `defer`) con `petCart.add(items, { button, source, render })`.
+    - Bloquea el botón mientras trabaja y abre el aviso o el cajón del carrito de Dawn.
+    - Publica `cartUpdate` y devuelve el motivo de Shopify si hay un 422 (agotado…).
+    - Lo usan la rutina de higiene, las sugerencias del carrito y «comprados juntos». Los dos scripts en línea quedan en unas pocas líneas.
+  - Mejora de paso: con el carrito tipo «notificación» (el de la tienda), la rutina ya no lleva a la página del carrito; muestra el aviso como el resto de la tienda.
+  - Probado en CLAUDIA:
+    - rutina: un producto y la rutina entera; aviso abierto y contador a 5;
+    - comprados juntos: 3 productos, aviso y contador a 3;
+    - sugerencias del carrito: se añade y recarga; con una variante agotada sale el motivo en español.
+    - Carrito vaciado al acabar.
+
 - [ ] 🟠 **CODE-07 · Ajustes repetidos en muchos ficheros.** M
   - `settings.free_shipping_threshold | default: 50` se repite 11 veces, más `5000` en `pet-cro.js:263`. Propuesta: valor por defecto en settings_schema y quitar los `default:`.
   - La URL de reservas está en 8 ficheros. Propuesta: snippet `booking-url`. En `header-mega-menu-species.liquid:34-38` las dos ramas del `if` son iguales.

@@ -101,53 +101,12 @@ if (!customElements.get('bought-together')) {
         const selected = this.selectedItems();
         if (!selected.length) return;
 
-        const cart = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
-        const sections = cart ? cart.getSectionsToRender().map((section) => section.id) : [];
-
-        this.button.disabled = true;
-        this.button.setAttribute('aria-busy', 'true');
         this.status.textContent = '';
-
-        fetch(window.Shopify.routes.root + 'cart/add.js', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({
-            items: selected.map((item) => ({ id: Number(item.dataset.variantId), quantity: 1 })),
-            sections,
-            sections_url: window.location.pathname,
-          }),
-        })
-          .then((response) => response.json())
-          .then((response) => {
-            // /cart/add.js answers 422 with { status, description }, for example when a product is sold out.
-            if (!response || response.status) {
-              this.status.textContent = (response && response.description) || this.dataset.error;
-              return;
-            }
-
-            this.status.textContent = this.dataset.added;
-
-            if (cart && response.sections) {
-              try {
-                cart.classList.remove('is-empty');
-                if (typeof cart.setActiveElement === 'function') cart.setActiveElement(this.button);
-                // Several lines are added; Dawn's cart notification shows one, picked by `key`.
-                const first = response.items && response.items[0];
-                cart.renderContents({ ...response, key: first && first.key, id: first && first.variant_id });
-              } catch (error) {
-                // The products are already in the cart: a failed preview must not report an error.
-              }
-            }
-
-            if (typeof publish === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
-              publish(PUB_SUB_EVENTS.cartUpdate, { source: 'bought-together', cartData: response });
-            }
-          })
-          .catch(() => {
-            this.status.textContent = this.dataset.error;
-          })
-          .finally(() => {
-            this.button.removeAttribute('aria-busy');
+        // assets/pet-cart.js: refreshes the cart drawer / notification and publishes cartUpdate.
+        window.petCart
+          .add(selected.map((item) => ({ id: item.dataset.variantId })), { button: this.button, source: 'bought-together' })
+          .then((result) => {
+            this.status.textContent = result.ok ? this.dataset.added : result.message || this.dataset.error;
             this.update();
           });
       }

@@ -120,23 +120,14 @@
           const button = event.target.closest('[data-cart-upsell-add]');
           if (!button) return;
           const error = box.querySelector('[data-cart-upsell-error]');
-          button.disabled = true;
           error.hidden = true;
-          fetch(`${window.routes.cart_add_url}.js`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-            body: JSON.stringify({ items: [{ id: Number(button.dataset.cartUpsellAdd), quantity: 1 }] }),
-          })
-            .then((response) => response.json().then((data) => ({ status: response.status, data })))
-            .then(({ status, data }) => {
-              if (status === 200) return window.location.reload();
-              // 422 (e.g. sold out): Shopify says why, in the shop language. Otherwise our message.
-              throw new Error(status === 422 ? data.description || '' : '');
-            })
-            .catch((e) => {
-              error.textContent = (e && e.message) || {{ 'pet_cro.cart_upsell.error' | t | json }};
+          // assets/pet-cart.js; the cart page reloads itself, so no drawer preview.
+          window.petCart
+            .add([{ id: button.dataset.cartUpsellAdd }], { button, source: 'cart-upsell', render: false })
+            .then((result) => {
+              if (result.ok) return window.location.reload();
+              error.textContent = result.message || {{ 'pet_cro.cart_upsell.error' | t | json }};
               error.hidden = false;
-              button.disabled = false;
             });
         });
       })();

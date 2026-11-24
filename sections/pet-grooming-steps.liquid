@@ -227,44 +227,18 @@
         error: {{ 'pet_cro.grooming_steps.error' | t | json }},
       };
 
-      // Adds the variants; with Dawn's cart drawer it refreshes and opens it, otherwise goes to the cart.
-      const add = (ids, button) => {
-        const drawer = document.querySelector('cart-drawer');
-        const items = ids.map((id) => ({ id: Number(id), quantity: 1 }));
-        const body = { items };
-        if (drawer) {
-          body.sections = drawer.getSectionsToRender().map((s) => s.id);
-          body.sections_url = window.location.pathname;
-        }
-        button.disabled = true;
-        button.setAttribute('aria-busy', 'true');
+      // Adds the variants (assets/pet-cart.js): opens the cart drawer, or goes to the cart page
+      // when the theme has no drawer or notification.
+      const add = async (ids, button) => {
         status.textContent = '';
-        fetch(`${window.routes.cart_add_url}.js`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify(body),
-        })
-          .then((response) => response.json().then((data) => ({ ok: response.ok, data })))
-          .then(({ ok, data }) => {
-            if (!ok) {
-              status.textContent = data.description || data.message || strings.error;
-              return;
-            }
-            if (drawer) {
-              drawer.classList.remove('is-empty');
-              drawer.renderContents({ ...data, id: ids[0] });
-              status.textContent = strings.added;
-            } else {
-              window.location = window.routes.cart_url;
-            }
-          })
-          .catch(() => {
-            status.textContent = strings.error;
-          })
-          .finally(() => {
-            button.disabled = false;
-            button.removeAttribute('aria-busy');
-          });
+        const result = await window.petCart.add(ids.map((id) => ({ id })), { button, source: 'grooming-steps' });
+        if (!result.ok) {
+          status.textContent = result.message || strings.error;
+        } else if (result.hasCartUi) {
+          status.textContent = strings.added;
+        } else {
+          window.location = window.routes.cart_url;
+        }
       };
 
       root.querySelectorAll('[data-grooming-add]').forEach((button) => {
