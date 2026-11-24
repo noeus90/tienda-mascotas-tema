@@ -988,7 +988,11 @@
         "label_special": "Special care",
         "label_notes": "Notes",
         "label_owner": "Pet parent",
-        "label_address": "Address"
+        "label_address": "Address",
+        "breed_mixed": "Mixed breed: there is no standard size, so choose below the size and weight that best fit your dog.",
+        "breed_suggested": "Suggested size: {{ size }} for {{ breed }}. You can change it below if your dog weighs differently.",
+        "breed_unknown": "Custom breed: choose below the size and weight that best fit your dog.",
+        "breed_adjusted": "✓ Size changed by hand to {{ size }} for {{ breed }}."
       }
     },
     "seo": {

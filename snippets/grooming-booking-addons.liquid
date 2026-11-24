@@ -1,0 +1,66 @@
+{%- comment -%}
+  Step 1 of the booking: optional extras with their price per size (CODE-12).
+  Params: has_custom_addons, meta_addons.
+{%- endcomment -%}
+<div class="booking-addons-section">
+  <div class="booking-addons-header">
+    <div>
+      <h4 class="step-section-subtitle">
+        {{ 'pet_cro.booking.step_1.addons_title' | t }}
+      </h4>
+      <p class="booking-addons-subtitle">
+        {{ 'pet_cro.booking.step_1.addons_intro' | t }}
+      </p>
+    </div>
+    <span class="booking-addons-pill-badge">{{ 'pet_cro.booking.step_1.addons_badge' | t }}</span>
+  </div>
+
+  <div class="booking-addons-grid" role="group" aria-label="{{ 'pet_cro.booking.step_1.addons_label' | t }}">
+    {%- if has_custom_addons -%}
+      {%- for addon in meta_addons -%}
+        {%- assign is_active = true -%}
+        {%- if addon.active.value == false or addon.active == false -%}{%- assign is_active = false -%}{%- endif -%}
+        {%- if addon.price == blank and addon.price_mini == blank -%}{%- assign is_active = false -%}{%- endif -%}
+        {%- if is_active -%}
+          {%- assign a_id = addon.system.handle | default: addon.id | default: forloop.index -%}
+          {%- assign a_name = addon.name.value | default: addon.name -%}
+          {%- assign a_price = addon.price.value | default: addon.price_mini.value | default: 0 -%}
+          {%- assign a_mini = addon.price_mini.value | default: addon.price_mini | default: a_price -%}
+          {%- assign a_med = addon.price_medium.value | default: addon.price_medium | default: a_price -%}
+          {%- assign a_lar = addon.price_large.value | default: addon.price_large | default: a_price -%}
+          {%- assign a_icon = addon.icon.value | default: addon.icon | default: '✨' -%}
+          {%- assign a_desc = addon.description.value | default: addon.description | default: '' -%}
+          {%- assign a_dur = addon.duration_mins.value | default: addon.duration_mins | default: 0 -%}
+          <label class="booking-addon-card" data-addon-card="{{ a_id }}">
+            <input
+              type="checkbox"
+              name="grooming_addon"
+              value="{{ a_id }}"
+              class="visually-hidden booking-addon-input"
+              data-addon-id="{{ a_id }}"
+              data-price="{{ a_price }}"
+              data-price-mini="{{ a_mini }}"
+              data-price-medium="{{ a_med }}"
+              data-price-large="{{ a_lar }}"
+              data-duration-mins="{{ a_dur }}"
+            >
+            <span class="booking-addon-toggle" aria-hidden="true"></span>
+            <div class="booking-addon-icon">{{ a_icon }}</div>
+            <div class="booking-addon-content">
+              <div class="booking-addon-top">
+                <span class="booking-addon-name">{{ a_name }}</span>
+                <span class="booking-addon-price" data-addon-price-display>+{{ a_mini | times: 100 | money }}</span>
+              </div>
+              {%- if a_desc != blank -%}
+                <p class="booking-addon-desc">{{ a_desc }}</p>
+              {%- endif -%}
+              {%- if a_dur > 0 -%}
+                <span class="booking-addon-duration">+{{ a_dur }} min</span>
+              {%- endif -%}
+            </div>
+          </label>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</div>

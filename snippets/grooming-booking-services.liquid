@@ -1,0 +1,65 @@
+{%- comment -%}
+  Step 1 of the booking: service cards (CODE-12). Only active services with their three prices,
+  the same rule as the section's JSON config (CODE-02).
+  Params: has_custom_services, meta_services.
+{%- endcomment -%}
+<div class="booking-services-grid" role="radiogroup" aria-label="{{ 'pet_cro.booking.step_1.services_label' | t }}">
+  {%- if has_custom_services -%}
+    {%- for service in meta_services -%}
+      {%- assign is_active = true -%}
+      {%- if service.active.value == false or service.active == false -%}{%- assign is_active = false -%}{%- endif -%}
+      {%- comment -%} CODE-02: only services with their three prices (same rule as the section). {%- endcomment -%}
+      {%- unless service.price_mini.value > 0 and service.price_medium.value > 0 and service.price_large.value > 0 -%}{%- assign is_active = false -%}{%- endunless -%}
+      {%- if is_active -%}
+        {%- assign s_id = service.system.handle | default: service.id | default: forloop.index -%}
+        {%- assign s_name = service.name.value | default: service.name -%}
+        {%- liquid
+          # One icon per service (UX-24): the metaobject's "icon" field if it has one, otherwise by name.
+          assign s_name_check = service.name.value | default: service.name | downcase
+          assign s_icon_default = '🐾'
+          if s_name_check contains 'baño' or s_name_check contains 'bath'
+            assign s_icon_default = '🛁'
+          elsif s_name_check contains 'tijera' or s_name_check contains 'scissor' or s_name_check contains 'haircut'
+            assign s_icon_default = '✂️'
+          elsif s_name_check contains 'deslanado' or s_name_check contains 'deshedding'
+            assign s_icon_default = '🪮'
+          elsif s_name_check contains 'stripping'
+            assign s_icon_default = '🖐️'
+          endif
+          assign s_icon = service.icon.value | default: service.icon | default: s_icon_default
+        -%}
+        {%- assign s_desc = service.description.value | default: service.description -%}
+        {%- assign s_dur_default = 'pet_cro.booking.step_1.one_hour' | t -%}
+        {%- assign s_dur = service.duration.value | default: service.duration | default: s_dur_default -%}
+        {%- assign s_mini = service.price_mini.value -%}
+        {%- assign s_med = service.price_medium.value -%}
+        {%- assign s_lar = service.price_large.value -%}
+
+        <label class="booking-service-card">
+          <input type="radio" name="grooming_service" value="{{ s_id }}" class="visually-hidden">
+          <span class="service-card-check" aria-hidden="true"></span>
+          <div class="service-card-icon">{{ s_icon }}</div>
+          <div class="service-card-content">
+            <h4 class="service-card-name">{{ s_name }}</h4>
+            {%- if s_desc != blank -%}
+              <p class="service-card-desc">{{ s_desc }}</p>
+            {%- endif -%}
+            <div class="service-card-meta">
+              {%- comment -%} Durations saved as minutes ("60") read as "1 hora" / "45 min". {%- endcomment -%}
+              {%- assign s_dur_text = s_dur | append: '' | strip -%}
+              {%- assign s_dur_num = s_dur_text | plus: 0 -%}
+              {%- assign s_dur_back = s_dur_num | append: '' -%}
+              {%- if s_dur_num > 0 and s_dur_back == s_dur_text -%}
+                {%- if s_dur_num == 60 -%}{%- assign s_dur = s_dur_default -%}{%- else -%}{%- assign s_dur = s_dur_num | append: ' min' -%}{%- endif -%}
+              {%- endif -%}
+              <span class="service-duration">⏱️ {{ s_dur }}</span>
+              <span class="service-base-price" data-price-mini="{{ s_mini }}" data-price-medium="{{ s_med }}" data-price-large="{{ s_lar }}">
+                {{ 'pet_cro.booking.step_1.from' | t }} {{ s_mini | times: 100 | money }}
+              </span>
+            </div>
+          </div>
+        </label>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+</div>

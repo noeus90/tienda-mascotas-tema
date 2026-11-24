@@ -138,8 +138,14 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - fallo al copiar: los datos salen en el aviso, con saltos de línea.
     - Sin errores en consola.
   - Queda para otra tarea: los nombres de servicios y extras salen de los metaobjetos sin traducir (se traducen en Shopify → Idiomas).
-- [ ] 🟠 **CODE-12 · Partir `grooming-booking-step-1.liquid`.** M
+- [x] 🟠 **CODE-12 · Partir `grooming-booking-step-1.liquid`.** M *(hecho el 24/11/2026)*
   - 471 líneas. Propuesta: snippets de servicios, tamaño/raza y extras. Hacerlo junto con CODE-11.
+  - Hecho: `grooming-booking-step-1.liquid` pasa de 286 líneas (tras CODE-11) a 39 y llama a tres snippets:
+    - `grooming-booking-services.liquid` (tarjetas de servicio);
+    - `grooming-booking-size.liquid` (buscador de raza y tamaño);
+    - `grooming-booking-addons.liquid` (extras).
+  - Comprobado que el HTML del paso 1 sale idéntico antes y después, en inglés y en español (servidor local de `theme dev`, espacios normalizados).
+  - Arreglo de CODE-11: los 4 avisos del buscador de raza (raza reconocida, mestizo, raza desconocida y tamaño cambiado a mano) seguían en español fijo en el JS. Ahora son `pet_cro.booking.js.breed_*`. Probado en CLAUDIA en los dos idiomas.
 - [ ] 🟠 **CODE-13 · Textos por defecto comparados con literales.** L
   - Hay unas 40 comparaciones del tipo `raw == 'Texto' or raw == 'Text'` (footer, cajón del menú, relacionados, aviso superior, colecciones…). Basta un espacio o una tilde cambiada en el editor para que deje de traducirse, y cada texto nuevo obliga a tocar el código.
   - Propuesta: ajustes vacíos por defecto, con la nota «vacío = texto traducido», y `section.settings.x | default: ('clave' | t)`. Después, vaciar esos valores en las plantillas.

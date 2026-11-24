@@ -988,7 +988,11 @@
         "label_special": "Cuidados especiales",
         "label_notes": "Observaciones",
         "label_owner": "Tutor/a",
-        "label_address": "Dirección"
+        "label_address": "Dirección",
+        "breed_mixed": "Perro mestizo o cruce: no tiene un tamaño estándar, así que elige abajo el tamaño y peso que mejor se adapte a tu peludo.",
+        "breed_suggested": "Tamaño sugerido: {{ size }} para {{ breed }}. Puedes cambiarlo abajo si tu peludo pesa distinto.",
+        "breed_unknown": "Raza personalizada: elige abajo el tamaño y peso que mejor represente a tu perro.",
+        "breed_adjusted": "✓ Tamaño cambiado a mano a {{ size }} para {{ breed }}."
       }
     },
     "seo": {

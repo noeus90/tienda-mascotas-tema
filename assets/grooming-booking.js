@@ -202,7 +202,6 @@
         serviceId: initialServiceId,
         serviceName: '',
         dogSize: 'mini',
-        dogSizeLabel: 'Mini / Toy (<5 kg)',
         addons: [],
         price: '',
         duration: '1 hora',
@@ -689,7 +688,7 @@
           breedName: clean,
           matchedEntry: DOG_BREEDS_CATALOG[0],
           feedbackType: 'mixed',
-          feedbackText: 'Perro mestizo o cruce: al no tener un tamaño estándar, selecciona abajo el tamaño y peso que mejor se adapte a tu peludo.'
+          feedbackText: this.t('breed_mixed')
         };
       }
 
@@ -697,7 +696,6 @@
       for (const entry of DOG_BREEDS_CATALOG) {
         if (entry.isMixed) continue;
         if (this.normalizeBreedText(entry.name) === normalized) {
-          const sizeLabel = entry.size === 'mini' ? 'Mini / Toy (<5 kg)' : entry.size === 'medium' ? 'Mediano (5 a 15 kg)' : 'Grande (>15 kg)';
           return {
             isRecognized: true,
             isMixed: false,
@@ -705,7 +703,7 @@
             breedName: entry.name,
             matchedEntry: entry,
             feedbackType: 'recognized',
-            feedbackText: `Tamaño sugerido automáticamente: ${sizeLabel} para ${entry.name}. (Puedes cambiarlo abajo si tu peludo tiene un peso diferente).`
+            feedbackText: this.t('breed_suggested', { size: this.sizeLabel(entry.size), breed: entry.name })
           };
         }
       }
@@ -716,7 +714,6 @@
         for (const kw of entry.keywords) {
           const normKw = this.normalizeBreedText(kw);
           if (normalized === normKw || normalized.includes(normKw)) {
-            const sizeLabel = entry.size === 'mini' ? 'Mini / Toy (<5 kg)' : entry.size === 'medium' ? 'Mediano (5 a 15 kg)' : 'Grande (>15 kg)';
             return {
               isRecognized: true,
               isMixed: false,
@@ -724,7 +721,7 @@
               breedName: entry.name,
               matchedEntry: entry,
               feedbackType: 'recognized',
-              feedbackText: `Tamaño sugerido automáticamente: ${sizeLabel} para ${entry.name}. (Puedes cambiarlo abajo si tu peludo tiene un peso diferente).`
+              feedbackText: this.t('breed_suggested', { size: this.sizeLabel(entry.size), breed: entry.name })
             };
           }
         }
@@ -738,7 +735,7 @@
         breedName: clean,
         matchedEntry: null,
         feedbackType: 'unknown',
-        feedbackText: 'Raza personalizada: selecciona abajo el tamaño y peso que mejor represente a tu perro.'
+        feedbackText: this.t('breed_unknown')
       };
     }
 
@@ -923,9 +920,8 @@
           if (this.breedFeedbackEl && !this.breedFeedbackEl.hidden && this.quickBreedInput && this.quickBreedInput.value.trim()) {
             const res = this.resolveBreedInfo(this.quickBreedInput.value);
             if (res.isRecognized && res.size && res.size !== e.target.value) {
-              const customSizeLabel = e.target.value === 'mini' ? 'Mini / Toy' : e.target.value === 'medium' ? 'Mediano' : 'Grande';
               if (this.breedFeedbackText) {
-                this.breedFeedbackText.textContent = `✓ Tamaño ajustado manualmente a ${customSizeLabel} para ${res.breedName}.`;
+                this.breedFeedbackText.textContent = this.t('breed_adjusted', { size: this.sizeLabel(e.target.value), breed: res.breedName });
               }
             }
           }

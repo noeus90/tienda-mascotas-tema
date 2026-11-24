@@ -1,0 +1,128 @@
+{%- comment -%}
+  Step 1 of the booking: breed search and dog size (CODE-12). Breed hints come from
+  grooming-booking.js. Params: section (for unique ids).
+{%- endcomment -%}
+<div class="booking-size-section">
+  <div class="booking-breed-header">
+    <div>
+      <h4 class="step-section-subtitle">
+        {{ 'pet_cro.booking.step_1.size_title' | t }}
+      </h4>
+      <p class="booking-breed-help">
+        {{ 'pet_cro.booking.step_1.size_hint' | t }}
+      </p>
+    </div>
+  </div>
+
+  <!-- Buscador Predictivo de Raza / Mestizo -->
+  <div class="booking-breed-search-box">
+    <label for="booking-quick-breed-{{ section.id }}" class="booking-breed-search-label">
+      {{ 'pet_cro.booking.step_1.breed_label' | t }}
+    </label>
+    <div class="booking-breed-input-wrap">
+      <input
+        type="text"
+        id="booking-quick-breed-{{ section.id }}"
+        class="booking-form-input booking-breed-quick-input"
+        data-booking-input="quickBreed"
+        list="booking-breeds-list-{{ section.id }}"
+        placeholder="{{ 'pet_cro.booking.step_1.breed_placeholder' | t }}"
+        autocomplete="off"
+      >
+      <button
+        type="button"
+        class="booking-breed-clear-btn"
+        data-breed-action="clear"
+        aria-label="{{ 'pet_cro.booking.step_1.breed_clear' | t }}"
+        hidden
+      >
+        &times;
+      </button>
+    </div>
+
+    <!-- Datalist accesible nativo con Mestizos y Razas -->
+    <datalist id="booking-breeds-list-{{ section.id }}" data-breeds-datalist>
+      <option value="Mestizo / Sin raza"></option>
+      <option value="Cruce / Mezcla"></option>
+      <option value="Chihuahua"></option>
+      <option value="Yorkshire Terrier"></option>
+      <option value="Bichón Maltés"></option>
+      <option value="Caniche Toy / Enano"></option>
+      <option value="Pomerania (Lulú)"></option>
+      <option value="Teckel Miniatura (Dachshund)"></option>
+      <option value="Pinscher Miniatura"></option>
+      <option value="Shih Tzu"></option>
+      <option value="Bichón Frisé"></option>
+      <option value="Papillón"></option>
+      <option value="Pekinés"></option>
+      <option value="Bichón Habanero"></option>
+      <option value="Beagle"></option>
+      <option value="Bulldog Francés"></option>
+      <option value="Cocker Spaniel"></option>
+      <option value="Border Collie"></option>
+      <option value="Schnauzer Miniatura / Mediano"></option>
+      <option value="Bodeguero Andaluz"></option>
+      <option value="Carlino (Pug)"></option>
+      <option value="Jack Russell Terrier"></option>
+      <option value="West Highland White Terrier (Westie)"></option>
+      <option value="Bulldog Inglés"></option>
+      <option value="Bull Terrier"></option>
+      <option value="Caniche Mediano"></option>
+      <option value="Basset Hound"></option>
+      <option value="Shiba Inu"></option>
+      <option value="Corgi (Pembroke / Cardigan)"></option>
+      <option value="Perro de Agua Español"></option>
+      <option value="Podenco (Pequeño / Mediano)"></option>
+      <option value="Whippet"></option>
+      <option value="Boston Terrier"></option>
+      <option value="Staffordshire Bull Terrier"></option>
+      <option value="Labrador Retriever"></option>
+      <option value="Golden Retriever"></option>
+      <option value="Pastor Alemán"></option>
+      <option value="Pastor Belga (Malinois)"></option>
+      <option value="Pastor Australiano (Aussie)"></option>
+      <option value="Boxer"></option>
+      <option value="Husky Siberiano"></option>
+      <option value="Dóberman"></option>
+      <option value="Rottweiler"></option>
+      <option value="Boyero de Berna"></option>
+      <option value="Galgo Español / Lebrel"></option>
+      <option value="Mastín Español / Pirineo"></option>
+      <option value="Gran Danés (Dogo Alemán)"></option>
+      <option value="San Bernardo"></option>
+      <option value="Terranova"></option>
+      <option value="Samoyedo"></option>
+      <option value="Weimaraner (Braco de Weimar)"></option>
+      <option value="Dálmata"></option>
+      <option value="Akita Inu"></option>
+      <option value="Cane Corso"></option>
+      <option value="Setter Irlandés / Inglés"></option>
+    </datalist>
+
+    <!-- Feedback Contextual Inteligente -->
+    <div class="booking-breed-feedback" data-breed-feedback hidden aria-live="polite">
+      <span class="breed-feedback-text" data-breed-feedback-text></span>
+    </div>
+  </div>
+
+  <div class="booking-size-grid" role="radiogroup" aria-label="{{ 'pet_cro.booking.step_1.size_label' | t }}">
+    <label class="booking-size-card">
+      <input type="radio" name="dog_size" value="mini" class="visually-hidden">
+      <span class="size-badge">Mini / Toy</span>
+      <strong class="size-name">{{ 'pet_cro.booking.step_1.mini_weight' | t }}</strong>
+      <small class="size-hint">{{ 'pet_cro.booking.step_1.mini_breeds' | t }}</small>
+    </label>
+    <label class="booking-size-card">
+      <input type="radio" name="dog_size" value="medium" class="visually-hidden">
+      <span class="size-badge">{{ 'pet_cro.booking.step_1.medium' | t }}</span>
+      <strong class="size-name">{{ 'pet_cro.booking.step_1.medium_weight' | t }}</strong>
+      <small class="size-hint">{{ 'pet_cro.booking.step_1.medium_breeds' | t }}</small>
+    </label>
+    <label class="booking-size-card">
+      <input type="radio" name="dog_size" value="large" class="visually-hidden">
+      <span class="size-badge">{{ 'pet_cro.booking.step_1.large' | t }}</span>
+      <strong class="size-name">{{ 'pet_cro.booking.step_1.large_weight' | t }}</strong>
+      <small class="size-hint">{{ 'pet_cro.booking.step_1.large_breeds' | t }}</small>
+    </label>
+  </div>
+</div>
