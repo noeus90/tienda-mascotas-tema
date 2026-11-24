@@ -208,9 +208,12 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 
 ## App · 🟠 estructura y robustez
 
-- [ ] 🟠 **CODE-32 · Precio de ejemplo en `priceBooking`.** S
+- [x] 🟠 **CODE-32 · Precio de ejemplo en `priceBooking`.** S *(hecho el 24/11/2026, app `8b69e49`)*
   - `prices.server.js`: si un servicio no tiene precio para un tamaño, usa 28/34/42 €; si un extra no tiene precio, 5 €. Es la versión del servidor de lo que se quitó del tema en CODE-02.
   - Propuesta: devolver `{ error: "service" }` o `{ error: "addons" }` y cambiar el test que lo documenta.
+  - Hecho: sin precio para el tamaño elegido se devuelve `{ error: "service" }`; un extra sin precio da `{ error: "addons" }`, y uno de 0 € sigue valiendo. La reserva responde 422 sin crear la cita.
+  - Comprobado: los 4 servicios activos tienen sus tres precios y los 5 extras tienen precio, así que no se bloquea ninguna reserva real.
+  - Probado: 51 tests en verde y, en local, una reserva con un servicio inexistente da 422 `fields: ["service"]`.
 
 - [ ] 🟠 **CODE-24 · Partir los ficheros grandes.** L
   - `app.citas.$id.jsx` (669 líneas): 9 `intent` en una acción y las secciones de tarjeta regalo y fidelidad dentro.
