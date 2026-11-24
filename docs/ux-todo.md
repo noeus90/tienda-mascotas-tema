@@ -265,6 +265,12 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 - [x] 🟢 **UX-28 · Newsletter solo para perros.** *(hecho con UX-01 el 23/11/2026)*
   - Problema: «Club de Familias Perrunas» deja fuera a quien tiene gato.
   - Propuesta: un nombre neutro. Va junto con UX-01.
-- [ ] 🟢 **UX-29 · Título y descripción de la portada.** **(yo)**
+- [x] 🟢 **UX-29 · Título y descripción de la portada.** *(hecho el 24/11/2026)*
   - Problema: el título es solo «brudabrey» y no hay meta descripción.
   - Propuesta: título y descripción para buscadores. Ya está apuntado en producción; se puede hacer ya con un texto provisional.
+  - Hecho (layout/theme.liquid, claves pet_cro.home_meta):
+    - Título «Tienda de mascotas y peluquería canina – brudabrey» (EN: «Pet shop and dog grooming – brudabrey»).
+    - Descripción de 146 caracteres, con el importe real del envío gratis; también para compartir (og y twitter).
+    - Si se rellenan en el admin (Tienda online → Preferencias), mandan los del admin.
+    - De paso, «tagged» y «Page N» del título salen traducidos («Página 2»).
+  - Cuando haya ciudad del salón, conviene añadirla al título («… en [ciudad]») para búsquedas locales.

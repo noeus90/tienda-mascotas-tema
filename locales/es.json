@@ -545,6 +545,12 @@
     }
   },
   "pet_cro": {
+    "home_meta": {
+      "title": "Tienda de mascotas y peluquería canina",
+      "description": "Pienso, BARF, snacks, juguetes e higiene para perro y gato, con envío gratis desde {{ amount }}. Y peluquería canina con cita online en un par de minutos.",
+      "tagged": "Etiquetado como «{{ tags }}»",
+      "page": "Página {{ page }}"
+    },
     "password": {
       "heading": "Abrimos muy pronto",
       "text": "Déjanos tu email y te avisamos en cuanto abramos."

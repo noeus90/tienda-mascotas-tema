@@ -15,25 +15,39 @@
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
 
-    {%- comment -%} The contact page is called "Contact" in the admin: use the translated title. {%- endcomment -%}
+    {%- comment -%}
+      The contact page is called "Contact" in the admin: use the translated title.
+      UX-29: the home page gets a title and a description for search engines in each language while
+      the admin's "Title and meta description" (Online Store → Preferences) is left empty.
+    {%- endcomment -%}
     {%- liquid
       assign page_title_text = page_title
+      assign page_description_text = page_description
       if template.name == 'page' and template.suffix == 'contact'
         assign page_title_text = 'pet_cro.contact.title' | t
+      endif
+      if request.page_type == 'index'
+        if page_title == blank or page_title == shop.name
+          assign page_title_text = 'pet_cro.home_meta.title' | t
+        endif
+        if page_description == blank or page_description == shop.name
+          assign home_free_shipping = settings.free_shipping_threshold | default: 50 | times: 100 | money_without_trailing_zeros
+          assign page_description_text = 'pet_cro.home_meta.description' | t: amount: home_free_shipping
+        endif
       endif
     -%}
     <title>
       {{ page_title_text }}
-      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
-      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- if current_tags %} &ndash; {{ 'pet_cro.home_meta.tagged' | t: tags: current_tags | join: ', ' }}{% endif -%}
+      {%- if current_page != 1 %} &ndash; {{ 'pet_cro.home_meta.page' | t: page: current_page }}{% endif -%}
       {%- unless page_title_text contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
     </title>
 
-    {% if page_description %}
-      <meta name="description" content="{{ page_description | escape }}">
+    {% if page_description_text %}
+      <meta name="description" content="{{ page_description_text | escape }}">
     {% endif %}
 
-    {% render 'meta-tags' %}
+    {% render 'meta-tags', title: page_title_text, description: page_description_text %}
 
     <script type="module">
       import * as StandardEvents from 'https://cdn.shopify.com/storefront/standard-events.js';

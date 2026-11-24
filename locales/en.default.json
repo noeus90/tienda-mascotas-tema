@@ -533,6 +533,12 @@
     }
   },
   "pet_cro": {
+    "home_meta": {
+      "title": "Pet shop and dog grooming",
+      "description": "Dry food, BARF, treats, toys and grooming products for dogs and cats, with free shipping from {{ amount }}. And dog grooming you can book online in a couple of minutes.",
+      "tagged": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
     "password": {
       "heading": "Opening soon",
       "text": "Leave us your email and we will let you know as soon as we open."
