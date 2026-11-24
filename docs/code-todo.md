@@ -128,7 +128,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 
 ## Tema · 🟢 limpieza
 
-- [ ] 🟢 **CODE-15 · Ficheros y selectores sin uso.** S
+- [x] 🟢 **CODE-15 · Ficheros y selectores sin uso.** S *(hecho el 24/11/2026)*
   - Ninguna plantilla usa `sections/collection-showcase.liquid` ni `sections/promo-banner.liquid`; borrarlas junto con su CSS.
   - Selectores sin uso:
     - los `.cro-benefits-list`, `.cro-actives-*` y `.cro-routine-*`, restos de cosmética, en `component-pet-cro.css` (l.165-310);
@@ -136,6 +136,13 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - `.pet-mascot-count`;
     - `.mega-menu-pet__price-compare`.
   - Los comentarios de `component-pet-cro.css` nombran snippets que ya no existen.
+  - Hecho (230 líneas menos):
+    - borradas las secciones `collection-showcase` y `promo-banner`, su CSS y sus textos del editor (`es.schema.json`, `en.default.schema.json`);
+    - borrado `snippets/custom-badge.liquid` y su regla: solo lo usaba `collection-showcase`;
+    - quitadas las reglas de cosmética (`cro-benefits-list`, `cro-check-icon`, `cro-active*`, `cro-routine-*`, `cro-timing-tag`, `cro-step-num`), `bundle-old-total`, `pet-mascot-count` y `mega-menu-pet__price-compare`;
+    - corregidos los comentarios con nombres de snippets antiguos.
+  - Comprobado con un script que busca cada clase de los CSS propios en Liquid, JS y JSON. Las que se forman con una variable (`is-{{ stock_state }}`, `banner__content--{{ … }}`, `is-${…}`) se quedan.
+  - Theme Check sin avisos. En CLAUDIA: portada, colección y ficha cargan todos sus CSS sin 404 y con los estilos de siempre.
 - [ ] 🟢 **CODE-16 · Funciones globales en `pet-cro.js`.** S
   - `window.switchPetTab`, `selectPurchaseMode`, `updateDeliveryFrequency`… ya no hacen falta, porque hay delegación de eventos.
   - Propuesta: meterlo todo en un módulo y leer el 15 % de la suscripción del `data-` del widget (l.337 y 339).

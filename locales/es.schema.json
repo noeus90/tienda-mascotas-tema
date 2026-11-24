@@ -3592,43 +3592,6 @@
         }
       }
     },
-    "collection_showcase": {
-      "name": "Vitrina de Mascotas",
-      "settings": {
-        "heading": {
-          "label": "Título de la vitrina"
-        },
-        "collection": {
-          "label": "Colección a mostrar"
-        },
-        "products_limit": {
-          "label": "Cantidad máxima de productos"
-        },
-        "padding_y": {
-          "label": "Espaciado vertical"
-        }
-      }
-    },
-    "promo_banner": {
-      "name": "Banner Promo Mascotas",
-      "settings": {
-        "show_icon": {
-          "label": "Mostrar icono huella (🐾)"
-        },
-        "heading": {
-          "label": "Título principal"
-        },
-        "subheading": {
-          "label": "Texto descriptivo"
-        },
-        "button_label": {
-          "label": "Texto del botón"
-        },
-        "button_link": {
-          "label": "Enlace del botón"
-        }
-      }
-    },
     "pet_categories": {
       "name": "Comprar por categoría",
       "settings": {

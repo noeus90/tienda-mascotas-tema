@@ -416,12 +416,6 @@
   color: #047857;
 }
 
-.mega-menu-pet__price-compare {
-  font-size: 1.25rem;
-  color: rgba(var(--color-foreground), 0.45);
-  text-decoration: line-through;
-}
-
 .mega-menu-pet__product-cta {
   display: inline-flex;
   align-items: center;

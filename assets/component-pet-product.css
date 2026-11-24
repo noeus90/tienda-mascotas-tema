@@ -18,22 +18,6 @@
   color: #991b1b;
 }
 
-/* 2. Custom Pill Badge (snippets/custom-badge.liquid) */
-.custom-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.4rem 0.96rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-  line-height: 1;
-  border-radius: 9999px;
-  background-color: var(--badge-bg, #e2e8f0);
-  color: var(--badge-fg, #0f172a);
-  letter-spacing: 0.025em;
-  text-transform: uppercase;
-}
-
 /* 3. Product Care Instructions Metafield (snippets/product-care-metafield.liquid) */
 .product-care-box {
   margin-top: 2.4rem;
@@ -64,7 +48,7 @@
   line-height: 1.5;
 }
 
-/* 4. Pestañas de Producto Cosmética (snippets/pestanas-producto-cosmetica.liquid) */
+/* 4. Product tabs (snippets/pet-product-tabs.liquid) */
 .cro-tabs-wrapper {
   margin-top: 2.8rem;
   margin-bottom: 2.4rem;
@@ -162,79 +146,6 @@
   border: 1px solid #a7f3d0;
 }
 
-.cro-benefits-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-}
-
-.cro-benefits-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.04rem;
-  font-size: 1.4rem;
-  color: rgba(var(--color-foreground, 15, 23, 42), 0.85);
-  line-height: 1.5;
-}
-
-.cro-check-icon {
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: #d1fae5;
-  color: #047857;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  font-weight: 700;
-}
-
-.cro-actives-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.36rem;
-  margin-bottom: 1.6rem;
-}
-
-.cro-active-card {
-  background: rgba(var(--color-foreground, 15, 23, 42), 0.03);
-  border: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.12);
-  border-radius: 8px;
-  padding: 1.36rem 1.6rem;
-}
-
-.cro-active-pill {
-  display: inline-block;
-  font-size: 1.12rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  background: rgba(var(--color-foreground, 15, 23, 42), 0.08);
-  color: rgba(var(--color-foreground, 15, 23, 42), 0.75);
-  padding: 0.24rem 0.8rem;
-  border-radius: 4px;
-  margin-bottom: 0.56rem;
-}
-
-.cro-active-card h4 {
-  margin: 0 0 0.4rem 0;
-  font-size: 1.52rem;
-  color: rgb(var(--color-foreground, 15, 23, 42));
-  font-weight: 700;
-}
-
-.cro-active-card p {
-  margin: 0;
-  font-size: 1.32rem;
-  color: rgba(var(--color-foreground, 15, 23, 42), 0.75);
-  line-height: 1.45;
-}
-
 .cro-inci-accordion {
   margin-top: 1.6rem;
   border-top: 1px dashed rgba(var(--color-foreground, 15, 23, 42), 0.2);
@@ -261,54 +172,6 @@
   padding: 1.2rem;
   border-radius: 6px;
   word-break: break-word;
-}
-
-.cro-routine-timing {
-  display: flex;
-  gap: 0.8rem;
-  margin-bottom: 1.6rem;
-  flex-wrap: wrap;
-}
-
-.cro-timing-tag {
-  font-size: 1.2rem;
-  font-weight: 600;
-  padding: 0.4rem 0.96rem;
-  border-radius: 6px;
-  background: rgba(var(--color-foreground, 15, 23, 42), 0.06);
-  color: rgba(var(--color-foreground, 15, 23, 42), 0.85);
-}
-
-.cro-routine-steps {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-}
-
-.cro-routine-steps li {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.2rem;
-  font-size: 1.4rem;
-  color: rgba(var(--color-foreground, 15, 23, 42), 0.85);
-  line-height: 1.45;
-}
-
-.cro-step-num {
-  flex-shrink: 0;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background-color: rgb(var(--color-foreground, 15, 23, 42));
-  color: rgb(var(--color-background, 255, 255, 255));
-  font-size: 1.2rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 @keyframes croFadeIn {
@@ -356,7 +219,6 @@
   color: rgb(var(--color-foreground, 15, 23, 42));
 }
 
-
 .cro-seals-mini-grid {
   margin: 0;
   padding: 0;
@@ -400,7 +262,7 @@
   color: inherit;
 }
 
-/* 6. Selector Compra Única vs. Suscríbete y Ahorra (snippets/selector-suscripcion.liquid) */
+/* 6. Selector Compra Única vs. Suscríbete y Ahorra (snippets/subscription-selector.liquid) */
 .cro-sub-widget {
   margin-top: 2rem;
   margin-bottom: 2.4rem;
@@ -595,7 +457,7 @@
   color: #065f46;
 }
 
-/* 8. Widget de Stock en Tiempo Real y Entrega 24h (snippets/widget-stock-urgencia.liquid) */
+/* 8. Widget de Stock en Tiempo Real y Entrega 24h (snippets/stock-urgency-widget.liquid) */
 .cro-stock-widget {
   margin-top: 1.44rem;
   margin-bottom: 1.6rem;
@@ -847,11 +709,6 @@
 
 .back-in-stock__message:empty {
   display: none;
-}
-
-/* 12. Bundle builder: old total visibility toggled from JS */
-.bundle-old-total.is-visible {
-  display: inline;
 }
 
 /* UX-09: "Add to cart" is the main button; Shopify's "Buy it now" (unbranded dynamic checkout)

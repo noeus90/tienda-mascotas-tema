@@ -6,7 +6,7 @@
    Product page only: component-pet-product.css; cart page only: component-pet-cart.css (CODE-05).
    ========================================================================== */
 
-/* 7. Barra de Progreso Envío Gratis + Regalo (snippets/barra-envio-gratis.liquid) */
+/* 7. Barra de Progreso Envío Gratis + Regalo (snippets/free-shipping-bar.liquid) */
 .cro-shipping-bar {
   background: #f0fdf4;
   border: 1px solid #bbf7d0;

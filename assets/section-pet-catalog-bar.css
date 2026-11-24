@@ -72,24 +72,6 @@
   line-height: 1;
 }
 
-.pet-mascot-count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  font-weight: 700;
-  padding: 0.24rem 0.72rem;
-  border-radius: 9999px;
-  background: rgba(var(--color-foreground), 0.08);
-  color: inherit;
-  margin-left: 0.4rem;
-}
-
-.pet-mascot-btn.is-active .pet-mascot-count {
-  background: rgba(255, 255, 255, 0.22);
-  color: #ffffff;
-}
-
 /* Level 2: Category Chips / Subcollection Pills */
 .pet-categories-scroll-wrap {
   position: relative;
@@ -148,7 +130,6 @@
 .pet-category-pill.is-active .pet-category-icon {
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
 }
-
 
 .pet-catalog-reset-btn {
   margin-left: auto;
@@ -270,7 +251,6 @@
     white-space: nowrap;
   }
 }
-
 
 /* UX-15: Dawn's "Product type" filter repeats the category pills above. This stylesheet only loads
    with the pet catalog bar (collections), so the search page keeps it. */

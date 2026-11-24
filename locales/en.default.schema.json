@@ -3592,43 +3592,6 @@
         }
       }
     },
-    "collection_showcase": {
-      "name": "Pet Collection Showcase",
-      "settings": {
-        "heading": {
-          "label": "Showcase heading"
-        },
-        "collection": {
-          "label": "Collection to display"
-        },
-        "products_limit": {
-          "label": "Maximum number of products"
-        },
-        "padding_y": {
-          "label": "Vertical spacing"
-        }
-      }
-    },
-    "promo_banner": {
-      "name": "Pet Promo Banner",
-      "settings": {
-        "show_icon": {
-          "label": "Show paw icon (🐾)"
-        },
-        "heading": {
-          "label": "Main heading"
-        },
-        "subheading": {
-          "label": "Descriptive text"
-        },
-        "button_label": {
-          "label": "Button label"
-        },
-        "button_link": {
-          "label": "Button link"
-        }
-      }
-    },
     "pet_categories": {
       "name": "Shop by category",
       "settings": {
