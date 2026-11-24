@@ -94,8 +94,8 @@
       this.section = section;
       this.sectionId = section.dataset.sectionId;
       this.currentStep = 1;
-      this.whatsappNumber = section.dataset.whatsappNumber || '+34 612 345 678';
-      this.salonAddress = section.dataset.salonAddress || 'Calle Amor de Mascota 12, Madrid';
+      this.whatsappNumber = section.dataset.whatsappNumber || '';
+      this.salonAddress = section.dataset.salonAddress || '';
       this.salonEmail = section.dataset.salonEmail || '';
       // Busy time ranges per day from the booking app ({ 'YYYY-MM-DD': [[startMin, endMin]] }).
       this.busy = {};
@@ -2320,7 +2320,7 @@
         ? this.bookingData.specialNeeds.join(', ')
         : '';
 
-      const salonAddress = this.section.dataset.salonAddress || 'Calle Amor de Mascota 12, Madrid';
+      const salonAddress = this.salonAddress;
 
       const bodyLines = [
         isEn ? 'Hello! I would like to confirm the following dog grooming appointment:' : '¡Hola! Deseo confirmar la siguiente cita de peluquería canina:',
@@ -2338,7 +2338,7 @@
         '----------------------------------------',
         `• ${isEn ? 'Date' : 'Día'}: ${humanDate}`,
         `• ${isEn ? 'Time slot' : 'Franja horaria'}: ${this.bookingData.slot} - ${endSlot} h (${durationTag})`,
-        `• ${isEn ? 'Address' : 'Salón'}: ${salonAddress}`,
+        ...(salonAddress ? [`• ${isEn ? 'Address' : 'Salón'}: ${salonAddress}`] : []),
         '',
         isEn ? '👤 PET PARENT DETAILS' : '👤 DATOS DEL TUTOR',
         '----------------------------------------',
@@ -2400,7 +2400,7 @@
      * Compatible con escritorio (cálculo de ruta en navegador) y móviles (app nativa Google Maps)
      */
     buildGoogleMapsUrl() {
-      const address = this.salonAddress || this.section.dataset.salonAddress || 'Calle Amor de Mascota 12, Madrid';
+      const address = this.salonAddress;
       return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`;
     }
 
@@ -2409,7 +2409,7 @@
      * Optimizado para macOS y dispositivos iOS
      */
     buildAppleMapsUrl() {
-      const address = this.salonAddress || this.section.dataset.salonAddress || 'Calle Amor de Mascota 12, Madrid';
+      const address = this.salonAddress;
       return `https://maps.apple.com/?daddr=${encodeURIComponent(address)}`;
     }
 

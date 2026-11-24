@@ -3571,10 +3571,11 @@
         },
         "whatsapp_number": {
           "label": "Teléfono de WhatsApp de recepción",
-          "info": "Número con prefijo internacional para recibir las solicitudes (ej: +34 612 345 678)"
+          "info": "Vacío: se usa el WhatsApp de Configuración del tema → Datos del salón. Sin número no se muestran los botones de WhatsApp ni SMS."
         },
         "salon_address": {
-          "label": "Dirección o ubicación del centro"
+          "label": "Dirección o ubicación del centro",
+          "info": "Vacío: se usa la dirección de Configuración → Detalles de la tienda. Sin dirección no se muestran la ubicación ni «Cómo llegar»."
         },
         "enable_sync_agenda": {
           "label": "Sincronizar con agenda interna",

@@ -143,13 +143,31 @@
 {%- comment -%} Texts follow the page language (/en/ English, otherwise Spanish). {%- endcomment -%}
 {%- assign booking_en = false -%}{%- if request.locale.iso_code == 'en' -%}{%- assign booking_en = true -%}{%- endif -%}
 
+{%- comment -%}
+  CODE-01: real salon data only. WhatsApp and email: this section's settings, otherwise the theme
+  settings "Datos del salón"; address: this section's setting, otherwise the store address
+  (Settings → Store details). The shop's own email is never used. When a value is missing, the
+  buttons that need it are not shown.
+{%- endcomment -%}
+{%- liquid
+  assign salon_whatsapp = section.settings.whatsapp_number | default: settings.salon_whatsapp | strip
+  assign salon_email = section.settings.salon_email | default: settings.salon_email | strip
+  assign salon_address = section.settings.salon_address | strip
+  if salon_address == blank and shop.address.address1 != blank
+    assign salon_address = shop.address.address1
+    if shop.address.zip != blank or shop.address.city != blank
+      assign salon_address = salon_address | append: ', ' | append: shop.address.zip | append: ' ' | append: shop.address.city | strip
+    endif
+  endif
+-%}
+
 <section
   class="grooming-booking-section grooming-booking-{{ section.id }} color-{{ section.settings.color_scheme }} gradient"
   id="grooming-booking-{{ section.id }}"
   data-section-id="{{ section.id }}"
-  data-whatsapp-number="{{ section.settings.whatsapp_number | default: '+34 612 345 678' | escape }}"
-  data-salon-address="{{ section.settings.salon_address | default: 'Calle Amor de Mascota 12, Madrid' | escape }}"
-  data-salon-email="{{ section.settings.salon_email | default: shop.email | escape }}"
+  data-whatsapp-number="{{ salon_whatsapp | escape }}"
+  data-salon-address="{{ salon_address | escape }}"
+  data-salon-email="{{ salon_email | escape }}"
 >
   <script type="application/json" data-grooming-config>
     {
@@ -296,7 +314,7 @@
       %}
       {% render 'grooming-booking-step-2', section: section %}
       {% render 'grooming-booking-step-3', section: section %}
-      {% render 'grooming-booking-step-4', section: section %}
+      {% render 'grooming-booking-step-4', section: section, salon_whatsapp: salon_whatsapp, salon_email: salon_email, salon_address: salon_address %}
     </div>
   </div>
 
@@ -325,14 +343,13 @@
       "type": "text",
       "id": "whatsapp_number",
       "label": "t:sections.grooming_booking.settings.whatsapp_number.label",
-      "info": "t:sections.grooming_booking.settings.whatsapp_number.info",
-      "default": "+34 612 345 678"
+      "info": "t:sections.grooming_booking.settings.whatsapp_number.info"
     },
     {
       "type": "text",
       "id": "salon_address",
       "label": "t:sections.grooming_booking.settings.salon_address.label",
-      "default": "Calle Amor de Mascota 12, Madrid"
+      "info": "t:sections.grooming_booking.settings.salon_address.info"
     },
     {
       "type": "text",

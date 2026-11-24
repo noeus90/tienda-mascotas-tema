@@ -21,9 +21,16 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 
 ## Tema · 🔴 fallos y datos falsos
 
-- [ ] 🔴 **CODE-01 · Datos de ejemplo en la reserva.** S
+- [x] 🔴 **CODE-01 · Datos de ejemplo en la reserva.** S *(hecho el 24/11/2026)*
   - `grooming-booking.js:97-98, 2323, 2403, 2412`: si faltan datos, usa el teléfono `+34 612 345 678` y la dirección «Calle Amor de Mascota 12, Madrid», que acaban en enlaces reales de WhatsApp y Google Maps.
   - Propuesta: sin dato, ocultar el botón. Ligado a los datos del salón que faltan.
+  - Hecho: fuera los datos de ejemplo del JS, de la sección y de su esquema.
+    - La sección calcula los datos una vez y se los pasa al paso 4:
+      - WhatsApp y email: los de la sección o, si no hay, los de *Datos del salón*;
+      - dirección: la de la sección o, si no hay, la de la tienda.
+    - Sin WhatsApp no salen WhatsApp ni SMS; sin email, no sale «Enviar por email»; sin dirección, no salen la ubicación ni «Cómo llegar».
+    - El email ya no cae en `shop.email` (el Gmail personal).
+    - Probado en CLAUDIA con WhatsApp vacío y con un número de prueba (que luego se quitó), sin errores en la consola.
 - [ ] 🔴 **CODE-02 · Precios inventados si no llegan los servicios.** M
   - `grooming-booking.js:183-195, 1333-1345`: cuatro servicios fijos con precio (28/34/42 €) y estado inicial «Baño Dermoprotector… 28,00 €».
   - Propuesta: los precios los decide la app; si no hay servicios, mostrar un error y no un precio.

@@ -3571,10 +3571,11 @@
         },
         "whatsapp_number": {
           "label": "Reception WhatsApp phone",
-          "info": "International format phone number to receive bookings (e.g. +34 612 345 678)"
+          "info": "Empty: the WhatsApp in Theme settings → Salon details is used. Without a number, the WhatsApp and SMS buttons are hidden."
         },
         "salon_address": {
-          "label": "Salon address or location"
+          "label": "Salon address or location",
+          "info": "Empty: the address in Settings → Store details is used. Without an address, the location and \"Get directions\" are hidden."
         },
         "enable_sync_agenda": {
           "label": "Sync with internal calendar",
