@@ -194,7 +194,6 @@
 
       // State
       this.bookingData = {
-        bookingId: null,
         savedReference: null,
         serviceId: initialServiceId,
         serviceName: '',
@@ -617,13 +616,6 @@
     }
 
     /**
-     * Catálogo público de razas para componentes UI (Datalist / Selector)
-     */
-    getBreedsCatalog() {
-      return DOG_BREEDS_CATALOG;
-    }
-
-    /**
      * Normalizador de texto para búsquedas tolerantes a acentos, diacríticos y mayúsculas
      */
     normalizeBreedText(str) {
@@ -947,31 +939,10 @@
         });
       }
 
-      // WhatsApp button confirmation click feedback
-      if (this.whatsappCta) {
-        this.whatsappCta.addEventListener('click', () => {
-          this.bookingData.channel = 'whatsapp';
-          if (this.successBanner) {
-            this.successBanner.removeAttribute('hidden');
-          }
-        });
-      }
-
-      // Email button confirmation click feedback & auto-sync (Funcionalidad 5)
-      if (this.emailConfirmBtn) {
-        this.emailConfirmBtn.addEventListener('click', () => {
-          this.bookingData.channel = 'email';
-          if (this.successBanner) {
-            this.successBanner.removeAttribute('hidden');
-          }
-        });
-      }
-
-      // SMS button confirmation click feedback & auto-sync (Funcionalidad 5)
-      if (this.smsConfirmBtn) {
-        this.smsConfirmBtn.addEventListener('click', () => {
-          this.bookingData.channel = 'sms';
-          if (this.successBanner) {
+      // WhatsApp, email and SMS: any of them shows the "booking sent" banner.
+      if (this.successBanner) {
+        this.section.addEventListener('click', (event) => {
+          if (event.target.closest('[data-booking-action$="-confirm"]')) {
             this.successBanner.removeAttribute('hidden');
           }
         });
@@ -1451,18 +1422,6 @@
       this.bookingData.addons = selected;
     }
 
-    /**
-     * Calcula el precio del extra según el tamaño del perro (modelo flexible: precio fijo o escalonado)
-     */
-    getAddonPrice(addon, dogSize = this.bookingData.dogSize) {
-      if (!addon) return 0;
-      const sizeKey = `price_${dogSize}`;
-      if (typeof addon[sizeKey] === 'number') {
-        return addon[sizeKey];
-      }
-      return typeof addon.price === 'number' ? addon.price : 0;
-    }
-
     goToNextStep() {
       if (this.currentStep === 1) {
         // A service and a size must be chosen (nothing is preselected, UX-24).
@@ -1778,89 +1737,10 @@
     }
 
     /**
-     * Customer and pet data in the shape Shopify expects. Kept for the booking app (phase 1 of
-     * docs/revision-todo.md): the old hidden newsletter form subscribed every booking to marketing
-     * without consent, so it was removed on 2026-11-19.
-     */
-    prepareCustomerPayload(channel = 'whatsapp') {
-      const activeChannel = channel || this.bookingData.channel || 'whatsapp';
-      const rawName = (this.bookingData.customerName || '').trim();
-      const nameParts = rawName.split(/\s+/);
-      const firstName = nameParts[0] || '';
-      const lastName = nameParts.slice(1).join(' ') || '';
-
-      const email = (this.bookingData.customerEmail || '').trim();
-      const phone = (this.bookingData.customerPhone || '').trim();
-
-      const sanitizeTag = (str) =>
-        String(str || '')
-          .toLowerCase()
-          .normalize('NFD')
-          .replace(/[\u0300-\u036f]/g, '')
-          .replace(/[^a-z0-9_-]/g, '-')
-          .replace(/-+/g, '-')
-          .replace(/^-|-$/g, '');
-
-      const tags = ['peluqueria-canina'];
-      tags.push(`canal-${sanitizeTag(activeChannel)}`);
-      if (this.bookingData.petName) {
-        tags.push(`perro-${sanitizeTag(this.bookingData.petName)}`);
-      }
-      if (this.bookingData.petBreed) {
-        const normBreed = this.normalizeBreedText(this.bookingData.petBreed);
-        const isMixedTag = ['mestiz', 'cruc', 'mix', 'chuch', 'sin raza', 'comun'].some((k) => normBreed.includes(k));
-        tags.push(isMixedTag ? 'raza-mestizo' : `raza-${sanitizeTag(this.bookingData.petBreed)}`);
-      }
-      if (this.bookingData.dogSize) {
-        tags.push(`tamano-${sanitizeTag(this.bookingData.dogSize)}`);
-      }
-      if (Array.isArray(this.bookingData.specialNeeds) && this.bookingData.specialNeeds.length > 0) {
-        this.bookingData.specialNeeds.forEach((sn) => {
-          tags.push(`cuidado-${sanitizeTag(sn)}`);
-        });
-      }
-      tags.push('rgpd-consentimiento-aceptado');
-      const tagsString = tags.join(', ');
-
-      const endSlot = this.calculateEndTime(this.bookingData.slot);
-      const petAgeStr = this.bookingData.petAge ? `${this.bookingData.petAge} ${isNaN(this.bookingData.petAge) ? '' : 'años'}`.trim() : 'No indicada';
-      const careNotesStr = this.bookingData.specialNeeds && this.bookingData.specialNeeds.length > 0 ? this.bookingData.specialNeeds.join(', ') : 'Ninguno específico';
-      const addNotesStr = this.bookingData.notes ? this.bookingData.notes : 'Sin observaciones adicionales';
-
-      const customerNote = [
-        '🐾 FICHA DE PELUQUERÍA CANINA & MASCOTA',
-        '---------------------------------------',
-        `• Peludo: ${this.bookingData.petName || 'N/A'}`,
-        `• Raza: ${this.bookingData.petBreed || 'Mestizo'}`,
-        `• Tamaño: ${this.bookingData.dogSizeLabel || this.bookingData.dogSize}`,
-        `• Edad: ${petAgeStr}`,
-        `• Cuidados especiales: ${careNotesStr}`,
-        `• Observaciones: ${addNotesStr}`,
-        '',
-        '📅 ÚLTIMA RESERVA REGISTRADA:',
-        `• Fecha y Hora: ${this.formatHumanDate(this.bookingData.date)} · ${this.bookingData.slot} - ${endSlot} h`,
-        `• Servicio: ${this.bookingData.serviceName} (${this.bookingData.price})`,
-        `• Canal de confirmación: ${activeChannel.toUpperCase()}`,
-        `• Teléfono de contacto: ${phone || 'N/A'}`,
-        `• Consentimiento RGPD / LOPD: Aceptado expresamente por el tutor (${new Date().toLocaleDateString('es-ES')})`,
-      ].join('\n');
-
-      return {
-        firstName,
-        lastName,
-        email,
-        phone,
-        tags: tagsString,
-        note: customerNote,
-      };
-    }
-
-    /**
      * Sends the appointment to the booking app (app proxy /apps/reservas/citas), which saves it in
      * Shopify as a pending appointment. WhatsApp, email and calendar buttons are shown afterwards.
      */
     submitBooking() {
-      // savedReference is the app's appointment; bookingId belongs to the old in-browser agenda.
       if (this.submitting || this.bookingData.savedReference || !this.submitBtn) return;
       const isEn = document.documentElement.lang === 'en';
       const label = this.submitBtn.querySelector('span') || this.submitBtn;
@@ -2190,7 +2070,7 @@
 
       const dtStamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
       const domain = window.location.hostname || 'shopify-store';
-      const uid = (this.bookingData.bookingId || 'grooming-' + Date.now()) + '@' + domain;
+      const uid = (this.bookingData.savedReference || 'grooming-' + Date.now()) + '@' + domain;
       const reminder = ev.isEn ? `Reminder: grooming for ${ev.petName}` : `Recordatorio: peluquería de ${ev.petName}`;
 
       return [
@@ -2260,23 +2140,18 @@
         .replace(/^-|-$/g, '');
       const filename = `cita-peluqueria-${petNameClean}.ics`;
 
-      // Compatibilidad Legacy IE/Edge
-      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-        window.navigator.msSaveOrOpenBlob(blob, filename);
-      } else {
-        const url = URL.createObjectURL(blob);
-        const tempLink = document.createElement('a');
-        tempLink.href = url;
-        tempLink.setAttribute('download', filename);
-        tempLink.setAttribute('target', '_blank');
-        document.body.appendChild(tempLink);
-        tempLink.click();
+      const url = URL.createObjectURL(blob);
+      const tempLink = document.createElement('a');
+      tempLink.href = url;
+      tempLink.setAttribute('download', filename);
+      tempLink.setAttribute('target', '_blank');
+      document.body.appendChild(tempLink);
+      tempLink.click();
 
-        setTimeout(() => {
-          document.body.removeChild(tempLink);
-          URL.revokeObjectURL(url);
-        }, 500);
-      }
+      setTimeout(() => {
+        document.body.removeChild(tempLink);
+        URL.revokeObjectURL(url);
+      }, 500);
 
       // Feedback visual temporal en el botón
       if (this.appleCalendarBtn) {
@@ -2427,18 +2302,6 @@
     }
   }
 
-  window.groomingBookingInstances = window.groomingBookingInstances || [];
-
-  window.refreshAllGroomingBookings = function () {
-    window.groomingBookingInstances.forEach((inst) => {
-      if (inst && typeof inst.renderMiniCalendar === 'function') {
-        inst.updatePriceEstimate();
-        inst.renderMiniCalendar();
-        inst.updateSelectedDateDisplay();
-      }
-    });
-  };
-
   function initGroomingBookingWizards() {
     document.querySelectorAll('.grooming-booking-section').forEach((section) => {
       // Without bookable services the section shows a notice instead of the form (CODE-02).
@@ -2446,7 +2309,6 @@
       if (!section.__groomingBookingWizard) {
         const wizard = new GroomingBookingWizard(section);
         section.__groomingBookingWizard = wizard;
-        window.groomingBookingInstances.push(wizard);
       }
     });
   }

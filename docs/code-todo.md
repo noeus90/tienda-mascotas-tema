@@ -102,11 +102,17 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
   - `grooming-booking-share.js`: ICS, Google Calendar, WhatsApp, SMS, mapas y copiar (l.2056-2430).
   - Núcleo: pasos, calendario y precio.
   - Hacerlo después de CODE-10 y CODE-11.
-- [ ] 🟠 **CODE-10 · Código muerto en `grooming-booking.js`.** S
+- [x] 🟠 **CODE-10 · Código muerto en `grooming-booking.js`.** S *(hecho el 24/11/2026)*
   - `prepareCustomerPayload` (l.1788), `getAddonPrice` (l.1460), `getBreedsCatalog` (l.622) y `window.refreshAllGroomingBookings` (l.2435) no se usan.
   - `bookingId` es de la agenda antigua; el UID del ICS debería usar `savedReference`.
   - `msSaveOrOpenBlob` es de Internet Explorer.
   - Las tres escuchas iguales de l.951-978 pueden ser una sola delegada.
+  - Hecho: 2460 → 2322 líneas.
+    - Fuera `prepareCustomerPayload`, `getAddonPrice`, `getBreedsCatalog`, `window.refreshAllGroomingBookings` y `window.groomingBookingInstances`, que solo servía a esta última.
+    - Fuera `bookingId` y `bookingData.channel` (solo lo leía `prepareCustomerPayload`). El UID del `.ics` usa la referencia de la cita en la app (`savedReference`).
+    - Fuera la rama de `msSaveOrOpenBlob`.
+    - Una sola escucha en la sección para `[data-booking-action$="-confirm"]` que muestra el aviso de reserva enviada.
+  - Probado en CLAUDIA (`/pages/bookings`): sin errores en consola; UID `cita-prueba-123@brudabrey.myshopify.com`; el aviso sale con WhatsApp, email y SMS (botones temporales, porque la tienda aún no tiene esos datos) y no con «Copiar».
 - [ ] 🟠 **CODE-11 · Textos de la reserva fuera de las traducciones.** L
   - Hay unos 170 `{% if booking_en %}…{% else %}…` en los pasos 1-4 y el stepper, y 17 `isEn ? … : …` en el JS.
   - El JS usa `alert()` (l.2082 y 2085) y formatea el dinero a mano (`${n},00 €` 7 veces). También fija la hora en `'es-ES'` y escribe `'Europe/Madrid'` aunque ya existe `SALON_TIME_ZONE`.
