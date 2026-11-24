@@ -127,13 +127,26 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 
 ## App · 🔴 fallos
 
-- [ ] 🔴 **CODE-18 · Emails duplicados del programador.** M
+- [x] 🔴 **CODE-18 · Emails duplicados del programador.** M *(hecho el 24/11/2026, app `4ee2156`)*
   - `reminders.server.js:105-116`: los `setInterval` viven en el proceso web. Con dos instancias, o al redesplegar, se envía dos veces, porque primero se envía y luego se marca.
   - `runReleases` puede solaparse consigo mismo si tarda más de 10 minutos.
   - Propuesta:
     - un candado en Prisma (`JobLock`: shop, job, lockedUntil) y una bandera `running` por tarea;
     - marcar «enviando» antes de llamar a Brevo;
     - un `try` por paso, para que un fallo en «rebook» no salte «reorder» ni «stock».
+  - Hecho:
+    - Tabla `JobLock` (migración `20261124140000_job_lock`) y `lib/job-lock.server.js` con `withJobLock(shop, tarea, minutos, fn)`.
+    - Cada tarea corre con su candado por tienda: recordatorios, rebook, reposición, stock, bienvenida, señales, lista de espera y resúmenes. El candado dura como mucho 20 minutos y caduca solo si el proceso muere.
+    - Los botones de «enviar ahora» del admin usan el mismo candado. Si está ocupado: «Ya se está enviando ahora mismo…».
+    - Un fallo en una tarea ya no salta las demás, y se registra el error completo.
+    - Una pasada lenta no se solapa con la siguiente del mismo temporizador.
+  - Probado:
+    - de 5 llamadas a la vez se ejecuta 1;
+    - se libera tras un error y caduca solo;
+    - en local, las 8 tareas del programador pasan y liberan el candado sin errores;
+    - el botón de avisos de stock con el candado libre y ocupado.
+  - No hecho: marcar «enviando» antes de llamar a Brevo. Con el candado, el único caso de envío doble que queda es que el proceso muera justo entre enviar y marcar, y sería una sola vez.
+
 - [ ] 🔴 **CODE-19 · Tope de 1000 citas.** S
   - `appointments.server.js:194 y 388`: 4 páginas de 250 sin filtrar por fecha, así que también cuentan las citas antiguas. Al pasar de 1000, la disponibilidad deja de ver citas y puede dar citas solapadas.
   - Propuesta: consultar solo desde hoy y paginar sin tope, o dar un error si quedan más páginas.
