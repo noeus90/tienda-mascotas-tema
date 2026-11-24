@@ -157,9 +157,14 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
   - Probado en local: disponibilidad general y por peluquera, agenda del admin y lista de perros, sin errores.
   - Siguen con su propio tope: `waitlist` (10 × 100), `stock-alerts` (20 × 100) y `reorder` (5 × 100). Se pueden pasar a este helper en CODE-25.
 
-- [ ] 🔴 **CODE-20 · Bienvenidas que se pueden perder.** S
+- [x] 🔴 **CODE-20 · Bienvenidas que se pueden perder.** S *(hecho el 24/11/2026, app `187bb7d`)*
   - `welcome.server.js:86-110`: `customers(first: 100)` sin paginar, y el filtro «no enviado» se aplica después. Con más de 100 clientes actualizados, los nuevos se quedan sin email.
   - Propuesta: paginar, o filtrar en la consulta.
+  - Hecho: `pendingWelcomes` lee todas las páginas de 100 clientes con la etiqueta `newsletter` actualizados desde que se activó la bienvenida, y filtra después.
+    - Pasados 5.000, da un error en vez de dejar gente sin email.
+    - No se filtra en la consulta por «no enviado» porque el metacampo de la app no se puede buscar.
+  - Probado: la consulta paginada (de 1 en 1) devuelve los mismos clientes que la lectura de una vez, sin repetidos. Hoy solo hay un suscriptor, que ya recibió su email.
+
 - [ ] 🔴 **CODE-21 · Aviso de stock que se repite.** S
   - `stock-alerts.server.js:131-139`: `markNotified` no mira `userErrors`. Si la actualización falla, el aviso se vuelve a enviar cada 30 minutos.
 - [ ] 🔴 **CODE-22 · Firma de los enlaces de baja.** S
