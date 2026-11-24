@@ -165,8 +165,15 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - No se filtra en la consulta por «no enviado» porque el metacampo de la app no se puede buscar.
   - Probado: la consulta paginada (de 1 en 1) devuelve los mismos clientes que la lectura de una vez, sin repetidos. Hoy solo hay un suscriptor, que ya recibió su email.
 
-- [ ] 🔴 **CODE-21 · Aviso de stock que se repite.** S
+- [x] 🔴 **CODE-21 · Aviso de stock que se repite.** S *(hecho el 24/11/2026, app `5f2c6d5`)*
   - `stock-alerts.server.js:131-139`: `markNotified` no mira `userErrors`. Si la actualización falla, el aviso se vuelve a enviar cada 30 minutos.
+  - Hecho:
+    - El aviso se marca como «avisado» antes de enviar el email. Si Shopify rechaza el cambio (`userErrors`), no se envía nada y se deja en el log.
+    - Si el email falla, el aviso vuelve a «esperando».
+    - Los borrados también comprueban `userErrors`; un fallo en uno no corta la pasada.
+    - La lista usa `listAllMetaobjects` (sin el tope de 20 páginas).
+  - Probado en local: el aviso de prueba, en espera para la oreja de cerdo (disponible), da «Enviados 1 de 1» y queda «Avisado»; al pulsar otra vez, no se repite. Además, un cambio rechazado por Shopify devuelve `userErrors`, que es lo que ahora corta el envío.
+
 - [ ] 🔴 **CODE-22 · Firma de los enlaces de baja.** S
   - Hay tres copias iguales: `rebook:92`, `reorder:192` y `welcome:113`.
   - Con `SHOPIFY_API_SECRET || ""`, si falta la variable se firma con una clave vacía y los enlaces se pueden falsificar.
