@@ -1,24 +1,23 @@
-{%- comment -%} Texts follow the page language (/en/ English, otherwise Spanish). {%- endcomment -%}
-{%- assign booking_en = false -%}{%- if request.locale.iso_code == 'en' -%}{%- assign booking_en = true -%}{%- endif -%}
+{%- comment -%} Texts: locales pet_cro.booking.* (CODE-11). {%- endcomment -%}
     <!-- Booking Stepper Progress Indicator -->
-    <nav class="grooming-booking-stepper" aria-label="{% if booking_en %}Booking steps{% else %}Pasos de la reserva{% endif %}">
+    <nav class="grooming-booking-stepper" aria-label="{{ 'pet_cro.booking.stepper.nav_label' | t }}">
       <div class="booking-step-indicator is-active" data-step-indicator="1">
         <span class="step-num">1</span>
-        <span class="step-label">{% if booking_en %}Service & Size{% else %}Servicio y tamaño{% endif %}</span>
+        <span class="step-label">{{ 'pet_cro.booking.stepper.service' | t }}</span>
       </div>
       <div class="booking-step-line" aria-hidden="true"></div>
       <div class="booking-step-indicator" data-step-indicator="2">
         <span class="step-num">2</span>
-        <span class="step-label">{% if booking_en %}Date & Time{% else %}Fecha y turno{% endif %}</span>
+        <span class="step-label">{{ 'pet_cro.booking.stepper.date' | t }}</span>
       </div>
       <div class="booking-step-line" aria-hidden="true"></div>
       <div class="booking-step-indicator" data-step-indicator="3">
         <span class="step-num">3</span>
-        <span class="step-label">{% if booking_en %}Pet Details{% else %}Ficha del peludo{% endif %}</span>
+        <span class="step-label">{{ 'pet_cro.booking.stepper.pet' | t }}</span>
       </div>
       <div class="booking-step-line" aria-hidden="true"></div>
       <div class="booking-step-indicator" data-step-indicator="4">
         <span class="step-num">4</span>
-        <span class="step-label">{% if booking_en %}Confirmation{% else %}Confirmación{% endif %}</span>
+        <span class="step-label">{{ 'pet_cro.booking.stepper.confirm' | t }}</span>
       </div>
     </nav>

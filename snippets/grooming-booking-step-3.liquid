@@ -1,64 +1,63 @@
-{%- comment -%} Texts follow the page language (/en/ English, otherwise Spanish). {%- endcomment -%}
-{%- assign booking_en = false -%}{%- if request.locale.iso_code == 'en' -%}{%- assign booking_en = true -%}{%- endif -%}
+{%- comment -%} Texts: locales pet_cro.booking.* (CODE-11). {%- endcomment -%}
       <div class="booking-step-panel" data-step-panel="3" hidden>
         <div class="step-panel-header">
           <h3 class="step-panel-title">
-            {% if booking_en %}3. Tell us about your dog & contact info{% else %}3. Cuéntanos sobre tu peludo y contacto{% endif %}
+            {{ 'pet_cro.booking.step_3.title' | t }}
           </h3>
           <p class="step-panel-desc">
-            {% if booking_en %}We tailor cosmetics, drying rhythm, and brushing to their unique needs.{% else %}Adaptamos los productos, el ritmo de secado y el cepillado a sus necesidades individuales.{% endif %}
+            {{ 'pet_cro.booking.step_3.intro' | t }}
           </p>
         </div>
 
         <div class="booking-form-sections">
           <!-- Datos del Perro -->
           <fieldset class="booking-fieldset">
-            <legend class="booking-legend">{% if booking_en %}🐾 Dog Details{% else %}🐾 Datos del perro{% endif %}</legend>
+            <legend class="booking-legend">{{ 'pet_cro.booking.step_3.dog_title' | t }}</legend>
             <div class="booking-form-grid">
               <div class="booking-form-field">
-                <label for="booking-pet-name-{{ section.id }}" class="booking-field-label">{% if booking_en %}Dog name *{% else %}Nombre del perro *{% endif %}</label>
-                <input type="text" id="booking-pet-name-{{ section.id }}" class="booking-form-input" data-booking-input="petName" placeholder="{% if booking_en %}E.g. Coco{% else %}Ej: Coco{% endif %}" required>
+                <label for="booking-pet-name-{{ section.id }}" class="booking-field-label">{{ 'pet_cro.booking.step_3.dog_name' | t }}</label>
+                <input type="text" id="booking-pet-name-{{ section.id }}" class="booking-form-input" data-booking-input="petName" placeholder="{{ 'pet_cro.booking.step_3.dog_name_placeholder' | t }}" required>
               </div>
               <div class="booking-form-field">
-                <label for="booking-pet-breed-{{ section.id }}" class="booking-field-label">{% if booking_en %}Breed or mix *{% else %}Raza o cruce *{% endif %}</label>
+                <label for="booking-pet-breed-{{ section.id }}" class="booking-field-label">{{ 'pet_cro.booking.step_3.breed' | t }}</label>
                 <input
                   type="text"
                   id="booking-pet-breed-{{ section.id }}"
                   class="booking-form-input"
                   data-booking-input="petBreed"
                   list="booking-breeds-list-{{ section.id }}"
-                  placeholder="{% if booking_en %}E.g. Mixed breed, Yorkshire, Beagle, Golden...{% else %}Ej: Mestizo, Yorkshire, Beagle, Golden...{% endif %}"
+                  placeholder="{{ 'pet_cro.booking.step_3.breed_placeholder' | t }}"
                   autocomplete="off"
                   required
                 >
               </div>
               <div class="booking-form-field">
-                <label for="booking-pet-age-{{ section.id }}" class="booking-field-label">{% if booking_en %}Approximate age{% else %}Edad aproximada{% endif %}</label>
-                <input type="text" id="booking-pet-age-{{ section.id }}" class="booking-form-input" data-booking-input="petAge" placeholder="{% if booking_en %}E.g. 2 years / 5-month-old puppy{% else %}Ej: 2 años / Cachorro 5 meses{% endif %}">
+                <label for="booking-pet-age-{{ section.id }}" class="booking-field-label">{{ 'pet_cro.booking.step_3.age' | t }}</label>
+                <input type="text" id="booking-pet-age-{{ section.id }}" class="booking-form-input" data-booking-input="petAge" placeholder="{{ 'pet_cro.booking.step_3.age_placeholder' | t }}">
               </div>
             </div>
 
             <!-- Necesidades Especiales Checkboxes -->
             <div class="booking-special-needs">
               <span class="booking-field-label">
-                {% if booking_en %}Special care requirements:{% else %}Particularidades caninas a tener en cuenta:{% endif %}
+                {{ 'pet_cro.booking.step_3.care_label' | t }}
               </span>
               <div class="booking-tags-grid">
                 <label class="booking-tag-pill">
                   <input type="checkbox" name="special_needs" value="Piel sensible / Alergias" data-booking-tag>
-                  <span>{% if booking_en %}🌿 Sensitive skin / Allergies{% else %}🌿 Piel sensible / Alergias{% endif %}</span>
+                  <span>{{ 'pet_cro.booking.step_3.care_skin' | t }}</span>
                 </label>
                 <label class="booking-tag-pill">
                   <input type="checkbox" name="special_needs" value="Tiene nudos en el manto" data-booking-tag>
-                  <span>{% if booking_en %}✂️ Matted coat{% else %}✂️ Tiene nudos en el manto{% endif %}</span>
+                  <span>{{ 'pet_cro.booking.step_3.care_matted' | t }}</span>
                 </label>
                 <label class="booking-tag-pill">
                   <input type="checkbox" name="special_needs" value="Inseguro / Miedo al secador" data-booking-tag>
-                  <span>{% if booking_en %}🌬️ Nervous / Afraid of the dryer{% else %}🌬️ Inseguro / Miedo al secador{% endif %}</span>
+                  <span>{{ 'pet_cro.booking.step_3.care_nervous' | t }}</span>
                 </label>
                 <label class="booking-tag-pill">
                   <input type="checkbox" name="special_needs" value="Primera vez en peluquería" data-booking-tag>
-                  <span>{% if booking_en %}🐾 First grooming visit{% else %}🐾 Primera vez en peluquería{% endif %}</span>
+                  <span>{{ 'pet_cro.booking.step_3.care_first' | t }}</span>
                 </label>
               </div>
             </div>
@@ -66,22 +65,22 @@
 
           <!-- Datos del Tutor -->
           <fieldset class="booking-fieldset">
-            <legend class="booking-legend">{% if booking_en %}👤 Pet Parent / Contact Info{% else %}👤 Datos del tutor / contacto{% endif %}</legend>
+            <legend class="booking-legend">{{ 'pet_cro.booking.step_3.owner_title' | t }}</legend>
             <div class="booking-form-grid">
               <div class="booking-form-field">
-                <label for="booking-cust-name-{{ section.id }}" class="booking-field-label">{% if booking_en %}Your full name *{% else %}Tu nombre y apellidos *{% endif %}</label>
-                <input type="text" id="booking-cust-name-{{ section.id }}" class="booking-form-input" data-booking-input="customerName" placeholder="{% if booking_en %}E.g. Laura Smith{% else %}Ej: Laura Gómez{% endif %}" required>
+                <label for="booking-cust-name-{{ section.id }}" class="booking-field-label">{{ 'pet_cro.booking.step_3.owner_name' | t }}</label>
+                <input type="text" id="booking-cust-name-{{ section.id }}" class="booking-form-input" data-booking-input="customerName" placeholder="{{ 'pet_cro.booking.step_3.owner_name_placeholder' | t }}" required>
               </div>
               <div class="booking-form-field">
-                <label for="booking-cust-phone-{{ section.id }}" class="booking-field-label">{% if booking_en %}Mobile phone (WhatsApp) *{% else %}Teléfono móvil (WhatsApp) *{% endif %}</label>
-                <input type="tel" id="booking-cust-phone-{{ section.id }}" class="booking-form-input" data-booking-input="customerPhone" placeholder="{% if booking_en %}E.g. 612 345 678{% else %}Ej: 612 345 678{% endif %}" required>
+                <label for="booking-cust-phone-{{ section.id }}" class="booking-field-label">{{ 'pet_cro.booking.step_3.phone' | t }}</label>
+                <input type="tel" id="booking-cust-phone-{{ section.id }}" class="booking-form-input" data-booking-input="customerPhone" placeholder="{{ 'pet_cro.booking.step_3.phone_placeholder' | t }}" required>
               </div>
               <div class="booking-form-field">
-                <label for="booking-cust-email-{{ section.id }}" class="booking-field-label">{% if booking_en %}Email address (optional){% else %}Correo electrónico (opcional){% endif %}</label>
-                <input type="email" id="booking-cust-email-{{ section.id }}" class="booking-form-input" data-booking-input="customerEmail" placeholder="{% if booking_en %}laura@example.com{% else %}laura@ejemplo.com{% endif %}" aria-describedby="booking-email-hint-{{ section.id }} booking-rebook-hint-{{ section.id }}">
-                <p id="booking-email-hint-{{ section.id }}" class="booking-field-hint">{% if booking_en %}🎁 Leave your email and, after the appointment, we will send you 5% off hygiene products.{% else %}🎁 Déjanos tu email y, después de la cita, te enviaremos un 5 % de descuento en productos de higiene.{% endif %}</p>
+                <label for="booking-cust-email-{{ section.id }}" class="booking-field-label">{{ 'pet_cro.booking.step_3.email' | t }}</label>
+                <input type="email" id="booking-cust-email-{{ section.id }}" class="booking-form-input" data-booking-input="customerEmail" placeholder="{{ 'pet_cro.booking.step_3.email_placeholder' | t }}" aria-describedby="booking-email-hint-{{ section.id }} booking-rebook-hint-{{ section.id }}">
+                <p id="booking-email-hint-{{ section.id }}" class="booking-field-hint">{{ 'pet_cro.booking.step_3.email_discount' | t }}</p>
                 {%- comment -%} Shown by grooming-booking.js only when the "time for the next visit" email is on in the booking app (LSSI art. 21.2: tell it when collecting the email). {%- endcomment -%}
-                <p id="booking-rebook-hint-{{ section.id }}" class="booking-field-hint" data-booking-rebook-note hidden>{% if booking_en %}📅 We will also email you when it's time for the next grooming. You can unsubscribe at any time from the email itself.{% else %}📅 También te avisaremos por email cuando le toque volver a la peluquería. Puedes darte de baja en cualquier momento desde el propio correo.{% endif %}</p>
+                <p id="booking-rebook-hint-{{ section.id }}" class="booking-field-hint" data-booking-rebook-note hidden>{{ 'pet_cro.booking.step_3.email_reminder' | t }}</p>
               </div>
               <div class="booking-hp-field" aria-hidden="true">
                 <label for="booking-website-{{ section.id }}">Web</label>
@@ -89,8 +88,8 @@
               </div>
             </div>
             <div class="booking-form-field" style="margin-top: 1.6rem;">
-              <label for="booking-notes-{{ section.id }}" class="booking-field-label">{% if booking_en %}Additional notes or requests{% else %}Notas o indicaciones adicionales{% endif %}</label>
-              <textarea id="booking-notes-{{ section.id }}" class="booking-form-textarea" data-booking-input="notes" rows="2" placeholder="{% if booking_en %}Anything our team should know...{% else %}Cualquier detalle que nuestro equipo deba conocer...{% endif %}"></textarea>
+              <label for="booking-notes-{{ section.id }}" class="booking-field-label">{{ 'pet_cro.booking.step_3.notes' | t }}</label>
+              <textarea id="booking-notes-{{ section.id }}" class="booking-form-textarea" data-booking-input="notes" rows="2" placeholder="{{ 'pet_cro.booking.step_3.notes_placeholder' | t }}"></textarea>
             </div>
           </fieldset>
 
@@ -105,14 +104,14 @@
                 required
               >
               <span class="booking-privacy-text-wrap">
-                <span>{% if booking_en %}I have read and accept the {% else %}He leído y acepto la {% endif %} </span>
+                <span>{{ 'pet_cro.booking.step_3.privacy_before' | t }} </span>
                 <a
                   href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="booking-privacy-link"
-                >{% if booking_en %}Privacy Policy{% else %}política de privacidad{% endif %}</a>
-                <span> {% if booking_en %} and the processing of my data to manage the appointment and my pet file. *{% else %} y el tratamiento de mis datos para gestionar la cita y la ficha de mi peludo. *{% endif %}</span>
+                >{{ 'pet_cro.booking.step_3.privacy_link' | t }}</a>
+                <span> {{ 'pet_cro.booking.step_3.privacy_after' | t }}</span>
               </span>
             </label>
 
@@ -125,7 +124,7 @@
                 data-booking-input="marketingOptIn"
               >
               <span class="booking-privacy-text-wrap">
-                <span>{% if booking_en %}I want to receive shop news and offers by email (optional; you can unsubscribe at any time).{% else %}Quiero recibir por email novedades y ofertas de la tienda (opcional; puedes darte de baja cuando quieras).{% endif %}</span>
+                <span>{{ 'pet_cro.booking.step_3.marketing' | t }}</span>
               </span>
             </label>
 
@@ -133,36 +132,36 @@
             <details class="booking-rgpd-accordion">
               <summary class="booking-rgpd-summary">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                <span>{% if booking_en %}Basic information on data protection (GDPR){% else %}Información básica sobre protección de datos (RGPD / LOPD-GDD){% endif %}</span>
+                <span>{{ 'pet_cro.booking.step_3.gdpr_title' | t }}</span>
               </summary>
               <div class="booking-rgpd-content">
                 <dl class="booking-rgpd-dl">
                   <div class="booking-rgpd-row">
-                    <dt>{% if booking_en %}Controller:{% else %}Responsable:{% endif %}</dt>
+                    <dt>{{ 'pet_cro.booking.step_3.gdpr_controller' | t }}</dt>
                     <dd>{{ shop.name }}</dd>
                   </div>
                   <div class="booking-rgpd-row">
-                    <dt>{% if booking_en %}Purpose:{% else %}Finalidad:{% endif %}</dt>
-                    <dd>{% if booking_en %}Management of the dog grooming appointment and pet profile for the service.{% else %}Gestión de la reserva de cita de peluquería canina y ficha técnica de la mascota para el servicio.{% endif %}</dd>
+                    <dt>{{ 'pet_cro.booking.step_3.gdpr_purpose' | t }}</dt>
+                    <dd>{{ 'pet_cro.booking.step_3.gdpr_purpose_text' | t }}</dd>
                   </div>
                   <div class="booking-rgpd-row">
-                    <dt>{% if booking_en %}Legal basis:{% else %}Legitimación:{% endif %}</dt>
-                    <dd>{% if booking_en %}Performance of the requested service and express consent of the pet owner.{% else %}Ejecución de la solicitud de servicio y consentimiento expreso del tutor.{% endif %}</dd>
+                    <dt>{{ 'pet_cro.booking.step_3.gdpr_basis' | t }}</dt>
+                    <dd>{{ 'pet_cro.booking.step_3.gdpr_basis_text' | t }}</dd>
                   </div>
                   <div class="booking-rgpd-row">
-                    <dt>{% if booking_en %}Recipients:{% else %}Destinatarios:{% endif %}</dt>
-                    <dd>{% if booking_en %}Data will not be transferred to third parties except under legal obligation or processors.{% else %}No se cederán datos a terceros salvo obligación legal o encargados de tratamiento del servicio.{% endif %}</dd>
+                    <dt>{{ 'pet_cro.booking.step_3.gdpr_recipients' | t }}</dt>
+                    <dd>{{ 'pet_cro.booking.step_3.gdpr_recipients_text' | t }}</dd>
                   </div>
                   <div class="booking-rgpd-row">
-                    <dt>{% if booking_en %}Rights:{% else %}Derechos:{% endif %}</dt>
-                    <dd>{% if booking_en %}Access, rectification, erasure, and other rights detailed in the privacy policy.{% else %}Acceso, rectificación, supresión y demás derechos explicados en la política de privacidad.{% endif %}</dd>
+                    <dt>{{ 'pet_cro.booking.step_3.gdpr_rights' | t }}</dt>
+                    <dd>{{ 'pet_cro.booking.step_3.gdpr_rights_text' | t }}</dd>
                   </div>
                 </dl>
               </div>
             </details>
 
             <div class="booking-privacy-error" data-booking-privacy-error hidden>
-              ⚠️ <span>{% if booking_en %}You must accept the privacy policy to book the appointment.{% else %}Debes aceptar la política de privacidad para poder tramitar la cita.{% endif %}</span>
+              ⚠️ <span>{{ 'pet_cro.booking.step_3.privacy_error' | t }}</span>
             </div>
           </div>
         </div>
@@ -170,10 +169,10 @@
         <div class="booking-panel-nav">
           <button type="button" class="grooming-booking-btn-secondary" data-wizard-action="prev">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            <span>{% if booking_en %}Back{% else %}Atrás{% endif %}</span>
+            <span>{{ 'pet_cro.booking.step_3.back' | t }}</span>
           </button>
           <button type="button" class="grooming-booking-btn-primary" data-wizard-action="next">
-            <span>{% if booking_en %}Review Appointment{% else %}Revisar cita{% endif %}</span>
+            <span>{{ 'pet_cro.booking.step_3.continue' | t }}</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
         </div>

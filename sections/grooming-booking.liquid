@@ -152,9 +152,6 @@
   endif
 -%}
 
-{%- comment -%} Texts follow the page language (/en/ English, otherwise Spanish). {%- endcomment -%}
-{%- assign booking_en = false -%}{%- if request.locale.iso_code == 'en' -%}{%- assign booking_en = true -%}{%- endif -%}
-
 {%- comment -%}
   CODE-01: real salon data only. WhatsApp and email: this section's settings, otherwise the theme
   settings "Datos del salón"; address: this section's setting, otherwise the store address
@@ -180,7 +177,9 @@
   data-whatsapp-number="{{ salon_whatsapp | escape }}"
   data-salon-address="{{ salon_address | escape }}"
   data-salon-email="{{ salon_email | escape }}"
+  data-money-format="{{ shop.money_format | strip_html | escape }}"
 >
+  {%- render 'grooming-booking-texts' -%}
   <script type="application/json" data-grooming-config>
     {
       "slotDurationMins": {{ slot_duration_mins | default: 60 }},
@@ -199,7 +198,7 @@
             {%- if is_active -%}
               {%- assign s_id = service.system.handle | default: service.id | default: forloop.index -%}
               {%- assign s_name = service.name.value | default: service.name -%}
-              {%- assign s_dur = service.duration.value | default: service.duration | default: '1 hora' -%}
+              {%- assign s_dur = service.duration.value | default: service.duration | default: 60 -%}
               {%- assign s_mini = service.price_mini.value -%}
               {%- assign s_med = service.price_medium.value -%}
               {%- assign s_lar = service.price_large.value -%}
@@ -259,18 +258,16 @@
       </span>
       {%- comment -%}
         Heading and subheading are editor settings: the store translates them in Settings → Languages
-        (theme content). The untouched Spanish default heading gets its English version here.
+        (theme content). The untouched default heading and subheading come from the locale files.
       {%- endcomment -%}
       {%- liquid
         assign booking_heading = section.settings.heading | default: 'Reserva cita en la peluquería'
         assign booking_sub = section.settings.subheading
-        if booking_en
-          if booking_heading == 'Reserva cita en la peluquería' or booking_heading == 'Reserva Cita de Peluquería Canina & Spa'
-            assign booking_heading = 'pet_cro.booking_header.heading' | t
-          endif
-          if booking_sub == 'Elige el servicio y el tamaño de tu perro, el día y la hora. Verás el precio estimado antes de confirmar.'
-            assign booking_sub = 'pet_cro.booking_header.subheading' | t
-          endif
+        if booking_heading == 'Reserva cita en la peluquería' or booking_heading == 'Reserva Cita de Peluquería Canina & Spa'
+          assign booking_heading = 'pet_cro.booking_header.heading' | t
+        endif
+        if booking_sub == 'Elige el servicio y el tamaño de tu perro, el día y la hora. Verás el precio estimado antes de confirmar.'
+          assign booking_sub = 'pet_cro.booking_header.subheading' | t
         endif
         assign booking_address = shop.address.address1
         if shop.address.city != blank

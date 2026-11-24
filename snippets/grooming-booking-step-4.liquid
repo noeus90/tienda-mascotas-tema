@@ -1,12 +1,11 @@
-{%- comment -%} Texts follow the page language (/en/ English, otherwise Spanish). {%- endcomment -%}
-{%- assign booking_en = false -%}{%- if request.locale.iso_code == 'en' -%}{%- assign booking_en = true -%}{%- endif -%}
+{%- comment -%} Texts: locales pet_cro.booking.* (CODE-11). {%- endcomment -%}
       <div class="booking-step-panel" data-step-panel="4" hidden>
         <div class="step-panel-header">
           <h3 class="step-panel-title">
-            {% if booking_en %}4. Summary of your custom appointment{% else %}4. Resumen de tu cita personalizada{% endif %}
+            {{ 'pet_cro.booking.step_4.title' | t }}
           </h3>
           <p class="step-panel-desc">
-            {% if booking_en %}Review details before confirming. You will receive immediate confirmation.{% else %}Revisa los datos antes de confirmar. Te enviaremos confirmación inmediata.{% endif %}
+            {{ 'pet_cro.booking.step_4.intro' | t }}
           </p>
         </div>
 
@@ -20,48 +19,48 @@
               </div>
             </div>
             <div class="confirmation-price-tag">
-              <span class="price-label">{% if booking_en %}Estimated total{% else %}Total estimado{% endif %}</span>
-              <strong class="price-amount" data-summary="price">28,00 €</strong>
+              <span class="price-label">{{ 'pet_cro.booking.step_4.total' | t }}</span>
+              <strong class="price-amount" data-summary="price">—</strong>
             </div>
           </div>
 
           <div class="confirmation-details-grid">
             <div class="conf-item">
-              <span class="conf-label">{% if booking_en %}Service booked{% else %}Servicio contratado{% endif %}</span>
+              <span class="conf-label">{{ 'pet_cro.booking.step_4.service' | t }}</span>
               <strong class="conf-value" data-summary="serviceName"></strong>
             </div>
             <div class="conf-item conf-item-addons" data-summary-addons-wrap hidden>
-              <span class="conf-label">{% if booking_en %}Extra care added{% else %}Cuidados extra añadidos{% endif %}</span>
+              <span class="conf-label">{{ 'pet_cro.booking.step_4.addons' | t }}</span>
               <div class="conf-value conf-addons-list" data-summary="addonsList"></div>
             </div>
             <div class="conf-item">
-              <span class="conf-label">{% if booking_en %}Date & shift{% else %}Fecha y turno{% endif %}</span>
+              <span class="conf-label">{{ 'pet_cro.booking.step_4.date' | t }}</span>
               <strong class="conf-value" data-summary="schedule">Mañana · 10:00 - 11:00 h (1 hora)</strong>
             </div>
             <div class="conf-item" data-summary-groomer-row hidden>
-              <span class="conf-label">{% if booking_en %}Groomer{% else %}Peluquera{% endif %}</span>
+              <span class="conf-label">{{ 'pet_cro.booking.step_4.groomer' | t }}</span>
               <strong class="conf-value" data-summary="groomer"></strong>
             </div>
             {%- if salon_address != blank -%}
               <div class="conf-item">
-                <span class="conf-label">{% if booking_en %}Salon location{% else %}Ubicación del salón{% endif %}</span>
+                <span class="conf-label">{{ 'pet_cro.booking.step_4.location' | t }}</span>
                 <strong class="conf-value" data-summary="salonAddress">{{ salon_address | escape }}</strong>
               </div>
             {%- endif -%}
             <div class="conf-item">
-              <span class="conf-label">{% if booking_en %}Parent & phone{% else %}Tutor y teléfono{% endif %}</span>
+              <span class="conf-label">{{ 'pet_cro.booking.step_4.owner' | t }}</span>
               <strong class="conf-value" data-summary="customerInfo"></strong>
             </div>
             <div class="conf-item">
-              <span class="conf-label">{% if booking_en %}Special care{% else %}Cuidados especiales{% endif %}</span>
-              <span class="conf-value" data-summary="specialNeeds">{% if booking_en %}No special needs{% else %}Sin particularidades{% endif %}</span>
+              <span class="conf-label">{{ 'pet_cro.booking.step_4.special' | t }}</span>
+              <span class="conf-value" data-summary="specialNeeds">{{ 'pet_cro.booking.step_4.no_special' | t }}</span>
             </div>
           </div>
 
           <!-- Action Confirmations: the booking is saved by the booking app (/apps/reservas/citas) -->
           <div class="confirmation-cta-box">
             <button type="button" class="grooming-booking-btn-primary booking-submit-btn" data-booking-action="submit-booking">
-              <span>{% if booking_en %}Confirm booking{% else %}Confirmar reserva{% endif %}</span>
+              <span>{{ 'pet_cro.booking.step_4.confirm' | t }}</span>
             </button>
             <div class="booking-submit-status" role="status" aria-live="polite" data-booking-submit-status hidden></div>
 
@@ -85,7 +84,7 @@
                 <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.392-12.416c-6.627 0-12 5.373-12 12 0 2.159.57 4.185 1.564 5.938l-1.603 5.862 6.027-1.581c1.7 1.009 3.682 1.581 5.812 1.581 6.627 0 12-5.373 12-12s-5.373-12-12-12z"/>
               </svg>
               <span>
-                {% if booking_en %}Confirm by WhatsApp{% else %}Confirmar la cita por WhatsApp{% endif %}
+                {{ 'pet_cro.booking.step_4.whatsapp' | t }}
               </span>
             </a>
             {%- endif -%}
@@ -97,7 +96,7 @@
                 class="grooming-booking-btn-secondary-action grooming-booking-btn-email"
                 data-booking-action="email-confirm"
               >
-                {% if booking_en %}Send via Email{% else %}Enviar por email{% endif %}
+                {{ 'pet_cro.booking.step_4.email' | t }}
               </a>
               {%- endif -%}
               {%- if salon_whatsapp != blank -%}
@@ -106,7 +105,7 @@
                 class="grooming-booking-btn-secondary-action grooming-booking-btn-sms"
                 data-booking-action="sms-confirm"
               >
-                {% if booking_en %}Send via SMS{% else %}Enviar por SMS{% endif %}
+                {{ 'pet_cro.booking.step_4.sms' | t }}
               </a>
               {%- endif -%}
               {%- if salon_address != blank -%}
@@ -117,7 +116,7 @@
                 class="grooming-booking-btn-secondary-action grooming-booking-btn-maps"
                 data-booking-action="salon-maps"
               >
-                {% if booking_en %}Get directions{% else %}Cómo llegar{% endif %}
+                {{ 'pet_cro.booking.step_4.directions' | t }}
               </a>
               {%- endif -%}
               <button
@@ -125,7 +124,7 @@
                 class="grooming-booking-btn-secondary-action grooming-booking-btn-ics"
                 data-booking-action="apple-calendar"
               >
-                {% if booking_en %}Add to Apple / Outlook{% else %}Añadir a Apple / Outlook{% endif %}
+                {{ 'pet_cro.booking.step_4.ics' | t }}
               </button>
               <a
                 href="#"
@@ -134,14 +133,14 @@
                 class="grooming-booking-btn-secondary-action grooming-booking-btn-gcal"
                 data-booking-action="gcal-link"
               >
-                {% if booking_en %}Add to Google Calendar{% else %}Añadir a Google Calendar{% endif %}
+                {{ 'pet_cro.booking.step_4.gcal' | t }}
               </a>
               <button
                 type="button"
                 class="grooming-booking-btn-secondary-action grooming-booking-btn-copy"
                 data-booking-action="copy-details"
               >
-                {% if booking_en %}Copy details{% else %}Copiar datos{% endif %}
+                {{ 'pet_cro.booking.step_4.copy' | t }}
               </button>
             </div>
             </div>
@@ -150,18 +149,18 @@
               <span class="success-icon">🎉</span>
               <div class="success-text">
                 <strong>
-                  {% if booking_en %}Request generated successfully!{% else %}¡Solicitud generada con éxito!{% endif %}
+                  {{ 'pet_cro.booking.step_4.success_title' | t }}
                 </strong>
                 <p>
-                  {% if booking_en %}We opened WhatsApp with your message. The slot will be reserved as soon as we confirm with you.{% else %}Hemos abierto WhatsApp con tu mensaje redactado. La cita quedará reservada en cuanto confirmemos la hora contigo.{% endif %}
+                  {{ 'pet_cro.booking.step_4.success_text' | t }}
                 </p>
               </div>
             </div>
 
             <div class="booking-trust-points">
-              <span class="trust-point">{% if booking_en %}📧 Email confirmation{% else %}📧 Confirmación por email{% endif %}</span>
-              <span class="trust-point">{% if booking_en %}⏰ Reminder the day before{% else %}⏰ Recordatorio el día antes{% endif %}</span>
-              <span class="trust-point" data-booking-payment-note>{% if booking_en %}💳 Pay at salon after session{% else %}💳 Pago en tienda tras el servicio{% endif %}</span>
+              <span class="trust-point">{{ 'pet_cro.booking.step_4.trust_email' | t }}</span>
+              <span class="trust-point">{{ 'pet_cro.booking.step_4.trust_reminder' | t }}</span>
+              <span class="trust-point" data-booking-payment-note>{{ 'pet_cro.booking.step_4.trust_pay' | t }}</span>
             </div>
           </div>
         </div>
@@ -169,7 +168,7 @@
         <div class="booking-panel-nav">
           <button type="button" class="grooming-booking-btn-secondary" data-wizard-action="prev">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            <span>{% if booking_en %}Edit details{% else %}Modificar datos{% endif %}</span>
+            <span>{{ 'pet_cro.booking.step_4.edit' | t }}</span>
           </button>
         </div>
       </div>

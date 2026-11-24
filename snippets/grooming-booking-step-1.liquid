@@ -1,23 +1,22 @@
-{%- comment -%} Texts follow the page language (/en/ English, otherwise Spanish). {%- endcomment -%}
-{%- assign booking_en = false -%}{%- if request.locale.iso_code == 'en' -%}{%- assign booking_en = true -%}{%- endif -%}
+{%- comment -%} Texts: locales pet_cro.booking.* (CODE-11). {%- endcomment -%}
       <div class="booking-step-panel is-active" data-step-panel="1">
         <div class="step-panel-header">
           <h3 class="step-panel-title">
-            {% if booking_en %}1. Select the main grooming service{% else %}1. Selecciona el servicio principal{% endif %}
+            {{ 'pet_cro.booking.step_1.title' | t }}
           </h3>
           <p class="step-panel-desc">
-            {% if booking_en %}Choose one; the optional extras are at the end of this step.{% else %}Elige uno; los extras opcionales están al final de este paso.{% endif %}
+            {{ 'pet_cro.booking.step_1.intro' | t }}
           </p>
         </div>
 
         <!-- Logged-in customers: their dogs from the booking app (/apps/reservas/mis-perros), filled by grooming-booking.js -->
         <div class="booking-my-dogs" data-booking-my-dogs hidden>
-          <p class="booking-my-dogs-title">{% if booking_en %}🐾 Which of your dogs is this appointment for?{% else %}🐾 ¿Para cuál de tus perros es la cita?{% endif %}</p>
+          <p class="booking-my-dogs-title">{{ 'pet_cro.booking.step_1.my_dogs_title' | t }}</p>
           <div class="booking-my-dogs-list" data-booking-my-dogs-list role="group"></div>
-          <p class="booking-field-hint">{% if booking_en %}We fill in its size, breed and care needs with what we already know; you can change them.{% else %}Rellenamos su tamaño, raza y cuidados con lo que ya sabemos; puedes cambiarlos.{% endif %}</p>
+          <p class="booking-field-hint">{{ 'pet_cro.booking.step_1.my_dogs_hint' | t }}</p>
         </div>
 
-        <div class="booking-services-grid" role="radiogroup" aria-label="{% if booking_en %}Grooming services{% else %}Servicios de peluquería{% endif %}">
+        <div class="booking-services-grid" role="radiogroup" aria-label="{{ 'pet_cro.booking.step_1.services_label' | t }}">
           {%- if has_custom_services -%}
             {%- for service in meta_services -%}
               {%- assign is_active = true -%}
@@ -43,7 +42,7 @@
                   assign s_icon = service.icon.value | default: service.icon | default: s_icon_default
                 -%}
                 {%- assign s_desc = service.description.value | default: service.description -%}
-                {%- if booking_en -%}{%- assign s_dur_default = '1 hour' -%}{%- else -%}{%- assign s_dur_default = '1 hora' -%}{%- endif -%}
+                {%- assign s_dur_default = 'pet_cro.booking.step_1.one_hour' | t -%}
                 {%- assign s_dur = service.duration.value | default: service.duration | default: s_dur_default -%}
                 {%- assign s_mini = service.price_mini.value -%}
                 {%- assign s_med = service.price_medium.value -%}
@@ -64,11 +63,11 @@
                       {%- assign s_dur_num = s_dur_text | plus: 0 -%}
                       {%- assign s_dur_back = s_dur_num | append: '' -%}
                       {%- if s_dur_num > 0 and s_dur_back == s_dur_text -%}
-                        {%- if s_dur_num == 60 -%}{%- if booking_en -%}{%- assign s_dur = '1 hour' -%}{%- else -%}{%- assign s_dur = '1 hora' -%}{%- endif -%}{%- else -%}{%- assign s_dur = s_dur_num | append: ' min' -%}{%- endif -%}
+                        {%- if s_dur_num == 60 -%}{%- assign s_dur = s_dur_default -%}{%- else -%}{%- assign s_dur = s_dur_num | append: ' min' -%}{%- endif -%}
                       {%- endif -%}
                       <span class="service-duration">⏱️ {{ s_dur }}</span>
                       <span class="service-base-price" data-price-mini="{{ s_mini }}" data-price-medium="{{ s_med }}" data-price-large="{{ s_lar }}">
-                        {% if booking_en %}From{% else %}Desde{% endif %} {{ s_mini }} €
+                        {{ 'pet_cro.booking.step_1.from' | t }} {{ s_mini | times: 100 | money }}
                       </span>
                     </div>
                   </div>
@@ -83,10 +82,10 @@
           <div class="booking-breed-header">
             <div>
               <h4 class="step-section-subtitle">
-                {% if booking_en %}Approximate dog size & weight{% else %}Tamaño y peso aproximado de tu perro{% endif %}
+                {{ 'pet_cro.booking.step_1.size_title' | t }}
               </h4>
               <p class="booking-breed-help">
-                {% if booking_en %}Choose size by weight or search breed to auto-suggest it.{% else %}Elige el tamaño por peso o busca su raza para sugerirlo automáticamente.{% endif %}
+                {{ 'pet_cro.booking.step_1.size_hint' | t }}
               </p>
             </div>
           </div>
@@ -94,7 +93,7 @@
           <!-- Buscador Predictivo de Raza / Mestizo -->
           <div class="booking-breed-search-box">
             <label for="booking-quick-breed-{{ section.id }}" class="booking-breed-search-label">
-              {% if booking_en %}What breed is your dog? (Optional){% else %}¿De qué raza es tu peludo? (Opcional){% endif %}
+              {{ 'pet_cro.booking.step_1.breed_label' | t }}
             </label>
             <div class="booking-breed-input-wrap">
               <input
@@ -103,14 +102,14 @@
                 class="booking-form-input booking-breed-quick-input"
                 data-booking-input="quickBreed"
                 list="booking-breeds-list-{{ section.id }}"
-                placeholder="{% if booking_en %}E.g. Mixed breed, Yorkshire, Beagle, Golden...{% else %}Ej: Mestizo, Yorkshire, Beagle, Golden...{% endif %}"
+                placeholder="{{ 'pet_cro.booking.step_1.breed_placeholder' | t }}"
                 autocomplete="off"
               >
               <button
                 type="button"
                 class="booking-breed-clear-btn"
                 data-breed-action="clear"
-                aria-label="{% if booking_en %}Clear breed{% else %}Borrar raza{% endif %}"
+                aria-label="{{ 'pet_cro.booking.step_1.breed_clear' | t }}"
                 hidden
               >
                 &times;
@@ -182,24 +181,24 @@
             </div>
           </div>
 
-          <div class="booking-size-grid" role="radiogroup" aria-label="{% if booking_en %}Dog size{% else %}Tamaño del perro{% endif %}">
+          <div class="booking-size-grid" role="radiogroup" aria-label="{{ 'pet_cro.booking.step_1.size_label' | t }}">
             <label class="booking-size-card">
               <input type="radio" name="dog_size" value="mini" class="visually-hidden">
               <span class="size-badge">Mini / Toy</span>
-              <strong class="size-name">{% if booking_en %}Under 5 kg{% else %}Menos de 5 kg{% endif %}</strong>
-              <small class="size-hint">{% if booking_en %}Chihuahua, Bichon, Yorkshire, Toy Poodle{% else %}Chihuahua, Bichón, Yorkshire, Caniche Toy{% endif %}</small>
+              <strong class="size-name">{{ 'pet_cro.booking.step_1.mini_weight' | t }}</strong>
+              <small class="size-hint">{{ 'pet_cro.booking.step_1.mini_breeds' | t }}</small>
             </label>
             <label class="booking-size-card">
               <input type="radio" name="dog_size" value="medium" class="visually-hidden">
-              <span class="size-badge">{% if booking_en %}Medium{% else %}Mediano{% endif %}</span>
-              <strong class="size-name">{% if booking_en %}5 to 15 kg{% else %}5 a 15 kg{% endif %}</strong>
-              <small class="size-hint">{% if booking_en %}Cocker, Beagle, French Bulldog, Schnauzer{% else %}Cocker, Beagle, Bulldog Francés, Schnauzer{% endif %}</small>
+              <span class="size-badge">{{ 'pet_cro.booking.step_1.medium' | t }}</span>
+              <strong class="size-name">{{ 'pet_cro.booking.step_1.medium_weight' | t }}</strong>
+              <small class="size-hint">{{ 'pet_cro.booking.step_1.medium_breeds' | t }}</small>
             </label>
             <label class="booking-size-card">
               <input type="radio" name="dog_size" value="large" class="visually-hidden">
-              <span class="size-badge">{% if booking_en %}Large{% else %}Grande{% endif %}</span>
-              <strong class="size-name">{% if booking_en %}Over 15 kg{% else %}Más de 15 kg{% endif %}</strong>
-              <small class="size-hint">{% if booking_en %}Golden Retriever, Labrador, German Shepherd{% else %}Golden Retriever, Labrador, Pastor Alemán{% endif %}</small>
+              <span class="size-badge">{{ 'pet_cro.booking.step_1.large' | t }}</span>
+              <strong class="size-name">{{ 'pet_cro.booking.step_1.large_weight' | t }}</strong>
+              <small class="size-hint">{{ 'pet_cro.booking.step_1.large_breeds' | t }}</small>
             </label>
           </div>
         </div>
@@ -209,16 +208,16 @@
           <div class="booking-addons-header">
             <div>
               <h4 class="step-section-subtitle">
-                {% if booking_en %}✨ Pamper your dog with extra care (optional){% else %}✨ Mima a tu peludo con cuidados extra (opcional){% endif %}
+                {{ 'pet_cro.booking.step_1.addons_title' | t }}
               </h4>
               <p class="booking-addons-subtitle">
-                {% if booking_en %}Add exclusive treatments in 1 click for a complete spa experience.{% else %}Añade tratamientos exclusivos en 1 clic para una experiencia spa completa.{% endif %}
+                {{ 'pet_cro.booking.step_1.addons_intro' | t }}
               </p>
             </div>
-            <span class="booking-addons-pill-badge">{% if booking_en %}In 1 click{% else %}En 1 clic{% endif %}</span>
+            <span class="booking-addons-pill-badge">{{ 'pet_cro.booking.step_1.addons_badge' | t }}</span>
           </div>
 
-          <div class="booking-addons-grid" role="group" aria-label="{% if booking_en %}Extra care{% else %}Cuidados extra{% endif %}">
+          <div class="booking-addons-grid" role="group" aria-label="{{ 'pet_cro.booking.step_1.addons_label' | t }}">
             {%- if has_custom_addons -%}
               {%- for addon in meta_addons -%}
                 {%- assign is_active = true -%}
@@ -252,7 +251,7 @@
                     <div class="booking-addon-content">
                       <div class="booking-addon-top">
                         <span class="booking-addon-name">{{ a_name }}</span>
-                        <span class="booking-addon-price" data-addon-price-display>+{{ a_mini }},00 €</span>
+                        <span class="booking-addon-price" data-addon-price-display>+{{ a_mini | times: 100 | money }}</span>
                       </div>
                       {%- if a_desc != blank -%}
                         <p class="booking-addon-desc">{{ a_desc }}</p>
@@ -272,15 +271,15 @@
         <div class="booking-estimate-summary">
           <div class="estimate-info">
             <span class="estimate-label">
-              {% if booking_en %}Estimated fee for this service:{% else %}Tarifa estimada para este servicio:{% endif %}
+              {{ 'pet_cro.booking.step_1.estimate_label' | t }}
             </span>
             <div class="estimate-numbers">
               <span class="estimate-price" data-booking-estimate-price>—</span>
-              <span class="estimate-duration" data-booking-estimate-duration>{% if booking_en %}(⏱️ 1 hour){% else %}(⏱️ 1 hora){% endif %}</span>
+              <span class="estimate-duration" data-booking-estimate-duration>{{ 'pet_cro.booking.step_1.estimate_duration' | t }}</span>
             </div>
           </div>
           <button type="button" class="grooming-booking-btn-primary" data-wizard-action="next">
-            <span>{% if booking_en %}Continue to Date & Time{% else %}Continuar a fecha y hora{% endif %}</span>
+            <span>{{ 'pet_cro.booking.step_1.continue' | t }}</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
         </div>

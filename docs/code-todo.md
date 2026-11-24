@@ -113,7 +113,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - Fuera la rama de `msSaveOrOpenBlob`.
     - Una sola escucha en la sección para `[data-booking-action$="-confirm"]` que muestra el aviso de reserva enviada.
   - Probado en CLAUDIA (`/pages/bookings`): sin errores en consola; UID `cita-prueba-123@brudabrey.myshopify.com`; el aviso sale con WhatsApp, email y SMS (botones temporales, porque la tienda aún no tiene esos datos) y no con «Copiar».
-- [ ] 🟠 **CODE-11 · Textos de la reserva fuera de las traducciones.** L
+- [x] 🟠 **CODE-11 · Textos de la reserva fuera de las traducciones.** L *(hecho el 24/11/2026)*
   - Hay unos 170 `{% if booking_en %}…{% else %}…` en los pasos 1-4 y el stepper, y 17 `isEn ? … : …` en el JS.
   - El JS usa `alert()` (l.2082 y 2085) y formatea el dinero a mano (`${n},00 €` 7 veces). También fija la hora en `'es-ES'` y escribe `'Europe/Madrid'` aunque ya existe `SALON_TIME_ZONE`.
   - Propuesta:
@@ -121,6 +121,23 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - los textos del JS en un `<script type="application/json">` generado con `| t`;
     - el dinero con `formatCroMoney`;
     - los avisos en `submitStatus` en vez de `alert()`.
+  - Hecho:
+    - Liquid: los 133 textos de los pasos y el stepper pasan a `pet_cro.booking.{stepper,step_1…step_4}.*` en `es.json` y `en.default.json`. Ya no queda ningún `booking_en`. El título y el subtítulo por defecto salen de las traducciones en los dos idiomas.
+    - JS: 77 textos en `pet_cro.booking.js.*`. El nuevo `snippets/grooming-booking-texts.liquid` los pasa al JS como JSON; si se añade una clave, hay que añadirla también a su lista (`| t` sobre un grupo devuelve texto de Ruby, no JSON). El JS rellena los `{{ variable }}` con `this.t()` y deshace el escapado HTML de `| t` (`&#39;`).
+    - Fuera `isEn` (116 usos). Las fechas usan el idioma de la página y el plazo de la señal usa `SALON_TIME_ZONE`.
+    - Dinero: `money()` usa `formatCroMoney` con `shop.money_format` (`data-money-format`). En Liquid, `| times: 100 | money`. Fuera el «28,00 €» de ejemplo del resumen.
+    - Duraciones: un solo `formatMinutes()` («1 hora», «45 min», «1 h 5 min»).
+    - Los mensajes de WhatsApp, email, SMS y «copiar» y el evento de calendario salen de una sola lista (`bookingDetails()` y `bookingMessage()`), en el idioma de la página. Antes había cuatro versiones a mano, y WhatsApp y «copiar» iban siempre en español.
+    - Sin `alert()`: si no se puede copiar, los datos salen en el aviso del paso 4.
+    - De paso (CODE-17): los extras del resumen se pintan con `textContent`.
+    - Fuera las claves sin uso `pet_cro.booking` (antiguas) y `pet_cro.calendar` (agenda antigua).
+  - Probado en CLAUDIA en `/pages/bookings` (inglés) y `/es/pages/bookings`, sin enviar la reserva:
+    - pasos, stepper, calendario («Tuesday 24 (available)», «Martes 24 (disponible)»), precios «40,00 €», duración y resumen;
+    - mensajes de WhatsApp y SMS, asunto del email, evento y recordatorio del calendario;
+    - señal obligatoria con plazo («antes del jueves, 26 de noviembre a las 18:00»), señal opcional y nota de pago;
+    - fallo al copiar: los datos salen en el aviso, con saltos de línea.
+    - Sin errores en consola.
+  - Queda para otra tarea: los nombres de servicios y extras salen de los metaobjetos sin traducir (se traducen en Shopify → Idiomas).
 - [ ] 🟠 **CODE-12 · Partir `grooming-booking-step-1.liquid`.** M
   - 471 líneas. Propuesta: snippets de servicios, tamaño/raza y extras. Hacerlo junto con CODE-11.
 - [ ] 🟠 **CODE-13 · Textos por defecto comparados con literales.** L
@@ -153,7 +170,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
   - `window.switchPetTab`, `selectPurchaseMode`, `updateDeliveryFrequency`… ya no hacen falta, porque hay delegación de eventos.
   - Propuesta: meterlo todo en un módulo y leer el 15 % de la suscripción del `data-` del widget (l.337 y 339).
 - [ ] 🟢 **CODE-17 · Detalles de la reserva.** S
-  - Los nombres de los extras se pintan con `innerHTML` (~l.1710); usar `textContent`.
+  - ~~Los nombres de los extras se pintan con `innerHTML`~~: hecho en CODE-11.
   - No escucha `shopify:section:load`, así que en el editor no se reinicia.
   - Detectar Mac por el user agent manda a Apple Maps a todos los Mac.
 

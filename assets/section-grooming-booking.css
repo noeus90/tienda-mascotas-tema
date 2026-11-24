@@ -1752,6 +1752,8 @@
   border-radius: 1.6rem;
   font-size: 2.24rem;
   line-height: 1.5;
+  /* Line breaks of the copied booking details when the clipboard is blocked (CODE-11). */
+  white-space: pre-line;
 }
 .booking-submit-status.is-success {
   background: #ecfdf5;

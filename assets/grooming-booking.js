@@ -97,6 +97,10 @@
       this.whatsappNumber = section.dataset.whatsappNumber || '';
       this.salonAddress = section.dataset.salonAddress || '';
       this.salonEmail = section.dataset.salonEmail || '';
+      // Texts and formats of the page language (CODE-11).
+      this.locale = document.documentElement.lang || 'es';
+      this.moneyFormat = section.dataset.moneyFormat || '';
+      this.i18n = this.readTexts();
       // Busy time ranges per day from the booking app ({ 'YYYY-MM-DD': [[startMin, endMin]] }).
       this.busy = {};
       this._lastSyncedSignature = null;
@@ -255,7 +259,6 @@
     }
 
     submitWaitlist(box) {
-      const isEn = document.documentElement.lang === 'en';
       const value = (key) => (box.querySelector(`[data-waitlist="${key}"]`)?.value || '').trim();
       const status = box.querySelector('[data-waitlist-status]');
       const button = box.querySelector('[data-waitlist-submit]');
@@ -266,7 +269,7 @@
         status.classList.toggle('is-success', Boolean(ok));
       };
       if (!value('name') || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value('email'))) {
-        say(isEn ? 'Please enter your name and a valid email.' : 'Escribe tu nombre y un email válido.', false);
+        say(this.t('waitlist_invalid'), false);
         return;
       }
       const petInput = this.section.querySelector('[data-booking-input="petName"]');
@@ -295,20 +298,18 @@
             const form = box.querySelector('[data-waitlist-form]');
             if (form) form.hidden = true;
             say(
-              result.already
-                ? (isEn ? 'You were already on the waiting list for this day. We will email you if a time frees up.' : 'Ya estabas en la lista de espera de este día. Te escribiremos si se libera una hora.')
-                : (isEn ? "Done! You're on the waiting list. If a time frees up, we'll email you straight away." : '¡Listo! Estás en la lista de espera. Si se libera una hora, te escribiremos enseguida.'),
+              this.t(result.already ? 'waitlist_already' : 'waitlist_joined'),
               true
             );
           } else if (result && result.error === 'too_many') {
-            say(isEn ? 'You are already waiting for several days. Write to us on WhatsApp and we will help you.' : 'Ya estás esperando en varios días. Escríbenos por WhatsApp y te ayudamos.', false);
+            say(this.t('waitlist_too_many'), false);
           } else {
-            say(isEn ? 'We could not add you. Please try again or write to us on WhatsApp.' : 'No hemos podido apuntarte. Vuelve a intentarlo o escríbenos por WhatsApp.', false);
+            say(this.t('waitlist_failed'), false);
           }
         })
         .catch(() => {
           button.disabled = false;
-          say(isEn ? 'No connection. Please try again.' : 'Sin conexión. Vuelve a intentarlo.', false);
+          say(this.t('no_connection'), false);
         });
     }
 
@@ -378,17 +379,8 @@
     renderPaymentNote(deposit) {
       const el = this.section.querySelector('[data-booking-payment-note]');
       if (!el || !deposit || deposit.mode === 'off') return;
-      const isEn = document.documentElement.lang === 'en';
-      const euros = new Intl.NumberFormat(isEn ? 'en-IE' : 'es-ES', { style: 'currency', currency: 'EUR' }).format(deposit.amount);
-      const amount = deposit.type === 'percent' ? `${deposit.percent} %` : euros;
-      el.textContent =
-        deposit.mode === 'required'
-          ? (isEn
-              ? `💳 ${amount} deposit when booking · the rest at the salon`
-              : `💳 Señal de ${amount} al reservar · el resto en la tienda`)
-          : (isEn
-              ? `💳 Pay at the salon · optional ${amount} deposit`
-              : `💳 Pago en la tienda · señal opcional de ${amount}`);
+      const amount = deposit.type === 'percent' ? `${deposit.percent} %` : this.money(deposit.amount);
+      el.textContent = this.t(deposit.mode === 'required' ? 'payment_required' : 'payment_optional', { amount });
     }
 
     /** Groomer picker (step 2), only when the salon has two or more active groomers. */
@@ -407,8 +399,7 @@
         return;
       }
       this.groomersRendered = true;
-      const isEn = document.documentElement.lang === 'en';
-      const options = [{ id: 'any', name: isEn ? 'No preference' : 'Sin preferencia', bio: isEn ? 'Whoever is free' : 'La que esté libre' }, ...groomers];
+      const options = [{ id: 'any', name: this.t('groomer_any'), bio: this.t('groomer_any_bio') }, ...groomers];
       options.forEach((g) => {
         const button = document.createElement('button');
         button.type = 'button';
@@ -441,15 +432,14 @@
         b.classList.toggle('is-selected', on);
         b.setAttribute('aria-checked', on ? 'true' : 'false');
       });
-      const isEn = document.documentElement.lang === 'en';
       const dog = this.selectedDog;
       const name = this.groomerName();
       // Why this groomer is proposed: the dog's favourite, or who groomed it last time.
       let note = '';
       if (dog && name && this.groomerNoteKind === 'favorite' && current === dog.favoriteGroomer) {
-        note = isEn ? `⭐ ${name} is ${dog.name}'s favourite groomer.` : `⭐ ${name} es la peluquera favorita de ${dog.name}.`;
+        note = this.t('groomer_favorite_note', { groomer: name, dog: dog.name });
       } else if (dog && name && this.groomerNoteKind === 'last' && current === dog.lastGroomer) {
-        note = isEn ? `${name} groomed ${dog.name} last time.` : `${name} atendió a ${dog.name} la última vez.`;
+        note = this.t('groomer_last_note', { groomer: name, dog: dog.name });
       }
       const hint = this.section.querySelector('[data-booking-groomers-hint]');
       if (hint) {
@@ -463,7 +453,7 @@
         favWrap.hidden = !offer;
         if (!offer) favWrap.querySelector('[data-booking-fav]').checked = false;
         favWrap.querySelector('[data-booking-fav-text]').textContent = offer
-          ? (isEn ? `⭐ Save ${name} as ${dog.name}'s favourite groomer` : `⭐ Guardar a ${name} como peluquera favorita de ${dog.name}`)
+          ? this.t('groomer_save_favorite', { groomer: name, dog: dog.name })
           : '';
       }
     }
@@ -498,11 +488,6 @@
       const box = this.section.querySelector('[data-booking-my-dogs]');
       const list = this.section.querySelector('[data-booking-my-dogs-list]');
       if (!box || !list || !dogs.length) return;
-      const isEn = document.documentElement.lang === 'en';
-      const sizeLabels = isEn
-        ? { mini: 'Mini / Toy', medium: 'Medium', large: 'Large' }
-        : { mini: 'Mini / Toy', medium: 'Mediano', large: 'Grande' };
-
       const buttons = [];
       const addButton = (label, detail, onSelect) => {
         const button = document.createElement('button');
@@ -527,10 +512,10 @@
       };
 
       dogs.forEach((dog) => {
-        const detail = [dog.breed, sizeLabels[dog.size]].filter(Boolean).join(' · ');
+        const detail = [dog.breed, this.sizeLabel(dog.size)].filter(Boolean).join(' · ');
         addButton(`🐶 ${dog.name}`, detail, () => this.applyDog(dog));
       });
-      addButton(isEn ? '➕ Another dog' : '➕ Otro perro', '', () => this.applyDog(null));
+      addButton(this.t('another_dog'), '', () => this.applyDog(null));
       box.hidden = false;
     }
 
@@ -609,10 +594,56 @@
       if (!dateStr) return '';
       const [y, m, d] = dateStr.split('-').map(Number);
       const dt = new Date(y, m - 1, d);
-      const isEn = document.documentElement.lang === 'en';
       const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-      const raw = dt.toLocaleDateString(isEn ? 'en-US' : 'es-ES', options);
-      return raw.charAt(0).toUpperCase() + raw.slice(1);
+      return this.capitalize(dt.toLocaleDateString(this.locale, options));
+    }
+
+    capitalize(text) {
+      return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+
+    sizeLabel(size) {
+      return ['mini', 'medium', 'large'].includes(size) ? this.t(`size_${size}`) : '';
+    }
+
+    /** Texts of the page language (snippets/grooming-booking-texts.liquid, locales pet_cro.booking.js). */
+    readTexts() {
+      const el = this.section.querySelector('[data-booking-texts]');
+      let texts = {};
+      try {
+        texts = el ? JSON.parse(el.textContent) : {};
+      } catch (error) {
+        return {};
+      }
+      // Liquid's t filter escapes HTML (' → &#39;); these texts always go in as plain text.
+      const decoder = document.createElement('textarea');
+      Object.keys(texts).forEach((key) => {
+        decoder.innerHTML = texts[key];
+        texts[key] = decoder.value;
+      });
+      return texts;
+    }
+
+    /** Translated text with its {{ name }} placeholders filled in. */
+    t(key, vars = {}) {
+      const text = this.i18n[key] || key;
+      return text.replace(/\{\{\s*(\w+)\s*\}\}/g, (match, name) => (name in vars ? String(vars[name]) : match));
+    }
+
+    /** Euros in the shop's money format, the same as Liquid's money filter. */
+    money(euros) {
+      const cents = Math.round(Number(euros || 0) * 100);
+      if (typeof formatCroMoney === 'function') return formatCroMoney(cents, this.moneyFormat);
+      return new Intl.NumberFormat(this.locale, { style: 'currency', currency: 'EUR' }).format(cents / 100);
+    }
+
+    /** Length in the page language: 60 → "1 hora", 45 → "45 min", 90 → "1 h 30 min". */
+    formatMinutes(total) {
+      if (total === 60) return this.t('one_hour');
+      if (total < 60) return this.t('minutes', { minutes: total });
+      const hours = Math.floor(total / 60);
+      const minutes = total % 60;
+      return minutes ? this.t('hours_minutes', { hours, minutes }) : this.t('hours', { hours });
     }
 
     /**
@@ -966,16 +997,12 @@
     renderMiniCalendar() {
       if (!this.calDaysGrid || !this.calMonthLabel) return;
 
-      const isEn = document.documentElement.lang === 'en';
       const year = this.currentCalDate.getFullYear();
       const month = this.currentCalDate.getMonth();
 
       // Month & Year header
-      const monthName = this.currentCalDate.toLocaleDateString(isEn ? 'en-US' : 'es-ES', {
-        month: 'long',
-        year: 'numeric',
-      });
-      this.calMonthLabel.textContent = monthName.charAt(0).toUpperCase() + monthName.slice(1);
+      const monthName = this.currentCalDate.toLocaleDateString(this.locale, { month: 'long', year: 'numeric' });
+      this.calMonthLabel.textContent = this.capitalize(monthName);
 
       // Boundary check for navigation buttons
       const minMonth = new Date(this.today.getFullYear(), this.today.getMonth(), 1);
@@ -1007,17 +1034,14 @@
         this.calDaysGrid.appendChild(emptyCell);
       }
 
-      // Day name arrays for unambiguous accessibility labels
-      const weekdayNamesEs = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-      const weekdayNamesEn = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
       // Render actual days
       for (let dayNum = 1; dayNum <= totalDays; dayNum++) {
         const dateObj = new Date(year, month, dayNum);
         dateObj.setHours(0, 0, 0, 0);
         const dateKey = this.formatDateKey(dateObj);
         const dayOfWeek = dateObj.getDay(); // 0 = Sunday
-        const dayName = isEn ? weekdayNamesEn[dayOfWeek] : weekdayNamesEs[dayOfWeek];
+        // Accessible label: "Lunes 3" / "Monday 3".
+        const day = `${this.capitalize(dateObj.toLocaleDateString(this.locale, { weekday: 'long' }))} ${dayNum}`;
 
         const btn = document.createElement('button');
         btn.type = 'button';
@@ -1063,25 +1087,23 @@
 
         if (isPast || isBeyond30) {
           btn.classList.add('is-disabled');
-          btn.title = isEn ? `${dayName} ${dayNum} (Past date)` : `${dayName} ${dayNum} (Fecha pasada)`;
+          btn.title = this.t('day_past', { day });
           btn.setAttribute('aria-label', btn.title);
           btn.disabled = true;
         } else if (isCustomClosedDate) {
           btn.classList.add('is-closed');
-          btn.title = isEn ? `${dayName} ${dayNum} (Closed / Holiday)` : `${dayName} ${dayNum} (Cerrado / Festivo)`;
+          btn.title = this.t('day_holiday', { day });
           btn.setAttribute('aria-label', btn.title);
           btn.disabled = true;
         } else if (isClosedDayOfWeek) {
           btn.classList.add('is-closed');
-          btn.title = dayOfWeek === 0
-            ? (isEn ? `Sunday ${dayNum} (Closed on Sundays)` : `Domingo ${dayNum} (Cerrado los domingos)`)
-            : (isEn ? `${dayName} ${dayNum} (Closed)` : `${dayName} ${dayNum} (Cerrado por horario)`);
+          btn.title = this.t('day_closed', { day });
           btn.setAttribute('aria-label', btn.title);
           btn.disabled = true;
         } else if (isFullyBooked) {
           // Full day: still clickable, to join its waiting list (step 2).
           btn.classList.add('is-fully-booked');
-          btn.title = isEn ? `${dayName} ${dayNum} (Fully booked: join the waiting list)` : `${dayName} ${dayNum} (Completo: apúntate a la lista de espera)`;
+          btn.title = this.t('day_full', { day });
           btn.setAttribute('aria-label', btn.title);
           btn.addEventListener('click', () => {
             this.bookingData.date = dateKey;
@@ -1091,7 +1113,7 @@
           });
         } else {
           // Clickable available day
-          btn.title = isEn ? `${dayName} ${dayNum} (Available for booking)` : `${dayName} ${dayNum} (Disponible para reserva)`;
+          btn.title = this.t('day_available', { day });
           btn.setAttribute('aria-label', btn.title);
           btn.addEventListener('click', () => {
             this.bookingData.date = dateKey;
@@ -1112,8 +1134,7 @@
       if (this.bookingData.date) {
         this.calSelectedDisplay.textContent = this.formatHumanDate(this.bookingData.date);
       } else {
-        const isEn = document.documentElement.lang === 'en';
-        this.calSelectedDisplay.textContent = isEn ? 'Select an available day' : 'Selecciona un día en el calendario';
+        this.calSelectedDisplay.textContent = this.t('select_day');
       }
     }
 
@@ -1228,7 +1249,6 @@
 
     renderSlotCards(container, slots, bookedSlots = []) {
       container.innerHTML = '';
-      const isEn = document.documentElement.lang === 'en';
       slots.forEach((time) => {
         const isBooked = bookedSlots.includes(time);
         const isSelected = !isBooked && time === this.bookingData.slot;
@@ -1242,7 +1262,7 @@
         }
         label.className = cardClasses;
         if (isBooked) {
-          label.title = isEn ? `${time} - Already booked` : `${time} - Franja ya reservada`;
+          label.title = this.t('slot_booked_title', { time });
           label.setAttribute('aria-disabled', 'true');
         }
 
@@ -1267,7 +1287,7 @@
         if (isBooked) {
           const badge = document.createElement('span');
           badge.className = 'slot-booked-badge';
-          badge.textContent = isEn ? 'Booked' : 'Ocupado';
+          badge.textContent = this.t('slot_booked');
           label.appendChild(badge);
         }
 
@@ -1288,17 +1308,11 @@
     }
 
     updatePriceEstimate() {
-      const isEn = document.documentElement.lang === 'en';
-      const defaultDuration = isEn ? '1 hour' : '1 hora';
-      // Service durations can come as plain minutes ("60") from the grooming_service metaobject.
+      // Service durations come as minutes ("60") from the grooming_service metaobject.
       const formatDuration = (value) => {
         const mins = Number.parseInt(value, 10);
-        if (!/^\s*\d+\s*$/.test(String(value)) || !mins) return value || defaultDuration;
-        if (mins === 60) return defaultDuration;
-        if (mins < 60) return `${mins} min`;
-        const h = Math.floor(mins / 60);
-        const m = mins % 60;
-        return m ? `${h} h ${m} min` : `${h} ${isEn ? 'hours' : 'horas'}`;
+        if (!/^\s*\d+\s*$/.test(String(value)) || !mins) return value || this.t('one_hour');
+        return this.formatMinutes(mins);
       };
 
       // CODE-02: prices only from the booking app's services (no example services).
@@ -1337,19 +1351,13 @@
       }
 
       const totalNumPrice = basePrice + addonsTotalPrice;
-      this.bookingData.price = `${totalNumPrice},00 €`;
+      this.bookingData.price = this.money(totalNumPrice);
       this.bookingData.priceAmount = totalNumPrice;
 
       // Total length: the service's minutes (60 by default) + extras, as the booking app counts it.
       const totalMins = (selected.minutes || 60) + addonsTotalMins;
       this.bookingData.durationMinutes = totalMins;
-      if (addonsTotalMins > 0) {
-        const hours = Math.floor(totalMins / 60);
-        const mins = totalMins % 60;
-        this.bookingData.duration = mins > 0 ? `${hours} h ${mins} min` : `${hours} ${isEn ? 'hours' : 'horas'}`;
-      } else {
-        this.bookingData.duration = selected.duration || defaultDuration;
-      }
+      this.bookingData.duration = addonsTotalMins > 0 ? this.formatMinutes(totalMins) : selected.duration;
       this.bookingData.serviceName = selected.name;
 
       // Nothing is preselected (UX-24): no price until the service and the size are chosen.
@@ -1360,9 +1368,7 @@
       if (this.durationEstimateEl) {
         this.durationEstimateEl.textContent = chosen
           ? `(⏱️ ${this.bookingData.duration})`
-          : isEn
-            ? '(choose a service and the size)'
-            : '(elige servicio y tamaño)';
+          : this.t('estimate_pending');
       }
     }
 
@@ -1389,7 +1395,7 @@
         if (isNaN(price)) {
           price = parseFloat(input.dataset.price) || 0;
         }
-        priceDisplay.textContent = `+${price},00 €`;
+        priceDisplay.textContent = `+${this.money(price)}`;
       });
     }
 
@@ -1626,17 +1632,13 @@
       const customerEl = this.section.querySelector('[data-summary="customerInfo"]');
       const specialEl = this.section.querySelector('[data-summary="specialNeeds"]');
 
-      const isEn = document.documentElement.lang === 'en';
       const endSlot = this.calculateEndTime(this.bookingData.slot);
-      const durationTag = this.bookingData.duration || (isEn ? '1 hour' : '1 hora');
+      const durationTag = this.bookingData.duration || this.t('one_hour');
 
       if (petNameEl) petNameEl.textContent = this.bookingData.petName;
       if (petBreedEl) {
-        const breedDisplay = this.bookingData.petBreed || (isEn ? 'Mixed breed' : 'Mestizo / Sin raza');
-        const sizeNames = isEn
-          ? { mini: 'Mini / Toy', medium: 'Medium', large: 'Large' }
-          : { mini: 'Mini / Toy', medium: 'Mediano', large: 'Grande' };
-        const sizeTag = sizeNames[this.bookingData.dogSize] || '';
+        const breedDisplay = this.bookingData.petBreed || this.t('mixed_breed');
+        const sizeTag = this.sizeLabel(this.bookingData.dogSize);
         petBreedEl.textContent = sizeTag ? `${breedDisplay} (${sizeTag})` : breedDisplay;
       }
       if (priceEl) priceEl.textContent = this.bookingData.price;
@@ -1644,32 +1646,32 @@
       if (scheduleEl) scheduleEl.textContent = `${this.formatHumanDate(this.bookingData.date)} · ${this.bookingData.slot} - ${endSlot} h (${durationTag})`;
       const groomerRow = this.section.querySelector('[data-summary-groomer-row]');
       if (groomerRow) {
-        const several = (this.groomers || []).length > 1;
-        groomerRow.hidden = !several;
-        const isEnSummary = document.documentElement.lang === 'en';
+        groomerRow.hidden = (this.groomers || []).length < 2;
         const groomerEl = this.section.querySelector('[data-summary="groomer"]');
-        if (groomerEl) groomerEl.textContent = this.groomerName() || (isEnSummary ? 'No preference (whoever is free)' : 'Sin preferencia (la que esté libre)');
+        if (groomerEl) groomerEl.textContent = this.groomerName() || this.t('groomer_any_summary');
       }
       if (customerEl) customerEl.textContent = `${this.bookingData.customerName} · ${this.bookingData.customerPhone}`;
       if (specialEl) {
-        specialEl.textContent = this.bookingData.specialNeeds.length > 0 ? this.bookingData.specialNeeds.join(', ') : (isEn ? 'No special needs' : 'Sin particularidades especiales');
+        specialEl.textContent = this.bookingData.specialNeeds.length > 0 ? this.bookingData.specialNeeds.join(', ') : this.t('no_special');
       }
 
-      // Populate Extra Add-ons in Summary Card
+      // Extras of the summary card (names from the shop: text, never HTML).
       const addonsWrap = this.section.querySelector('[data-summary-addons-wrap]');
       const addonsListEl = this.section.querySelector('[data-summary="addonsList"]');
-      const hasAddons = Array.isArray(this.bookingData.addons) && this.bookingData.addons.length > 0;
-
+      const addons = Array.isArray(this.bookingData.addons) ? this.bookingData.addons : [];
       if (addonsWrap && addonsListEl) {
-        if (hasAddons) {
-          addonsWrap.removeAttribute('hidden');
-          addonsListEl.innerHTML = this.bookingData.addons
-            .map((a) => `<span class="conf-addon-pill">✨ ${a.name} <strong>(+${a.price},00 €)</strong></span>`)
-            .join(' ');
-        } else {
-          addonsWrap.setAttribute('hidden', '');
-          addonsListEl.innerHTML = '';
-        }
+        addonsWrap.hidden = addons.length === 0;
+        addonsListEl.replaceChildren(
+          ...addons.map((a) => {
+            const pill = document.createElement('span');
+            pill.className = 'conf-addon-pill';
+            pill.textContent = `✨ ${a.name} `;
+            const price = document.createElement('strong');
+            price.textContent = `(+${this.money(a.price)})`;
+            pill.appendChild(price);
+            return pill;
+          })
+        );
       }
 
       // Build WhatsApp Link
@@ -1678,24 +1680,7 @@
         cleanPhone = '34' + cleanPhone;
       }
 
-      const addonsWhatsAppStr = hasAddons
-        ? `✨ *Cuidados extra:* ` + this.bookingData.addons.map((a) => `${a.name} (+${a.price},00 €)`).join(', ') + `\n`
-        : '';
-
-      const msg =
-        `🐾 *¡SOLICITUD DE CITA DE PELUQUERÍA CANINA!* 🐾\n\n` +
-        `👤 *Tutor:* ${this.bookingData.customerName}\n` +
-        `📱 *Teléfono:* ${this.bookingData.customerPhone}\n\n` +
-        `🐶 *Peludo:* ${this.bookingData.petName} (${this.bookingData.petBreed} - Tamaño ${this.bookingData.dogSize.toUpperCase()})\n` +
-        (this.bookingData.petAge ? `🎂 *Edad:* ${this.bookingData.petAge}\n` : '') +
-        `✂️ *Servicio base:* ${this.bookingData.serviceName}\n` +
-        addonsWhatsAppStr +
-        `📅 *Fecha solicitada:* ${this.formatHumanDate(this.bookingData.date)}\n` +
-        `⏰ *Horario:* ${this.bookingData.slot} - ${endSlot} h (${durationTag})\n` +
-        `💶 *Precio estimado:* ${this.bookingData.price}\n` +
-        (this.bookingData.specialNeeds.length > 0 ? `⚠️ *Cuidados especiales:* ${this.bookingData.specialNeeds.join(', ')}\n` : '') +
-        (this.bookingData.notes ? `📝 *Notas:* ${this.bookingData.notes}\n` : '') +
-        `\n¿Tenéis disponibilidad para confirmarme la cita? ¡Muchas gracias! 🐶`;
+      const msg = this.bookingMessage('whatsapp');
 
       if (this.whatsappCta) {
         this.whatsappCta.href = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`;
@@ -1742,7 +1727,6 @@
      */
     submitBooking() {
       if (this.submitting || this.bookingData.savedReference || !this.submitBtn) return;
-      const isEn = document.documentElement.lang === 'en';
       const label = this.submitBtn.querySelector('span') || this.submitBtn;
       const originalLabel = label.textContent;
       const websiteInput = this.section.querySelector('[data-booking-input="website"]');
@@ -1777,7 +1761,7 @@
       this.submitting = true;
       this.submitBtn.disabled = true;
       this.submitBtn.setAttribute('aria-busy', 'true');
-      label.textContent = isEn ? 'Sending…' : 'Enviando…';
+      label.textContent = this.t('sending');
       this.showSubmitStatus('', '');
 
       fetch('/apps/reservas/citas', {
@@ -1789,63 +1773,51 @@
         .then((result) => {
           if (result && result.ok) {
             this.bookingData.savedReference = result.reference || result.id;
-            this.onBookingSaved(isEn, result.deposit);
+            this.onBookingSaved(result.deposit);
             return;
           }
           if (result && result.error === 'slot_taken') {
-            this.onSlotTaken(isEn, label, originalLabel);
+            this.onSlotTaken(label, originalLabel);
             return;
           }
           if (result && result.error === 'too_many_pending') {
             this.onBookingFailed(
-              isEn
-                ? 'You already have several bookings waiting for confirmation. We will contact you soon; if you need another one, write to us on WhatsApp.'
-                : 'Ya tienes varias reservas pendientes de confirmar. Te contactaremos pronto; si necesitas otra, escríbenos por WhatsApp.',
+              this.t('too_many_pending'),
               label,
               originalLabel
             );
             return;
           }
-          const fieldNames = isEn
-            ? { date: 'date', time: 'time', service: 'service', dogSize: 'dog size', petName: "dog's name", ownerName: 'your name', ownerPhone: 'phone', ownerEmail: 'email' }
-            : { date: 'fecha', time: 'hora', service: 'servicio', dogSize: 'tamaño', petName: 'nombre del perro', ownerName: 'tu nombre', ownerPhone: 'teléfono', ownerEmail: 'email' };
-          const fields = ((result && result.fields) || []).map((field) => fieldNames[field]).filter(Boolean);
-          const message = fields.length
-            ? (isEn
-                ? 'Some details are not valid. Go back and check them: ' + fields.join(', ') + '.'
-                : 'Hay datos que no son válidos. Vuelve atrás y revísalos: ' + fields.join(', ') + '.')
-            : (isEn
-                ? 'We could not save your booking. Please try again, or send it to us by WhatsApp.'
-                : 'No hemos podido guardar tu reserva. Vuelve a intentarlo o envíanosla por WhatsApp.');
+          const fieldNames = {
+            date: 'field_date',
+            time: 'field_time',
+            service: 'field_service',
+            dogSize: 'field_dog_size',
+            petName: 'field_pet_name',
+            ownerName: 'field_owner_name',
+            ownerPhone: 'field_owner_phone',
+            ownerEmail: 'field_owner_email',
+          };
+          const fields = ((result && result.fields) || []).filter((field) => fieldNames[field]).map((field) => this.t(fieldNames[field]));
+          const message = fields.length ? this.t('invalid_fields', { fields: fields.join(', ') }) : this.t('save_failed');
           this.onBookingFailed(message, label, originalLabel);
         })
         .catch(() => {
           this.onBookingFailed(
-            isEn
-              ? 'No connection. Please try again, or send your booking by WhatsApp.'
-              : 'Sin conexión. Vuelve a intentarlo o envíanos la reserva por WhatsApp.',
+            this.t('save_no_connection'),
             label,
             originalLabel
           );
         });
     }
 
-    onBookingSaved(isEn, deposit) {
+    onBookingSaved(deposit) {
       this.submitting = false;
       this.submitBtn.hidden = true;
       this.submitBtn.removeAttribute('aria-busy');
       const required = deposit && deposit.mode === 'required';
-      this.showSubmitStatus(
-        'is-success',
-        required
-          ? (isEn
-              ? 'Booking saved! Pay the deposit below to confirm it.'
-              : '¡Reserva guardada! Paga la señal aquí abajo para confirmarla.')
-          : (isEn
-              ? 'Booking received! The salon will confirm it soon. You can also let us know by WhatsApp or add it to your calendar.'
-              : '¡Reserva recibida! La peluquería te la confirmará pronto. Si quieres, avísanos también por WhatsApp o añádela a tu calendario.')
-      );
-      this.showDeposit(isEn, deposit);
+      this.showSubmitStatus('is-success', this.t(required ? 'saved_pay_deposit' : 'saved'));
+      this.showDeposit(deposit);
       if (this.afterSubmit) this.afterSubmit.hidden = false;
       // The booking is saved: going back to edit would create a second one.
       const prevBtn = this.section.querySelector('[data-step-panel="4"] [data-wizard-action="prev"]');
@@ -1853,42 +1825,36 @@
     }
 
     /** Deposit link from the booking app (Shopify checkout of a draft order), when deposits are on. */
-    showDeposit(isEn, deposit) {
+    showDeposit(deposit) {
       const box = this.section.querySelector('[data-booking-deposit]');
       if (!box || !deposit || !deposit.url) return;
-      const amount = new Intl.NumberFormat(isEn ? 'en-IE' : 'es-ES', { style: 'currency', currency: 'EUR' }).format(deposit.amount);
+      const amount = this.money(deposit.amount);
       const text = box.querySelector('[data-booking-deposit-text]');
       const link = box.querySelector('[data-booking-deposit-link]');
       const note = box.querySelector('[data-booking-deposit-note]');
-      let until = '';
-      if (deposit.dueAt) {
+      if (deposit.mode !== 'required') {
+        text.textContent = this.t('deposit_optional', { amount });
+      } else if (deposit.dueAt) {
+        // Payment deadline in the salon's time zone, whatever the visitor's device says.
         const due = new Date(deposit.dueAt);
-        const opts = { timeZone: 'Europe/Madrid' };
-        const day = due.toLocaleDateString(isEn ? 'en-GB' : 'es-ES', { ...opts, weekday: 'long', day: 'numeric', month: 'long' });
-        const time = due.toLocaleTimeString('es-ES', { ...opts, hour: '2-digit', minute: '2-digit', hour12: false });
-        until = isEn ? ` before ${day} at ${time}` : ` antes del ${day} a las ${time}`;
+        const opts = { timeZone: SALON_TIME_ZONE };
+        const day = due.toLocaleDateString(this.locale, { ...opts, weekday: 'long', day: 'numeric', month: 'long' });
+        const time = due.toLocaleTimeString(this.locale, { ...opts, hour: '2-digit', minute: '2-digit', hour12: false });
+        text.textContent = this.t('deposit_required_by', { amount, day, time });
+      } else {
+        text.textContent = this.t('deposit_required', { amount });
       }
-      text.textContent =
-        deposit.mode === 'required'
-          ? (isEn
-              ? `To confirm your appointment, pay a ${amount} deposit${until}; otherwise the time will be released. It is taken off the final price.`
-              : `Para confirmar tu cita, paga una señal de ${amount}${until}; si no, la hora se liberará. Se descuenta del precio final.`)
-          : (isEn
-              ? `Want to secure your appointment? Pay a ${amount} deposit now; it is taken off the final price.`
-              : `¿Quieres asegurar tu cita? Paga ahora una señal de ${amount}; se descuenta del precio final.`);
       link.href = deposit.url;
-      link.textContent = isEn ? `Pay deposit (${amount})` : `Pagar señal (${amount})`;
+      link.textContent = this.t('deposit_pay', { amount });
       if (deposit.mode === 'demo') {
-        note.textContent = isEn
-          ? 'Test site: the payment is a test and nothing real is charged (use card number 1).'
-          : 'Web en pruebas: el pago es de prueba y no se cobra nada real (usa la tarjeta número 1).';
+        note.textContent = this.t('deposit_demo');
         note.hidden = false;
       }
       box.hidden = false;
     }
 
     // The time was booked by someone else meanwhile: reload busy times and go back to step 2.
-    onSlotTaken(isEn, label, originalLabel) {
+    onSlotTaken(label, originalLabel) {
       this.submitting = false;
       this.submitBtn.disabled = false;
       this.submitBtn.removeAttribute('aria-busy');
@@ -1896,9 +1862,7 @@
       this.showSubmitStatus('', '');
       const notice = this.section.querySelector('[data-booking-slot-taken]');
       if (notice) {
-        notice.textContent = isEn
-          ? 'Sorry, someone has just booked that time. Please choose another one.'
-          : 'Vaya, alguien acaba de reservar esa hora. Elige otra, por favor.';
+        notice.textContent = this.t('slot_taken');
         notice.hidden = false;
       }
       this.loadBusySlots().then(() => {
@@ -1932,35 +1896,62 @@
 
     copyBookingDetails() {
       if (!this.copyBtn) return;
-      const isEn = document.documentElement.lang === 'en';
-      const endSlot = this.calculateEndTime(this.bookingData.slot);
-      const durationTag = this.bookingData.duration || (isEn ? '1 hour' : '1 hora');
-      const hasAddons = Array.isArray(this.bookingData.addons) && this.bookingData.addons.length > 0;
-      const addonsCopyStr = hasAddons
-        ? `Extras: ` + this.bookingData.addons.map((a) => `${a.name} (+${a.price},00 €)`).join(', ') + `\n`
-        : '';
-      const summaryText =
-        `🐾 Cita de Peluquería Canina\n` +
-        `Peludo: ${this.bookingData.petName} (${this.bookingData.petBreed} - ${this.bookingData.dogSize.toUpperCase()})\n` +
-        `Servicio: ${this.bookingData.serviceName} (${this.bookingData.price})\n` +
-        addonsCopyStr +
-        `Horario: ${this.formatHumanDate(this.bookingData.date)} · ${this.bookingData.slot} - ${endSlot} h (${durationTag})\n` +
-        `Tutor: ${this.bookingData.customerName} (${this.bookingData.customerPhone})\n` +
-        (this.bookingData.specialNeeds.length ? `Cuidados: ${this.bookingData.specialNeeds.join(', ')}\n` : '');
-
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(summaryText).then(() => {
+      const summaryText = this.bookingMessage('copy');
+      // Clipboard blocked: the details are shown on the page instead (no alert()).
+      const showText = () => this.showSubmitStatus('is-error', `${this.t('copy_failed')}\n\n${summaryText}`);
+      if (!navigator.clipboard || !navigator.clipboard.writeText) {
+        showText();
+        return;
+      }
+      navigator.clipboard
+        .writeText(summaryText)
+        .then(() => {
           const orig = this.copyBtn.textContent;
-          this.copyBtn.textContent = '✓ ¡Copiado!';
+          this.copyBtn.textContent = this.t('copied');
           setTimeout(() => {
             this.copyBtn.textContent = orig;
           }, 2000);
-        }).catch(() => {
-          alert('Detalles de la cita:\n\n' + summaryText);
-        });
-      } else {
-        alert('Detalles de la cita:\n\n' + summaryText);
+        })
+        .catch(showText);
+    }
+
+    /**
+     * Booking details shared by the messages to the salon, the copied text and the calendar event,
+     * as [label, value] pairs in the page language. Empty values are left out.
+     */
+    bookingDetails({ owner = true, address = false } = {}) {
+      const d = this.bookingData;
+      const breed = [d.petBreed || this.t('mixed_breed'), this.sizeLabel(d.dogSize)].filter(Boolean).join(' · ');
+      const rows = [
+        ['label_dog', `${d.petName || this.t('your_dog')} (${breed})`],
+        ['label_age', d.petAge],
+        ['label_service', d.serviceName],
+        ['label_extras', (d.addons || []).map((a) => `${a.name} (+${this.money(a.price)})`).join(', ')],
+        ['label_date', this.formatHumanDate(d.date)],
+        ['label_time', `${d.slot} - ${this.calculateEndTime(d.slot)} h (${d.duration || this.t('one_hour')})`],
+        ['label_groomer', this.groomerName()],
+        ['label_price', d.price],
+        ['label_special', (d.specialNeeds || []).join(', ')],
+        ['label_notes', d.notes],
+        ['label_owner', owner ? [d.customerName, d.customerPhone, d.customerEmail].filter(Boolean).join(' · ') : ''],
+        ['label_address', address ? this.salonAddress : ''],
+      ];
+      return rows.filter(([, value]) => value).map(([key, value]) => [this.t(key), value]);
+    }
+
+    /** Text of the booking: 'whatsapp' (bold labels), 'email', 'sms' (one paragraph) or 'copy'. */
+    bookingMessage(kind) {
+      if (kind === 'sms') {
+        const rows = this.bookingDetails();
+        return [this.t('message_intro'), ...rows.map(([label, value]) => `${label}: ${value}.`)].join(' ');
       }
+      if (kind === 'copy') {
+        const rows = this.bookingDetails({ address: true });
+        return [this.t('message_title'), ...rows.map(([label, value]) => `${label}: ${value}`)].join('\n');
+      }
+      const rows = this.bookingDetails();
+      const lines = rows.map(([label, value]) => (kind === 'whatsapp' ? `*${label}:* ${value}` : `• ${label}: ${value}`));
+      return [this.t('message_intro'), '', ...lines, '', this.t('message_outro')].join('\n');
     }
 
     /**
@@ -1993,7 +1984,6 @@
      * start/end are local salon times (YYYYMMDDTHHMMSS) to be read in SALON_TIME_ZONE.
      */
     calendarEventData() {
-      const isEn = document.documentElement.lang === 'en';
       const d = this.bookingData;
       const dateClean = d.date.replace(/-/g, '');
       const toStamp = (time) => {
@@ -2001,32 +1991,12 @@
         return `${dateClean}T${h.padStart(2, '0')}${m.padStart(2, '0')}00`;
       };
       const endSlot = this.calculateEndTime(d.slot);
-      const petName = d.petName || (isEn ? 'your dog' : 'tu peludo');
-      const location = this.salonAddress || (isEn ? 'Grooming salon' : 'Peluquería canina');
-      const lines = [
-        isEn
-          ? `Dog grooming appointment for ${petName}${d.petBreed ? ` (${d.petBreed})` : ''}.`
-          : `Cita de peluquería canina para ${petName}${d.petBreed ? ` (${d.petBreed})` : ''}.`,
-        `${isEn ? 'Time' : 'Horario'}: ${d.slot} - ${endSlot} h`,
-        `${isEn ? 'Service' : 'Servicio'}: ${d.serviceName}`,
-      ];
-      if (Array.isArray(d.addons) && d.addons.length) {
-        lines.push(`Extras: ${d.addons.map((a) => `${a.name} (+${a.price} €)`).join(', ')}`);
-      }
-      const groomer = this.groomerName();
-      if (groomer) lines.push(`${isEn ? "Groomer" : "Peluquera"}: ${groomer}`);
-      if (d.price) lines.push(`${isEn ? 'Estimated price' : 'Precio estimado'}: ${d.price}`);
-      if (Array.isArray(d.specialNeeds) && d.specialNeeds.length) {
-        lines.push(`${isEn ? 'Special care' : 'Cuidados especiales'}: ${d.specialNeeds.join(', ')}`);
-      }
-      if (d.notes) lines.push(`${isEn ? 'Notes' : 'Observaciones'}: ${d.notes}`);
-      lines.push(`${isEn ? 'Address' : 'Dirección'}: ${location}`);
+      const petName = d.petName || this.t('your_dog');
+      const location = this.salonAddress || this.t('salon');
+      const lines = this.bookingDetails({ owner: false, address: true }).map(([label, value]) => `${label}: ${value}`);
       return {
-        isEn,
         petName,
-        title: isEn
-          ? `🐾 Dog grooming: ${d.serviceName} for ${petName}`
-          : `🐾 Peluquería canina: ${d.serviceName} para ${petName}`,
+        title: this.t('event_title', { service: d.serviceName, dog: petName }),
         details: lines.join('\n'),
         location,
         start: toStamp(d.slot),
@@ -2071,7 +2041,7 @@
       const dtStamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
       const domain = window.location.hostname || 'shopify-store';
       const uid = (this.bookingData.savedReference || 'grooming-' + Date.now()) + '@' + domain;
-      const reminder = ev.isEn ? `Reminder: grooming for ${ev.petName}` : `Recordatorio: peluquería de ${ev.petName}`;
+      const reminder = this.t('event_reminder', { dog: ev.petName });
 
       return [
         'BEGIN:VCALENDAR',
@@ -2156,8 +2126,7 @@
       // Feedback visual temporal en el botón
       if (this.appleCalendarBtn) {
         const origText = this.appleCalendarBtn.textContent;
-        const isEn = document.documentElement.lang === 'en';
-        this.appleCalendarBtn.textContent = isEn ? 'Downloaded' : 'Descargado';
+        this.appleCalendarBtn.textContent = this.t('downloaded');
         this.appleCalendarBtn.classList.add('is-active');
         setTimeout(() => {
           this.appleCalendarBtn.textContent = origText;
@@ -2171,59 +2140,12 @@
      * Formatea asunto y cuerpo con desglose completo del servicio, extras y mascota.
      */
     buildEmailConfirmationLink() {
-      const isEn = document.documentElement.lang === 'en';
-      const endSlot = this.calculateEndTime(this.bookingData.slot);
-      const durationTag = this.bookingData.duration || (isEn ? '1 hour' : '1 hora');
-      const petName = this.bookingData.petName || (isEn ? 'Pet' : 'Peludo');
-      const petBreed = this.bookingData.petBreed || (isEn ? 'Mixed breed' : 'Mestizo / Sin raza');
-      const dogSizeTag = this.bookingData.dogSize ? this.bookingData.dogSize.toUpperCase() : '';
-      const humanDate = this.formatHumanDate(this.bookingData.date);
-
-      const subject = isEn
-        ? `Dog Grooming Appointment: ${petName} (${humanDate} · ${this.bookingData.slot}h)`
-        : `Cita de Peluquería Canina: ${petName} (${humanDate} · ${this.bookingData.slot}h)`;
-
-      const hasAddons = Array.isArray(this.bookingData.addons) && this.bookingData.addons.length > 0;
-      const addonsStr = hasAddons
-        ? this.bookingData.addons.map((a) => `${a.name} (+${a.price},00 €)`).join(', ')
-        : '';
-
-      const specialStr = Array.isArray(this.bookingData.specialNeeds) && this.bookingData.specialNeeds.length > 0
-        ? this.bookingData.specialNeeds.join(', ')
-        : '';
-
-      const salonAddress = this.salonAddress;
-
-      const bodyLines = [
-        isEn ? 'Hello! I would like to confirm the following dog grooming appointment:' : '¡Hola! Deseo confirmar la siguiente cita de peluquería canina:',
-        '',
-        isEn ? '🐾 PET DETAILS' : '🐾 DATOS DE LA MASCOTA',
-        '----------------------------------------',
-        `• ${isEn ? 'Name' : 'Nombre'}: ${petName}`,
-        `• ${isEn ? 'Breed' : 'Raza / Cruce'}: ${petBreed} (${isEn ? 'Size' : 'Tamaño'} ${dogSizeTag})`,
-        this.bookingData.petAge ? `• ${isEn ? 'Age' : 'Edad'}: ${this.bookingData.petAge}` : null,
-        `• ${isEn ? 'Main service' : 'Servicio principal'}: ${this.bookingData.serviceName}`,
-        hasAddons ? `• ${isEn ? 'Extras' : 'Cuidados extra'}: ${addonsStr}` : null,
-        `• ${isEn ? 'Estimated price' : 'Tarifa estimada'}: ${this.bookingData.price}`,
-        '',
-        isEn ? '📅 DATE & LOCATION' : '📅 FECHA Y UBICACIÓN',
-        '----------------------------------------',
-        `• ${isEn ? 'Date' : 'Día'}: ${humanDate}`,
-        `• ${isEn ? 'Time slot' : 'Franja horaria'}: ${this.bookingData.slot} - ${endSlot} h (${durationTag})`,
-        ...(salonAddress ? [`• ${isEn ? 'Address' : 'Salón'}: ${salonAddress}`] : []),
-        '',
-        isEn ? '👤 PET PARENT DETAILS' : '👤 DATOS DEL TUTOR',
-        '----------------------------------------',
-        `• ${isEn ? 'Full name' : 'Tutor/a'}: ${this.bookingData.customerName || 'N/A'}`,
-        `• ${isEn ? 'Phone' : 'Teléfono'}: ${this.bookingData.customerPhone || 'N/A'}`,
-        this.bookingData.customerEmail ? `• Email: ${this.bookingData.customerEmail}` : null,
-        specialStr ? `• ${isEn ? 'Special needs' : 'Necesidades especiales'}: ${specialStr}` : null,
-        this.bookingData.notes ? `• ${isEn ? 'Notes' : 'Observaciones'}: ${this.bookingData.notes}` : null,
-        '',
-        isEn ? 'Please confirm if the booking is scheduled. Thank you!' : '¿Me confirmáis si la cita queda anotada? ¡Muchas gracias!'
-      ].filter(Boolean);
-
-      const body = bodyLines.join('\n');
+      const subject = this.t('message_subject', {
+        dog: this.bookingData.petName || this.t('your_dog'),
+        date: this.formatHumanDate(this.bookingData.date),
+        time: this.bookingData.slot,
+      });
+      const body = this.bookingMessage('email');
       const targetEmail = this.salonEmail || '';
 
       let mailtoUrl = `mailto:${encodeURIComponent(targetEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
@@ -2245,20 +2167,7 @@
         cleanPhone = '+' + cleanPhone;
       }
 
-      const isEn = document.documentElement.lang === 'en';
-      const petName = this.bookingData.petName || (isEn ? 'Pet' : 'Peludo');
-      const petBreed = this.bookingData.petBreed || (isEn ? 'Mixed breed' : 'Mestizo');
-      const endSlot = this.calculateEndTime(this.bookingData.slot);
-      const humanDate = this.formatHumanDate(this.bookingData.date);
-
-      const hasAddons = Array.isArray(this.bookingData.addons) && this.bookingData.addons.length > 0;
-      const addonsSummary = hasAddons
-        ? ` + Extras: ` + this.bookingData.addons.map((a) => a.name).join(', ')
-        : '';
-
-      const smsText = isEn
-        ? `Hello, I'd like to confirm a grooming appointment for ${petName} (${petBreed}). Date: ${humanDate} at ${this.bookingData.slot}-${endSlot}h. Service: ${this.bookingData.serviceName}${addonsSummary} (${this.bookingData.price}). Parent: ${this.bookingData.customerName} (Phone: ${this.bookingData.customerPhone}).`
-        : `Hola, quiero confirmar cita de peluquería para ${petName} (${petBreed}). Día: ${humanDate} a las ${this.bookingData.slot}-${endSlot}h. Servicio: ${this.bookingData.serviceName}${addonsSummary} (${this.bookingData.price}). Tutor: ${this.bookingData.customerName} (Tel: ${this.bookingData.customerPhone}).`;
+      const smsText = this.bookingMessage('sms');
 
       // Detección de dispositivo iOS vs Android / Otros
       const isIos = typeof navigator !== 'undefined' && /iPad|iPhone|iPod|Macintosh/i.test(navigator.userAgent) && !window.MSStream;

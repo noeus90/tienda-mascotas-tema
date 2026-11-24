@@ -1,12 +1,11 @@
-{%- comment -%} Texts follow the page language (/en/ English, otherwise Spanish). {%- endcomment -%}
-{%- assign booking_en = false -%}{%- if request.locale.iso_code == 'en' -%}{%- assign booking_en = true -%}{%- endif -%}
+{%- comment -%} Texts: locales pet_cro.booking.* (CODE-11). {%- endcomment -%}
       <div class="booking-step-panel" data-step-panel="2" hidden>
         <div class="step-panel-header">
           <h3 class="step-panel-title">
-            {% if booking_en %}2. Choose date and preferred time slot{% else %}2. Elige el día y la franja horaria{% endif %}
+            {{ 'pet_cro.booking.step_2.title' | t }}
           </h3>
           <p class="step-panel-desc">
-            {% if booking_en %}Select the day that best fits your schedule.{% else %}Selecciona el día que mejor se adapte a tu agenda.{% endif %}
+            {{ 'pet_cro.booking.step_2.intro' | t }}
           </p>
         </div>
 
@@ -14,7 +13,7 @@
 
         <!-- Several groomers (from the booking app): who the client wants; filled by grooming-booking.js -->
         <div class="booking-groomers" data-booking-groomers hidden>
-          <p class="booking-my-dogs-title">{% if booking_en %}✂️ Who would you like to book with?{% else %}✂️ ¿Con quién quieres la cita?{% endif %}</p>
+          <p class="booking-my-dogs-title">{{ 'pet_cro.booking.step_2.groomers_title' | t }}</p>
           <div class="booking-my-dogs-list" data-booking-groomers-list role="radiogroup"></div>
           <p class="booking-field-hint" data-booking-groomers-hint hidden></p>
           <label class="booking-privacy-checkbox-label booking-fav-label" data-booking-fav-wrap hidden>
@@ -30,14 +29,14 @@
               <span
                 class="booking-calendar-badge"
               >
-                {% if booking_en %}Next 30 days available{% else %}Próximos 30 días disponibles{% endif %}
+                {{ 'pet_cro.booking.step_2.calendar_badge' | t }}
               </span>
               <div class="booking-calendar-nav">
                 <button
                   type="button"
                   class="booking-cal-nav-btn"
                   data-cal-nav="prev"
-                  aria-label="{% if booking_en %}Previous month{% else %}Mes anterior{% endif %}"
+                  aria-label="{{ 'pet_cro.booking.step_2.prev_month' | t }}"
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
                 </button>
@@ -48,7 +47,7 @@
                   type="button"
                   class="booking-cal-nav-btn"
                   data-cal-nav="next"
-                  aria-label="{% if booking_en %}Next month{% else %}Mes siguiente{% endif %}"
+                  aria-label="{{ 'pet_cro.booking.step_2.next_month' | t }}"
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </button>
@@ -57,13 +56,13 @@
 
             <!-- Weekday Headers -->
             <div class="booking-cal-weekdays" aria-hidden="true">
-              <span>{% if booking_en %}Mon{% else %}Lun{% endif %}</span>
-              <span>{% if booking_en %}Tue{% else %}Mar{% endif %}</span>
-              <span>{% if booking_en %}Wed{% else %}Mié{% endif %}</span>
-              <span>{% if booking_en %}Thu{% else %}Jue{% endif %}</span>
-              <span>{% if booking_en %}Fri{% else %}Vie{% endif %}</span>
-              <span>{% if booking_en %}Sat{% else %}Sáb{% endif %}</span>
-              <span>{% if booking_en %}Sun{% else %}Dom{% endif %}</span>
+              <span>{{ 'pet_cro.booking.step_2.mon' | t }}</span>
+              <span>{{ 'pet_cro.booking.step_2.tue' | t }}</span>
+              <span>{{ 'pet_cro.booking.step_2.wed' | t }}</span>
+              <span>{{ 'pet_cro.booking.step_2.thu' | t }}</span>
+              <span>{{ 'pet_cro.booking.step_2.fri' | t }}</span>
+              <span>{{ 'pet_cro.booking.step_2.sat' | t }}</span>
+              <span>{{ 'pet_cro.booking.step_2.sun' | t }}</span>
             </div>
 
             <!-- Days Grid (filled dynamically by grooming-booking.js) -->
@@ -74,25 +73,25 @@
             <div class="booking-cal-selected-notice">
               <span class="cal-notice-icon">📅</span>
               <span class="cal-notice-text">
-                <span>{% if booking_en %}Selected date:{% else %}Día seleccionado:{% endif %}</span>
-                <strong data-cal-selected-display>{% if booking_en %}Select an available day{% else %}Selecciona un día en el calendario{% endif %}</strong>
+                <span>{{ 'pet_cro.booking.step_2.selected_label' | t }}</span>
+                <strong data-cal-selected-display>{{ 'pet_cro.booking.step_2.select_day' | t }}</strong>
               </span>
             </div>
 
             <div class="booking-cal-legend">
-              <span class="cal-legend-pill is-open">{% if booking_en %}🟢 Available{% else %}🟢 Disponible{% endif %}</span>
-              <span class="cal-legend-pill is-closed">{% if booking_en %}🔴 Sundays: Closed{% else %}🔴 Domingos: Cerrado{% endif %}</span>
+              <span class="cal-legend-pill is-open">{{ 'pet_cro.booking.step_2.legend_available' | t }}</span>
+              <span class="cal-legend-pill is-closed">{{ 'pet_cro.booking.step_2.legend_closed_sundays' | t }}</span>
             </div>
           </div>
 
           <!-- Shifts & Hours Selector -->
           <div class="booking-shift-picker-wrap">
             <span class="booking-field-label">
-              {% if booking_en %}Preferred shift & 1-hour time slot *{% else %}Turno y franja horaria preferida (1 hora) *{% endif %}
+              {{ 'pet_cro.booking.step_2.slots_label' | t }}
             </span>
             <div class="booking-shifts-container">
               <div class="shift-group" data-shift-group="morning">
-                <span class="shift-group-title">{% if booking_en %}☀️ Morning Shift{% else %}☀️ Turno de mañana{% endif %}</span>
+                <span class="shift-group-title">{{ 'pet_cro.booking.step_2.morning_shift' | t }}</span>
                 <div class="shift-slots-grid" data-slots-grid="morning">
                   {%- for slot in morning_slots_arr -%}
                     {%- assign s_time = slot | strip -%}
@@ -107,7 +106,7 @@
               </div>
 
               <div class="shift-group" data-shift-group="afternoon">
-                <span class="shift-group-title">{% if booking_en %}🌆 Afternoon Shift{% else %}🌆 Turno de tarde{% endif %}</span>
+                <span class="shift-group-title">{{ 'pet_cro.booking.step_2.afternoon_shift' | t }}</span>
                 <div class="shift-slots-grid" data-slots-grid="afternoon">
                   {%- for slot in afternoon_slots_arr -%}
                     {%- assign s_time = slot | strip -%}
@@ -127,7 +126,7 @@
               <span
                 class="notice-text"
               >
-                {% if booking_en %}Special Saturday schedule: morning shift only (afternoon closed).{% else %}Horario especial de sábados: servicio exclusivo en turno de mañana (tardes cerrado).{% endif %}
+                {{ 'pet_cro.booking.step_2.saturday_note' | t }}
               </span>
             </div>
 
@@ -136,25 +135,25 @@
               <span
                 class="notice-text"
               >
-                {% if booking_en %}All time slots for this date are fully booked. Choose another date, or join the waiting list below.{% else %}Todos los turnos de este día están ocupados. Elige otra fecha o apúntate abajo a la lista de espera.{% endif %}
+                {{ 'pet_cro.booking.step_2.full_day' | t }}
               </span>
             </div>
 
             {%- comment -%} Waiting list of a full day: sent to the booking app (/apps/reservas/lista-espera) by grooming-booking.js. {%- endcomment -%}
             <div class="booking-waitlist" data-booking-waitlist hidden>
-              <p class="booking-waitlist__title">🔔 {% if booking_en %}Want us to let you know if a time frees up?{% else %}¿Te avisamos si se libera una hora?{% endif %}</p>
+              <p class="booking-waitlist__title">🔔 {{ 'pet_cro.booking.step_2.waitlist_title' | t }}</p>
               <div data-waitlist-form>
                 <div class="booking-waitlist__grid">
                   <label class="booking-waitlist__field">
-                    <span>{% if booking_en %}Preferred time{% else %}Turno que te va bien{% endif %}</span>
+                    <span>{{ 'pet_cro.booking.step_2.waitlist_time' | t }}</span>
                     <select data-waitlist="shift">
-                      <option value="any">{% if booking_en %}Any time{% else %}Cualquier hora{% endif %}</option>
-                      <option value="morning">{% if booking_en %}Morning{% else %}Mañana{% endif %}</option>
-                      <option value="afternoon">{% if booking_en %}Afternoon{% else %}Tarde{% endif %}</option>
+                      <option value="any">{{ 'pet_cro.booking.step_2.waitlist_any' | t }}</option>
+                      <option value="morning">{{ 'pet_cro.booking.step_2.waitlist_morning' | t }}</option>
+                      <option value="afternoon">{{ 'pet_cro.booking.step_2.waitlist_afternoon' | t }}</option>
                     </select>
                   </label>
                   <label class="booking-waitlist__field">
-                    <span>{% if booking_en %}Your name{% else %}Tu nombre{% endif %}</span>
+                    <span>{{ 'pet_cro.booking.step_2.waitlist_name' | t }}</span>
                     <input type="text" data-waitlist="name" autocomplete="name" maxlength="100">
                   </label>
                   <label class="booking-waitlist__field">
@@ -162,15 +161,15 @@
                     <input type="email" data-waitlist="email" autocomplete="email" maxlength="254">
                   </label>
                   <label class="booking-waitlist__field">
-                    <span>{% if booking_en %}Phone (optional){% else %}Teléfono (opcional){% endif %}</span>
+                    <span>{{ 'pet_cro.booking.step_2.waitlist_phone' | t }}</span>
                     <input type="tel" data-waitlist="phone" autocomplete="tel" maxlength="25">
                   </label>
                 </div>
                 <input type="text" data-waitlist="website" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
                 <button type="button" class="grooming-booking-btn-secondary booking-waitlist__button" data-waitlist-submit>
-                  {% if booking_en %}Notify me{% else %}Avísame{% endif %}
+                  {{ 'pet_cro.booking.step_2.waitlist_submit' | t }}
                 </button>
-                <p class="booking-field-hint">{% if booking_en %}If someone cancels, everyone on the list gets an email: whoever books first gets the slot.{% else %}Si alguien cancela, avisamos por email a todos los apuntados: se lo queda quien reserve antes.{% endif %}</p>
+                <p class="booking-field-hint">{{ 'pet_cro.booking.step_2.waitlist_note' | t }}</p>
               </div>
               <p class="booking-waitlist__status" data-waitlist-status role="status" aria-live="polite" hidden></p>
             </div>
@@ -180,7 +179,7 @@
               <p
                 class="shift-info-text"
               >
-                {% if booking_en %}Each appointment has an exclusive 1-hour slot reserved for your dog. For custom times, mention it in the next step.{% else %}Cada reserva tiene una duración completa de 1 hora reservada en exclusiva para tu perro. Si necesitas otro horario especial, indícalo en el siguiente paso.{% endif %}
+                {{ 'pet_cro.booking.step_2.slot_note' | t }}
               </p>
             </div>
           </div>
@@ -189,10 +188,10 @@
         <div class="booking-panel-nav">
           <button type="button" class="grooming-booking-btn-secondary" data-wizard-action="prev">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            <span>{% if booking_en %}Back{% else %}Atrás{% endif %}</span>
+            <span>{{ 'pet_cro.booking.step_2.back' | t }}</span>
           </button>
           <button type="button" class="grooming-booking-btn-primary" data-wizard-action="next">
-            <span>{% if booking_en %}Continue to Pet Details{% else %}Continuar a ficha del peludo{% endif %}</span>
+            <span>{{ 'pet_cro.booking.step_2.continue' | t }}</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
         </div>
