@@ -189,14 +189,28 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
   - No hecho: que caduquen. Cambiaría el formato y dejaría sin valer los enlaces ya enviados; se puede añadir más adelante aceptando los dos formatos durante un tiempo.
   - Nota: en local la CLI de Shopify pone el secreto; en producción hay que definir `SHOPIFY_API_SECRET` (ver CODE-28).
 
-- [ ] 🔴 **CODE-23 · Sin tests.** M
+- [x] 🔴 **CODE-23 · Sin tests.** M *(hecho el 24/11/2026, app `3c013f0`)*
   - No hay ninguno. Empezar con Vitest por las funciones puras:
     - `salonInstant`, con el cambio de hora;
     - `validateAppointment`, `rebookPlan`, `refundPolicy`, `depositDueAt` y `priceBooking`;
     - la firma de los enlaces.
   - Añadir un script `check` (lint + test + build) para CI.
+  - Hecho: Vitest (`vitest.config.js`, aparte de `vite.config.js`) con 50 tests en `app/lib/__tests__/`:
+    - `salonInstant`: invierno, verano y los dos días de cambio de hora de 2026;
+    - `validateAppointment`: con la fecha fijada; hoy y el día 120 valen, el 121 no; teléfono, email, campo anti-bots…;
+    - `rebookPlan`: due, upcoming, booked, sent, no_email, off y old;
+    - `depositDueAt`, `depositAmount` y `refundPolicy`;
+    - `priceBooking`;
+    - firma de enlaces.
+  - Scripts `npm test` y `npm run check` (lint + tests + build), y el workflow `.github/workflows/ci.yml`, que lo ejecuta en cada push (verde).
+  - ESLint ya no revisa `extensions/*/shopify.d.ts`, que genera la CLI.
+  - Encontrado: `priceBooking` aún pone 28/34/42 € a un servicio sin precio para ese tamaño, y 5 € a un extra sin precio (el tema ya no los ofrece desde CODE-02). Queda documentado en un test; ver CODE-32.
 
 ## App · 🟠 estructura y robustez
+
+- [ ] 🟠 **CODE-32 · Precio de ejemplo en `priceBooking`.** S
+  - `prices.server.js`: si un servicio no tiene precio para un tamaño, usa 28/34/42 €; si un extra no tiene precio, 5 €. Es la versión del servidor de lo que se quitó del tema en CODE-02.
+  - Propuesta: devolver `{ error: "service" }` o `{ error: "addons" }` y cambiar el test que lo documenta.
 
 - [ ] 🟠 **CODE-24 · Partir los ficheros grandes.** L
   - `app.citas.$id.jsx` (669 líneas): 9 `intent` en una acción y las secciones de tarjeta regalo y fidelidad dentro.
