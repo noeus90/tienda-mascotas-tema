@@ -243,9 +243,17 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - «Abrimos de lunes a sábado» (los días salen del horario de la app);
     - «Servicio Premium», «Snacks naturales» y «Peluquería & Spa».
   - Los servicios de ejemplo de la reserva (solo salen si no hay metaobjetos) se dejan como están.
-- [ ] 🟢 **UX-26 · Inglés en la versión española.** **(yo)**
+- [x] 🟢 **UX-26 · Inglés en la versión española.** *(hecho el 24/11/2026)*
   - Problema: etiquetas como «GRAIN-FREE», «ZERO STRESS» o «Cruelty-Free».
   - Propuesta: pasarlas al español o quitarlas (ver UX-02).
+  - Hecho: revisadas en español la portada, colecciones, fichas, carrito, búsqueda, reserva, contacto y textos de productos.
+    Las etiquetas de UX-02 ya estaban en español. Quedaba:
+    - «Collections» como título de /collections → «Colecciones» (y «Collections» en inglés).
+    - Las colecciones de ejemplo de Shopify «Home page», «Automated Collection» e «Hydrogen» ya no salen en esa lista.
+      Siguen existiendo en el admin; se pueden ocultar de la tienda online o borrar.
+    - Página de contraseña: «Opening soon» → «Abrimos muy pronto» y su texto, con traducción al inglés.
+    - El «Online» fijo del botón «Reservar cita» pasa a las traducciones.
+  - Se dejan préstamos de uso común en España: online, email, snack, stock, pack, BARF, spa.
 - [ ] 🟢 **UX-27 · Cabecera en móvil.** **(juntos)**
   - Problemas:
     - El nombre «brudabrey» se parte en dos líneas.

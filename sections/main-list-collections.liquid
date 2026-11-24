@@ -3,7 +3,13 @@
 
 <div class="page-width">
   <h1 class="title title--primary inline-richtext{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-    {{ section.settings.title }}
+    {%- comment -%} UX-26: default title in the visitor's language. {%- endcomment -%}
+    {%- assign raw_lc_title = section.settings.title | strip -%}
+    {%- if raw_lc_title == 'Colecciones' or raw_lc_title == 'Collections' -%}
+      {{ 'pet_cro.collections_list.title' | t }}
+    {%- else -%}
+      {{ section.settings.title }}
+    {%- endif -%}
   </h1>
   {%- liquid
     case section.settings.sort
@@ -29,6 +35,12 @@
       role="list"
     >
       {%- for collection in collections -%}
+        {%- comment -%}
+          UX-26: Shopify's sample collections (English names, no products of the shop) stay out of the list.
+        {%- endcomment -%}
+        {%- if collection.handle == 'frontpage' or collection.handle == 'automated-collection' or collection.handle == 'hydrogen' -%}
+          {%- continue -%}
+        {%- endif -%}
         <li
           class="collection-list__item grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
           {% if settings.animations_reveal_on_scroll %}

@@ -533,12 +533,20 @@
     }
   },
   "pet_cro": {
+    "password": {
+      "heading": "Opening soon",
+      "text": "Leave us your email and we will let you know as soon as we open."
+    },
+    "collections_list": {
+      "title": "Collections"
+    },
     "general": {
       "dev_mode_banner": "Active Development Mode: {{ shop_name }}",
       "announcement_default": "🐾 FREE shipping on orders over {{ amount }} · Book your dog grooming appointment online",
       "related_heading_default": "You may also like for your pet"
     },
     "nav": {
+      "book_badge": "online",
       "home": "Home",
       "catalog": "Catalog",
       "contact": "Contact",

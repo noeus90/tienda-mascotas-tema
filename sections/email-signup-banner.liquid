@@ -64,11 +64,22 @@
         {%- case block.type -%}
           {%- when 'heading' -%}
             <h2 class="email-signup-banner__heading {{ block.settings.heading_size }}" {{ block.shopify_attributes }}>
-              {{ block.settings.heading | escape }}
+              {%- comment -%} UX-26: the password page's default texts, in the visitor's language. {%- endcomment -%}
+              {%- assign raw_esb_heading = block.settings.heading | strip -%}
+              {%- if raw_esb_heading == 'Abrimos muy pronto' or raw_esb_heading == 'Opening soon' -%}
+                {{ 'pet_cro.password.heading' | t }}
+              {%- else -%}
+                {{ block.settings.heading | escape }}
+              {%- endif -%}
             </h2>
           {%- when 'paragraph' -%}
             <div class="newsletter__subheading rte {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
-              {{ block.settings.text }}
+              {%- assign raw_esb_text = block.settings.text | strip_html | strip -%}
+              {%- if raw_esb_text == 'Déjanos tu email y te avisamos en cuanto abramos.' or raw_esb_text == 'Be the first to know when we launch.' -%}
+                <p>{{ 'pet_cro.password.text' | t }}</p>
+              {%- else -%}
+                {{ block.settings.text }}
+              {%- endif -%}
             </div>
           {%- when 'email_form' -%}
             <div {{ block.shopify_attributes }}>

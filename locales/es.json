@@ -545,12 +545,20 @@
     }
   },
   "pet_cro": {
+    "password": {
+      "heading": "Abrimos muy pronto",
+      "text": "Déjanos tu email y te avisamos en cuanto abramos."
+    },
+    "collections_list": {
+      "title": "Colecciones"
+    },
     "general": {
       "dev_mode_banner": "Modo desarrollo activo: {{ shop_name }}",
       "announcement_default": "🐾 Envío GRATIS en pedidos de más de {{ amount }} · Reserva online tu cita de peluquería canina",
       "related_heading_default": "También te puede gustar para tu peludo"
     },
     "nav": {
+      "book_badge": "online",
       "home": "Inicio",
       "catalog": "Catálogo",
       "contact": "Contacto",
