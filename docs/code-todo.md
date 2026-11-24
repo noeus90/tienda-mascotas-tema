@@ -31,9 +31,16 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - Sin WhatsApp no salen WhatsApp ni SMS; sin email, no sale «Enviar por email»; sin dirección, no salen la ubicación ni «Cómo llegar».
     - El email ya no cae en `shop.email` (el Gmail personal).
     - Probado en CLAUDIA con WhatsApp vacío y con un número de prueba (que luego se quitó), sin errores en la consola.
-- [ ] 🔴 **CODE-02 · Precios inventados si no llegan los servicios.** M
+- [x] 🔴 **CODE-02 · Precios inventados si no llegan los servicios.** M *(hecho el 24/11/2026)*
   - `grooming-booking.js:183-195, 1333-1345`: cuatro servicios fijos con precio (28/34/42 €) y estado inicial «Baño Dermoprotector… 28,00 €».
   - Propuesta: los precios los decide la app; si no hay servicios, mostrar un error y no un precio.
+  - Hecho: fuera los servicios y extras de ejemplo, y los precios por defecto, de la sección, del paso 1, del paso 4 y del JS.
+    - Un servicio se ofrece si está activo y tiene sus tres precios; un extra, si está activo y tiene precio.
+    - Sin servicios que cumplan eso, en lugar del formulario sale «Ahora mismo no se puede reservar cita online…» con un botón a contacto, y el JS no se inicia.
+    - Probado en CLAUDIA:
+      - con los 4 servicios reales y 5 extras: 15/25/40 €, y 45 € con uñas, sin errores;
+      - forzando el caso sin servicios, que se quitó después.
+    - Queda: en el aviso, la subcabecera sigue diciendo «Elige el servicio…».
 - [ ] 🔴 **CODE-03 · Sugerencias del carrito con solo 50 productos.** S
   - `cart-upsell.liquid:46`: `collections['all'].products` solo trae los 50 primeros, así que con más catálogo se pierden candidatos. Además, si el añadir falla (por ejemplo un 422 por agotado), recarga sin avisar.
   - Propuesta: una colección «complementos» elegida en ajustes, y mirar `response.ok`.

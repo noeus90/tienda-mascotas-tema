@@ -188,7 +188,7 @@
 
       // Initial active service & slot from checked radios or defaults
       const checkedService = section.querySelector('input[name="grooming_service"]:checked');
-      const initialServiceId = checkedService ? checkedService.value : (this.config.services[0]?.id || 'bath_hygiene');
+      const initialServiceId = checkedService ? checkedService.value : '';
       const checkedSlot = section.querySelector('input[name="grooming_slot"]:checked');
       const initialSlot = checkedSlot ? checkedSlot.value : '10:00';
 
@@ -197,11 +197,11 @@
         bookingId: null,
         savedReference: null,
         serviceId: initialServiceId,
-        serviceName: 'Baño Dermoprotector & Oídos',
+        serviceName: '',
         dogSize: 'mini',
         dogSizeLabel: 'Mini / Toy (<5 kg)',
         addons: [],
-        price: '28,00 €',
+        price: '',
         duration: '1 hora',
         date: this.formatDateKey(defDate),
         slot: initialSlot,
@@ -1330,19 +1330,15 @@
         return m ? `${h} h ${m} min` : `${h} ${isEn ? 'hours' : 'horas'}`;
       };
 
-      const servicePrices = {
-        bath_hygiene: { mini: 28, medium: 34, large: 42, duration: defaultDuration, name: isEn ? 'Dermoprotective Bath & Ears' : 'Baño Dermoprotector & Oídos' },
-        scissor_cut: { mini: 38, medium: 46, large: 58, duration: defaultDuration, name: isEn ? 'Breed Scissor Cut & Styling' : 'Corte a Tijera de Raza & Peinado' },
-        deshedding: { mini: 35, medium: 42, large: 52, duration: defaultDuration, name: isEn ? 'Full Deshedding & Bath' : 'Deslanado Completo & Baño' },
-        spa_ozone: { mini: 42, medium: 50, large: 62, duration: defaultDuration, name: isEn ? 'Ozone Spa Therapy & Mask' : 'Spa Ozonoterapia & Mascarilla' },
-      };
+      // CODE-02: prices only from the booking app's services (no example services).
+      const servicePrices = {};
 
       if (Array.isArray(this.config.services) && this.config.services.length > 0) {
         this.config.services.forEach((s) => {
           servicePrices[s.id] = {
-            mini: s.mini || 28,
-            medium: s.medium || 34,
-            large: s.large || 42,
+            mini: s.mini,
+            medium: s.medium,
+            large: s.large,
             duration: formatDuration(s.duration),
             // Base length in minutes (the booking app uses the same number).
             minutes: Number.parseInt(s.duration, 10) || 60,
@@ -1351,7 +1347,8 @@
         });
       }
 
-      const selected = servicePrices[this.bookingData.serviceId] || Object.values(servicePrices)[0] || servicePrices.bath_hygiene;
+      const selected = servicePrices[this.bookingData.serviceId] || Object.values(servicePrices)[0];
+      if (!selected) return;
       const basePrice = selected[this.bookingData.dogSize] || selected.mini;
 
       // Actualizar precios visibles en tarjetas de extras según el tamaño del perro
@@ -2444,6 +2441,8 @@
 
   function initGroomingBookingWizards() {
     document.querySelectorAll('.grooming-booking-section').forEach((section) => {
+      // Without bookable services the section shows a notice instead of the form (CODE-02).
+      if (!section.querySelector('[data-step-panel]')) return;
       if (!section.__groomingBookingWizard) {
         const wizard = new GroomingBookingWizard(section);
         section.__groomingBookingWizard = wizard;

@@ -129,8 +129,20 @@
     assign closed_dates_json = '[]'
   endif
 
+  # CODE-02: prices come only from the booking app's metaobjects. A service is bookable when it is
+  # active and has its three prices; an extra, when it is active and has a price. Without bookable
+  # services the form is not shown (no example services or invented prices).
+  assign bookable_services = 0
+  for service in meta_services
+    if service.active.value == false or service.active == false
+      continue
+    endif
+    if service.price_mini.value > 0 and service.price_medium.value > 0 and service.price_large.value > 0
+      assign bookable_services = bookable_services | plus: 1
+    endif
+  endfor
   assign has_custom_services = false
-  if meta_services.size > 0
+  if bookable_services > 0
     assign has_custom_services = true
   endif
 
@@ -183,13 +195,14 @@
           {%- for service in meta_services -%}
             {%- assign is_active = true -%}
             {%- if service.active.value == false or service.active == false -%}{%- assign is_active = false -%}{%- endif -%}
+            {%- unless service.price_mini.value > 0 and service.price_medium.value > 0 and service.price_large.value > 0 -%}{%- assign is_active = false -%}{%- endunless -%}
             {%- if is_active -%}
               {%- assign s_id = service.system.handle | default: service.id | default: forloop.index -%}
               {%- assign s_name = service.name.value | default: service.name -%}
               {%- assign s_dur = service.duration.value | default: service.duration | default: '1 hora' -%}
-              {%- assign s_mini = service.price_mini.value | default: service.price_mini | default: 28 -%}
-              {%- assign s_med = service.price_medium.value | default: service.price_medium | default: 34 -%}
-              {%- assign s_lar = service.price_large.value | default: service.price_large | default: 42 -%}
+              {%- assign s_mini = service.price_mini.value -%}
+              {%- assign s_med = service.price_medium.value -%}
+              {%- assign s_lar = service.price_large.value -%}
               {
                 "id": {{ s_id | json }},
                 "name": {{ s_name | json }},
@@ -200,11 +213,6 @@
               }{%- unless forloop.last -%},{%- endunless -%}
             {%- endif -%}
           {%- endfor -%}
-        {%- else -%}
-          { "id": "bath_hygiene", "name": "Baño Dermoprotector & Oídos", "duration": "1 hora", "mini": 28, "medium": 34, "large": 42 },
-          { "id": "scissor_cut", "name": "Corte a Tijera de Raza & Peinado", "duration": "1 hora", "mini": 38, "medium": 46, "large": 58 },
-          { "id": "deshedding", "name": "Deslanado Completo & Baño", "duration": "1 hora", "mini": 35, "medium": 42, "large": 52 },
-          { "id": "spa_ozone", "name": "Spa Ozonoterapia & Mascarilla", "duration": "1 hora", "mini": 42, "medium": 50, "large": 62 }
         {%- endif -%}
       ],
       "addons": [
@@ -212,10 +220,11 @@
           {%- for addon in meta_addons -%}
             {%- assign is_active = true -%}
             {%- if addon.active.value == false or addon.active == false -%}{%- assign is_active = false -%}{%- endif -%}
+            {%- if addon.price == blank and addon.price_mini == blank -%}{%- assign is_active = false -%}{%- endif -%}
             {%- if is_active -%}
               {%- assign a_id = addon.system.handle | default: addon.id | default: forloop.index -%}
               {%- assign a_name = addon.name.value | default: addon.name -%}
-              {%- assign a_price = addon.price.value | default: addon.price | default: 5 -%}
+              {%- assign a_price = addon.price.value | default: addon.price_mini.value | default: 0 -%}
               {%- assign a_mini = addon.price_mini.value | default: addon.price_mini | default: a_price -%}
               {%- assign a_med = addon.price_medium.value | default: addon.price_medium | default: a_price -%}
               {%- assign a_lar = addon.price_large.value | default: addon.price_large | default: a_price -%}
@@ -235,11 +244,6 @@
               }{%- unless forloop.last -%},{%- endunless -%}
             {%- endif -%}
           {%- endfor -%}
-        {%- else -%}
-          { "id": "addon_ozone_mask", "name": "Mascarilla Ozonoterapia & Argán", "price": 8, "price_mini": 6, "price_medium": 8, "price_large": 10, "icon": "🫧", "description": "Nutrición intensa y reparación profunda del manto seco o dañado", "durationMins": 10 },
-          { "id": "addon_dental_clean", "name": "Higiene Bucal Enzimática", "price": 6, "price_mini": 6, "price_medium": 6, "price_large": 6, "icon": "🦷", "description": "Aliento fresco y prevención de sarro y placa bacteriana", "durationMins": 5 },
-          { "id": "addon_paws_balsam", "name": "Corte de Uñas & Bálsamo Almohadillas", "price": 5, "price_mini": 5, "price_medium": 5, "price_large": 5, "icon": "🐾", "description": "Pedicura canina con crema nutritiva reparadora de grietas", "durationMins": 5 },
-          { "id": "addon_antiparasitic", "name": "Champú Repelente Antiparasitario", "price": 4, "price_mini": 3, "price_medium": 4, "price_large": 6, "icon": "🛡️", "description": "Protección natural preventiva con árbol de té y citronela", "durationMins": 0 }
         {%- endif -%}
       ]
     }
@@ -301,6 +305,12 @@
       {%- endfor -%}
     </header>
 
+{%- unless has_custom_services -%}
+    <div class="grooming-booking-card grooming-booking-unavailable" role="status">
+      <p>{{ 'pet_cro.booking_header.unavailable' | t }}</p>
+      <a class="grooming-booking-btn-primary" href="{{ pages['contact'].url | default: '/pages/contact' }}">{{ 'pet_cro.booking_header.unavailable_contact' | t }}</a>
+    </div>
+{%- else -%}
 {% render 'grooming-booking-stepper' %}
 
     <!-- Wizard Form Card -->
@@ -316,6 +326,7 @@
       {% render 'grooming-booking-step-3', section: section %}
       {% render 'grooming-booking-step-4', section: section, salon_whatsapp: salon_whatsapp, salon_email: salon_email, salon_address: salon_address %}
     </div>
+{%- endunless -%}
   </div>
 
 </section>

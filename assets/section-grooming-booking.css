@@ -1950,3 +1950,16 @@
   color: #b91c1c;
   font-weight: 700;
 }
+
+/* CODE-02: no bookable services (no active service with its three prices): notice instead of the form. */
+.grooming-booking-unavailable {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+  text-align: center;
+}
+
+.grooming-booking-unavailable p {
+  margin: 0;
+}

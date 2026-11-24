@@ -22,6 +22,8 @@
             {%- for service in meta_services -%}
               {%- assign is_active = true -%}
               {%- if service.active.value == false or service.active == false -%}{%- assign is_active = false -%}{%- endif -%}
+              {%- comment -%} CODE-02: only services with their three prices (same rule as the section). {%- endcomment -%}
+              {%- unless service.price_mini.value > 0 and service.price_medium.value > 0 and service.price_large.value > 0 -%}{%- assign is_active = false -%}{%- endunless -%}
               {%- if is_active -%}
                 {%- assign s_id = service.system.handle | default: service.id | default: forloop.index -%}
                 {%- assign s_name = service.name.value | default: service.name -%}
@@ -43,9 +45,9 @@
                 {%- assign s_desc = service.description.value | default: service.description -%}
                 {%- if booking_en -%}{%- assign s_dur_default = '1 hour' -%}{%- else -%}{%- assign s_dur_default = '1 hora' -%}{%- endif -%}
                 {%- assign s_dur = service.duration.value | default: service.duration | default: s_dur_default -%}
-                {%- assign s_mini = service.price_mini.value | default: service.price_mini | default: 28 -%}
-                {%- assign s_med = service.price_medium.value | default: service.price_medium | default: 34 -%}
-                {%- assign s_lar = service.price_large.value | default: service.price_large | default: 42 -%}
+                {%- assign s_mini = service.price_mini.value -%}
+                {%- assign s_med = service.price_medium.value -%}
+                {%- assign s_lar = service.price_large.value -%}
 
                 <label class="booking-service-card">
                   <input type="radio" name="grooming_service" value="{{ s_id }}" class="visually-hidden">
@@ -73,82 +75,6 @@
                 </label>
               {%- endif -%}
             {%- endfor -%}
-          {%- else -%}
-            <!-- Servicio 1: Baño Dermoprotector -->
-            <label class="booking-service-card">
-              <input type="radio" name="grooming_service" value="bath_hygiene" class="visually-hidden">
-              <span class="service-card-check" aria-hidden="true"></span>
-              <div class="service-card-icon">🛁</div>
-              <div class="service-card-content">
-                <h4 class="service-card-name">
-                  {% if booking_en %}Dermoprotective Bath & Ears{% else %}Baño Dermoprotector & Oídos{% endif %}
-                </h4>
-                <p class="service-card-desc">
-                  {% if booking_en %}Natural oatmeal & aloe shampoo, deep hydration, ear cleaning, and nail trim.{% else %}Champú natural de avena y aloe, hidratación profunda, limpieza de oídos y corte de uñas.{% endif %}
-                </p>
-                <div class="service-card-meta">
-                  <span class="service-duration">{% if booking_en %}⏱️ 1 hour{% else %}⏱️ 1 hora{% endif %}</span>
-                  <span class="service-base-price" data-price-mini="28" data-price-medium="34" data-price-large="42">{% if booking_en %}From{% else %}Desde{% endif %} 28 €</span>
-                </div>
-              </div>
-            </label>
-
-            <!-- Servicio 2: Corte a Tijera -->
-            <label class="booking-service-card">
-              <input type="radio" name="grooming_service" value="scissor_cut" class="visually-hidden">
-              <span class="service-card-check" aria-hidden="true"></span>
-              <div class="service-card-icon">✂️</div>
-              <div class="service-card-content">
-                <h4 class="service-card-name">
-                  {% if booking_en %}Breed Scissor Cut & Styling{% else %}Corte a Tijera de Raza & Peinado{% endif %}
-                </h4>
-                <p class="service-card-desc">
-                  {% if booking_en %}Breed standard scissor styling, nourishing bath, blow-out, and detailing.{% else %}Corte estilizado a tijera respetando el estándar de la raza, baño nutritivo, peinado y retoque.{% endif %}
-                </p>
-                <div class="service-card-meta">
-                  <span class="service-duration">{% if booking_en %}⏱️ 1 hour{% else %}⏱️ 1 hora{% endif %}</span>
-                  <span class="service-base-price" data-price-mini="38" data-price-medium="46" data-price-large="58">{% if booking_en %}From{% else %}Desde{% endif %} 38 €</span>
-                </div>
-              </div>
-            </label>
-
-            <!-- Servicio 3: Deslanado Completo -->
-            <label class="booking-service-card">
-              <input type="radio" name="grooming_service" value="deshedding" class="visually-hidden">
-              <span class="service-card-check" aria-hidden="true"></span>
-              <div class="service-card-icon">🐕</div>
-              <div class="service-card-content">
-                <h4 class="service-card-name">
-                  {% if booking_en %}Full Deshedding & Bath{% else %}Deslanado Completo & Baño{% endif %}
-                </h4>
-                <p class="service-card-desc">
-                  {% if booking_en %}Removes up to 90% undercoat dead fur. Perfect for Golden, Husky, German Shepherd, or mixes.{% else %}Elimina hasta el 90% de pelo muerto de subpelo. Ideal para Golden, Husky, Pastor Alemán o mestizos.{% endif %}
-                </p>
-                <div class="service-card-meta">
-                  <span class="service-duration">{% if booking_en %}⏱️ 1 hour{% else %}⏱️ 1 hora{% endif %}</span>
-                  <span class="service-base-price" data-price-mini="35" data-price-medium="42" data-price-large="52">{% if booking_en %}From{% else %}Desde{% endif %} 35 €</span>
-                </div>
-              </div>
-            </label>
-
-            <!-- Servicio 4: Spa Ozono -->
-            <label class="booking-service-card">
-              <input type="radio" name="grooming_service" value="spa_ozone" class="visually-hidden">
-              <span class="service-card-check" aria-hidden="true"></span>
-              <div class="service-card-icon">🫧</div>
-              <div class="service-card-content">
-                <h4 class="service-card-name">
-                  {% if booking_en %}Ozone Spa Therapy & Mask{% else %}Spa Ozonoterapia & Mascarilla{% endif %}
-                </h4>
-                <p class="service-card-desc">
-                  {% if booking_en %}Hydromassage therapy with ozone microbubbles. Relieves dermatitis, itching, and heals skin.{% else %}Terapia de hidromasaje con microburbujas de ozono. Alivia dermatitis, picores y regenera la piel.{% endif %}
-                </p>
-                <div class="service-card-meta">
-                  <span class="service-duration">{% if booking_en %}⏱️ 1 hour{% else %}⏱️ 1 hora{% endif %}</span>
-                  <span class="service-base-price" data-price-mini="42" data-price-medium="50" data-price-large="62">{% if booking_en %}From{% else %}Desde{% endif %} 42 €</span>
-                </div>
-              </div>
-            </label>
           {%- endif -%}
         </div>
 
@@ -297,10 +223,11 @@
               {%- for addon in meta_addons -%}
                 {%- assign is_active = true -%}
                 {%- if addon.active.value == false or addon.active == false -%}{%- assign is_active = false -%}{%- endif -%}
+                {%- if addon.price == blank and addon.price_mini == blank -%}{%- assign is_active = false -%}{%- endif -%}
                 {%- if is_active -%}
                   {%- assign a_id = addon.system.handle | default: addon.id | default: forloop.index -%}
                   {%- assign a_name = addon.name.value | default: addon.name -%}
-                  {%- assign a_price = addon.price.value | default: addon.price | default: 5 -%}
+                  {%- assign a_price = addon.price.value | default: addon.price_mini.value | default: 0 -%}
                   {%- assign a_mini = addon.price_mini.value | default: addon.price_mini | default: a_price -%}
                   {%- assign a_med = addon.price_medium.value | default: addon.price_medium | default: a_price -%}
                   {%- assign a_lar = addon.price_large.value | default: addon.price_large | default: a_price -%}
@@ -337,117 +264,6 @@
                   </label>
                 {%- endif -%}
               {%- endfor -%}
-            {%- else -%}
-              <!-- Extra 1: Mascarilla Ozonoterapia & Argán -->
-              <label class="booking-addon-card" data-addon-card="addon_ozone_mask">
-                <input
-                  type="checkbox"
-                  name="grooming_addon"
-                  value="addon_ozone_mask"
-                  class="visually-hidden booking-addon-input"
-                  data-addon-id="addon_ozone_mask"
-                  data-price="8"
-                  data-price-mini="6"
-                  data-price-medium="8"
-                  data-price-large="10"
-                  data-duration-mins="10"
-                >
-                <span class="booking-addon-toggle" aria-hidden="true"></span>
-                <div class="booking-addon-icon">🫧</div>
-                <div class="booking-addon-content">
-                  <div class="booking-addon-top">
-                    <span class="booking-addon-name">{% if booking_en %}Ozone & Argan Nourishing Mask{% else %}Mascarilla Ozonoterapia & Argán{% endif %}</span>
-                    <span class="booking-addon-price" data-addon-price-display>+6,00 €</span>
-                  </div>
-                  <p class="booking-addon-desc">
-                    {% if booking_en %}Deep nourishment, silky shine, and anti-itch relief for sensitive skin.{% else %}Nutrición profunda, brillo sedoso y alivio anti-picores para piel sensible.{% endif %}
-                  </p>
-                  <span class="booking-addon-duration">{% if booking_en %}+10 min{% else %}+10 min{% endif %}</span>
-                </div>
-              </label>
-
-              <!-- Extra 2: Higiene Bucal Enzimática -->
-              <label class="booking-addon-card" data-addon-card="addon_dental_clean">
-                <input
-                  type="checkbox"
-                  name="grooming_addon"
-                  value="addon_dental_clean"
-                  class="visually-hidden booking-addon-input"
-                  data-addon-id="addon_dental_clean"
-                  data-price="6"
-                  data-price-mini="6"
-                  data-price-medium="6"
-                  data-price-large="6"
-                  data-duration-mins="5"
-                >
-                <span class="booking-addon-toggle" aria-hidden="true"></span>
-                <div class="booking-addon-icon">🦷</div>
-                <div class="booking-addon-content">
-                  <div class="booking-addon-top">
-                    <span class="booking-addon-name">{% if booking_en %}Enzymatic Oral Care{% else %}Higiene Bucal Enzimática{% endif %}</span>
-                    <span class="booking-addon-price" data-addon-price-display>+6,00 €</span>
-                  </div>
-                  <p class="booking-addon-desc">
-                    {% if booking_en %}Bio-enzymatic brush. Reduces tartar, prevents plaque, and leaves fresh breath.{% else %}Cepillado con gel bioenzimático. Reduce sarro, previene placa y deja aliento fresco.{% endif %}
-                  </p>
-                  <span class="booking-addon-duration">{% if booking_en %}+5 min{% else %}+5 min{% endif %}</span>
-                </div>
-              </label>
-
-              <!-- Extra 3: Corte de Uñas & Bálsamo Almohadillas -->
-              <label class="booking-addon-card" data-addon-card="addon_paws_balsam">
-                <input
-                  type="checkbox"
-                  name="grooming_addon"
-                  value="addon_paws_balsam"
-                  class="visually-hidden booking-addon-input"
-                  data-addon-id="addon_paws_balsam"
-                  data-price="5"
-                  data-price-mini="5"
-                  data-price-medium="5"
-                  data-price-large="5"
-                  data-duration-mins="5"
-                >
-                <span class="booking-addon-toggle" aria-hidden="true"></span>
-                <div class="booking-addon-icon">🐾</div>
-                <div class="booking-addon-content">
-                  <div class="booking-addon-top">
-                    <span class="booking-addon-name">{% if booking_en %}Nail Trim & Paw Pad Balm{% else %}Corte de Uñas & Bálsamo Almohadillas{% endif %}</span>
-                    <span class="booking-addon-price" data-addon-price-display>+5,00 €</span>
-                  </div>
-                  <p class="booking-addon-desc">
-                    {% if booking_en %}Delicate pet pedicure and moisturizing protective wax against pavement cracks.{% else %}Pedicura canina delicada y cera hidratante protectora contra asfalto y grietas.{% endif %}
-                  </p>
-                  <span class="booking-addon-duration">{% if booking_en %}+5 min{% else %}+5 min{% endif %}</span>
-                </div>
-              </label>
-
-              <!-- Extra 4: Champú Repelente Antiparasitario -->
-              <label class="booking-addon-card" data-addon-card="addon_antiparasitic">
-                <input
-                  type="checkbox"
-                  name="grooming_addon"
-                  value="addon_antiparasitic"
-                  class="visually-hidden booking-addon-input"
-                  data-addon-id="addon_antiparasitic"
-                  data-price="4"
-                  data-price-mini="3"
-                  data-price-medium="4"
-                  data-price-large="6"
-                  data-duration-mins="0"
-                >
-                <span class="booking-addon-toggle" aria-hidden="true"></span>
-                <div class="booking-addon-icon">🛡️</div>
-                <div class="booking-addon-content">
-                  <div class="booking-addon-top">
-                    <span class="booking-addon-name">{% if booking_en %}Antiparasitic Protective Shampoo{% else %}Champú Repelente Antiparasitario{% endif %}</span>
-                    <span class="booking-addon-price" data-addon-price-display>+3,00 €</span>
-                  </div>
-                  <p class="booking-addon-desc">
-                    {% if booking_en %}Bath with natural citronella and tea tree extracts to repel fleas and ticks.{% else %}Lavado con extractos naturales de citronela y árbol de té para repeler pulgas y garrapatas.{% endif %}
-                  </p>
-                </div>
-              </label>
             {%- endif -%}
           </div>
         </div>

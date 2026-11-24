@@ -1061,6 +1061,8 @@
       "code_note": "Gift cards are entered in the last step of checkout."
     },
     "booking_header": {
+      "unavailable": "Online booking isn't available right now. Write to us and we'll find you a slot.",
+      "unavailable_contact": "Write to us",
       "badge": "Dog grooming",
       "heading": "Book a grooming appointment",
       "subheading": "Choose the service, your dog's size, the day and the time. You will see the estimated price before confirming.",
