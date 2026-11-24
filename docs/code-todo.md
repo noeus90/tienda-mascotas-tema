@@ -140,7 +140,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
   - Queda para otra tarea: los nombres de servicios y extras salen de los metaobjetos sin traducir (se traducen en Shopify → Idiomas).
 - [x] 🟠 **CODE-12 · Partir `grooming-booking-step-1.liquid`.** M *(hecho el 24/11/2026)*
   - 471 líneas. Propuesta: snippets de servicios, tamaño/raza y extras. Hacerlo junto con CODE-11.
-  - Hecho: `grooming-booking-step-1.liquid` pasa de 286 líneas (tras CODE-11) a 39 y llama a tres snippets:
+  - Hecho: `grooming-booking-step-1.liquid` pasa de 286 líneas (tras CODE-11) a 41 y llama a tres snippets:
     - `grooming-booking-services.liquid` (tarjetas de servicio);
     - `grooming-booking-size.liquid` (buscador de raza y tamaño);
     - `grooming-booking-addons.liquid` (extras).
