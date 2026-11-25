@@ -116,7 +116,7 @@
 .cro-tab-btn:focus-visible,
 .cro-sub-option:focus-visible,
 .cro-tab-panel:focus-visible {
-  outline: 2px solid rgb(var(--pet-accent-light));
+  outline: var(--pet-focus-outline);
   outline-offset: -2px;
 }
 

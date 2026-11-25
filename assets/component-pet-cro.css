@@ -202,8 +202,8 @@
 }
 
 .header-lang-btn:focus-visible {
-  outline: 2px solid rgb(var(--pet-accent-light));
-  outline-offset: 2px;
+  outline: var(--pet-focus-outline);
+  outline-offset: var(--pet-focus-offset);
 }
 
 .header-lang-divider {

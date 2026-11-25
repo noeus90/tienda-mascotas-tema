@@ -435,6 +435,14 @@
   margin: 0;
 }
 
+/* Keyboard focus on the choice cards (CSS-15): their radio or checkbox is visually hidden, so the card
+   shows where the focus is. */
+.grooming-booking-section
+  :is(.booking-service-card, .booking-size-card, .booking-addon-card, .booking-slot-card):has(> input:focus-visible) {
+  outline: var(--pet-focus-outline);
+  outline-offset: var(--pet-focus-offset);
+}
+
 /* Anything with the hidden attribute stays hidden, whatever display its classes set (CODE-14). */
 .grooming-booking-section [hidden] {
   display: none !important;

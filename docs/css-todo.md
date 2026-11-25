@@ -80,11 +80,19 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - Aplicada sin la condición de media, detiene los 96 a 192 elementos animados propios de cada página; no queda ninguno moviéndose.
     - En 5 páginas, lo animado que queda fuera son piezas de Dawn (botones, campos, filtros) con transiciones de color cortas.
     - No se pudo activar «reducir movimiento» del sistema desde la extensión: la comprobación es sobre la regla, no con la preferencia real.
-- [ ] 🔴 **CSS-15 · Foco visible en la reserva y en las píldoras.** S
+- [x] 🔴 **CSS-15 · Foco visible en la reserva y en las píldoras.** S *(hecho el 25/11/2026)*
   - Los pasos 1 a 3 de la reserva no tienen ningún `:focus-visible` propio: tarjetas de servicio, tamaños, extras, días, horas y peluqueras.
   - Muchas píldoras tienen `:hover` pero no foco: «Perro / Gato», categorías, importes de la tarjeta regalo y «Añadir» de la rutina.
   - Hay que recorrer con el teclado y comprobar que siempre se ve dónde está el foco.
   - Propuesta: un anillo de foco común (`--pet-focus-ring`) aplicado a todos los controles propios.
+  - Revisado con el teclado de verdad en CLAUDIA (Tab y flechas). Las mediciones con `focus()` desde un script no sirven para el contorno: daban valores que no cuadran con ninguna regla.
+    - **Sin foco visible:** las tarjetas de servicio (4), tamaño (3), extras (5) y horas de la reserva. Su casilla está oculta (`visually-hidden`) y la tarjeta no cambiaba.
+    - **Bien:** la cabecera («Contacto» con el recuadro de Dawn y «Reservar cita» con su anillo), las píldoras de categoría y mascota (contorno de Dawn), el buscador de raza (borde verde), los botones de días, peluqueras y «mis perros», y las casillas visibles de cuidados y privacidad.
+  - Hecho:
+    - `--pet-focus-outline` y `--pet-focus-offset` en `pet-tokens.liquid`: contorno de 2 px en el verde de texto de la marca (`--pet-text-accent`), que se aclara en los esquemas oscuros (CSS-02).
+    - Reserva: las tarjetas de servicio, tamaño, extra y hora muestran ese anillo cuando su casilla tiene el foco de teclado (`:has(> input:focus-visible)`). Las horas, que pinta el JS, tienen la misma estructura.
+    - Los cuatro contornos propios que ya había pasan a la misma variable, en lugar de tres verdes y dos grosores distintos: botón de reservar de la cabecera, idioma, menú desplegable de mascotas, y pestañas y opciones de la ficha.
+  - Comprobado con el teclado: Tab hasta los servicios (anillo en «Baño y aseo»), flecha a «Corte a tijera» (el anillo se mueve con la selección), Tab a tamaños («Mini») y Tab al primer extra. Theme Check sin avisos.
 
 ## 🟠 Incoherencias que se notan
 

@@ -87,8 +87,8 @@
 }
 
 .header__menu-item--cta-booking:focus-visible {
-  outline: 3px solid rgb(var(--pet-accent-bright));
-  outline-offset: 3px;
+  outline: var(--pet-focus-outline);
+  outline-offset: var(--pet-focus-offset);
 }
 
 .header__menu-item--cta-booking .cta-booking-icon {
