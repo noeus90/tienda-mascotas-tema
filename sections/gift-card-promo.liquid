@@ -1,21 +1,13 @@
 {%- comment -%}
   Gift card promo: image of the card, short text and a button to the gift card product.
   Texts left blank in the editor use the theme translations (pet_cro.gift_card.*), so they follow
-  the page language. The product is the setting "Tarjeta regalo"; without it, the first gift card
-  product of the catalogue is used.
+  the page language. The product is the setting "Tarjeta regalo"; without it, the gift card
+  product of the theme settings (CODE-07).
 {%- endcomment -%}
 {{ 'section-gift-card-promo.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  assign gift_product = section.settings.product
-  if gift_product == blank
-    for p in collections.all.products
-      if p.gift_card?
-        assign gift_product = p
-        break
-      endif
-    endfor
-  endif
+  assign gift_product = section.settings.product | default: settings.gift_card_product
   assign kicker = 'pet_cro.gift_card.promo_kicker' | t
   if section.settings.kicker != blank
     assign kicker = section.settings.kicker

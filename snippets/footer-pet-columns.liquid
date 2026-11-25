@@ -9,9 +9,11 @@
 {%- enddoc -%}
 
 {%- liquid
-  assign booking_url = pages['bookings'].url | default: '/pages/bookings'
+  capture booking_url
+    render 'booking-url'
+  endcapture
   assign contact_url = pages['contact'].url | default: '/pages/contact'
-  assign gift_card = all_products['tarjeta-regalo-de-peluqueria-y-tienda']
+  assign gift_card = settings.gift_card_product
   assign whatsapp = settings.salon_whatsapp | remove: ' ' | remove: '+' | remove: '-'
   assign phone = shop.phone | strip
   assign phone_link = phone | remove: ' ' | remove: '-'

@@ -21,8 +21,10 @@
 {%- endstyle -%}
 
 {%- liquid
-  assign booking_url = pages['bookings'].url | default: '/pages/bookings'
-  assign gift_card = all_products['tarjeta-regalo-de-peluqueria-y-tienda']
+  capture booking_url
+    render 'booking-url'
+  endcapture
+  assign gift_card = settings.gift_card_product
   assign services = shop.metaobjects['grooming_service'].values
 -%}
 

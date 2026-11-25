@@ -8,7 +8,11 @@
 {% endcomment %}
 
 {%- liquid
-  assign free_shipping_amount = settings.free_shipping_threshold | default: 50 | times: 100 | money_without_trailing_zeros
+  capture free_goal
+    render 'free-shipping-goal'
+  endcapture
+  assign free_goal = free_goal | plus: 0
+  assign free_shipping_amount = free_goal | money_without_trailing_zeros
   # Pet links go to the Perros / Gatos collections with Search & Discovery filters
   # (filter.p.product_type = product type, filter.p.tag = need tag), so Shopify filters every page.
   assign dog_url = routes.collections_url | append: '/perros'
@@ -30,23 +34,9 @@
   assign val_hypoallergenic = 'hipoalergenico'
   assign val_sterilised = 'esterilizado'
   assign val_hairball = 'bolas de pelo' | url_encode
-  assign lang_code = request.locale.iso_code | slice: 0, 2 | downcase
-  if lang_code == 'en'
-    assign default_booking_slug = 'pages/bookings'
-  else
-    assign default_booking_slug = 'pages/bookings'
-  endif
-
-  assign root_path = routes.root_url
-  if root_path != '/' and root_path != blank
-    assign localized_booking_url = root_path | append: '/' | append: default_booking_slug | replace: '//', '/'
-  else
-    assign localized_booking_url = '/' | append: default_booking_slug
-  endif
-
-  if section.settings.booking_url != blank
-    assign localized_booking_url = section.settings.booking_url
-  endif
+  capture localized_booking_url
+    render 'booking-url', custom: section.settings.booking_url
+  endcapture
 -%}
 
 <li>

@@ -3,6 +3,7 @@
   "presets": {
     "Dawn": {
       "logo_width": 90,
+      "gift_card_product": "tarjeta-regalo-de-peluqueria-y-tienda",
       "customer_account_menu": "customer-account-main-menu",
       "color_schemes": {
         "scheme-1": {

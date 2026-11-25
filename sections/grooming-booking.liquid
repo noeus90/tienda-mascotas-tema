@@ -300,14 +300,11 @@
         {%- endif -%}
         <li><span aria-hidden="true">↩️</span> {{ 'pet_cro.booking_header.cancel' | t }}</li>
       </ul>
-      {%- comment -%} Link to the first gift card product of the catalogue, if there is one. {%- endcomment -%}
-      {%- for p in collections.all.products -%}
-        {%- if p.gift_card? -%}
-          {{ 'section-gift-card-promo.css' | asset_url | stylesheet_tag }}
-          <a class="booking-gift-link" href="{{ p.url }}">🎁 {{ 'pet_cro.gift_card.booking_link' | t }} →</a>
-          {%- break -%}
-        {%- endif -%}
-      {%- endfor -%}
+      {%- comment -%} Link to the gift card product (theme setting), if there is one. {%- endcomment -%}
+      {%- if settings.gift_card_product != blank -%}
+        {{ 'section-gift-card-promo.css' | asset_url | stylesheet_tag }}
+        <a class="booking-gift-link" href="{{ settings.gift_card_product.url }}">🎁 {{ 'pet_cro.gift_card.booking_link' | t }} →</a>
+      {%- endif -%}
     </header>
 
 {%- unless has_custom_services -%}

@@ -5,24 +5,9 @@
 {% endcomment %}
 
 {%- liquid
-  assign lang_code = request.locale.iso_code | slice: 0, 2 | downcase
-  if lang_code == 'en'
-    assign default_booking_slug = 'pages/bookings'
-  else
-    assign default_booking_slug = 'pages/bookings'
-  endif
-
-  assign root_path = routes.root_url
-  if root_path != '/' and root_path != blank
-    assign localized_booking_url = root_path | append: '/' | append: default_booking_slug | replace: '//', '/'
-  else
-    assign localized_booking_url = '/' | append: default_booking_slug
-  endif
-
-  assign booking_target = section.settings.booking_url
-  if booking_target == blank
-    assign booking_target = localized_booking_url
-  endif
+  capture booking_target
+    render 'booking-url', custom: section.settings.booking_url
+  endcapture
 
   assign is_active = false
   if request.path contains '/pages/reservas' or request.path contains '/pages/bookings'

@@ -1,6 +1,6 @@
 {%- doc -%}
   Free shipping progress bar, based on cart.total_price. Goal: theme setting
-  `free_shipping_threshold` (default 50 €). Updated live by window.updateFreeShippingBars (assets/pet-cro.js).
+  `free_shipping_threshold` (snippet free-shipping-goal). Updated live by window.updateFreeShippingBars (assets/pet-cro.js).
 
   @param {number} [shipping_threshold_cents] - (Optional) Threshold in cents (overrides the theme setting).
 
@@ -9,7 +9,10 @@
 {%- enddoc -%}
 
 {%- liquid
-  assign setting_shipping_goal = settings.free_shipping_threshold | default: 50 | times: 100
+  capture setting_shipping_goal
+    render 'free-shipping-goal'
+  endcapture
+  assign setting_shipping_goal = setting_shipping_goal | plus: 0
   assign shipping_goal = shipping_threshold_cents | default: setting_shipping_goal
   assign current_total = cart.total_price | default: 0
   assign missing_shipping = shipping_goal | minus: current_total

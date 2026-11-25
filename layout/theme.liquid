@@ -31,7 +31,11 @@
           assign page_title_text = 'pet_cro.home_meta.title' | t
         endif
         if page_description == blank or page_description == shop.name
-          assign home_free_shipping = settings.free_shipping_threshold | default: 50 | times: 100 | money_without_trailing_zeros
+          capture free_goal
+            render 'free-shipping-goal'
+          endcapture
+          assign free_goal = free_goal | plus: 0
+          assign home_free_shipping = free_goal | money_without_trailing_zeros
           assign page_description_text = 'pet_cro.home_meta.description' | t: amount: home_free_shipping
         endif
       endif

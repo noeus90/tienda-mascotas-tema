@@ -56,10 +56,9 @@
     endif
   endfor
 
-  assign booking_url = section.settings.booking_link
-  if booking_url == blank
-    assign booking_url = pages['bookings'].url | default: '/pages/bookings'
-  endif
+  capture booking_url
+    render 'booking-url', custom: section.settings.booking_link
+  endcapture
 -%}
 
 <section class="grooming-steps grooming-steps-section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient">

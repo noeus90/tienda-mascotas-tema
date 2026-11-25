@@ -13,7 +13,10 @@
 {%- enddoc -%}
 
 {%- liquid
-  assign goal = settings.free_shipping_threshold | default: 50 | times: 100
+  capture goal
+    render 'free-shipping-goal'
+  endcapture
+  assign goal = goal | plus: 0
   assign missing = goal | minus: cart.total_price
   assign frozen_tag = settings.frozen_tag | default: 'congelado' | strip
 

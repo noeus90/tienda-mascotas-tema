@@ -18,7 +18,11 @@
     assign has_rating = true
     assign rating_val = rating.rating | round: 1
   endif
-  assign free_amount = settings.free_shipping_threshold | default: 50 | times: 100 | money_without_trailing_zeros
+  capture free_goal
+    render 'free-shipping-goal'
+  endcapture
+  assign free_goal = free_goal | plus: 0
+  assign free_amount = free_goal | money_without_trailing_zeros
   assign frozen_tag = settings.frozen_tag | default: 'congelado' | strip
   assign is_frozen = false
   if product.tags contains frozen_tag
@@ -26,7 +30,9 @@
     # Frozen products ship apart, with their own free shipping threshold.
     assign free_amount = settings.frozen_free_threshold | default: 60 | times: 100 | money_without_trailing_zeros
   endif
-  assign booking_url = pages['bookings'].url | default: '/pages/bookings'
+  capture booking_url
+    render 'booking-url'
+  endcapture
 -%}
 
 <div class="cro-product-trust-box">

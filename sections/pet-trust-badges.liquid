@@ -27,7 +27,11 @@
     assign tb_en = true
   endif
 
-  assign free_amount = settings.free_shipping_threshold | default: 50 | times: 100 | money_without_trailing_zeros
+  capture free_goal
+    render 'free-shipping-goal'
+  endcapture
+  assign free_goal = free_goal | plus: 0
+  assign free_amount = free_goal | money_without_trailing_zeros
   assign min_days = settings.delivery_days_min | default: 3
   assign max_days = settings.delivery_days_max | default: 5
   assign days = min_days | append: '-' | append: max_days

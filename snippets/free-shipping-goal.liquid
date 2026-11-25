@@ -1,0 +1,8 @@
+{%- comment -%}
+  Free shipping threshold in cents (CODE-07): the theme setting "Importe para envío gratis", 50 if empty.
+  Usage: {%- capture goal -%}{%- render 'free-shipping-goal' -%}{%- endcapture -%} then `goal | plus: 0`.
+{%- endcomment -%}
+{%- liquid
+  assign goal = settings.free_shipping_threshold | default: 50 | times: 100
+  echo goal
+-%}

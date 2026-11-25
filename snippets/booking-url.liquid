@@ -1,0 +1,13 @@
+{%- comment -%}
+  URL of the booking page in the current language (CODE-07), e.g. /pages/bookings or /es/pages/bookings.
+  Params: custom (optional): a URL set in the editor, which wins.
+  Usage: {%- capture booking_url -%}{%- render 'booking-url' -%}{%- endcapture -%}
+{%- endcomment -%}
+{%- liquid
+  if custom != blank
+    echo custom
+  else
+    assign url = routes.root_url | append: '/pages/bookings' | replace: '//', '/'
+    echo url
+  endif
+-%}

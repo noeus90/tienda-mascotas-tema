@@ -22,8 +22,14 @@
 {%- endstyle -%}
 
 {%- liquid
-  assign booking_url = pages['bookings'].url | default: '/pages/bookings'
-  assign free_amount = settings.free_shipping_threshold | default: 50 | times: 100 | money_without_trailing_zeros
+  capture booking_url
+    render 'booking-url'
+  endcapture
+  capture free_goal
+    render 'free-shipping-goal'
+  endcapture
+  assign free_goal = free_goal | plus: 0
+  assign free_amount = free_goal | money_without_trailing_zeros
   assign frozen_amount = settings.frozen_free_threshold | default: 60 | times: 100 | money_without_trailing_zeros
   assign min_days = settings.delivery_days_min | default: 3
   assign max_days = settings.delivery_days_max | default: 5

@@ -261,7 +261,9 @@ window.updateFreeShippingBars = function (totalCents) {
 
   bars.forEach((bar) => {
     bar.dataset.currentTotal = String(totalCents);
-    const shippingGoal = parseInt(bar.dataset.shippingGoal, 10) || 5000;
+    // The goal always comes from Liquid (snippet free-shipping-goal); without it, the bar is left alone.
+    const shippingGoal = parseInt(bar.dataset.shippingGoal, 10);
+    if (!shippingGoal) return;
     const msgEl = bar.querySelector('[data-shipping-msg]');
     const trackEl = bar.querySelector('[data-shipping-track]');
     const fillEl = bar.querySelector('[data-shipping-fill]');

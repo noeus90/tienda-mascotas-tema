@@ -89,10 +89,15 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - sugerencias del carrito: se añade y recarga; con una variante agotada sale el motivo en español.
     - Carrito vaciado al acabar.
 
-- [ ] 🟠 **CODE-07 · Ajustes repetidos en muchos ficheros.** M
+- [x] 🟠 **CODE-07 · Ajustes repetidos en muchos ficheros.** M *(hecho el 25/11/2026)*
   - `settings.free_shipping_threshold | default: 50` se repite 11 veces, más `5000` en `pet-cro.js:263`. Propuesta: valor por defecto en settings_schema y quitar los `default:`.
   - La URL de reservas está en 8 ficheros. Propuesta: snippet `booking-url`. En `header-mega-menu-species.liquid:34-38` las dos ramas del `if` son iguales.
   - El producto tarjeta regalo se busca de dos formas: con un bucle sobre `collections.all`, que además mete un `stylesheet_tag` dentro del bucle (`grooming-booking.liquid:277`), o con el handle fijo. Propuesta: un ajuste de tipo producto.
+  - Hecho:
+    - Umbral de envío gratis: el snippet `free-shipping-goal` da los céntimos (ajuste, o 50 si está vacío). Lo usan los 8 sitios que repetían `| default: 50` (el resto de las 11 eran comentarios o el mismo fichero). `pet-cro.js` ya no usa `5000` fijo: sin objetivo, deja la barra como está.
+    - URL de reservas: el snippet `booking-url`, con `custom` para el enlace puesto en el editor. Lo usan la cabecera, el cajón del menú, el mega menú, el pie, el contacto, el aviso de peluquería, los pasos de peluquería y la ficha. Fuera los `if` con dos ramas iguales.
+    - Tarjeta regalo: nuevo ajuste del tema `gift_card_product`, que en `settings_data` apunta a `tarjeta-regalo-de-peluqueria-y-tienda`. Fuera el bucle sobre `collections.all` de la reserva y de la sección de tarjeta regalo, y el `all_products` con el handle fijo. La sección de tarjeta regalo sigue pudiendo elegir otro producto.
+  - Comprobado: el HTML (sin scripts ni metadatos de Shopify) sale idéntico en el inicio, la reserva, el carrito, el contacto, la tarjeta regalo y una ficha, en inglés y en español. En CLAUDIA, la barra de envío gratis calcula bien lo que falta.
 - [ ] 🟠 **CODE-08 · Tipos y etiquetas de producto escritos a mano.** M
   - «Comida húmeda», «Snack», «perro», «gato»… aparecen en 9 ficheros: mega menú, cart-upsell, barra de catálogo, cajón del menú, categorías, relacionados, búsqueda, subnav y `pet-catalog-bar.js`.
   - Propuesta: una sola lista en un snippet o en ajustes.

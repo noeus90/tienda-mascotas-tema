@@ -1462,6 +1462,12 @@
         "default": 50
       },
       {
+        "type": "product",
+        "id": "gift_card_product",
+        "label": "Tarjeta regalo",
+        "info": "Producto tarjeta regalo al que enlazan la reserva, el pie, el aviso de peluquería y la sección de tarjeta regalo."
+      },
+      {
         "type": "collection",
         "id": "cart_upsell_collection",
         "label": "Sugerencias del carrito: colección",

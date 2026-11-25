@@ -49,23 +49,9 @@
         assign val_hypoallergenic = 'hipoalergenico'
         assign val_sterilised = 'esterilizado'
         assign val_hairball = 'bolas de pelo' | url_encode
-        assign drawer_lang_code = request.locale.iso_code | slice: 0, 2 | downcase
-        if drawer_lang_code == 'en'
-          assign drawer_booking_slug = 'pages/bookings'
-        else
-          assign drawer_booking_slug = 'pages/bookings'
-        endif
-
-        assign drawer_root_path = routes.root_url
-        if drawer_root_path != '/' and drawer_root_path != blank
-          assign drawer_booking_url = drawer_root_path | append: '/' | append: drawer_booking_slug | replace: '//', '/'
-        else
-          assign drawer_booking_url = '/' | append: drawer_booking_slug
-        endif
-
-        if section.settings.booking_url != blank
-          assign drawer_booking_url = section.settings.booking_url
-        endif
+        capture drawer_booking_url
+          render 'booking-url', custom: section.settings.booking_url
+        endcapture
       -%}
       <div class="menu-drawer__inner-container">
         <div class="menu-drawer__navigation-container">
