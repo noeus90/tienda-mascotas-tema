@@ -116,7 +116,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - Huella de los colores calculados de todos los elementos y sus `::before`/`::after` en 8 páginas a 1280 y 390 px (inicio, colecciones de perros y gatos, ficha, carrito con un producto, reserva, búsqueda y contacto) y una en inglés. Son 15 vistas y salen idénticas antes y después; solo se descartan los dos puntos que laten, porque su sombra está animada.
     - Los menús y el cajón cuentan aunque estén cerrados.
     - Las 61 variables usadas están definidas y no sobra ninguna, así que los `:hover` también resuelven. Theme Check sin avisos.
-- [ ] 🟠 **CSS-03 · Una sola familia de botones.** M · *necesita una decisión*
+- [x] 🟠 **CSS-03 · Una sola familia de botones.** M · *necesita una decisión* *(hecho el 25/11/2026)*
   - Hoy conviven cuatro:
     - **negro rectangular** de Dawn: «Ver la tienda», «Reservar cita», «Añadir la rutina al carrito», «Añadir al carrito» del pack;
     - **verde relleno:** «Regalar una tarjeta»;
@@ -128,6 +128,19 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - principal y secundario de Dawn (`.button`, `.button--secondary`) en todo;
     - la píldora, solo para chips de filtro;
     - el CTA de la cabecera puede ser una excepción, si se quiere destacar.
+  - Decisión de la dueña: **botón principal verde**.
+  - Hecho:
+    - Esquemas claros 1 y 2 (`config/settings_data.json`):
+      - botón principal `#047857` con texto blanco (contraste 5,5:1);
+      - secundario con texto y borde `#047857`.
+      - Los esquemas oscuros 3–5 mantienen sus botones blancos.
+      - Al ser el color del esquema, cambian a la vez todos los `.button` de Dawn y los de las secciones propias: banner, peluquería, rutina, packs, fichas, carrito y tarjetas de producto.
+    - «Regalar una tarjeta»: ya era `.button` y llevaba el verde puesto a mano. Se quita, y ahora es el principal del esquema.
+    - «Añadir» de la rutina de peluquería: era una píldora propia con borde verde y pasa a `button button--secondary`. Solo queda un ajuste de tamaño para que quepa junto al precio.
+    - Se mantiene como excepción el botón «Reservar cita» de la cabecera (píldora oscura con «ONLINE»), para que destaque, como decía la propuesta.
+    - Los botones de la reserva ya eran verdes y no se tocan.
+  - Comprobado a ojo en CLAUDIA, en el inicio y la ficha: todos los botones principales en verde relleno y los secundarios con borde verde.
+  - Pendiente, que es CSS-04: la variante elegida (3 kg / 12 kg) y otros chips activos siguen en negro.
 - [ ] 🟠 **CSS-04 · Un solo estilo de «seleccionado».** S
   - El chip activo cambia según la página:
     - verde en «Perro / Gato» del inicio;

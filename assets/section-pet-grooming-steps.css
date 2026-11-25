@@ -173,24 +173,11 @@
   font-weight: 700;
 }
 
-.grooming-steps__add {
+/* Dawn's secondary button (CSS-03), only more compact to fit next to the price. */
+.grooming-steps__add.button {
   min-height: 4.4rem;
+  min-width: 0;
   padding: 0 1.8rem;
-  border: 2px solid rgb(var(--pet-accent));
-  border-radius: var(--pet-radius-pill);
-  background: transparent;
-  color: rgb(var(--pet-text-accent));
-  font: inherit;
-  font-size: var(--pet-text-base);
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.grooming-steps__add:hover,
-.grooming-steps__add:focus-visible {
-  background: rgb(var(--pet-accent));
-  color: #fff;
 }
 
 .grooming-steps__add:disabled,

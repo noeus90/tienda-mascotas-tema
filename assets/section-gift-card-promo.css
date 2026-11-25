@@ -70,11 +70,6 @@
   font-weight: 700;
 }
 
-.gift-card-promo__button {
-  background: rgb(var(--pet-accent));
-  color: #ffffff;
-}
-
 /* Product page: "how it works" steps */
 .gift-card-how {
   margin-top: 1.6rem;
