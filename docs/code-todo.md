@@ -433,10 +433,28 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - En CLAUDIA, un email de rebook de muestra se ve igual que antes, con el título en la pestaña y la previsualización oculta.
     - El POST de un clic a la página de baja (cliente, suscriptor y perro) llega por el proxy de Shopify y rechaza las firmas falsas.
   - Sin probar: que Gmail muestre su botón «Darse de baja». Gmail decide cuándo enseñarlo según el remitente, y necesita la tienda abierta y SPF/DKIM/DMARC del dominio en Brevo.
-- [ ] 🟠 **CODE-28 · Producción.** M
+- [x] 🟠 **CODE-28 · Producción.** M *(hecho el 25/11/2026, app `6efe8bb` y `79a9876`)*
   - SQLite en un fichero: con varias instancias no se comparten sesiones ni candados. Propuesta: Postgres.
   - El `Dockerfile` instala con `--omit=dev`, pero compila con `vite`, que está en devDependencies; comprobar si la build funciona.
   - Validar las variables de entorno al arrancar, en vez de cargar `.env` a mano en `email.server.js`.
+  - Hecho:
+    - **Base de datos.** Decisión de la dueña: seguir con SQLite y **una sola instancia**. La base solo guarda sesiones y candados.
+      - La ruta sale de `DATABASE_URL`: en local `file:dev.sqlite`; en Docker `file:/data/peluqueria.sqlite`, con `VOLUME /data` para que un redespliegue no borre las sesiones. Sin sesión, los envíos automáticos se paran.
+      - En el esquema queda explicado qué hacer si algún día hacen falta varias instancias (Postgres).
+      - El límite por visitante de CODE-26 también cuenta por instancia.
+    - **Build de Docker.** Funcionaba, pero por casualidad: `@react-router/dev` arrastraba `vite`. Ahora `vite` está en dependencies.
+    - **`.dockerignore` (encontrado al revisar).** No excluía `.env` ni la base SQLite: la imagen se habría llevado la clave de Brevo y las sesiones. Ahora deja fuera `.env*`, `*.sqlite`, `.git`, `.shopify` y `build`.
+    - **Variables de entorno.** `app/env.server.js` carga `.env` sin pisar las que ya existen y las comprueba al arrancar.
+      - En producción, sin `SHOPIFY_API_KEY`, `SHOPIFY_API_SECRET`, `SHOPIFY_APP_URL` (https), `SCOPES` o `DATABASE_URL`, el servidor se para y dice cuáles faltan, nunca su valor.
+      - Las de email solo avisan.
+      - `email.server.js` ya no carga `.env` por su cuenta.
+  - Comprobado:
+    - Se simuló la imagen sin Docker: se copia lo que deja pasar `.dockerignore`, se instala con `npm ci --omit=dev`, se compila, se migra en `/data` y se arranca en producción.
+      - Sin variables, se para con «SHOPIFY_API_KEY is missing; …».
+      - Con variables de prueba, responde 200 y la base queda en el volumen, no en la imagen.
+    - En local, Prisma lee `DATABASE_URL` de `.env` (1 sesión, 8 candados) y la app en desarrollo sigue funcionando.
+    - 74 tests (4 nuevos), lint, build y CI en verde.
+  - Pendiente para publicar: elegir dónde alojar la app, con un disco persistente en `/data` y una sola instancia, y poner allí las variables.
 
 ## App · 🟢 limpieza
 
