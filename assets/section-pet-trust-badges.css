@@ -20,8 +20,7 @@
 .trust-badges-review-header {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
   margin-bottom: 4rem;
 }
 
@@ -30,9 +29,6 @@
 
 
 .trust-badges-review-header h2 {
-  font-size: var(--pet-text-4xl);
-  font-weight: 700;
-  color: rgb(var(--color-foreground, 15, 23, 42));
   margin: 0 0 0.8rem 0;
 }
 

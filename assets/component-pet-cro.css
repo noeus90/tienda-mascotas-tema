@@ -506,6 +506,15 @@
   background: rgb(var(--pet-card));
 }
 
+/* 16. Section header alignment (CSS-06): the store's section titles go left, like Dawn's; the
+   "Alineación del título" setting can center a section's header (title, subheading and kicker). */
+.pet-section-header--center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  align-items: center;
+}
+
 /* 12. Reduced motion (CSS-13): with "reduce motion" on in the system, the store's own components (classes
    pet-, cro-, booking-, grooming-… none of Dawn's has them) and everything inside them do not move.
    Durations go to 0.01 ms instead of "none" so fade-ins end visible and transitionend still fires (Dawn's

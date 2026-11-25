@@ -50,11 +50,9 @@
   margin-bottom: 3.2rem;
 }
 
+/* Dawn's h1 (CSS-06), like the product and contact titles. */
 .grooming-booking-title {
   margin: 0 0 0.8rem 0;
-  font-size: clamp(2.8rem, 3.5vw, 3.6rem);
-  font-weight: 800;
-  line-height: 1.25;
 }
 
 .grooming-booking-subtitle {

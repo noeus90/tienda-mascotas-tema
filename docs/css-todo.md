@@ -171,10 +171,20 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - Se borran las cinco reglas propias que había (`grooming-steps__kicker`, `grooming-cta__kicker`, `gift-card-promo__kicker`, `pack-banner__kicker`, `grooming-booking-badge`).
     - Los emojis siguen en el texto de cada sección.
   - Comprobado a ojo en CLAUDIA, en el inicio (peluquería, pasos, pack y tarjeta regalo) y en la reserva: los cinco iguales; sobre los paneles verde y rosa la píldora blanca destaca. Theme Check sin avisos.
-- [ ] 🟠 **CSS-06 · Títulos de sección iguales.** S
+- [x] 🟠 **CSS-06 · Títulos de sección iguales.** S *(hecho el 25/11/2026)*
   - «Lo que te prometemos» tiene un tamaño y un grosor propios (800); el resto de títulos son los `h2` de Dawn, en peso normal.
   - En el inicio, unos títulos van a la izquierda («¿Qué estás buscando?», «Nuestros favoritos», «Packs…») y otros centrados («Su rutina…», «Lo que te prometemos»).
   - Propuesta: todas las secciones propias con las clases de Dawn (`h1`/`h2`, `inline-richtext`), el ajuste «Tamaño del título» y una alineación común, o un ajuste de alineación por sección.
+  - Decisión de la dueña: **todos los títulos a la izquierda**, como las secciones de Dawn. La cabecera de la reserva sigue centrada, porque es la cabecera de la página.
+  - Hecho:
+    - **«Tamaño del título»**, el mismo ajuste de Dawn (h2, h1, h0; por defecto h2), en categorías, rutina, promesas y packs. El `h2` usa esa clase en vez de una fija.
+    - **«Alineación del título»** (izquierda o centrado; por defecto izquierda) en la rutina y las promesas, que eran las centradas. Al centrar se aplica `.pet-section-header--center` (`component-pet-cro.css`, sección 16) a la cabecera: antetítulo, título y subtítulo.
+      - Categorías y packs no lo llevan, porque tienen el selector Perro/Gato o el enlace «Ver todos» a la derecha.
+    - «Lo que te prometemos» deja su tamaño de 32 px y su negrita y pasa al `h2` de Dawn (24 px, peso normal), alineado a la izquierda.
+    - La rutina de peluquería pasa de centrada a la izquierda.
+    - El título de la reserva deja su tamaño fluido de 28–36 px y peso 800, y pasa al `h1` de Dawn (40 px, peso normal), como la ficha y el contacto.
+  - Comprobado a ojo en CLAUDIA, en el inicio (rutina y promesas) y en la reserva. Theme Check sin avisos.
+  - Se ve que la sección de promesas empieza más a la izquierda que el resto: es el ancho de más de CSS-08.
 - [ ] 🟠 **CSS-07 · Paneles de la ficha de producto.** M
   - En móvil se apilan siete cajas, cada una con un estilo:
     - stock y envío: blanca con borde;

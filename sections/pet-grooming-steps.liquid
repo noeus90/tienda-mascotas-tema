@@ -63,12 +63,12 @@
 
 <section class="grooming-steps grooming-steps-section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient">
   <div class="page-width">
-    <div class="grooming-steps__header">
+    <div class="grooming-steps__header pet-section-header--{{ section.settings.heading_alignment }}">
       {%- if kicker != blank -%}
         <p class="pet-kicker">{{ kicker }}</p>
       {%- endif -%}
       {%- if heading != blank -%}
-        <h2 class="grooming-steps__heading h2">{{ heading }}</h2>
+        <h2 class="grooming-steps__heading {{ section.settings.heading_size }}">{{ heading }}</h2>
       {%- endif -%}
       {%- if subheading != blank -%}
         <p class="grooming-steps__subheading">{{ subheading }}</p>
@@ -307,6 +307,8 @@
       "label": "t:sections.pet_grooming_steps.settings.subheading.label",
       "info": "Vacío: el texto por defecto, traducido a cada idioma."
     },
+    {"type": "select", "id": "heading_size", "options": [{"value": "h2", "label": "t:sections.all.heading_size.options__1.label"}, {"value": "h1", "label": "t:sections.all.heading_size.options__2.label"}, {"value": "h0", "label": "t:sections.all.heading_size.options__3.label"}], "default": "h2", "label": "t:sections.all.heading_size.label"},
+    {"type": "select", "id": "heading_alignment", "label": "Alineación del título", "options": [{"value": "left", "label": "Izquierda"}, {"value": "center", "label": "Centrado"}], "default": "left", "info": "Como el resto de secciones de la tienda, a la izquierda por defecto."},
     {
       "type": "header",
       "content": "t:sections.pet_grooming_steps.settings.header__1.content"

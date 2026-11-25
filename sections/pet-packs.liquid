@@ -40,7 +40,7 @@
     <div class="page-width section-{{ section.id }}-padding">
       <div class="title-wrapper-with-link title-wrapper--self-padded-mobile">
         <div>
-          <h2 class="title inline-richtext h2">{{ 'pet_cro.packs.heading' | t }}</h2>
+          <h2 class="title inline-richtext {{ section.settings.heading_size }}">{{ 'pet_cro.packs.heading' | t }}</h2>
           <p class="rte">{{ 'pet_cro.packs.subheading' | t }}</p>
         </div>
         {%- if has_packs -%}
@@ -128,6 +128,7 @@
       "id": "collection",
       "label": "Colección de packs"
     },
+    {"type": "select", "id": "heading_size", "options": [{"value": "h2", "label": "t:sections.all.heading_size.options__1.label"}, {"value": "h1", "label": "t:sections.all.heading_size.options__2.label"}, {"value": "h0", "label": "t:sections.all.heading_size.options__3.label"}], "default": "h2", "label": "t:sections.all.heading_size.label"},
     {
       "type": "range",
       "id": "products_to_show",

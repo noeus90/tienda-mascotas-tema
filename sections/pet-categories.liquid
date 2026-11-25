@@ -42,7 +42,7 @@
   <div class="page-width">
     <div class="pet-categories__header">
       {%- if heading != blank -%}
-        <h2 class="pet-categories__heading h2">{{ heading }}</h2>
+        <h2 class="pet-categories__heading {{ section.settings.heading_size }}">{{ heading }}</h2>
       {%- endif -%}
       <div class="pet-categories__switch" role="group" aria-label="{{ 'pet_cro.categories.switch_label' | t }}" hidden data-pet-switch>
         <button type="button" class="pet-categories__pet is-active" aria-pressed="true" data-pet="{{ dogs_handle }}">
@@ -200,6 +200,7 @@
       "label": "t:sections.pet_categories.settings.heading.label",
       "info": "Vacío: el texto por defecto, traducido a cada idioma."
     },
+    {"type": "select", "id": "heading_size", "options": [{"value": "h2", "label": "t:sections.all.heading_size.options__1.label"}, {"value": "h1", "label": "t:sections.all.heading_size.options__2.label"}, {"value": "h0", "label": "t:sections.all.heading_size.options__3.label"}], "default": "h2", "label": "t:sections.all.heading_size.label"},
     {
       "type": "color_scheme",
       "id": "color_scheme",
