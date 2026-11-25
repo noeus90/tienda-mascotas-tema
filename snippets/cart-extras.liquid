@@ -54,6 +54,6 @@
       // Shopify applies the code to this cart and comes back to it.
       window.location.href = `/discount/${encodeURIComponent(code)}?redirect=${encodeURIComponent(window.routes.cart_url)}`;
     });
-    if (typeof initCroDeliveryCountdown === 'function') initCroDeliveryCountdown(form.closest('.cart-extras'));
+    if (window.PetCro) window.PetCro.initDeliveryCountdown(form.closest('.cart-extras'));
   })();
 </script>

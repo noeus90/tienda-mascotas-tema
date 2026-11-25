@@ -79,8 +79,8 @@
         if (typeof subscribe !== 'function' || typeof PUB_SUB_EVENTS === 'undefined') return;
         subscribe(PUB_SUB_EVENTS.variantChange, (event) => {
           const variant = event?.data?.variant;
-          if (variant && typeof formatCroMoney === 'function') {
-            price.textContent = formatCroMoney(variant.price, bar.dataset.moneyFormat);
+          if (variant && window.PetCro) {
+            price.textContent = window.PetCro.formatMoney(variant.price, bar.dataset.moneyFormat);
           }
         });
       };

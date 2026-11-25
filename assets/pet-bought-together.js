@@ -93,7 +93,7 @@ if (!customElements.get('bought-together')) {
       }
 
       formatMoney(cents) {
-        if (typeof formatCroMoney === 'function') return formatCroMoney(cents, this.dataset.moneyFormat);
+        if (window.PetCro) return window.PetCro.formatMoney(cents, this.dataset.moneyFormat);
         return (cents / 100).toFixed(2);
       }
 

@@ -233,9 +233,17 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - corregidos los comentarios con nombres de snippets antiguos.
   - Comprobado con un script que busca cada clase de los CSS propios en Liquid, JS y JSON. Las que se forman con una variable (`is-{{ stock_state }}`, `banner__content--{{ … }}`, `is-${…}`) se quedan.
   - Theme Check sin avisos. En CLAUDIA: portada, colección y ficha cargan todos sus CSS sin 404 y con los estilos de siempre.
-- [ ] 🟢 **CODE-16 · Funciones globales en `pet-cro.js`.** S
+- [x] 🟢 **CODE-16 · Funciones globales en `pet-cro.js`.** S *(hecho el 25/11/2026)*
   - `window.switchPetTab`, `selectPurchaseMode`, `updateDeliveryFrequency`… ya no hacen falta, porque hay delegación de eventos.
   - Propuesta: meterlo todo en un módulo y leer el 15 % de la suscripción del `data-` del widget (l.337 y 339).
+  - Hecho: todo va dentro de un módulo. Fuera solo queda `window.PetCro` con lo que usan otros archivos: `formatMoney`, `initDeliveryCountdown` y `updateFreeShippingBars`.
+    - Desaparecen ocho globales: las cinco de pestañas y suscripción, `formatCroMoney`, `initCroDeliveryCountdown` y `__petCroInitialized`. La comprobación de doble carga ahora es `window.PetCro`.
+    - Se actualizaron los que llamaban desde fuera: `cart-extras`, `sticky-add-to-cart`, `pet-bought-together.js` y `grooming-booking.js`.
+  - El widget de suscripción lleva `data-discount` y, al cambiar de variante, el porcentaje se lee de ahí, no de un 15 fijo.
+  - Comprobado en CLAUDIA, sin errores del tema en la consola:
+    - pestañas y suscripción, con un HTML de prueba (ahora no salen en ninguna página): clic, flechas y cambio de frecuencia;
+    - en la ficha: precio de la barra fija al cambiar de variante, plazo de entrega y barra de envío gratis al añadir al carrito;
+    - precios de la reserva.
 - [ ] 🟢 **CODE-17 · Detalles de la reserva.** S
   - ~~Los nombres de los extras se pintan con `innerHTML`~~: hecho en CODE-11.
   - No escucha `shopify:section:load`, así que en el editor no se reinicia.

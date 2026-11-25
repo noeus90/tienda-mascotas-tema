@@ -556,7 +556,7 @@
     /** Euros in the shop's money format, the same as Liquid's money filter. */
     money(euros) {
       const cents = Math.round(Number(euros || 0) * 100);
-      if (typeof formatCroMoney === 'function') return formatCroMoney(cents, this.moneyFormat);
+      if (window.PetCro) return window.PetCro.formatMoney(cents, this.moneyFormat);
       return new Intl.NumberFormat(this.locale, { style: 'currency', currency: 'EUR' }).format(cents / 100);
     }
 

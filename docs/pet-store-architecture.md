@@ -52,7 +52,7 @@ En **Configuración > Datos personalizados (Custom data) > Productos**, puedes c
 | Archivo en `assets/` | Rol y Componentes que Alimenta |
 | :--- | :--- |
 | [`assets/component-pet-cro.css`](../assets/component-pet-cro.css) | Estilos de los 8 snippets CRO con variables dinámicas de Dawn (`--color-foreground`, `--color-background`) y foco accesible `:focus-visible`. |
-| [`assets/pet-cro.js`](../assets/pet-cro.js) | Lógica de pestañas (`switchPetTab`, `handlePetTabKeydown`), suscripción (`selectPurchaseMode`, `handleSubscriptionKeydown`, `updateDeliveryFrequency`), cuenta atrás 24h (`initCroDeliveryCountdown`) y suscriptores `PUB_SUB_EVENTS.cartUpdate` y `PUB_SUB_EVENTS.variantChange`. |
+| [`assets/pet-cro.js`](../assets/pet-cro.js) | Lógica de pestañas (`switchPetTab`, `handlePetTabKeydown`), suscripción (`selectPurchaseMode`, `handleSubscriptionKeydown`, `updateDeliveryFrequency`), cuenta atrás 24h (`initDeliveryCountdown`) y suscriptores `PUB_SUB_EVENTS.cartUpdate` y `PUB_SUB_EVENTS.variantChange`. Todo va dentro de un módulo; fuera solo queda `window.PetCro` (`formatMoney`, `initDeliveryCountdown`, `updateFreeShippingBars`). |
 | [`assets/section-pet-grooming-steps.css`](../assets/section-pet-grooming-steps.css) | Estilos de [`sections/pet-grooming-steps.liquid`](../sections/pet-grooming-steps.liquid). |
 | [`assets/section-pet-trust-badges.css`](../assets/section-pet-trust-badges.css) | Estilos de [`sections/pet-trust-badges.liquid`](../sections/pet-trust-badges.liquid). |
 | [`assets/section-grooming-booking.css`](../assets/section-grooming-booking.css) | Estilos de [`sections/grooming-booking.liquid`](../sections/grooming-booking.liquid). |
