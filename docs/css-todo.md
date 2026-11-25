@@ -141,12 +141,20 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - Los botones de la reserva ya eran verdes y no se tocan.
   - Comprobado a ojo en CLAUDIA, en el inicio y la ficha: todos los botones principales en verde relleno y los secundarios con borde verde.
   - Pendiente, que es CSS-04: la variante elegida (3 kg / 12 kg) y otros chips activos siguen en negro.
-- [ ] 🟠 **CSS-04 · Un solo estilo de «seleccionado».** S
+- [x] 🟠 **CSS-04 · Un solo estilo de «seleccionado».** S *(hecho el 25/11/2026)*
   - El chip activo cambia según la página:
     - verde en «Perro / Gato» del inicio;
     - negro en «Todos / Perros / Gatos» del catálogo y en las variantes de la ficha (3 kg / 12 kg);
     - azul en las categorías del catálogo.
   - Propuesta: un solo estilo activo con el color de CSS-01, y que los chips de categoría compartan forma con los de mascota.
+  - Hecho: toda píldora o chip elegido es **verde de la marca con texto blanco**, como el botón principal de CSS-03.
+    - «Todos / Perros / Gatos» del catálogo: de negro a verde.
+    - Categorías del catálogo («Pienso seco»…): de azul a verde, con su sombra en verde. `--pet-sky-600` deja de usarse y se quita.
+    - Variantes de la ficha y de la compra rápida (3 kg / 12 kg): Dawn las rellenaba con el color del texto (negro). `component-pet-cro.css`, sección 14, las pone en verde con un selector de dos clases, porque el CSS de Dawn se carga después.
+    - Ya eran verdes y no se tocan: «Perro / Gato» del inicio, idioma, horas de la reserva y el botón de reservar del cajón móvil.
+    - Las **tarjetas** elegidas (servicio, tamaño, extras, suscripción, «mis perros») siguen con tinte verde y borde verde. Es la otra forma de «seleccionado», para bloques grandes, y ya era coherente.
+  - No se ha cambiado la forma: las píldoras de mascota y de categoría siguen como estaban (redonda y algo cuadrada). Unificarla entra mejor en CSS-11 o CSS-05, si se quiere.
+  - Comprobado en CLAUDIA: «Perros» y «Pienso seco» activos en `rgb(4, 120, 87)` con texto blanco, «3 kg» en verde en la ficha, y «Perro» del inicio igual que antes. Theme Check sin avisos.
 - [ ] 🟠 **CSS-05 · Un solo antetítulo.** S
   - Hay cuatro estilos:
     - verde en mayúsculas sin fondo («✂ PELUQUERÍA CANINA»);

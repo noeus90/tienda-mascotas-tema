@@ -484,6 +484,14 @@
   font-size: var(--pet-text-xs);
 }
 
+/* 14. Selected variant (CSS-04): Dawn fills the chosen pill (3 kg / 12 kg…) with the text color (black).
+   In the store a chosen option is brand green with white text. (Two classes: Dawn's CSS loads later.) */
+.product-form__input.product-form__input--pill input[type='radio']:checked + label {
+  background-color: rgb(var(--pet-accent));
+  border-color: rgb(var(--pet-accent));
+  color: #ffffff;
+}
+
 /* 12. Reduced motion (CSS-13): with "reduce motion" on in the system, the store's own components (classes
    pet-, cro-, booking-, grooming-… none of Dawn's has them) and everything inside them do not move.
    Durations go to 0.01 ms instead of "none" so fade-ins end visible and transitionend still fires (Dawn's

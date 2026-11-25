@@ -60,10 +60,11 @@
   box-shadow: var(--pet-shadow-sm);
 }
 
+/* Selected chip (CSS-04): brand green with white text, like every chosen option in the store. */
 .pet-mascot-btn.is-active {
-  background: rgb(var(--pet-ink));
+  background: rgb(var(--pet-accent));
   color: #ffffff;
-  border-color: rgb(var(--pet-ink));
+  border-color: rgb(var(--pet-accent));
   box-shadow: var(--pet-shadow-md);
 }
 
@@ -121,10 +122,10 @@
 }
 
 .pet-category-pill.is-active {
-  background: rgb(var(--pet-sky-700));
+  background: rgb(var(--pet-accent));
   color: #ffffff;
-  border-color: rgb(var(--pet-sky-700));
-  box-shadow: 0 2px 6px rgba(var(--pet-sky-600), 0.25);
+  border-color: rgb(var(--pet-accent));
+  box-shadow: 0 2px 6px rgba(var(--pet-accent), 0.25);
 }
 
 .pet-category-pill.is-active .pet-category-icon {
