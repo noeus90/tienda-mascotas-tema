@@ -349,11 +349,26 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
   - Comprobado: los 4 servicios activos tienen sus tres precios y los 5 extras tienen precio, así que no se bloquea ninguna reserva real.
   - Probado: 51 tests en verde y, en local, una reserva con un servicio inexistente da 422 `fields: ["service"]`.
 
-- [ ] 🟠 **CODE-24 · Partir los ficheros grandes.** L
+- [x] 🟠 **CODE-24 · Partir los ficheros grandes.** L *(hecho el 25/11/2026, app `20dfd02`)*
   - `app.citas.$id.jsx` (669 líneas): 9 `intent` en una acción y las secciones de tarjeta regalo y fidelidad dentro.
   - `appointments.server.js` (611 líneas).
   - `app.ajustes.jsx` (448 líneas).
   - Ver la tabla del principio.
+  - Hecho:
+    - `appointments.server.js` (611 → 340): solo el guardado de citas. Aparte quedan:
+      - `dates.js`: `salonToday`, `salonInstant`, `addDays` y la zona horaria;
+      - `appointment-validation.server.js`: `validateAppointment`;
+      - `availability.server.js`: horas ocupadas y elegir peluquera.
+      - `groomers.server.js` ya lo importa de forma normal, sin `await import`.
+    - `app.citas.$id.jsx` (669 → 192): cada `intent` es una función en `lib/appointment-actions.server.js`, y la acción solo elige cuál llamar.
+      - Las secciones están en `components/appointment/`: datos de la cita, tarjeta regalo, fidelidad, modal de la señal, botón de estado y `Detail`.
+      - `money` y `amountDue` están en `lib/money.js`.
+    - `app.ajustes.jsx` (454 → 66): datos y acciones en `lib/settings-actions.server.js`, y una sección por componente en `components/settings/`.
+  - Comprobado: lint, 51 tests y build en verde, y CI en verde. En CLAUDIA:
+    - Ajustes carga sus cinco secciones, y «Enviar ahora los que tocan» responde «Ahora mismo no le toca a nadie» (no había ninguno pendiente).
+    - La ficha de una cita carga entera. «Comprobar saldo» con un código inventado avisa de que no existe, sin cambiar nada.
+    - La disponibilidad pública devuelve las horas ocupadas de Ana, que cuadran con la agenda.
+  - No probé las acciones que escriben (confirmar, cobrar, canjear, guardar…), para no cambiar datos sin tu permiso. Su código se movió sin tocarlo.
 - [ ] 🟠 **CODE-25 · Código repetido entre módulos.** M
   - `gql()` está 3 veces, `setMetafields` 2, `storeInfo` 5, `escape` 5 y `addDays` 4.
   - La plantilla HTML de email está copiada en 5 módulos.
