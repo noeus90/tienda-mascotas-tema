@@ -6,24 +6,24 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Su comida, sus cuidados y su peluquería",
+            "heading": "",
             "heading_size": "h1"
           }
         },
         "text": {
           "type": "text",
           "settings": {
-            "text": "Pienso, BARF, snacks e higiene para perro y gato, con envío gratis desde 50 €. Y cita de peluquería canina online en un par de minutos.",
+            "text": "",
             "text_style": "body"
           }
         },
         "button": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Ver la tienda",
+            "button_label_1": "",
             "button_link_1": "shopify://collections/all",
             "button_style_secondary_1": false,
-            "button_label_2": "Reservar peluquería",
+            "button_label_2": "",
             "button_link_2": "shopify://pages/bookings",
             "button_style_secondary_2": true
           }
@@ -51,7 +51,7 @@
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
-        "title": "Nuestros favoritos",
+        "title": "",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
@@ -123,9 +123,9 @@
         "step_4"
       ],
       "settings": {
-        "kicker": "Así lo hacemos en la peluquería",
-        "heading": "Su rutina de higiene y manto en 4 pasos",
-        "subheading": "Lo que hacemos en cada visita, para que lo sigas en casa entre cita y cita.",
+        "kicker": "",
+        "heading": "",
+        "subheading": "",
         "show_add_all": true,
         "show_booking": true
       }
@@ -173,8 +173,8 @@
         "promise_4"
       ],
       "settings": {
-        "heading": "Lo que te prometemos",
-        "subheading": "Sin letra pequeña: esto es lo que puedes esperar al comprar o reservar con nosotros."
+        "heading": "",
+        "subheading": ""
       }
     },
     "pet_packs": {
@@ -191,7 +191,7 @@
     "pet_categories": {
       "type": "pet-categories",
       "settings": {
-        "heading": "¿Qué estás buscando?",
+        "heading": "",
         "color_scheme": "scheme-1",
         "padding_top": 40,
         "padding_bottom": 24

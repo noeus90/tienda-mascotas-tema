@@ -10,8 +10,8 @@
     "booking": {
       "type": "grooming-booking",
       "settings": {
-        "heading": "Reserva cita en la peluquería",
-        "subheading": "Elige el servicio y el tamaño de tu perro, el día y la hora. Verás el precio estimado antes de confirmar."
+        "heading": "",
+        "subheading": ""
       }
     }
   },

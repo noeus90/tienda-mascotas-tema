@@ -179,9 +179,20 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - `grooming-booking-addons.liquid` (extras).
   - Comprobado que el HTML del paso 1 sale idéntico antes y después, en inglés y en español (servidor local de `theme dev`, espacios normalizados).
   - Arreglo de CODE-11: los 4 avisos del buscador de raza (raza reconocida, mestizo, raza desconocida y tamaño cambiado a mano) seguían en español fijo en el JS. Ahora son `pet_cro.booking.js.breed_*`. Probado en CLAUDIA en los dos idiomas.
-- [ ] 🟠 **CODE-13 · Textos por defecto comparados con literales.** L
+- [x] 🟠 **CODE-13 · Textos por defecto comparados con literales.** L *(hecho el 25/11/2026)*
   - Hay unas 40 comparaciones del tipo `raw == 'Texto' or raw == 'Text'` (footer, cajón del menú, relacionados, aviso superior, colecciones…). Basta un espacio o una tilde cambiada en el editor para que deje de traducirse, y cada texto nuevo obliga a tocar el código.
   - Propuesta: ajustes vacíos por defecto, con la nota «vacío = texto traducido», y `section.settings.x | default: ('clave' | t)`. Después, vaciar esos valores en las plantillas.
+  - Hecho en 13 secciones: aviso superior (las dos variantes), banner principal (título, texto y botones), favoritos, «Lo que te prometemos», «¿Qué estás buscando?», pasos de peluquería, reserva, relacionados, botón de compartir, lista de colecciones, página de contraseña y pie (titular del boletín y títulos de bloques).
+    - Si el ajuste está vacío, sale la traducción (`pet_cro.*`) en cada idioma; si tiene texto, sale ese texto.
+    - Los esquemas ya no traen texto por defecto y llevan la nota «Vacío: el texto por defecto, traducido a cada idioma».
+    - Se vaciaron esos textos en `index`, `product`, `page`, `list-collections`, `password` y los grupos de cabecera y pie. Coincidían con la traducción española.
+  - Casos especiales:
+    - botones del banner: con enlace y sin texto salen con el texto traducido; sin texto ni enlace no salen;
+    - títulos del pie: vacío = «Enlaces rápidos» en un bloque de menú y «Tienda y peluquería» en uno de texto (ahora el pie no usa bloques);
+    - favoritos: el título vacío ya no oculta el título, saca el traducido.
+  - Se quitaron las claves `pet_cro.hero.default_es`, que ya no usa nadie.
+  - Sin tocar: los menús comparan el título del enlace del menú (no es un ajuste del tema), y los textos de cada distintivo y cada paso se comparan con claves de traducción por posición.
+  - Comprobado: el HTML de 18 páginas en español e inglés (inicio, colecciones, reserva, fichas, carrito, contacto, búsqueda y contraseña) sale idéntico antes y después.
 - [x] 🟠 **CODE-14 · Ordenar `section-grooming-booking.css`.** M *(hecho el 25/11/2026)*
   - Hay 18 `!important`, de los que unos 10 son `[hidden]{display:none!important}` repetidos; basta una sola regla. Hay además una regla vacía (l.1799-1801).
   - Tiene 120 colores fijos; pasarlos a las variables del esquema de color.

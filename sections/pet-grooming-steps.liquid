@@ -30,17 +30,17 @@
     assign gs_en = true
   endif
 
-  # A Spanish default text shown in English when the store is in English.
+  # CODE-13: an empty kicker, heading or subheading shows the translated default.
   assign kicker = section.settings.kicker
-  if gs_en and kicker == 'Así lo hacemos en la peluquería'
+  if kicker == blank
     assign kicker = 'pet_cro.grooming_steps.kicker' | t
   endif
   assign heading = section.settings.heading
-  if gs_en and heading == 'Su rutina de higiene y manto en 4 pasos'
+  if heading == blank
     assign heading = 'pet_cro.grooming_steps.heading' | t
   endif
   assign subheading = section.settings.subheading
-  if gs_en and subheading == 'Lo que hacemos en cada visita, para que lo sigas en casa entre cita y cita.'
+  if subheading == blank
     assign subheading = 'pet_cro.grooming_steps.subheading' | t
   endif
 
@@ -293,19 +293,19 @@
       "type": "text",
       "id": "kicker",
       "label": "t:sections.pet_grooming_steps.settings.kicker.label",
-      "default": "Así lo hacemos en la peluquería"
+      "info": "Vacío: el texto por defecto, traducido a cada idioma."
     },
     {
       "type": "text",
       "id": "heading",
       "label": "t:sections.pet_grooming_steps.settings.heading.label",
-      "default": "Su rutina de higiene y manto en 4 pasos"
+      "info": "Vacío: el texto por defecto, traducido a cada idioma."
     },
     {
       "type": "textarea",
       "id": "subheading",
       "label": "t:sections.pet_grooming_steps.settings.subheading.label",
-      "default": "Lo que hacemos en cada visita, para que lo sigas en casa entre cita y cita."
+      "info": "Vacío: el texto por defecto, traducido a cada idioma."
     },
     {
       "type": "header",

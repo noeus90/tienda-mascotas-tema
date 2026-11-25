@@ -17,7 +17,7 @@
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "🐾 Envío GRATIS en pedidos de más de 50 € · Reserva online tu cita de peluquería canina",
+            "text": "",
             "text_alignment": "center",
             "color_scheme": "scheme-1",
             "link": ""

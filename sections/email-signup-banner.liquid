@@ -64,21 +64,19 @@
         {%- case block.type -%}
           {%- when 'heading' -%}
             <h2 class="email-signup-banner__heading {{ block.settings.heading_size }}" {{ block.shopify_attributes }}>
-              {%- comment -%} UX-26: the password page's default texts, in the visitor's language. {%- endcomment -%}
-              {%- assign raw_esb_heading = block.settings.heading | strip -%}
-              {%- if raw_esb_heading == 'Abrimos muy pronto' or raw_esb_heading == 'Opening soon' -%}
-                {{ 'pet_cro.password.heading' | t }}
-              {%- else -%}
+              {%- comment -%} CODE-13: an empty heading shows the translated default. {%- endcomment -%}
+              {%- if block.settings.heading != blank -%}
                 {{ block.settings.heading | escape }}
+              {%- else -%}
+                {{ 'pet_cro.password.heading' | t }}
               {%- endif -%}
             </h2>
           {%- when 'paragraph' -%}
             <div class="newsletter__subheading rte {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
-              {%- assign raw_esb_text = block.settings.text | strip_html | strip -%}
-              {%- if raw_esb_text == 'Déjanos tu email y te avisamos en cuanto abramos.' or raw_esb_text == 'Be the first to know when we launch.' -%}
-                <p>{{ 'pet_cro.password.text' | t }}</p>
-              {%- else -%}
+              {%- if block.settings.text != blank -%}
                 {{ block.settings.text }}
+              {%- else -%}
+                <p>{{ 'pet_cro.password.text' | t }}</p>
               {%- endif -%}
             </div>
           {%- when 'email_form' -%}
@@ -332,8 +330,8 @@
         {
           "type": "text",
           "id": "heading",
-          "default": "t:sections.email-signup-banner.blocks.heading.settings.heading.default",
-          "label": "t:sections.email-signup-banner.blocks.heading.settings.heading.label"
+          "label": "t:sections.email-signup-banner.blocks.heading.settings.heading.label",
+          "info": "Vacío: el texto por defecto, traducido a cada idioma."
         },
         {
           "type": "select",
@@ -373,8 +371,8 @@
         {
           "type": "richtext",
           "id": "text",
-          "default": "t:sections.email-signup-banner.blocks.paragraph.settings.paragraph.default",
-          "label": "t:sections.email-signup-banner.blocks.paragraph.settings.paragraph.label"
+          "label": "t:sections.email-signup-banner.blocks.paragraph.settings.paragraph.label",
+          "info": "Vacío: el texto por defecto, traducido a cada idioma."
         },
         {
           "type": "select",

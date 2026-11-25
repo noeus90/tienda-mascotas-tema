@@ -78,18 +78,19 @@
                   style="--animation-order: {{ forloop.index }};"
                 {% endif %}
               >
-                {%- if block.settings.heading != blank -%}
-                  {%- liquid
-                    assign raw_footer_heading = block.settings.heading | strip
-                    assign footer_heading_display = raw_footer_heading
-                    if raw_footer_heading == 'Quick links' or raw_footer_heading == 'Enlaces rápidos'
-                      assign footer_heading_display = 'pet_cro.footer.quick_links' | t
-                    elsif raw_footer_heading == 'Info' or raw_footer_heading == 'Información' or raw_footer_heading == 'Tienda Animal & Peluquería' or raw_footer_heading == 'Pet Store & Grooming Salon'
-                      assign footer_heading_display = 'pet_cro.footer.info_heading' | t
-                    elsif raw_footer_heading == 'Our mission' or raw_footer_heading == 'Nuestra misión'
-                      assign footer_heading_display = 'pet_cro.footer.mission_heading' | t
-                    endif
-                  -%}
+                {%- liquid
+                  # CODE-13: an empty menu or text heading shows the translated default.
+                  assign footer_heading_display = block.settings.heading
+                  if footer_heading_display == blank
+                    case block.type
+                      when 'link_list'
+                        assign footer_heading_display = 'pet_cro.footer.quick_links' | t
+                      when 'text'
+                        assign footer_heading_display = 'pet_cro.footer.info_heading' | t
+                    endcase
+                  endif
+                -%}
+                {%- if footer_heading_display != blank -%}
                   <h2
                     class="footer-block__heading inline-richtext"
                   >
@@ -198,23 +199,15 @@
         >
           {%- if section.settings.newsletter_enable -%}
             <div class="footer-block__newsletter">
-              {%- if section.settings.newsletter_heading != blank -%}
-                {%- liquid
-                  assign raw_nl_heading = section.settings.newsletter_heading | strip
-                  assign is_default_nl = false
-                  if raw_nl_heading == 'Subscribe to our emails' or raw_nl_heading == 'Suscríbete a nuestros correos electrónicos' or raw_nl_heading contains 'Club de Familias Perrunas' or raw_nl_heading contains 'Pet Parents Club' or raw_nl_heading == 'Suscríbete y llévate un 10 % en tu primer pedido'
-                    assign is_default_nl = true
-                  endif
-                -%}
-                {%- if is_default_nl -%}
-                  <h2
-                    class="footer-block__heading inline-richtext"
-                  >
-                    {{- 'pet_cro.footer.newsletter_heading' | t -}}
-                  </h2>
-                {%- else -%}
-                  <h2 class="footer-block__heading inline-richtext">{{ section.settings.newsletter_heading }}</h2>
-                {%- endif -%}
+              {%- comment -%} CODE-13: an empty newsletter heading shows the translated default. {%- endcomment -%}
+              {%- if section.settings.newsletter_heading == blank -%}
+                <h2
+                  class="footer-block__heading inline-richtext"
+                >
+                  {{- 'pet_cro.footer.newsletter_heading' | t -}}
+                </h2>
+              {%- else -%}
+                <h2 class="footer-block__heading inline-richtext">{{ section.settings.newsletter_heading }}</h2>
               {%- endif -%}
               {%- form 'customer', id: 'ContactFooter', class: 'footer__newsletter newsletter-form' -%}
                 <input type="hidden" name="contact[tags]" value="newsletter">
@@ -383,8 +376,8 @@
         {
           "type": "inline_richtext",
           "id": "heading",
-          "default": "t:sections.footer.blocks.link_list.settings.heading.default",
-          "label": "t:sections.footer.blocks.link_list.settings.heading.label"
+          "label": "t:sections.footer.blocks.link_list.settings.heading.label",
+          "info": "Vacío: el texto por defecto, traducido a cada idioma."
         },
         {
           "type": "link_list",
@@ -418,8 +411,8 @@
         {
           "type": "inline_richtext",
           "id": "heading",
-          "default": "t:sections.footer.blocks.text.settings.heading.default",
-          "label": "t:sections.footer.blocks.text.settings.heading.label"
+          "label": "t:sections.footer.blocks.text.settings.heading.label",
+          "info": "Vacío: el texto por defecto, traducido a cada idioma."
         },
         {
           "type": "richtext",
@@ -499,8 +492,8 @@
     {
       "type": "inline_richtext",
       "id": "newsletter_heading",
-      "default": "t:sections.footer.settings.newsletter_heading.default",
-      "label": "t:sections.footer.settings.newsletter_heading.label"
+      "label": "t:sections.footer.settings.newsletter_heading.label",
+      "info": "Vacío: el texto por defecto, traducido a cada idioma."
     },
     {
       "type": "header",

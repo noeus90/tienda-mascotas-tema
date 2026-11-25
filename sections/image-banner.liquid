@@ -121,13 +121,10 @@
         {%- case block.type -%}
           {%- when 'heading' -%}
             {%- liquid
-              # Spanish default texts: in English they come from the locale files (pet_cro.hero.*).
+              # CODE-13: empty texts and labels show the translated defaults (pet_cro.hero.*).
               assign banner_heading = block.settings.heading
-              if request.locale.iso_code == 'en'
-                assign es_default = 'pet_cro.hero.default_es.heading' | t
-                if banner_heading == es_default or banner_heading == 'Nutrición Natural y Peluquería Canina sin Estrés'
-                  assign banner_heading = 'pet_cro.hero.heading' | t
-                endif
+              if banner_heading == blank
+                assign banner_heading = 'pet_cro.hero.heading' | t
               endif
             -%}
             <h2
@@ -139,11 +136,8 @@
           {%- when 'text' -%}
             {%- liquid
               assign banner_text = block.settings.text
-              if request.locale.iso_code == 'en'
-                assign es_default = 'pet_cro.hero.default_es.text' | t
-                if banner_text == es_default
-                  assign banner_text = 'pet_cro.hero.text' | t
-                endif
+              if banner_text == blank
+                assign banner_text = 'pet_cro.hero.text' | t
               endif
             -%}
             <div class="banner__text rte {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
@@ -151,24 +145,21 @@
             </div>
           {%- when 'buttons' -%}
             {%- liquid
+              # A button shows when it has a label or a link; with a link and no label, the translated label.
               assign label_1 = block.settings.button_label_1
+              if label_1 == blank and block.settings.button_link_1 != blank
+                assign label_1 = 'pet_cro.hero.button_1' | t
+              endif
               assign label_2 = block.settings.button_label_2
-              if request.locale.iso_code == 'en'
-                assign es_1 = 'pet_cro.hero.default_es.button_1' | t
-                assign es_2 = 'pet_cro.hero.default_es.button_2' | t
-                if label_1 == es_1 or label_1 == 'Ver Tienda Animal'
-                  assign label_1 = 'pet_cro.hero.button_1' | t
-                endif
-                if label_2 == es_2
-                  assign label_2 = 'pet_cro.hero.button_2' | t
-                endif
+              if label_2 == blank and block.settings.button_link_2 != blank
+                assign label_2 = 'pet_cro.hero.button_2' | t
               endif
             -%}
             <div
-              class="banner__buttons{% if block.settings.button_label_1 != blank and block.settings.button_label_2 != blank %} banner__buttons--multiple{% endif %}"
+              class="banner__buttons{% if label_1 != blank and label_2 != blank %} banner__buttons--multiple{% endif %}"
               {{ block.shopify_attributes }}
             >
-              {%- if block.settings.button_label_1 != blank -%}
+              {%- if label_1 != blank -%}
                 <a
                   {% if block.settings.button_link_1 == blank %}
                     role="link" aria-disabled="true"
@@ -180,7 +171,7 @@
                   {{- label_1 | escape -}}
                 </a>
               {%- endif -%}
-              {%- if block.settings.button_label_2 != blank -%}
+              {%- if label_2 != blank -%}
                 <a
                   {% if block.settings.button_link_2 == blank %}
                     role="link" aria-disabled="true"
@@ -402,8 +393,8 @@
         {
           "type": "inline_richtext",
           "id": "heading",
-          "default": "t:sections.image-banner.blocks.heading.settings.heading.default",
-          "label": "t:sections.image-banner.blocks.heading.settings.heading.label"
+          "label": "t:sections.image-banner.blocks.heading.settings.heading.label",
+          "info": "Vacío: el texto por defecto, traducido a cada idioma."
         },
         {
           "type": "select",
@@ -443,8 +434,8 @@
         {
           "type": "inline_richtext",
           "id": "text",
-          "default": "t:sections.image-banner.blocks.text.settings.text.default",
-          "label": "t:sections.image-banner.blocks.text.settings.text.label"
+          "label": "t:sections.image-banner.blocks.text.settings.text.label",
+          "info": "Vacío: el texto por defecto, traducido a cada idioma."
         },
         {
           "type": "select",
@@ -480,9 +471,8 @@
         {
           "type": "text",
           "id": "button_label_1",
-          "default": "t:sections.image-banner.blocks.buttons.settings.button_label_1.default",
           "label": "t:sections.image-banner.blocks.buttons.settings.button_label_1.label",
-          "info": "t:sections.image-banner.blocks.buttons.settings.button_label_1.info"
+          "info": "Vacío y con enlace: el texto por defecto, traducido. Sin texto ni enlace, no sale el botón."
         },
         {
           "type": "url",
@@ -502,9 +492,8 @@
         {
           "type": "text",
           "id": "button_label_2",
-          "default": "t:sections.image-banner.blocks.buttons.settings.button_label_2.default",
           "label": "t:sections.image-banner.blocks.buttons.settings.button_label_2.label",
-          "info": "t:sections.image-banner.blocks.buttons.settings.button_label_2.info"
+          "info": "Vacío y con enlace: el texto por defecto, traducido. Sin texto ni enlace, no sale el botón."
         },
         {
           "type": "url",

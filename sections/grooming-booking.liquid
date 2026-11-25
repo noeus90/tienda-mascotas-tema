@@ -269,12 +269,13 @@
         (theme content). The untouched default heading and subheading come from the locale files.
       {%- endcomment -%}
       {%- liquid
-        assign booking_heading = section.settings.heading | default: 'Reserva cita en la peluquería'
-        assign booking_sub = section.settings.subheading
-        if booking_heading == 'Reserva cita en la peluquería' or booking_heading == 'Reserva Cita de Peluquería Canina & Spa'
+        # CODE-13: empty heading or subheading = the translated default.
+        assign booking_heading = section.settings.heading
+        if booking_heading == blank
           assign booking_heading = 'pet_cro.booking_header.heading' | t
         endif
-        if booking_sub == 'Elige el servicio y el tamaño de tu perro, el día y la hora. Verás el precio estimado antes de confirmar.'
+        assign booking_sub = section.settings.subheading
+        if booking_sub == blank
           assign booking_sub = 'pet_cro.booking_header.subheading' | t
         endif
         assign booking_address = shop.address.address1
@@ -344,13 +345,13 @@
       "type": "text",
       "id": "heading",
       "label": "t:sections.grooming_booking.settings.heading.label",
-      "default": "Reserva cita en la peluquería"
+      "info": "Vacío: el texto por defecto, traducido a cada idioma."
     },
     {
       "type": "text",
       "id": "subheading",
       "label": "t:sections.grooming_booking.settings.subheading.label",
-      "default": "Asistente guiado: personaliza la sesión para tu peludo y confirma tu cita en 1 minuto."
+      "info": "Vacío: el texto por defecto, traducido a cada idioma."
     },
     {
       "type": "text",

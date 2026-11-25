@@ -3,12 +3,11 @@
 
 <div class="page-width">
   <h1 class="title title--primary inline-richtext{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-    {%- comment -%} UX-26: default title in the visitor's language. {%- endcomment -%}
-    {%- assign raw_lc_title = section.settings.title | strip -%}
-    {%- if raw_lc_title == 'Colecciones' or raw_lc_title == 'Collections' -%}
-      {{ 'pet_cro.collections_list.title' | t }}
-    {%- else -%}
+    {%- comment -%} CODE-13: an empty title shows the translated default. {%- endcomment -%}
+    {%- if section.settings.title != blank -%}
       {{ section.settings.title }}
+    {%- else -%}
+      {{ 'pet_cro.collections_list.title' | t }}
     {%- endif -%}
   </h1>
   {%- liquid
@@ -68,7 +67,7 @@
       "type": "inline_richtext",
       "id": "title",
       "label": "t:sections.main-list-collections.settings.title.label",
-      "default": "t:sections.main-list-collections.settings.title.default"
+      "info": "Vacío: el texto por defecto, traducido a cada idioma."
     },
     {
       "type": "select",

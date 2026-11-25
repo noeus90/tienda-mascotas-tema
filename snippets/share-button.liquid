@@ -11,9 +11,9 @@
 <script src="{{ 'share.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
-  assign raw_share_label = block.settings.share_label | strip
+  # CODE-13: an empty label shows the translated default.
   assign is_default_share = false
-  if raw_share_label == 'Share' or raw_share_label == 'Compartir' or raw_share_label == blank
+  if block.settings.share_label == blank
     assign is_default_share = true
   endif
 -%}

@@ -73,16 +73,14 @@
     data-id="{{ section.id }}"
   >
     <div class="collection__title title-wrapper title-wrapper--no-top-margin page-width{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% endif %}{% if show_desktop_slider %} collection__title--desktop-slider{% endif %}">
-      {%- if section.settings.title != blank -%}
-        {%- liquid
-          # Spanish default titles are shown in English from the locale files.
-          assign fc_title = section.settings.title
-          if request.locale.iso_code == 'en'
-            if fc_title == 'Nuestros favoritos' or fc_title == 'Favoritos para tu Mascota' or fc_title == 'Productos destacados'
-              assign fc_title = 'pet_cro.favorites.title' | t
-            endif
-          endif
-        -%}
+      {%- liquid
+        # CODE-13: an empty title shows the translated default.
+        assign fc_title = section.settings.title
+        if fc_title == blank
+          assign fc_title = 'pet_cro.favorites.title' | t
+        endif
+      -%}
+      {%- if fc_title != blank -%}
         <h2
           class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
         >
@@ -256,8 +254,8 @@
     {
       "type": "inline_richtext",
       "id": "title",
-      "default": "t:sections.featured-collection.settings.title.default",
-      "label": "t:sections.featured-collection.settings.title.label"
+      "label": "t:sections.featured-collection.settings.title.label",
+      "info": "Vacío: el texto por defecto, traducido a cada idioma."
     },
     {
       "type": "select",

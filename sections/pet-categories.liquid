@@ -23,8 +23,9 @@
 {%- endstyle -%}
 
 {%- liquid
+  # CODE-13: an empty heading shows the translated default.
   assign heading = section.settings.heading
-  if request.locale.iso_code == 'en' and heading == '¿Qué estás buscando?'
+  if heading == blank
     assign heading = 'pet_cro.categories.heading' | t
   endif
   # Product type key (snippet pet-taxonomy, CODE-08) | locale key | emoji when there is no image.
@@ -197,7 +198,7 @@
       "type": "text",
       "id": "heading",
       "label": "t:sections.pet_categories.settings.heading.label",
-      "default": "¿Qué estás buscando?"
+      "info": "Vacío: el texto por defecto, traducido a cada idioma."
     },
     {
       "type": "color_scheme",

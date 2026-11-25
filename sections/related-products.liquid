@@ -168,8 +168,9 @@
   endfor
   assign picked_handles = picked | remove_first: '|' | split: '|'
 
+  # CODE-13: an empty heading shows the translated default.
   assign heading = section.settings.heading
-  if heading == 'También te puede gustar para tu peludo' or heading == 'You may also like' or heading == 'También te puede gustar'
+  if heading == blank
     assign heading = 'pet_cro.general.related_heading_default' | t
   endif
 -%}
@@ -221,8 +222,8 @@
     {
       "type": "inline_richtext",
       "id": "heading",
-      "default": "t:sections.related-products.settings.paragraph__1.default",
-      "label": "t:sections.related-products.settings.heading.label"
+      "label": "t:sections.related-products.settings.heading.label",
+      "info": "Vacío: el texto por defecto, traducido a cada idioma."
     },
     {
       "type": "select",

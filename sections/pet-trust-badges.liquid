@@ -36,12 +36,13 @@
   assign max_days = settings.delivery_days_max | default: 5
   assign days = min_days | append: '-' | append: max_days
 
+  # CODE-13: empty heading or subheading = the translated default.
   assign heading = section.settings.heading
-  if tb_en and heading == 'Lo que te prometemos'
+  if heading == blank
     assign heading = 'pet_cro.promises.heading' | t
   endif
   assign subheading = section.settings.subheading
-  if tb_en and subheading == 'Sin letra pequeña: esto es lo que puedes esperar al comprar o reservar con nosotros.'
+  if subheading == blank
     assign subheading = 'pet_cro.promises.subheading' | t
   endif
 -%}
@@ -143,13 +144,13 @@
       "type": "text",
       "id": "heading",
       "label": "t:sections.pet_trust_badges.settings.heading.label",
-      "default": "Lo que te prometemos"
+      "info": "Vacío: el texto por defecto, traducido a cada idioma."
     },
     {
       "type": "textarea",
       "id": "subheading",
       "label": "t:sections.pet_trust_badges.settings.subheading.label",
-      "default": "Sin letra pequeña: esto es lo que puedes esperar al comprar o reservar con nosotros."
+      "info": "Vacío: el texto por defecto, traducido a cada idioma."
     },
     {
       "type": "color_scheme",
