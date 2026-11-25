@@ -369,13 +369,28 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - La ficha de una cita carga entera. «Comprobar saldo» con un código inventado avisa de que no existe, sin cambiar nada.
     - La disponibilidad pública devuelve las horas ocupadas de Ana, que cuadran con la agenda.
   - No probé las acciones que escriben (confirmar, cobrar, canjear, guardar…), para no cambiar datos sin tu permiso. Su código se movió sin tocarlo.
-- [ ] 🟠 **CODE-25 · Código repetido entre módulos.** M
+- [x] 🟠 **CODE-25 · Código repetido entre módulos.** M *(hecho el 25/11/2026, app `16c2a33`)*
   - `gql()` está 3 veces, `setMetafields` 2, `storeInfo` 5, `escape` 5 y `addDays` 4.
   - La plantilla HTML de email está copiada en 5 módulos.
   - Propuesta:
     - `lib/shopify-gql.server.js` y `lib/dates.js`, con Europe/Madrid en un solo sitio;
     - `lib/email-layout.js`, con `layout()` y `button()`;
     - `lib/http.server.js` para el helper `json` de los proxys.
+  - Hecho:
+    - `lib/shopify-gql.server.js`: `gql`, `setMetafields` y `storeInfo`, que usan lista de espera, avisos de stock, bienvenida, reposición y rebook.
+    - `lib/email-layout.js`: `escapeHtml`, `emailLayout`, `emailButton`, `emailNote` y `unsubscribeLink`. Las cinco plantillas de email ya no copian la página.
+    - `lib/http.server.js`: `json` de los cinco proxys. «Mis perros» sigue con caché `private, no-store`.
+    - `lib/dates.js`: un único `addDays` (`labels.js` lo reexporta), y `SALON_TIME_ZONE` en vez de «Europe/Madrid» escrito en seis sitios.
+    - La página de baja sigue escapando además `{ } %` por Liquid, sobre `escapeHtml`.
+  - Comprobado:
+    - El HTML de 27 emails sale idéntico byte a byte antes y después: citas (8 tipos × 2 idiomas), stock, bienvenida, reposición, hueco libre, lista de espera y aviso al salón. Se generaron con datos inventados y el envío simulado.
+    - 56 tests (5 nuevos), lint, build y CI en verde.
+    - En CLAUDIA responden igual:
+      - la disponibilidad;
+      - «Mis perros», con caché privada;
+      - una reserva incompleta da 422;
+      - la página de baja con un enlace no válido;
+      - Avisos de stock e Imprimir, por día y por semana.
 - [ ] 🟠 **CODE-26 · Abusos en los formularios públicos.** M
   - No hay límite de peticiones por IP en ningún endpoint del proxy.
   - El aviso de stock no confirma el email, así que se pueden apuntar direcciones ajenas.
