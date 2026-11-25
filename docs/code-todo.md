@@ -458,10 +458,24 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 
 ## App · 🟢 limpieza
 
-- [ ] 🟢 **CODE-29 · Herramientas.** S
+- [x] 🟢 **CODE-29 · Herramientas.** S *(hecho el 25/11/2026, app `8db3418`, `489e58e` y `aba06ac`)*
   - ESLint 8 y `@typescript-eslint` 6 ya no tienen soporte.
   - Prettier está instalado, pero no hay ni configuración ni script `format`.
   - Hay varios `eslint-disable no-undef` por `process`.
+  - Hecho:
+    - **ESLint 8 → 9.39** con configuración plana (`eslint.config.js`). Se borran `.eslintrc.cjs` y `.eslintignore`.
+      - No se pasa a ESLint 10 porque los plugins de React y accesibilidad aún no lo admiten. La 9 sigue con parches.
+      - Fuera `@typescript-eslint/*`, `eslint-plugin-import` y su resolver: solo servían para TypeScript, y el único `.ts` lo genera la CLI y ya se ignora.
+      - Se mantienen las reglas de React, hooks y accesibilidad.
+    - **Comentarios `eslint-disable`.** Quedan cero:
+      - Node tiene sus globales en los módulos de servidor, las rutas, los tests y las configs, así que sobran los `no-undef` por `process` y el `/* global globalThis */`.
+      - `react/prop-types` va apagada en la configuración (es JS sin PropTypes), en vez de en 30 comentarios, uno por fichero.
+    - **Prettier.** `.prettierrc.json` (anchura 120, como el tema), `.prettierignore` y los scripts `format` y `format:check`. `npm run check`, que es lo que ejecuta el CI, ya incluye `format:check`.
+      - Todo el código se formateó una vez, en un commit aparte que solo cambia el formato (72 ficheros). `.git-blame-ignore-revs` hace que `git blame` se lo salte.
+  - Comprobado:
+    - Un fichero con fallos a propósito da 6 errores: hook condicional, variable sin definir, `process` en un componente y tres de accesibilidad.
+    - Los 29 emails generan el mismo HTML byte a byte antes y después del formato.
+    - `npm run check` (lint, formato, 74 tests y build) y el CI en verde. La app en desarrollo sigue cargando.
 - [ ] 🟢 **CODE-30 · Logs.** M
   - Hay 51 `console.*` sueltos. Propuesta: un logger mínimo con `shop` y `job`, que guarde la pila del error.
 - [ ] 🟢 **CODE-31 · Baja de emails repetida.** S
