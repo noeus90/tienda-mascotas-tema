@@ -7,19 +7,6 @@
   text-align: center;
 }
 
-.grooming-steps__kicker {
-  display: inline-block;
-  margin: 0 0 1.2rem;
-  padding: 0.5rem 1.4rem;
-  border-radius: var(--pet-radius-pill);
-  background: rgb(var(--pet-accent-soft));
-  color: rgb(var(--pet-text-accent));
-  font-size: var(--pet-text-sm);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
 .grooming-steps__heading {
   margin: 0 0 1rem;
 }

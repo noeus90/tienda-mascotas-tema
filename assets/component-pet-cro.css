@@ -384,15 +384,6 @@
   height: auto;
 }
 
-.pack-banner__kicker {
-  margin: 0 0 0.6rem;
-  font-size: var(--pet-text-sm);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: rgb(var(--pet-error-text));
-}
-
 .pack-banner__title {
   margin: 0 0 1.2rem;
 }
@@ -490,6 +481,29 @@
   background-color: rgb(var(--pet-accent));
   border-color: rgb(var(--pet-accent));
   color: #ffffff;
+}
+
+/* 15. Kicker (CSS-05): the small label above a section or block title ("Peluquería canina",
+   "Regalo para peludos"…), the same in every section. On a block that already has a tinted background
+   it takes the card color, so it still stands out. */
+.pet-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1.2rem;
+  padding: 0.5rem 1.4rem;
+  border-radius: var(--pet-radius-pill);
+  background: rgb(var(--pet-accent-soft));
+  color: rgb(var(--pet-text-accent));
+  font-size: var(--pet-text-xs);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.pet-kicker--on-tint {
+  background: rgb(var(--pet-card));
 }
 
 /* 12. Reduced motion (CSS-13): with "reduce motion" on in the system, the store's own components (classes

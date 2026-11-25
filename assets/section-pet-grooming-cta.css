@@ -10,15 +10,6 @@
   background: linear-gradient(135deg, rgb(var(--pet-accent-soft)) 0%, rgb(var(--pet-cream)) 100%);
 }
 
-.grooming-cta__kicker {
-  margin: 0 0 0.8rem;
-  font-size: var(--pet-text-sm);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: rgb(var(--pet-text-accent));
-}
-
 .grooming-cta__heading {
   margin: 0 0 1.6rem;
 }

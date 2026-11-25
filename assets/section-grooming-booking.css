@@ -50,21 +50,6 @@
   margin-bottom: 3.2rem;
 }
 
-.grooming-booking-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.56rem;
-  padding: 0.56rem 1.36rem;
-  border-radius: var(--pet-radius-pill);
-  font-size: var(--pet-text-xs);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  background-color: rgba(var(--booking-accent-bright), 0.12);
-  color: rgb(var(--booking-text-accent));
-  margin-bottom: 1.2rem;
-}
-
 .grooming-booking-title {
   margin: 0 0 0.8rem 0;
   font-size: clamp(2.8rem, 3.5vw, 3.6rem);

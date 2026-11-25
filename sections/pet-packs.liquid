@@ -69,7 +69,7 @@
             {%- endif -%}
           </a>
           <div class="pack-banner__content">
-            <p class="pack-banner__kicker">📦 {{ 'pet_cro.packs.kicker' | t }}</p>
+            <p class="pet-kicker pet-kicker--on-tint">📦 {{ 'pet_cro.packs.kicker' | t }}</p>
             <h3 class="pack-banner__title h2"><a href="{{ pack.url }}">{{ pack.title }}</a></h3>
             <div class="pack-banner__summary rte">{{ pack_summary }}</div>
             {% render 'price', product: pack, use_variant: true, show_badges: true %}

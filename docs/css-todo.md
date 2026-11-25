@@ -155,13 +155,22 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - Las **tarjetas** elegidas (servicio, tamaño, extras, suscripción, «mis perros») siguen con tinte verde y borde verde. Es la otra forma de «seleccionado», para bloques grandes, y ya era coherente.
   - No se ha cambiado la forma: las píldoras de mascota y de categoría siguen como estaban (redonda y algo cuadrada). Unificarla entra mejor en CSS-11 o CSS-05, si se quiere.
   - Comprobado en CLAUDIA: «Perros» y «Pienso seco» activos en `rgb(4, 120, 87)` con texto blanco, «3 kg» en verde en la ficha, y «Perro» del inicio igual que antes. Theme Check sin avisos.
-- [ ] 🟠 **CSS-05 · Un solo antetítulo.** S
+- [x] 🟠 **CSS-05 · Un solo antetítulo.** S *(hecho el 25/11/2026)*
   - Hay cuatro estilos:
     - verde en mayúsculas sin fondo («✂ PELUQUERÍA CANINA»);
     - píldora verde clara («ASÍ LO HACEMOS EN LA PELUQUERÍA»);
     - píldora blanca con borde («REGALO PARA PELUDOS»);
     - rojo con emoji («📦 PACK»).
   - Propuesta: un componente `.pet-kicker` con una variante de color como mucho.
+  - Hecho: `.pet-kicker` en `component-pet-cro.css` (sección 15), que se carga en todas las páginas. Es una píldora verde suave con texto verde en mayúsculas, de 12 px y peso 700.
+    - Tiene una sola variante, `--on-tint`, con el fondo de tarjeta (blanco), para cuando el antetítulo va sobre un bloque ya teñido.
+    - Se aplica a los cinco antetítulos:
+      - «Así lo hacemos en la peluquería» (pasos) y «🐾 Peluquería canina» de la reserva: normal;
+      - «✂️ Peluquería canina» (bloque de peluquería), «📦 Pack» y «Regalo para peludos»: `--on-tint`.
+    - El del pack deja el rojo y pasa a verde, como el resto. El de peluquería pasa de texto suelto a píldora.
+    - Se borran las cinco reglas propias que había (`grooming-steps__kicker`, `grooming-cta__kicker`, `gift-card-promo__kicker`, `pack-banner__kicker`, `grooming-booking-badge`).
+    - Los emojis siguen en el texto de cada sección.
+  - Comprobado a ojo en CLAUDIA, en el inicio (peluquería, pasos, pack y tarjeta regalo) y en la reserva: los cinco iguales; sobre los paneles verde y rosa la píldora blanca destaca. Theme Check sin avisos.
 - [ ] 🟠 **CSS-06 · Títulos de sección iguales.** S
   - «Lo que te prometemos» tiene un tamaño y un grosor propios (800); el resto de títulos son los `h2` de Dawn, en peso normal.
   - En el inicio, unos títulos van a la izquierda («¿Qué estás buscando?», «Nuestros favoritos», «Packs…») y otros centrados («Su rutina…», «Lo que te prometemos»).

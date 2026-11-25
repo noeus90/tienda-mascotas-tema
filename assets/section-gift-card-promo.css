@@ -28,19 +28,6 @@
   border-radius: var(--pet-radius-lg);
 }
 
-.gift-card-promo__kicker {
-  display: inline-block;
-  margin: 0 0 1.2rem;
-  padding: 0.4rem 1.2rem;
-  border-radius: var(--pet-radius-pill);
-  background: rgb(var(--pet-card));
-  color: rgb(var(--pet-text-accent));
-  font-size: var(--pet-text-xs);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 .gift-card-promo__heading {
   margin: 0 0 1.2rem;
   color: rgb(var(--pet-accent-darker));
