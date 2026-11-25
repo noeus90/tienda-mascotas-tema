@@ -11,7 +11,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 
 | Fichero | Líneas | Propuesta |
 |---|---|---|
-| tema `assets/grooming-booking.js` | ~~2461~~ 1770 | ✅ Partido en razas, API de la app, compartir y asistente (CODE-09) |
+| tema `assets/grooming-booking.js` | ~~2461~~ 1769 | ✅ Partido en razas, API de la app, compartir y asistente (CODE-09) |
 | tema `assets/section-grooming-booking.css` | 1952 | Un archivo por paso y repartir el bloque de parches del final (CODE-14) |
 | tema `assets/component-pet-cro.css` | 1540 | Hoy se carga en **todas** las páginas; dividir en global, ficha y carrito (CODE-05) |
 | tema `snippets/grooming-booking-step-1.liquid` | 471 | Servicios, tamaño/raza y extras en snippets propios (CODE-12) |
@@ -103,10 +103,10 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
   - Núcleo: pasos, calendario y precio.
   - Hacerlo después de CODE-10 y CODE-11.
   - Hecho: 2227 líneas → cuatro archivos, que la sección carga con `defer` y en este orden:
-    - `grooming-booking-api.js` (55 líneas): `availability`, `myDogs`, `joinWaitlist` y `saveBooking`, además de `SALON_TIME_ZONE`.
+    - `grooming-booking-api.js` (51 líneas): `availability`, `myDogs`, `joinWaitlist` y `saveBooking`, además de `SALON_TIME_ZONE`.
     - `grooming-breeds.js` (180): el catálogo y la búsqueda (`normalize`, `resolve`), sin textos. El asistente añade el aviso traducido.
     - `grooming-booking-share.js` (308): la clase `BookingShare`, con el texto copiado, los mensajes, el evento de calendario y los mapas. `GroomingBookingWizard` la extiende, así que los métodos siguen usando `this`.
-    - `grooming-booking.js` (1770): el asistente. Si falta alguna de las piezas, avisa en la consola y no arranca.
+    - `grooming-booking.js` (1769): el asistente. Si falta alguna de las piezas, avisa en la consola y no arranca.
   - Todo se comparte en `window.GroomingBooking`.
   - Probado en CLAUDIA en inglés y en español:
     - disponibilidad, perros guardados y avisos de raza;
