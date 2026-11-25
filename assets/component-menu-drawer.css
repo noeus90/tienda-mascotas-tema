@@ -244,7 +244,7 @@ details[open].menu-opening > .menu-drawer__submenu {
   width: 3.2rem;
   height: 3.2rem;
   border-radius: 8px;
-  background-color: #ffffff;
+  background-color: rgb(var(--pet-card));
   font-size: 1.8rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
   flex-shrink: 0;
@@ -326,7 +326,7 @@ details[open].menu-opening > .menu-drawer__submenu {
 
 .menu-drawer__menu-item--highlight {
   background-color: rgba(var(--pet-accent), 0.08) !important;
-  color: rgb(var(--pet-accent)) !important;
+  color: rgb(var(--pet-text-accent)) !important;
   font-weight: 700 !important;
   border-radius: 6px;
   margin: 0.4rem 1.5rem 0.5rem 1.5rem;
@@ -335,7 +335,7 @@ details[open].menu-opening > .menu-drawer__submenu {
 
 .menu-drawer__menu-item--highlight:hover {
   background-color: rgba(var(--pet-accent), 0.15) !important;
-  color: rgb(var(--pet-accent-dark)) !important;
+  color: rgb(var(--pet-text-accent-dark)) !important;
 }
 
 /* Subfiltros por Etapa y Necesidad en Cajón Móvil */
@@ -390,6 +390,6 @@ details[open].menu-opening > .menu-drawer__submenu {
 .menu-drawer__subfilter-pill:focus-visible {
   background-color: rgba(var(--pet-accent), 0.08);
   border-color: rgba(var(--pet-accent), 0.3);
-  color: rgb(var(--pet-accent)) !important;
+  color: rgb(var(--pet-text-accent)) !important;
   transform: translateY(-1px);
 }

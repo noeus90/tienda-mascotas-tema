@@ -1,7 +1,8 @@
 {%- comment -%}
   Brand palette of the pet store (CSS-01), as "r, g, b" so it works in rgb() and in rgba(…, alpha).
-  Rendered in layout/theme.liquid before base.css. Pure white and black are not here: CSS-02 moves
-  them to the color scheme. The booking keeps its --booking-* names, pointing at these.
+  Rendered in layout/theme.liquid before base.css. --pet-text-* are for colored text on the section's
+  background and --pet-card for white boxes: dark color schemes override them (end of file, CSS-02).
+  The booking keeps its --booking-* names, pointing at these.
 {%- endcomment -%}
 {% style %}
   :root {
@@ -73,5 +74,89 @@
     --pet-blush: 255, 247, 247; /* #fff7f7 */
     --pet-whatsapp: 37, 211, 102; /* #25d366 */
     --pet-whatsapp-dark: 18, 140, 126; /* #128c7e */
+    /* Texto con color sobre el fondo del esquema (CSS-02): en los esquemas oscuros se aclaran (abajo) */
+    --pet-text-accent: var(--pet-accent);
+    --pet-text-accent-dark: var(--pet-accent-dark);
+    --pet-text-accent-light: var(--pet-accent-light);
+    --pet-text-accent-400: var(--pet-accent-400);
+    --pet-text-accent-border: var(--pet-accent-border);
+    --pet-text-sky-700: var(--pet-sky-700);
+    --pet-text-error: var(--pet-error);
+    --pet-text-info: var(--pet-info);
+    --pet-text-ink: var(--pet-ink);
+    --pet-text-ink-2: var(--pet-ink-2);
+    /* Tarjetas y cajas sobre el fondo de la sección: blancas en los esquemas claros */
+    --pet-card: 255, 255, 255;
   }
+
+  /*
+    Dark color schemes (CSS-02): sections can use any scheme. On a dark background the pastel tints
+    become dark tints of the background, borders get softer, and colored text gets lighter so it can
+    still be read. Light schemes keep the values above.
+  */
+  {%- for scheme in settings.color_schemes -%}
+    {%- assign pet_bg = scheme.settings.background -%}
+    {%- assign pet_fg = scheme.settings.text -%}
+    {%- assign pet_brightness = pet_bg | color_brightness -%}
+    {%- if pet_brightness < 128 %}
+      {% if forloop.first %}:root,{% endif %} .color-{{ scheme.id }} {
+        --pet-card: {%- assign pet_card = pet_bg | color_mix: pet_fg, 94 -%}{{ pet_card | color_extract: 'red' }}, {{ pet_card | color_extract: 'green' }}, {{ pet_card | color_extract: 'blue' }};
+        --pet-text-ink: {{ pet_fg | color_extract: 'red' }}, {{ pet_fg | color_extract: 'green' }}, {{ pet_fg | color_extract: 'blue' }};
+        --pet-text-ink-2: {{ pet_fg | color_extract: 'red' }}, {{ pet_fg | color_extract: 'green' }}, {{ pet_fg | color_extract: 'blue' }};
+        --pet-ink-gray: {{ pet_fg | color_extract: 'red' }}, {{ pet_fg | color_extract: 'green' }}, {{ pet_fg | color_extract: 'blue' }};
+        {%- assign pet_c = pet_fg | color_mix: pet_bg, 75 -%}--pet-muted: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_fg | color_mix: pet_bg, 65 -%}--pet-muted-2: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        --pet-text-accent: 110, 231, 183;
+        --pet-text-accent-dark: 110, 231, 183;
+        --pet-text-accent-light: 110, 231, 183;
+        --pet-text-accent-400: 110, 231, 183;
+        --pet-text-accent-border: 167, 243, 208;
+        --pet-accent-darker: 167, 243, 208;
+        --pet-text-sky-700: 125, 211, 252;
+        --pet-sky-800: 125, 211, 252;
+        --pet-sky-900: 186, 230, 253;
+        --pet-text-info: 103, 232, 249;
+        --pet-text-error: 252, 165, 165;
+        --pet-error-text: 252, 165, 165;
+        --pet-error-dark: 254, 202, 202;
+        --pet-warning-text: 252, 211, 77;
+        --pet-warning-dark: 253, 230, 138;
+        --pet-purple-700: 216, 180, 254;
+        --pet-teal-700: 94, 234, 212;
+        --pet-teal-900: 153, 246, 228;
+        --pet-rose-700: 253, 164, 175;
+        --pet-violet-700: 196, 181, 253;
+        {%- assign pet_c = pet_bg | color_mix: '#10b981', 86 -%}--pet-accent-soft: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#10b981', 86 -%}--pet-accent-100: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#22c55e', 86 -%}--pet-green-50: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#22c55e', 86 -%}--pet-green-100: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#ef4444', 86 -%}--pet-error-100: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#ef4444', 86 -%}--pet-error-soft: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#f59e0b', 86 -%}--pet-warning-soft: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#f59e0b', 86 -%}--pet-warning-100: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#0ea5e9', 86 -%}--pet-sky-50: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#a855f7', 86 -%}--pet-purple-50: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#14b8a6', 86 -%}--pet-teal-50: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#f43f5e', 86 -%}--pet-rose-50: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#8b5cf6', 86 -%}--pet-violet-50: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#f59e0b', 86 -%}--pet-cream: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#f43f5e', 86 -%}--pet-blush: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#94a3b8', 86 -%}--pet-surface: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#10b981', 70 -%}--pet-accent-border: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#10b981', 70 -%}--pet-accent-300: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#22c55e', 70 -%}--pet-green-200: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#22c55e', 70 -%}--pet-green-300: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#0ea5e9', 70 -%}--pet-sky-200: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#a855f7', 70 -%}--pet-purple-200: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#14b8a6', 70 -%}--pet-teal-200: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#f43f5e', 70 -%}--pet-rose-200: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#8b5cf6', 70 -%}--pet-violet-200: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#ef4444', 70 -%}--pet-error-border: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#f59e0b', 70 -%}--pet-warning-border: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#f59e0b', 70 -%}--pet-warning-border-2: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#94a3b8', 70 -%}--pet-line: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+        {%- assign pet_c = pet_bg | color_mix: '#94a3b8', 70 -%}--pet-subtle: {{ pet_c | color_extract: 'red' }}, {{ pet_c | color_extract: 'green' }}, {{ pet_c | color_extract: 'blue' }};
+      }
+    {%- endif -%}
+  {%- endfor %}
 {% endstyle %}

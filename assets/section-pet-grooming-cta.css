@@ -16,7 +16,7 @@
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgb(var(--pet-accent));
+  color: rgb(var(--pet-text-accent));
 }
 
 .grooming-cta__heading {
@@ -43,7 +43,7 @@
   position: absolute;
   left: 0;
   font-weight: 700;
-  color: rgb(var(--pet-accent));
+  color: rgb(var(--pet-text-accent));
 }
 
 .grooming-cta__buttons {
@@ -87,7 +87,7 @@
 .grooming-cta__price {
   flex: none;
   font-weight: 700;
-  color: rgb(var(--pet-accent));
+  color: rgb(var(--pet-text-accent));
 }
 
 .grooming-cta__note {

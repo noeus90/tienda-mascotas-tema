@@ -18,19 +18,19 @@
 
 .cro-shipping-msg {
   font-size: 1.34rem;
-  color: rgb(var(--pet-ink-2));
+  color: rgb(var(--pet-text-ink-2));
   text-align: center;
   margin-bottom: 1.36rem;
   line-height: 1.4;
 }
 
 .cro-shipping-msg strong {
-  color: rgb(var(--pet-accent-dark));
+  color: rgb(var(--pet-text-accent-dark));
   font-weight: 700;
 }
 
 .cro-shipping-msg .is-complete {
-  color: rgb(var(--pet-accent-dark));
+  color: rgb(var(--pet-text-accent-dark));
   font-weight: 600;
 }
 
@@ -71,9 +71,9 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: #ffffff;
+  background: rgb(var(--pet-card));
   border: 2px solid rgb(var(--pet-green-300));
-  color: rgb(var(--pet-accent-dark));
+  color: rgb(var(--pet-text-accent-dark));
   font-size: 1.12rem;
   font-weight: 700;
   display: flex;
@@ -98,7 +98,7 @@
 }
 
 .cro-shipping-milestone.is-reached .cro-milestone-label {
-  color: rgb(var(--pet-accent-dark));
+  color: rgb(var(--pet-text-accent-dark));
   font-weight: 700;
 }
 
@@ -255,7 +255,7 @@
   margin: 0.4rem 0 0;
   font-size: 1.3rem;
   font-weight: 600;
-  color: rgb(var(--pet-accent));
+  color: rgb(var(--pet-text-accent));
 }
 .price:has(.price__pack-savings) {
   flex-wrap: wrap;
@@ -463,5 +463,5 @@
 
 .search-pet-scope a {
   font-weight: 600;
-  color: rgb(var(--pet-accent));
+  color: rgb(var(--pet-text-accent));
 }

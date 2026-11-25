@@ -33,7 +33,7 @@
 }
 
 .pet-contact__card a {
-  color: rgb(var(--pet-accent));
+  color: rgb(var(--pet-text-accent));
   font-weight: 600;
 }
 
@@ -109,7 +109,7 @@
   transform: translateY(-50%);
   font-size: 2.2rem;
   font-weight: 400;
-  color: rgb(var(--pet-accent));
+  color: rgb(var(--pet-text-accent));
 }
 
 .pet-contact__faq details[open] summary::after {

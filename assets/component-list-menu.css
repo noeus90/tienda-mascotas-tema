@@ -140,7 +140,7 @@
   padding: 0.15rem 0.45rem;
   border-radius: 9999px;
   background-color: rgba(255, 255, 255, 0.18);
-  color: rgb(var(--pet-accent-border));
+  color: rgb(var(--pet-text-accent-border));
   font-size: 1.2rem;
   font-weight: 700;
   line-height: 1;
@@ -150,9 +150,15 @@
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+/* On the green of the current page, white reads better than light green (CSS-02). */
+.header__menu-item--cta-booking.is-active .cta-booking-microbadge,
+.header__menu-item--cta-booking[aria-current="page"] .cta-booking-microbadge {
+  color: #ffffff;
+}
+
 .header__menu-item--cta-booking:hover .cta-booking-microbadge {
-  background-color: #ffffff;
-  color: rgb(var(--pet-accent));
+  background-color: rgb(var(--pet-card));
+  color: rgb(var(--pet-text-accent));
 }
 
 /* Species Submenu Enhancements */
@@ -202,7 +208,7 @@
   opacity: 0;
   transform: translateX(-4px);
   transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
-  color: rgb(var(--pet-accent));
+  color: rgb(var(--pet-text-accent));
   font-weight: 700;
   font-size: 1.35rem;
   margin-left: 0.4rem;
@@ -213,13 +219,13 @@
 }
 
 .header__species-link:hover .header__species-icon {
-  background-color: #ffffff;
+  background-color: rgb(var(--pet-card));
   transform: scale(1.15);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 .header__species-link:hover .header__species-title {
-  color: rgb(var(--pet-accent));
+  color: rgb(var(--pet-text-accent));
   font-weight: 600;
 }
 
@@ -236,7 +242,7 @@
 
 .header__submenu-item--highlight {
   background-color: rgba(var(--pet-accent), 0.09) !important;
-  color: rgb(var(--pet-accent)) !important;
+  color: rgb(var(--pet-text-accent)) !important;
   border: 1px dashed rgba(var(--pet-accent), 0.35);
   border-radius: 8px;
   margin: 0.35rem 0 0.15rem 0 !important;
@@ -245,7 +251,7 @@
 }
 
 .header__submenu-item--highlight .header__species-title {
-  color: rgb(var(--pet-accent)) !important;
+  color: rgb(var(--pet-text-accent)) !important;
   font-weight: 700 !important;
 }
 

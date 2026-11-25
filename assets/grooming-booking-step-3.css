@@ -20,7 +20,7 @@
   font-size: 1.52rem;
   font-weight: 800;
   padding: 0 0.8rem;
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
 }
 
 .booking-form-grid {
@@ -71,7 +71,7 @@
 }
 
 .booking-tag-pill input:checked + span {
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
   font-weight: 700;
 }
 
@@ -122,7 +122,7 @@
 }
 
 .booking-privacy-link {
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
   text-decoration: underline;
   text-underline-offset: 3px;
   font-weight: 600;
@@ -130,7 +130,7 @@
 }
 
 .booking-privacy-link:hover {
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
 }
 
 .booking-rgpd-accordion {
@@ -151,7 +151,7 @@
 }
 
 .booking-rgpd-summary:hover {
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
 }
 
 .booking-rgpd-summary svg {

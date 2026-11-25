@@ -78,7 +78,7 @@
   border: 2px solid rgb(var(--pet-accent));
   border-radius: 99rem;
   background: transparent;
-  color: rgb(var(--pet-accent));
+  color: rgb(var(--pet-text-accent));
   font: inherit;
   font-size: 1.4rem;
   font-weight: 700;
@@ -109,7 +109,7 @@
   display: block;
   text-align: right;
   cursor: pointer;
-  color: rgb(var(--pet-accent));
+  color: rgb(var(--pet-text-accent));
   font-weight: 600;
   list-style: none;
 }

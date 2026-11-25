@@ -27,6 +27,11 @@
   --booking-info: var(--pet-info);
   --booking-whatsapp: var(--pet-whatsapp);
   --booking-whatsapp-dark: var(--pet-whatsapp-dark);
+  /* Colored text: lighter on dark color schemes (CSS-02). */
+  --booking-text-accent: var(--pet-text-accent);
+  --booking-text-accent-dark: var(--pet-text-accent-dark);
+  --booking-text-error: var(--pet-text-error);
+  --booking-text-info: var(--pet-text-info);
 
   position: relative;
   width: 100%;
@@ -56,7 +61,7 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   background-color: rgba(var(--booking-accent-bright), 0.12);
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
   margin-bottom: 1.2rem;
 }
 
@@ -142,7 +147,7 @@
 }
 
 .booking-step-indicator.is-active .step-label {
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
   font-weight: 700;
 }
 
@@ -320,7 +325,7 @@
   margin: 0.6rem 0 0;
   font-size: 1.3rem;
   line-height: 1.4;
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
 }
 
 /* Choice pills: the customer's dogs (step 1) and the groomers (step 2) */
@@ -376,7 +381,7 @@
 .booking-my-dog.is-selected {
   border-color: rgb(var(--booking-accent-light));
   background: rgba(var(--booking-accent-light), 0.12);
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
 }
 
 .booking-my-dog small {

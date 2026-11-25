@@ -110,7 +110,7 @@
 
 .service-base-price {
   font-weight: 800;
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
 }
 
 /* Selector de Tamaño & Buscador Predictivo de Raza */
@@ -201,14 +201,14 @@
 .booking-breed-feedback.is-recognized {
   background: rgba(var(--booking-accent-light), 0.08);
   border: 1px solid rgba(var(--booking-accent-light), 0.28);
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
   font-weight: 500;
 }
 
 .booking-breed-feedback.is-mixed {
   background: rgba(var(--booking-info), 0.08);
   border: 1px solid rgba(var(--booking-info), 0.28);
-  color: rgb(var(--booking-info));
+  color: rgb(var(--booking-text-info));
   font-weight: 500;
 }
 
@@ -263,7 +263,7 @@
   font-size: 1.2rem;
   font-weight: 800;
   text-transform: uppercase;
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
   letter-spacing: 0.05em;
 }
 
@@ -310,7 +310,7 @@
   font-size: 1.2rem;
   font-weight: 700;
   background: rgb(var(--booking-accent-soft));
-  color: rgb(var(--booking-accent-dark));
+  color: rgb(var(--booking-text-accent-dark));
   border: 1px solid rgb(var(--booking-accent-border));
   border-radius: 999px;
   white-space: nowrap;
@@ -416,7 +416,7 @@
 .booking-addon-price {
   font-size: 1.4rem;
   font-weight: 800;
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
   white-space: nowrap;
   background: rgb(var(--booking-accent-soft));
   padding: 0.24rem 0.72rem;
@@ -479,7 +479,7 @@
 .estimate-price {
   font-size: 2.4rem;
   font-weight: 900;
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
 }
 
 .estimate-duration {

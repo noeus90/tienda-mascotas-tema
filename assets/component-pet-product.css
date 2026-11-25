@@ -104,13 +104,13 @@
 }
 
 .cro-tab-btn.is-active {
-  color: rgb(var(--pet-accent));
+  color: rgb(var(--pet-text-accent));
   background-color: rgb(var(--color-background, 255, 255, 255));
   border-bottom-color: rgb(var(--pet-accent-light));
 }
 
 .cro-tab-btn.is-active svg {
-  stroke: rgb(var(--pet-accent-light));
+  stroke: rgb(var(--pet-text-accent-light));
 }
 
 .cro-tab-btn:focus-visible,
@@ -138,7 +138,7 @@
   align-items: center;
   gap: 0.64rem;
   background-color: rgb(var(--pet-accent-soft));
-  color: rgb(var(--pet-accent-dark));
+  color: rgb(var(--pet-text-accent-dark));
   font-size: 1.28rem;
   padding: 0.56rem 1.2rem;
   border-radius: 999px;
@@ -251,7 +251,7 @@
   border-radius: 50%;
   background: rgb(var(--color-background, 255, 255, 255));
   border: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.16);
-  color: rgb(var(--pet-accent));
+  color: rgb(var(--pet-text-accent));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -302,7 +302,7 @@
 }
 
 .cro-sub-option.is-selected .cro-sub-title {
-  color: rgb(var(--pet-ink));
+  color: rgb(var(--pet-text-ink));
 }
 
 .cro-sub-option.is-selected .cro-sub-subtitle {
@@ -341,7 +341,7 @@
   height: 20px;
   border-radius: 50%;
   border: 2px solid rgb(var(--pet-subtle));
-  background: #ffffff;
+  background: rgb(var(--pet-card));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -352,7 +352,7 @@
 .cro-sub-option.is-selected .cro-sub-radio-circle {
   border-color: rgb(var(--pet-accent-light));
   background: rgb(var(--pet-accent));
-  box-shadow: inset 0 0 0 3px #ffffff;
+  box-shadow: inset 0 0 0 3px rgb(var(--pet-card));
 }
 
 .cro-sub-title {
@@ -392,7 +392,7 @@
 }
 
 .cro-sub-option.is-selected .cro-sub-price-final {
-  color: rgb(var(--pet-accent-dark));
+  color: rgb(var(--pet-text-accent-dark));
 }
 
 .cro-sub-details {
@@ -416,7 +416,7 @@
 .cro-sub-freq-wrapper label {
   font-size: 1.25rem;
   font-weight: 600;
-  color: rgb(var(--pet-accent-dark));
+  color: rgb(var(--pet-text-accent-dark));
 }
 
 .cro-sub-select {
@@ -424,10 +424,10 @@
   padding: 0.88rem 1.2rem;
   border: 1px solid rgb(var(--pet-green-300));
   border-radius: 8px;
-  background: #ffffff;
+  background: rgb(var(--pet-card));
   font-size: 1.36rem;
   font-weight: 600;
-  color: rgb(var(--pet-ink));
+  color: rgb(var(--pet-text-ink));
   cursor: pointer;
   outline: none;
 }
@@ -450,11 +450,11 @@
   align-items: center;
   gap: 0.72rem;
   font-size: 1.25rem;
-  color: rgb(var(--pet-ink-2));
+  color: rgb(var(--pet-text-ink-2));
 }
 
 .cro-sub-perks strong {
-  color: rgb(var(--pet-accent-dark));
+  color: rgb(var(--pet-text-accent-dark));
 }
 
 /* 8. Widget de Stock en Tiempo Real y Entrega 24h (snippets/stock-urgency-widget.liquid) */
@@ -495,7 +495,7 @@
 }
 
 .cro-stock-status-row.is-in_stock strong {
-  color: rgb(var(--pet-accent-dark));
+  color: rgb(var(--pet-text-accent-dark));
 }
 
 .cro-stock-status-row.is-low_stock .cro-stock-dot {
@@ -612,7 +612,7 @@
   padding: 0 1rem;
   border: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.3);
   border-radius: 0.8rem;
-  background: #ffffff;
+  background: rgb(var(--pet-card));
   font: inherit;
   font-size: 1.5rem;
   color: rgb(var(--color-foreground, 15, 23, 42));
@@ -674,7 +674,7 @@
   padding: 0 1.2rem;
   border: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.3);
   border-radius: 0.8rem;
-  background: #ffffff;
+  background: rgb(var(--pet-card));
   font: inherit;
   font-size: 1.5rem;
   color: rgb(var(--color-foreground, 15, 23, 42));

@@ -43,7 +43,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
   background: rgba(var(--booking-accent-bright), 0.12);
   padding: 0.4rem 1.04rem;
   border-radius: 9999px;
@@ -72,7 +72,7 @@
 .booking-cal-nav-btn:hover:not(:disabled) {
   border-color: rgb(var(--booking-accent-light));
   background: rgba(var(--booking-accent-light), 0.08);
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
 }
 
 .booking-cal-nav-btn:disabled {
@@ -128,7 +128,7 @@
 .cal-day-cell:hover:not(.is-disabled):not(.is-empty) {
   background: rgba(var(--booking-accent-light), 0.1);
   border-color: rgba(var(--booking-accent-light), 0.3);
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
 }
 
 /* Same weight as the hover rule above, so it wins over hover, closed and full days. */
@@ -195,7 +195,7 @@
 }
 
 .cal-notice-text strong {
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
 }
 
 .booking-cal-legend {
@@ -217,7 +217,7 @@
 
 .cal-legend-pill.is-open {
   background: rgba(var(--booking-accent-light), 0.08);
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
 }
 
 .cal-legend-pill.is-closed {
@@ -321,7 +321,7 @@
   padding: 0.16rem 0.56rem;
   border-radius: 4px;
   background: rgba(var(--booking-error), 0.12);
-  color: rgb(var(--booking-error));
+  color: rgb(var(--booking-text-error));
   line-height: 1.1;
 }
 
@@ -424,6 +424,6 @@
 }
 
 .booking-waitlist__status.is-success {
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
   font-weight: 600;
 }

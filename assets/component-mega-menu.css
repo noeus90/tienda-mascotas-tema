@@ -154,13 +154,13 @@
 
 .mega-menu-pet__link:hover {
   background-color: rgba(var(--pet-accent), 0.06);
-  color: rgb(var(--pet-accent));
+  color: rgb(var(--pet-text-accent));
   transform: translateX(3px);
 }
 
 .mega-menu-pet__link:hover .mega-menu-pet__icon {
   transform: scale(1.15);
-  background-color: #ffffff;
+  background-color: rgb(var(--pet-card));
 }
 
 .mega-menu-pet__view-all {
@@ -174,7 +174,7 @@
   padding: 0.65rem 0.9rem;
   border-radius: 6px;
   font-size: 1.3rem;
-  color: rgb(var(--pet-accent)) !important;
+  color: rgb(var(--pet-text-accent)) !important;
   background-color: rgba(var(--pet-accent), 0.08);
   text-decoration: none !important;
   font-weight: 600;
@@ -227,7 +227,7 @@
 
 .mega-menu-pet__pill:hover {
   background-color: rgba(var(--pet-accent), 0.08);
-  color: rgb(var(--pet-accent)) !important;
+  color: rgb(var(--pet-text-accent)) !important;
   border-color: rgba(var(--pet-accent), 0.3);
   transform: translateY(-1px);
 }
@@ -252,7 +252,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: rgb(var(--pet-accent-400));
+  color: rgb(var(--pet-text-accent-400));
   margin-bottom: 0.8rem;
 }
 
@@ -278,7 +278,7 @@
   padding: 0.85rem 1.4rem;
   border-radius: 9999px;
   background: rgb(var(--pet-accent-bright));
-  color: rgb(var(--pet-ink)) !important;
+  color: rgb(var(--pet-text-ink)) !important;
   font-size: 1.35rem;
   font-weight: 700;
   text-decoration: none !important;
@@ -303,7 +303,7 @@
 .mega-menu-pet__product-card {
   position: relative;
   border-radius: 12px;
-  background-color: #ffffff;
+  background-color: rgb(var(--pet-card));
   border: 1px solid rgba(var(--color-foreground), 0.1);
   padding: 1.4rem;
   box-shadow: 0 4px 14px rgba(var(--pet-ink), 0.06);
@@ -328,7 +328,7 @@
 .mega-menu-pet__badge-bestseller {
   font-size: 1.1rem;
   font-weight: 700;
-  color: rgb(var(--pet-accent));
+  color: rgb(var(--pet-text-accent));
   background-color: rgb(var(--pet-accent-soft));
   padding: 0.25rem 0.6rem;
   border-radius: 9999px;
@@ -413,7 +413,7 @@
 .mega-menu-pet__price-sale {
   font-size: 1.55rem;
   font-weight: 800;
-  color: rgb(var(--pet-accent));
+  color: rgb(var(--pet-text-accent));
 }
 
 .mega-menu-pet__product-cta {

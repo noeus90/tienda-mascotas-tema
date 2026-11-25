@@ -76,7 +76,7 @@
   height: 56px;
   border-radius: 50%;
   background: rgb(var(--pet-accent-soft));
-  color: rgb(var(--pet-accent));
+  color: rgb(var(--pet-text-accent));
   display: flex;
   align-items: center;
   justify-content: center;

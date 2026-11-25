@@ -32,7 +32,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 
 ## 🔴 Se ve mal o falla para alguien
 
-- [ ] 🔴 **CSS-02 · Colores fijos en secciones con esquema de color.** M
+- [x] 🔴 **CSS-02 · Colores fijos en secciones con esquema de color.** M *(hecho el 25/11/2026)*
   - Hay 9 secciones propias con el ajuste «Esquema de color»: categorías, catálogo, contacto, CTA y pasos de peluquería, promesas, packs, tarjeta regalo y reserva.
   - Pero su CSS pone fondos `#ffffff` y textos `#0f172a`, `#1e293b` o `#475569` fijos. Con un esquema oscuro, las tarjetas quedan blancas y el texto, oscuro sobre oscuro. Lo mismo pasa en los menús y la ficha.
     - Sitios: `component-pet-cro.css:21, 74, 97`; `section-pet-catalog-bar.css:47`; `section-gift-card-promo.css:36, 66`; `component-pet-product.css:305, 309, 344, 383, 427, 430, 453, 615, 677`; `component-list-menu.css:154, 216`; `component-mega-menu.css:163, 281, 306`; `component-menu-drawer.css:247`; `component-card.css:661`.
@@ -41,6 +41,27 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - textos con `rgb(var(--color-foreground))` y su opacidad (`0.75`, `0.6`);
     - los acentos, con las variables de CSS-01.
   - Probar cada sección con el esquema 1 y con uno oscuro.
+  - Medido antes del cambio, con las secciones propias, la cabecera y la ficha en el esquema 4 (fondo casi negro):
+    - texto blanco sobre fondos pastel fijos, con contraste 1,0–1,1: lista del bloque de peluquería, calculadora de ración, pack, emojis de categorías;
+    - texto verde de marca sobre negro, con contraste 3,4: precios, «Añadir», «desde 15 €», iconos de la cabecera, reserva;
+    - cajas blancas: categorías, importes y antetítulo de la tarjeta regalo, círculos de iconos, banner del pack, chips de mascota.
+  - Hecho: las variables de CSS-01 dependen ahora del esquema (`snippets/pet-tokens.liquid`).
+    - En los esquemas claros (1 y 2) valen lo mismo que antes.
+    - Para cada esquema oscuro (3, 4 y 5, según `color_brightness` del fondo), Liquid las recalcula con `color_mix`:
+      - los fondos pastel pasan a un tinte oscuro de su color (verde, rojo, ámbar, azul, morado…) mezclado con el fondo del esquema;
+      - los bordes se suavizan igual;
+      - el texto gris pasa al color de texto del esquema;
+      - el texto de color se aclara (verde menta, rojo claro, ámbar claro…).
+    - Variables nuevas:
+      - `--pet-card` para las cajas blancas (blanco en claro, un gris un poco más claro que el fondo en oscuro);
+      - `--pet-text-*` para el color de texto de las variables que también se usan de fondo: los botones verdes siguen verdes y su texto, blanco.
+      - La reserva tiene sus `--booking-text-*`.
+    - En 18 hojas: los `color:` con esas variables pasan a `--pet-text-*` y los fondos `#ffffff` a `--pet-card`. Las líneas de Dawn no se tocan.
+    - Arreglo de paso: la etiqueta «online» del botón de reservar de la cabecera era verde claro sobre verde en la página de reservas (contraste 4,3). Ahora es blanca.
+  - Comprobado:
+    - **Esquema oscuro**, con las plantillas cambiadas solo en el tema de desarrollo y restauradas después: cero textos con poco contraste en inicio, ficha, colección y reserva, a 1280 y 390 px. Solo quedan blancos los botones de Dawn, que en el esquema 4 lo son a propósito.
+    - **Esquema claro:** huella de colores calculados con el código anterior y el nuevo en 12 vistas (inicio, ficha, colección, carrito, reserva, contacto, búsqueda). Sale idéntica salvo la etiqueta «online».
+    - Theme Check sin avisos.
 - [ ] 🔴 **CSS-13 · Movimiento reducido.** S
   - Hay animaciones sin alternativa para quien pide menos movimiento en el sistema:
     - la entrada de cada paso y la sacudida del campo con error (`section-grooming-booking.css`);

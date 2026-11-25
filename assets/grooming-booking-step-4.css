@@ -69,7 +69,7 @@
 .price-amount {
   font-size: 2.4rem;
   font-weight: 900;
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
 }
 
 .confirmation-details-grid {
@@ -122,12 +122,12 @@
   border: 1px solid rgb(var(--booking-accent-border));
   border-radius: 9999px;
   font-size: 1.28rem;
-  color: rgb(var(--booking-accent-dark));
+  color: rgb(var(--booking-text-accent-dark));
   font-weight: 600;
 }
 
 .conf-addon-pill strong {
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
   font-weight: 800;
 }
 
@@ -212,7 +212,7 @@
 
 .grooming-booking-btn-secondary-action.is-active {
   background: rgb(var(--booking-accent-soft));
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
   border-color: rgb(var(--booking-accent-light));
 }
 
@@ -242,14 +242,14 @@
 
 .success-text strong {
   display: block;
-  color: rgb(var(--booking-accent-dark));
+  color: rgb(var(--booking-text-accent-dark));
   font-size: 1.52rem;
   margin-bottom: 0.32rem;
 }
 
 .success-text p {
   margin: 0;
-  color: rgb(var(--booking-accent));
+  color: rgb(var(--booking-text-accent));
   font-size: 1.32rem;
   line-height: 1.4;
 }
@@ -288,7 +288,7 @@
 }
 .booking-submit-status.is-success {
   background: rgb(var(--booking-accent-soft));
-  color: rgb(var(--booking-accent-dark));
+  color: rgb(var(--booking-text-accent-dark));
   border: 1px solid rgb(var(--booking-accent-border));
 }
 .booking-submit-status.is-error {

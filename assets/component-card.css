@@ -622,7 +622,7 @@
 
 .pet-card-badge--dog {
   background: rgb(var(--pet-sky-50));
-  color: rgb(var(--pet-sky-700));
+  color: rgb(var(--pet-text-sky-700));
   border-color: rgb(var(--pet-sky-200));
 }
 
@@ -640,7 +640,7 @@
 
 .pet-card-badge--natural {
   background: rgb(var(--pet-accent-soft));
-  color: rgb(var(--pet-accent));
+  color: rgb(var(--pet-text-accent));
   border-color: rgb(var(--pet-accent-border));
 }
 
