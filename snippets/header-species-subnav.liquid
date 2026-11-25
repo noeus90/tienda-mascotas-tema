@@ -18,15 +18,20 @@
   assign prefix = id_prefix | default: 'header-species'
   assign p_cat_key = 'filter.p.product_type'
 
+  capture pet_taxonomy
+    render 'pet-taxonomy'
+  endcapture
+  assign dogs_handle = pet_taxonomy | split: ';collection_dogs=' | last | split: ';' | first
+  assign cats_handle = pet_taxonomy | split: ';collection_cats=' | last | split: ';' | first
   if is_dog
-    assign species_url = routes.collections_url | append: '/perros'
-    assign species_tag = 'perro'
-    # product type | icon | translation key | fallback label
-    assign items = 'Pienso|🥩|pet_cro.nav.kibble|Pienso Seco;Comida húmeda|🥫|pet_cro.nav.wet_food|Comida Húmeda;Dieta BARF|🍖|pet_cro.nav.barf|Dieta BARF;Snack|🦴|pet_cro.nav.snacks|Snacks & Premios;Juguete|🎾|pet_cro.nav.toys|Juguetes;Higiene|🧴|pet_cro.nav.grooming|Higiene & Cuidados;Accesorio|🦮|pet_cro.nav.walk|Paseo & Accesorios' | split: ';'
+    assign species_url = routes.collections_url | append: '/' | append: dogs_handle
+    assign species_tag = pet_taxonomy | split: ';tag_dog=' | last | split: ';' | first
+    # product type key (pet-taxonomy) | icon | translation key | fallback label
+    assign items = 'type_kibble|🥩|pet_cro.nav.kibble|Pienso Seco;type_wet|🥫|pet_cro.nav.wet_food|Comida Húmeda;type_barf|🍖|pet_cro.nav.barf|Dieta BARF;type_snacks|🦴|pet_cro.nav.snacks|Snacks & Premios;type_toys|🎾|pet_cro.nav.toys|Juguetes;type_grooming|🧴|pet_cro.nav.grooming|Higiene & Cuidados;type_accessories|🦮|pet_cro.nav.walk|Paseo & Accesorios' | split: ';'
   else
-    assign species_url = routes.collections_url | append: '/gatos'
-    assign species_tag = 'gato'
-    assign items = 'Pienso|🥩|pet_cro.nav.kibble|Pienso Seco;Comida húmeda|🥫|pet_cro.nav.wet_food|Comida Húmeda;Snack|🦴|pet_cro.nav.snacks|Snacks & Premios;Juguete|🎾|pet_cro.nav.toys|Juguetes & Rascadores;Higiene|🧴|pet_cro.nav.grooming|Higiene & Arena' | split: ';'
+    assign species_url = routes.collections_url | append: '/' | append: cats_handle
+    assign species_tag = pet_taxonomy | split: ';tag_cat=' | last | split: ';' | first
+    assign items = 'type_kibble|🥩|pet_cro.nav.kibble|Pienso Seco;type_wet|🥫|pet_cro.nav.wet_food|Comida Húmeda;type_snacks|🦴|pet_cro.nav.snacks|Snacks & Premios;type_toys|🎾|pet_cro.nav.toys|Juguetes & Rascadores;type_grooming|🧴|pet_cro.nav.grooming|Higiene & Arena' | split: ';'
   endif
 
   assign packs_collection = collections['packs']
@@ -61,9 +66,11 @@
       >
         {%- for item in items -%}
           {%- assign parts = item | split: '|' -%}
+          {%- assign type_needle = ';' | append: parts[0] | append: '=' -%}
+          {%- assign type_value = pet_taxonomy | split: type_needle | last | split: ';' | first -%}
           <li>
             <a
-              href="{{ species_url }}?{{ p_cat_key }}={{ parts[0] | url_encode }}"
+              href="{{ species_url }}?{{ p_cat_key }}={{ type_value | url_encode }}"
               class="header__menu-item list-menu__item link link--text focus-inset caption-large header__species-link"
             >
               <span class="header__species-icon" aria-hidden="true">{{ parts[1] }}</span>

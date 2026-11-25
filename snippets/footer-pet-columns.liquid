@@ -14,6 +14,11 @@
   endcapture
   assign contact_url = pages['contact'].url | default: '/pages/contact'
   assign gift_card = settings.gift_card_product
+  capture pet_taxonomy
+    render 'pet-taxonomy'
+  endcapture
+  assign dogs_handle = pet_taxonomy | split: ';collection_dogs=' | last | split: ';' | first
+  assign cats_handle = pet_taxonomy | split: ';collection_cats=' | last | split: ';' | first
   assign whatsapp = settings.salon_whatsapp | remove: ' ' | remove: '+' | remove: '-'
   assign phone = shop.phone | strip
   assign phone_link = phone | remove: ' ' | remove: '-'
@@ -62,11 +67,11 @@
   <div class="footer-pet__col">
     <h2 class="footer-pet__title">{{ 'pet_cro.footer_cols.shop' | t }}</h2>
     <ul class="footer-pet__list" role="list">
-      {%- if collections['perros'].products_count > 0 -%}
-        <li><a href="{{ collections['perros'].url }}">{{ 'pet_cro.footer_cols.dogs' | t }}</a></li>
+      {%- if collections[dogs_handle].products_count > 0 -%}
+        <li><a href="{{ collections[dogs_handle].url }}">{{ 'pet_cro.footer_cols.dogs' | t }}</a></li>
       {%- endif -%}
-      {%- if collections['gatos'].products_count > 0 -%}
-        <li><a href="{{ collections['gatos'].url }}">{{ 'pet_cro.footer_cols.cats' | t }}</a></li>
+      {%- if collections[cats_handle].products_count > 0 -%}
+        <li><a href="{{ collections[cats_handle].url }}">{{ 'pet_cro.footer_cols.cats' | t }}</a></li>
       {%- endif -%}
       {%- if collections['packs'].products_count > 0 -%}
         <li><a href="{{ collections['packs'].url }}">{{ 'pet_cro.footer_cols.packs' | t }}</a></li>

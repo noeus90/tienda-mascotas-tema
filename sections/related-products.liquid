@@ -29,36 +29,68 @@
   available products. Rendered with the page, so it needs no extra request.
 {%- endcomment -%}
 {%- liquid
+  # Types, tags and collections: snippet pet-taxonomy (CODE-08).
+  capture pet_taxonomy
+    render 'pet-taxonomy'
+  endcapture
+  assign tag_dog = pet_taxonomy | split: ';tag_dog=' | last | split: ';' | first
+  assign tag_cat = pet_taxonomy | split: ';tag_cat=' | last | split: ';' | first
+  assign tag_kitten = pet_taxonomy | split: ';tag_kitten=' | last | split: ';' | first
+  assign tag_puppy = pet_taxonomy | split: ';tag_puppy=' | last | split: ';' | first
+  assign tag_senior = pet_taxonomy | split: ';tag_senior=' | last | split: ';' | first
+  assign type_barf = pet_taxonomy | split: ';type_barf=' | last | split: ';' | first
+  assign type_pack = pet_taxonomy | split: ';type_pack=' | last | split: ';' | first
   assign pet_handle = 'all'
-  if product.tags contains 'perro'
-    assign pet_handle = 'perros'
-  elsif product.tags contains 'gato' or product.tags contains 'gatito'
-    assign pet_handle = 'gatos'
+  if product.tags contains tag_dog
+    assign pet_handle = pet_taxonomy | split: ';collection_dogs=' | last | split: ';' | first
+  elsif product.tags contains tag_cat or product.tags contains tag_kitten
+    assign pet_handle = pet_taxonomy | split: ';collection_cats=' | last | split: ';' | first
   endif
   assign pool = collections[pet_handle].products
 
-  case product.type
-    when 'Pienso'
-      assign wanted = 'Pienso,Snack,Comida húmeda,Suplemento'
-    when 'Comida húmeda'
-      assign wanted = 'Comida húmeda,Pienso,Snack'
-    when 'Dieta BARF'
-      assign wanted = 'Dieta BARF,Pack,Suplemento'
-    when 'Pack'
-      assign wanted = 'Dieta BARF,Pack,Suplemento'
-    when 'Snack'
-      assign wanted = 'Snack,Juguete,Higiene'
-    when 'Juguete'
-      assign wanted = 'Juguete,Snack,Accesorio'
-    when 'Higiene'
-      assign wanted = 'Higiene,Accesorio,Snack'
-    when 'Accesorio'
-      assign wanted = 'Accesorio,Juguete,Higiene'
-    when 'Suplemento'
-      assign wanted = 'Suplemento,Pienso,Snack'
+  # Types that go with the product's type (keys of pet-taxonomy), in order.
+  assign type_key = ''
+  assign taxonomy_pairs = pet_taxonomy | split: ';'
+  for pair in taxonomy_pairs
+    assign kv = pair | split: '='
+    if kv[1] == product.type and kv[0] contains 'type_'
+      assign type_key = kv[0]
+      break
+    endif
+  endfor
+  case type_key
+    when 'type_kibble'
+      assign wanted_keys = 'type_kibble,type_snacks,type_wet,type_supplements'
+    when 'type_wet'
+      assign wanted_keys = 'type_wet,type_kibble,type_snacks'
+    when 'type_barf', 'type_pack'
+      assign wanted_keys = 'type_barf,type_pack,type_supplements'
+    when 'type_snacks'
+      assign wanted_keys = 'type_snacks,type_toys,type_grooming'
+    when 'type_toys'
+      assign wanted_keys = 'type_toys,type_snacks,type_accessories'
+    when 'type_grooming'
+      assign wanted_keys = 'type_grooming,type_accessories,type_snacks'
+    when 'type_accessories'
+      assign wanted_keys = 'type_accessories,type_toys,type_grooming'
+    when 'type_supplements'
+      assign wanted_keys = 'type_supplements,type_kibble,type_snacks'
     else
-      assign wanted = product.type
+      assign wanted_keys = ''
   endcase
+  assign wanted = product.type
+  if wanted_keys != blank
+    assign wanted = ''
+    assign wanted_key_list = wanted_keys | split: ','
+    for key in wanted_key_list
+      assign needle = ';' | append: key | append: '='
+      assign value = pet_taxonomy | split: needle | last | split: ';' | first
+      assign wanted = wanted | append: value
+      unless forloop.last
+        assign wanted = wanted | append: ','
+      endunless
+    endfor
+  endif
   assign wanted_types = wanted | split: ','
   assign limit = section.settings.products_to_show
 
@@ -66,7 +98,7 @@
   assign picked = '|'
   assign picked_count = 0
   assign is_frozen_type = false
-  if product.type == 'Dieta BARF' or product.type == 'Pack'
+  if product.type == type_barf or product.type == type_pack
     assign is_frozen_type = true
   endif
 
@@ -74,7 +106,7 @@
   # brings the teething toy and other puppy products before adult food).
   assign stage = ''
   for tag in product.tags
-    if tag == 'cachorro' or tag == 'gatito' or tag == 'senior'
+    if tag == tag_puppy or tag == tag_kitten or tag == tag_senior
       assign stage = tag
       break
     endif
@@ -85,7 +117,7 @@
         break
       endif
       assign item_frozen = false
-      if item.type == 'Dieta BARF' or item.type == 'Pack'
+      if item.type == type_barf or item.type == type_pack
         assign item_frozen = true
       endif
       if item.tags contains stage and item.available and item.id != product.id and item_frozen == is_frozen_type
@@ -102,7 +134,7 @@
       endif
       assign key = '|' | append: item.handle | append: '|'
       assign other_stage = false
-      if stage != blank and item.tags contains 'cachorro' or stage != blank and item.tags contains 'gatito' or stage != blank and item.tags contains 'senior'
+      if stage != blank and item.tags contains tag_puppy or stage != blank and item.tags contains tag_kitten or stage != blank and item.tags contains tag_senior
         unless item.tags contains stage
           assign other_stage = true
         endunless
@@ -122,12 +154,12 @@
     endif
     assign key = '|' | append: item.handle | append: '|'
     assign other_stage = false
-    if stage != blank and item.tags contains 'cachorro' or stage != blank and item.tags contains 'gatito' or stage != blank and item.tags contains 'senior'
+    if stage != blank and item.tags contains tag_puppy or stage != blank and item.tags contains tag_kitten or stage != blank and item.tags contains tag_senior
       unless item.tags contains stage
         assign other_stage = true
       endunless
     endif
-    if item.available and item.id != product.id and item.type != 'Dieta BARF' and item.type != 'Pack' and other_stage == false
+    if item.available and item.id != product.id and item.type != type_barf and item.type != type_pack and other_stage == false
       unless picked contains key
         assign picked = picked | append: item.handle | append: '|'
         assign picked_count = picked_count | plus: 1

@@ -14,7 +14,15 @@
 {%- enddoc -%}
 
 {%- liquid
-  assign types = settings.ration_product_types | default: 'Pienso' | downcase | split: ','
+  capture pet_taxonomy
+    render 'pet-taxonomy'
+  endcapture
+  assign type_kibble = pet_taxonomy | split: ';type_kibble=' | last | split: ';' | first
+  assign tag_cat = pet_taxonomy | split: ';tag_cat=' | last | split: ';' | first
+  assign tag_kitten = pet_taxonomy | split: ';tag_kitten=' | last | split: ';' | first
+  assign tag_puppy = pet_taxonomy | split: ';tag_puppy=' | last | split: ';' | first
+  assign tag_senior = pet_taxonomy | split: ';tag_senior=' | last | split: ';' | first
+  assign types = settings.ration_product_types | default: type_kibble | downcase | split: ','
   assign product_type = product.type | downcase | strip
   assign is_food = false
   for t in types
@@ -25,14 +33,14 @@
     endif
   endfor
   assign is_cat = false
-  if product.tags contains 'gato' or product.tags contains 'gatito' or product.tags contains 'cat'
+  if product.tags contains tag_cat or product.tags contains tag_kitten or product.tags contains 'cat'
     assign is_cat = true
   endif
   # Life stage of the food, from its tags: the age select starts there (UX-20).
   assign stage = 'adult'
-  if product.tags contains 'cachorro' or product.tags contains 'gatito'
+  if product.tags contains tag_puppy or product.tags contains tag_kitten
     assign stage = 'young'
-  elsif product.tags contains 'senior'
+  elsif product.tags contains tag_senior
     assign stage = 'senior'
   endif
   assign kcal_kg = product.metafields.custom.kcal_kg.value | default: 0

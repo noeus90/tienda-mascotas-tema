@@ -1,0 +1,39 @@
+{%- comment -%}
+  Product types, tags and pet collections of the shop, written once (CODE-08). Rename one here if it
+  changes in the admin.
+  Params: format (optional): 'json' for scripts; by default ";key=value;key=value;…;".
+  Usage in Liquid:
+    capture pet_taxonomy
+      render 'pet-taxonomy'
+    endcapture
+    assign type_kibble = pet_taxonomy | split: ';type_kibble=' | last | split: ';' | first
+{%- endcomment -%}
+{%- liquid
+  # Product types, as in the admin (filter.p.product_type).
+  assign types = 'type_kibble=Pienso;type_wet=Comida húmeda;type_barf=Dieta BARF;type_pack=Pack;type_snacks=Snack;type_toys=Juguete;type_grooming=Higiene;type_supplements=Suplemento;type_accessories=Accesorio'
+  # Product tags (filter.p.tag): pet, life stage and needs.
+  assign tags = 'tag_dog=perro;tag_cat=gato;tag_puppy=cachorro;tag_kitten=gatito;tag_adult=adulto;tag_senior=senior;tag_sensitive=sensible;tag_hypoallergenic=hipoalergenico;tag_grain_free=sin cereales;tag_weight_control=control de peso;tag_sterilised=esterilizado;tag_hairball=bolas de pelo;tag_dental=dental'
+  # Collection handles of each pet.
+  assign collections_list = 'collection_dogs=perros;collection_cats=gatos'
+  assign all = types | append: ';' | append: tags | append: ';' | append: collections_list | split: ';'
+
+  if format == 'json'
+    echo '{'
+    for pair in all
+      assign kv = pair | split: '='
+      echo kv[0] | json
+      echo ':'
+      echo kv[1] | json
+      unless forloop.last
+        echo ','
+      endunless
+    endfor
+    echo '}'
+  else
+    echo ';'
+    for pair in all
+      echo pair
+      echo ';'
+    endfor
+  endif
+-%}

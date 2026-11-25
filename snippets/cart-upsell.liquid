@@ -20,16 +20,23 @@
   assign missing = goal | minus: cart.total_price
   assign frozen_tag = settings.frozen_tag | default: 'congelado' | strip
 
+  capture pet_taxonomy
+    render 'pet-taxonomy'
+  endcapture
+  assign tag_dog = pet_taxonomy | split: ';tag_dog=' | last | split: ';' | first
+  assign tag_cat = pet_taxonomy | split: ';tag_cat=' | last | split: ';' | first
+  assign tag_kitten = pet_taxonomy | split: ';tag_kitten=' | last | split: ';' | first
+
   assign dogs = false
   assign cats = false
   assign regular_items = 0
   assign in_cart = '|'
   for item in cart.items
     assign in_cart = in_cart | append: item.product.handle | append: '|'
-    if item.product.tags contains 'perro'
+    if item.product.tags contains tag_dog
       assign dogs = true
     endif
-    if item.product.tags contains 'gato' or item.product.tags contains 'gatito'
+    if item.product.tags contains tag_cat or item.product.tags contains tag_kitten
       assign cats = true
     endif
     unless item.product.tags contains frozen_tag or item.product.gift_card?
@@ -63,10 +70,10 @@
         {%- liquid
           assign key = '|' | append: item.handle | append: '|'
           assign fits_pet = false
-          if dogs and item.tags contains 'perro'
+          if dogs and item.tags contains tag_dog
             assign fits_pet = true
           endif
-          if cats and item.tags contains 'gato'
+          if cats and item.tags contains tag_cat
             assign fits_pet = true
           endif
           assign ok = false

@@ -15,25 +15,31 @@
   assign free_shipping_amount = free_goal | money_without_trailing_zeros
   # Pet links go to the Perros / Gatos collections with Search & Discovery filters
   # (filter.p.product_type = product type, filter.p.tag = need tag), so Shopify filters every page.
-  assign dog_url = routes.collections_url | append: '/perros'
-  assign cat_url = routes.collections_url | append: '/gatos'
+  # Types, tags and collections: snippet pet-taxonomy (CODE-08).
+  capture pet_taxonomy
+    render 'pet-taxonomy'
+  endcapture
+  assign dogs_handle = pet_taxonomy | split: ';collection_dogs=' | last | split: ';' | first
+  assign cats_handle = pet_taxonomy | split: ';collection_cats=' | last | split: ';' | first
+  assign dog_url = routes.collections_url | append: '/' | append: dogs_handle
+  assign cat_url = routes.collections_url | append: '/' | append: cats_handle
   assign p_cat_key = 'filter.p.product_type'
   assign p_subfilter_key = 'filter.p.tag'
-  assign val_kibble = 'Pienso'
-  assign val_wet = 'Comida húmeda' | url_encode
-  assign val_barf = 'Dieta BARF' | url_encode
-  assign val_snacks = 'Snack'
-  assign val_toys = 'Juguete'
-  assign val_grooming = 'Higiene'
-  assign val_accessories = 'Accesorio'
-  assign val_puppy = 'cachorro'
-  assign val_kitten = 'gatito'
-  assign val_adult = 'adulto'
-  assign val_senior = 'senior'
-  assign val_sensitive = 'sensible'
-  assign val_hypoallergenic = 'hipoalergenico'
-  assign val_sterilised = 'esterilizado'
-  assign val_hairball = 'bolas de pelo' | url_encode
+  assign val_kibble = pet_taxonomy | split: ';type_kibble=' | last | split: ';' | first | url_encode
+  assign val_wet = pet_taxonomy | split: ';type_wet=' | last | split: ';' | first | url_encode
+  assign val_barf = pet_taxonomy | split: ';type_barf=' | last | split: ';' | first | url_encode
+  assign val_snacks = pet_taxonomy | split: ';type_snacks=' | last | split: ';' | first | url_encode
+  assign val_toys = pet_taxonomy | split: ';type_toys=' | last | split: ';' | first | url_encode
+  assign val_grooming = pet_taxonomy | split: ';type_grooming=' | last | split: ';' | first | url_encode
+  assign val_accessories = pet_taxonomy | split: ';type_accessories=' | last | split: ';' | first | url_encode
+  assign val_puppy = pet_taxonomy | split: ';tag_puppy=' | last | split: ';' | first | url_encode
+  assign val_kitten = pet_taxonomy | split: ';tag_kitten=' | last | split: ';' | first | url_encode
+  assign val_adult = pet_taxonomy | split: ';tag_adult=' | last | split: ';' | first | url_encode
+  assign val_senior = pet_taxonomy | split: ';tag_senior=' | last | split: ';' | first | url_encode
+  assign val_sensitive = pet_taxonomy | split: ';tag_sensitive=' | last | split: ';' | first | url_encode
+  assign val_hypoallergenic = pet_taxonomy | split: ';tag_hypoallergenic=' | last | split: ';' | first | url_encode
+  assign val_sterilised = pet_taxonomy | split: ';tag_sterilised=' | last | split: ';' | first | url_encode
+  assign val_hairball = pet_taxonomy | split: ';tag_hairball=' | last | split: ';' | first | url_encode
   capture localized_booking_url
     render 'booking-url', custom: section.settings.booking_url
   endcapture

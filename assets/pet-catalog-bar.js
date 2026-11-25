@@ -10,32 +10,40 @@
  *    with the Section Rendering API whenever the grid is.
  */
 (() => {
-  const PET_COLLECTIONS = { perro: 'perros', dog: 'perros', gato: 'gatos', cat: 'gatos' };
+  // Types, tags and collections of the shop: snippet pet-taxonomy, printed by the section (CODE-08).
+  let taxonomy = {};
+  try {
+    taxonomy = JSON.parse(document.querySelector('[data-pet-taxonomy]')?.textContent || '{}');
+  } catch (error) {
+    taxonomy = {};
+  }
+  // Old URL words (Spanish and English) → pet-taxonomy keys.
+  const PET_COLLECTIONS = { perro: 'collection_dogs', dog: 'collection_dogs', gato: 'collection_cats', cat: 'collection_cats' };
   const PRODUCT_TYPES = {
-    pienso: 'Pienso',
-    'dry-food': 'Pienso',
-    kibble: 'Pienso',
-    humeda: 'Comida húmeda',
-    'wet-food': 'Comida húmeda',
-    snacks: 'Snack',
-    juguetes: 'Juguete',
-    toys: 'Juguete',
-    higiene: 'Higiene',
-    hygiene: 'Higiene',
-    grooming: 'Higiene',
-    suplementos: 'Suplemento',
-    supplements: 'Suplemento',
-    accesorios: 'Accesorio',
-    accessories: 'Accesorio',
+    pienso: 'type_kibble',
+    'dry-food': 'type_kibble',
+    kibble: 'type_kibble',
+    humeda: 'type_wet',
+    'wet-food': 'type_wet',
+    snacks: 'type_snacks',
+    juguetes: 'type_toys',
+    toys: 'type_toys',
+    higiene: 'type_grooming',
+    hygiene: 'type_grooming',
+    grooming: 'type_grooming',
+    suplementos: 'type_supplements',
+    supplements: 'type_supplements',
+    accesorios: 'type_accessories',
+    accessories: 'type_accessories',
   };
   const NEED_TAGS = {
-    puppy: 'cachorro',
-    kitten: 'gatito',
-    adult: 'adulto',
-    sensitive: 'sensible',
-    hipoalergenico: 'sensible',
-    sterilised: 'esterilizado',
-    hairball: 'bolas de pelo',
+    puppy: 'tag_puppy',
+    kitten: 'tag_kitten',
+    adult: 'tag_adult',
+    sensitive: 'tag_sensitive',
+    hipoalergenico: 'tag_sensitive',
+    sterilised: 'tag_sterilised',
+    hairball: 'tag_hairball',
   };
 
   function redirectLegacyUrl() {
@@ -46,14 +54,15 @@
     if (!pet && !category && !need) return false;
 
     const root = (window.Shopify && window.Shopify.routes && window.Shopify.routes.root) || '/';
-    const handle = PET_COLLECTIONS[pet];
+    const handle = taxonomy[PET_COLLECTIONS[pet]];
     const path = handle ? `${root}collections/${handle}` : window.location.pathname;
 
     ['mascota', 'pet', 'species', 'categoria', 'category', 'necesidad', 'need', 'subfiltro', 'etapa', 'age'].forEach(
       (key) => params.delete(key),
     );
-    if (category && PRODUCT_TYPES[category]) params.append('filter.p.product_type', PRODUCT_TYPES[category]);
-    if (need) params.append('filter.p.tag', NEED_TAGS[need] || need);
+    const type = taxonomy[PRODUCT_TYPES[category]];
+    if (type) params.append('filter.p.product_type', type);
+    if (need) params.append('filter.p.tag', taxonomy[NEED_TAGS[need]] || need);
 
     const query = params.toString();
     window.location.replace(`${path}${query ? `?${query}` : ''}`);

@@ -30,13 +30,15 @@
       const has = (list) => words.some((w) => list.includes(w));
       const dog = has(['perro', 'perros', 'cachorro', 'cachorros', 'canino', 'caninos', 'dog', 'dogs', 'puppy']);
       const cat = has(['gato', 'gatos', 'gatito', 'gatitos', 'felino', 'felinos', 'cat', 'cats', 'kitten']);
+      // Types and tags of the shop (snippet pet-taxonomy, CODE-08); the words are what people type.
+      const taxonomy = {%- render 'pet-taxonomy', format: 'json' -%};
       const types = [
-        ['Pienso', ['pienso', 'piensos', 'croquetas', 'kibble']],
-        ['Comida húmeda', ['lata', 'latas', 'humeda', 'sobre', 'sobres', 'pate']],
-        ['Dieta BARF', ['barf', 'cruda', 'crudo']],
-        ['Snack', ['snack', 'snacks', 'premio', 'premios', 'chuche', 'chuches', 'treat', 'treats']],
-        ['Juguete', ['juguete', 'juguetes', 'toy', 'toys']],
-        ['Suplemento', ['suplemento', 'suplementos', 'vitaminas']],
+        [taxonomy.type_kibble, ['pienso', 'piensos', 'croquetas', 'kibble']],
+        [taxonomy.type_wet, ['lata', 'latas', 'humeda', 'sobre', 'sobres', 'pate']],
+        [taxonomy.type_barf, ['barf', 'cruda', 'crudo']],
+        [taxonomy.type_snacks, ['snack', 'snacks', 'premio', 'premios', 'chuche', 'chuches', 'treat', 'treats']],
+        [taxonomy.type_toys, ['juguete', 'juguetes', 'toy', 'toys']],
+        [taxonomy.type_supplements, ['suplemento', 'suplementos', 'vitaminas']],
       ];
       const type = (types.find(([, list]) => has(list)) || [])[0];
 
@@ -45,12 +47,12 @@
         cat: {{ 'pet_cro.search_scope.cat' | t | json }},
         showing: {{ 'pet_cro.search_scope.showing' | t | json }},
         types: {
-          Pienso: {{ 'pet_cro.categories.kibble' | t | json }},
-          'Comida húmeda': {{ 'pet_cro.categories.wet' | t | json }},
-          'Dieta BARF': {{ 'pet_cro.categories.barf' | t | json }},
-          Snack: {{ 'pet_cro.categories.snacks' | t | json }},
-          Juguete: {{ 'pet_cro.categories.toys' | t | json }},
-          Suplemento: {{ 'pet_cro.categories.supplements' | t | json }},
+          [taxonomy.type_kibble]: {{ 'pet_cro.categories.kibble' | t | json }},
+          [taxonomy.type_wet]: {{ 'pet_cro.categories.wet' | t | json }},
+          [taxonomy.type_barf]: {{ 'pet_cro.categories.barf' | t | json }},
+          [taxonomy.type_snacks]: {{ 'pet_cro.categories.snacks' | t | json }},
+          [taxonomy.type_toys]: {{ 'pet_cro.categories.toys' | t | json }},
+          [taxonomy.type_supplements]: {{ 'pet_cro.categories.supplements' | t | json }},
         },
       };
 
@@ -58,7 +60,7 @@
       if (params.get('auto') !== '1') {
         let changed = false;
         if (dog !== cat && !params.getAll('filter.p.tag').length) {
-          params.append('filter.p.tag', dog ? 'perro' : 'gato');
+          params.append('filter.p.tag', dog ? taxonomy.tag_dog : taxonomy.tag_cat);
           changed = true;
         }
         if (type && !params.getAll('filter.p.product_type').length) {
@@ -73,7 +75,8 @@
       }
 
       // Filters added by us: say so and offer every result.
-      const pet = params.getAll('filter.p.tag').includes('perro') ? strings.dog : params.getAll('filter.p.tag').includes('gato') ? strings.cat : '';
+      const tags = params.getAll('filter.p.tag');
+      const pet = tags.includes(taxonomy.tag_dog) ? strings.dog : tags.includes(taxonomy.tag_cat) ? strings.cat : '';
       const typeValue = params.get('filter.p.product_type');
       const label = [strings.types[typeValue] || typeValue, pet].filter(Boolean).join(' · ');
       if (!label) return;

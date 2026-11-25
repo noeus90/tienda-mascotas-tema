@@ -17,17 +17,32 @@
 
 {{ 'section-pet-catalog-bar.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'pet-catalog-bar.js' | asset_url }}" defer="defer"></script>
+<script type="application/json" data-pet-taxonomy>{%- render 'pet-taxonomy', format: 'json' -%}</script>
 
 {%- liquid
   assign all_url = routes.all_products_collection_url
-  assign dogs_url = routes.collections_url | append: '/perros'
-  assign cats_url = routes.collections_url | append: '/gatos'
+  # Types, tags and collections: snippet pet-taxonomy (CODE-08).
+  capture pet_taxonomy
+    render 'pet-taxonomy'
+  endcapture
+  assign dogs_handle = pet_taxonomy | split: ';collection_dogs=' | last | split: ';' | first
+  assign cats_handle = pet_taxonomy | split: ';collection_cats=' | last | split: ';' | first
+  assign type_kibble = pet_taxonomy | split: ';type_kibble=' | last | split: ';' | first
+  assign type_wet = pet_taxonomy | split: ';type_wet=' | last | split: ';' | first
+  assign type_barf = pet_taxonomy | split: ';type_barf=' | last | split: ';' | first
+  assign type_snacks = pet_taxonomy | split: ';type_snacks=' | last | split: ';' | first
+  assign type_toys = pet_taxonomy | split: ';type_toys=' | last | split: ';' | first
+  assign type_grooming = pet_taxonomy | split: ';type_grooming=' | last | split: ';' | first
+  assign type_supplements = pet_taxonomy | split: ';type_supplements=' | last | split: ';' | first
+  assign type_accessories = pet_taxonomy | split: ';type_accessories=' | last | split: ';' | first
+  assign dogs_url = routes.collections_url | append: '/' | append: dogs_handle
+  assign cats_url = routes.collections_url | append: '/' | append: cats_handle
 
   case collection.handle
-    when 'perros'
-      assign active_pet = 'perro'
-    when 'gatos'
-      assign active_pet = 'gato'
+    when dogs_handle
+      assign active_pet = 'dog'
+    when cats_handle
+      assign active_pet = 'cat'
     else
       assign active_pet = 'all'
   endcase
@@ -88,8 +103,8 @@
         </a>
         <a
           href="{{ dogs_url }}{{ keep_query }}"
-          class="pet-mascot-btn{% if active_pet == 'perro' %} is-active{% endif %}"
-          {% if active_pet == 'perro' %}
+          class="pet-mascot-btn{% if active_pet == 'dog' %} is-active{% endif %}"
+          {% if active_pet == 'dog' %}
             aria-current="page"
           {% endif %}
         >
@@ -98,8 +113,8 @@
         </a>
         <a
           href="{{ cats_url }}{{ keep_query }}"
-          class="pet-mascot-btn{% if active_pet == 'gato' %} is-active{% endif %}"
-          {% if active_pet == 'gato' %}
+          class="pet-mascot-btn{% if active_pet == 'cat' %} is-active{% endif %}"
+          {% if active_pet == 'cat' %}
             aria-current="page"
           {% endif %}
         >
@@ -152,28 +167,28 @@
             {%- endif -%}
             {%- liquid
               case value.value
-                when 'Pienso'
+                when type_kibble
                   assign pill_icon = '🥩'
                   assign pill_label = 'pet_cro.catalog_bar.kibble' | t
-                when 'Comida húmeda'
+                when type_wet
                   assign pill_icon = '🥫'
                   assign pill_label = 'pet_cro.catalog_bar.wet_food' | t
-                when 'Dieta BARF'
+                when type_barf
                   assign pill_icon = '🍖'
                   assign pill_label = 'pet_cro.catalog_bar.barf' | t
-                when 'Snack'
+                when type_snacks
                   assign pill_icon = '🦴'
                   assign pill_label = 'pet_cro.catalog_bar.snacks' | t
-                when 'Juguete'
+                when type_toys
                   assign pill_icon = '🎾'
                   assign pill_label = 'pet_cro.catalog_bar.toys' | t
-                when 'Higiene'
+                when type_grooming
                   assign pill_icon = '🧴'
                   assign pill_label = 'pet_cro.catalog_bar.grooming' | t
-                when 'Suplemento'
+                when type_supplements
                   assign pill_icon = '💊'
                   assign pill_label = 'pet_cro.catalog_bar.supplements' | t
-                when 'Accesorio'
+                when type_accessories
                   assign pill_icon = '🦮'
                   assign pill_label = 'pet_cro.catalog_bar.walk' | t
                 else
@@ -211,7 +226,28 @@
       pet-catalog-bar.js marks the active one and points each link at the current URL + tag.
     {%- endcomment -%}
     {%- liquid
-      assign need_tags = settings.need_filter_tags | default: 'cachorro,gatito,adulto,senior,sensible,hipoalergenico,sin cereales,control de peso,esterilizado,bolas de pelo,dental' | replace: ', ', ',' | split: ','
+      # Default need tags: every tag of pet-taxonomy except the pet ones.
+      assign default_needs = ''
+      assign taxonomy_pairs = pet_taxonomy | split: ';'
+      for pair in taxonomy_pairs
+        if pair contains 'tag_' and pair contains '=' and pair != blank
+          assign kv = pair | split: '='
+          if kv[0] != 'tag_dog' and kv[0] != 'tag_cat'
+            assign default_needs = default_needs | append: kv[1] | append: ','
+          endif
+        endif
+      endfor
+      assign need_tags = settings.need_filter_tags | default: default_needs | replace: ', ', ',' | split: ','
+      assign tag_puppy = pet_taxonomy | split: ';tag_puppy=' | last | split: ';' | first
+      assign tag_kitten = pet_taxonomy | split: ';tag_kitten=' | last | split: ';' | first
+      assign tag_adult = pet_taxonomy | split: ';tag_adult=' | last | split: ';' | first
+      assign tag_senior = pet_taxonomy | split: ';tag_senior=' | last | split: ';' | first
+      assign tag_sensitive = pet_taxonomy | split: ';tag_sensitive=' | last | split: ';' | first
+      assign tag_hypoallergenic = pet_taxonomy | split: ';tag_hypoallergenic=' | last | split: ';' | first
+      assign tag_grain_free = pet_taxonomy | split: ';tag_grain_free=' | last | split: ';' | first
+      assign tag_weight_control = pet_taxonomy | split: ';tag_weight_control=' | last | split: ';' | first
+      assign tag_sterilised = pet_taxonomy | split: ';tag_sterilised=' | last | split: ';' | first
+      assign tag_hairball = pet_taxonomy | split: ';tag_hairball=' | last | split: ';' | first
       assign collection_needs = ''
       for tag in need_tags
         if collection.all_tags contains tag
@@ -231,25 +267,25 @@
         {%- for tag in collection_needs -%}
           {%- liquid
             case tag
-              when 'cachorro'
+              when tag_puppy
                 assign need_label = 'pet_cro.nav.puppy' | t
-              when 'gatito'
+              when tag_kitten
                 assign need_label = 'pet_cro.nav.kitten' | t
-              when 'adulto'
+              when tag_adult
                 assign need_label = 'pet_cro.nav.adult' | t
-              when 'senior'
+              when tag_senior
                 assign need_label = 'pet_cro.nav.senior' | t
-              when 'sensible'
+              when tag_sensitive
                 assign need_label = 'pet_cro.nav.sensitive' | t
-              when 'hipoalergenico'
+              when tag_hypoallergenic
                 assign need_label = 'pet_cro.nav.hypoallergenic' | t
-              when 'sin cereales'
+              when tag_grain_free
                 assign need_label = 'pet_cro.nav.grain_free' | t
-              when 'control de peso'
+              when tag_weight_control
                 assign need_label = 'pet_cro.nav.weight_control' | t
-              when 'esterilizado'
+              when tag_sterilised
                 assign need_label = 'pet_cro.nav.sterilised' | t
-              when 'bolas de pelo'
+              when tag_hairball
                 assign need_label = 'pet_cro.nav.hairball' | t
               else
                 assign need_label = tag | capitalize

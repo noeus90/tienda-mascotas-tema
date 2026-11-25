@@ -98,9 +98,25 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - URL de reservas: el snippet `booking-url`, con `custom` para el enlace puesto en el editor. Lo usan la cabecera, el cajón del menú, el mega menú, el pie, el contacto, el aviso de peluquería, los pasos de peluquería y la ficha. Fuera los `if` con dos ramas iguales.
     - Tarjeta regalo: nuevo ajuste del tema `gift_card_product`, que en `settings_data` apunta a `tarjeta-regalo-de-peluqueria-y-tienda`. Fuera el bucle sobre `collections.all` de la reserva y de la sección de tarjeta regalo, y el `all_products` con el handle fijo. La sección de tarjeta regalo sigue pudiendo elegir otro producto.
   - Comprobado: el HTML (sin scripts ni metadatos de Shopify) sale idéntico en el inicio, la reserva, el carrito, el contacto, la tarjeta regalo y una ficha, en inglés y en español. En CLAUDIA, la barra de envío gratis calcula bien lo que falta.
-- [ ] 🟠 **CODE-08 · Tipos y etiquetas de producto escritos a mano.** M
+- [x] 🟠 **CODE-08 · Tipos y etiquetas de producto escritos a mano.** M *(hecho el 25/11/2026)*
   - «Comida húmeda», «Snack», «perro», «gato»… aparecen en 9 ficheros: mega menú, cart-upsell, barra de catálogo, cajón del menú, categorías, relacionados, búsqueda, subnav y `pet-catalog-bar.js`.
   - Propuesta: una sola lista en un snippet o en ajustes.
+  - Hecho: snippet `pet-taxonomy` con los 9 tipos, las 13 etiquetas (mascota, edad y necesidades) y las colecciones `perros` / `gatos`.
+    - En Liquid se lee con `capture` y `split: ';clave='`.
+    - En JS va como JSON: `pet-catalog-bar.js` lo toma de la sección y la búsqueda lo lleva dentro de su script.
+    - Lo usan:
+      - el mega menú, el cajón del menú y el subnav;
+      - la barra de catálogo, incluidas las etiquetas de necesidades por defecto;
+      - las categorías, el pie y el carrito;
+      - los relacionados, que ahora trabajan con claves y no con nombres;
+      - la calculadora de ración y la búsqueda.
+  - Sin tocar, porque no son la lista de la tienda:
+    - la detección por texto del título del menú (`perro` / `dog`) y de los badges;
+    - las palabras que la gente escribe al buscar;
+    - el parámetro `?perro=` de la reserva.
+  - Comprobado:
+    - el HTML de 45 páginas (inicio, colecciones con filtros, búsquedas, 33 fichas y el carrito con artículos de perro y de gato) sale idéntico; solo se añade el JSON de la barra.
+    - En CLAUDIA funcionan la redirección de enlaces antiguos (`?mascota=perro&categoria=pienso&necesidad=puppy`), la búsqueda «snack gato» y el selector perros/gatos del inicio, sin errores en la consola.
 - [x] 🟠 **CODE-09 · Partir `grooming-booking.js`.** L *(hecho el 25/11/2026)*
   - `grooming-breeds.js`: razas (l.17-89) y `resolveBreedInfo`.
   - `grooming-booking-api.js`: llamadas a `/apps/reservas/*`.
