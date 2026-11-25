@@ -132,7 +132,7 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.55rem 0.8rem;
-  border-radius: 6px;
+  border-radius: var(--pet-radius-sm);
   font-size: 1.35rem;
   font-weight: 500;
   color: rgba(var(--color-foreground), 0.8);
@@ -146,7 +146,7 @@
   justify-content: center;
   width: 2.4rem;
   height: 2.4rem;
-  border-radius: 5px;
+  border-radius: var(--pet-radius-xs);
   background-color: rgba(var(--color-foreground), 0.04);
   font-size: 1.25rem;
   transition: transform 0.2s ease, background-color 0.2s ease;
@@ -172,7 +172,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.65rem 0.9rem;
-  border-radius: 6px;
+  border-radius: var(--pet-radius-sm);
   font-size: 1.3rem;
   color: rgb(var(--pet-text-accent)) !important;
   background-color: rgba(var(--pet-accent), 0.08);
@@ -215,7 +215,7 @@
   align-items: center;
   gap: 0.35rem;
   padding: 0.35rem 0.75rem;
-  border-radius: 9999px;
+  border-radius: var(--pet-radius-pill);
   background-color: rgba(var(--color-foreground), 0.04);
   color: rgb(var(--color-foreground)) !important;
   font-size: 1.2rem;
@@ -235,12 +235,12 @@
 /* Columna 3: Tarjeta Destacada de Peluquería */
 .mega-menu-pet__promo-card {
   padding: 2rem;
-  border-radius: 12px;
+  border-radius: var(--pet-radius-md);
   background: linear-gradient(135deg, rgb(var(--pet-ink)) 0%, rgb(var(--pet-ink-2)) 100%);
   color: #ffffff;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 8px 24px rgba(var(--pet-ink), 0.16);
+  box-shadow: var(--pet-shadow-lg);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -276,7 +276,7 @@
   align-items: center;
   justify-content: center;
   padding: 0.85rem 1.4rem;
-  border-radius: 9999px;
+  border-radius: var(--pet-radius-pill);
   background: rgb(var(--pet-accent-bright));
   color: rgb(var(--pet-text-ink)) !important;
   font-size: 1.35rem;
@@ -302,11 +302,11 @@
 
 .mega-menu-pet__product-card {
   position: relative;
-  border-radius: 12px;
+  border-radius: var(--pet-radius-md);
   background-color: rgb(var(--pet-card));
   border: 1px solid rgba(var(--color-foreground), 0.1);
   padding: 1.4rem;
-  box-shadow: 0 4px 14px rgba(var(--pet-ink), 0.06);
+  box-shadow: var(--pet-shadow-md);
   transition: all 0.25s ease;
   display: flex;
   flex-direction: column;
@@ -314,7 +314,7 @@
 
 .mega-menu-pet__product-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(var(--pet-ink), 0.12);
+  box-shadow: var(--pet-shadow-lg);
   border-color: rgba(var(--pet-accent), 0.3);
 }
 
@@ -331,7 +331,7 @@
   color: rgb(var(--pet-text-accent));
   background-color: rgb(var(--pet-accent-soft));
   padding: 0.25rem 0.6rem;
-  border-radius: 9999px;
+  border-radius: var(--pet-radius-pill);
   letter-spacing: 0.02em;
 }
 
@@ -341,13 +341,13 @@
   color: rgb(var(--pet-error-text));
   background-color: rgb(var(--pet-error-100));
   padding: 0.25rem 0.55rem;
-  border-radius: 9999px;
+  border-radius: var(--pet-radius-pill);
 }
 
 .mega-menu-pet__product-media {
   width: 100%;
   height: 120px;
-  border-radius: 8px;
+  border-radius: var(--pet-radius-sm);
   overflow: hidden;
   background-color: rgba(var(--color-foreground), 0.03);
   display: flex;
@@ -422,7 +422,7 @@
   justify-content: center;
   width: 100%;
   padding: 0.75rem 1rem;
-  border-radius: 8px;
+  border-radius: var(--pet-radius-sm);
   background-color: rgb(var(--pet-ink));
   color: #ffffff !important;
   font-size: 1.25rem;
@@ -447,7 +447,7 @@
   align-items: center;
   gap: 0.6rem;
   padding: 0.55rem 0.85rem;
-  border-radius: 8px;
+  border-radius: var(--pet-radius-sm);
   background-color: rgba(var(--color-foreground), 0.03);
   border: 1px solid rgba(var(--color-foreground), 0.06);
   font-size: 1.2rem;

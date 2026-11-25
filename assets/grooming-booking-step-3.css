@@ -10,7 +10,7 @@
    ========================================================================== */
 .booking-fieldset {
   border: 1px solid rgba(var(--color-foreground), 0.1);
-  border-radius: 14px;
+  border-radius: var(--pet-radius-md);
   padding: 2.4rem;
   margin-bottom: 2.4rem;
   background: rgba(var(--color-foreground), 0.01);
@@ -57,7 +57,7 @@
   align-items: center;
   gap: 0.56rem;
   padding: 0.56rem 1.2rem;
-  border-radius: 9999px;
+  border-radius: var(--pet-radius-pill);
   border: 1px solid rgba(var(--color-foreground), 0.15);
   background: rgb(var(--color-background));
   font-size: 1.28rem;
@@ -86,7 +86,7 @@
   padding: 1.6rem 1.84rem;
   background: rgba(var(--color-foreground), 0.02);
   border: 1px solid rgba(var(--color-foreground), 0.12);
-  border-radius: 10px;
+  border-radius: var(--pet-radius-md);
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
@@ -162,7 +162,7 @@
   margin-top: 0.96rem;
   padding: 1.04rem 1.36rem;
   background: rgb(var(--color-background));
-  border-radius: 6px;
+  border-radius: var(--pet-radius-sm);
   border: 1px solid rgba(var(--color-foreground), 0.08);
 }
 

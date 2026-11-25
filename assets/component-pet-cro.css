@@ -10,7 +10,7 @@
 .cro-shipping-bar {
   background: rgb(var(--pet-green-50));
   border: 1px solid rgb(var(--pet-green-200));
-  border-radius: 12px;
+  border-radius: var(--pet-radius-md);
   padding: 1.44rem 1.76rem 2.96rem 1.76rem;
   margin-bottom: 2rem;
   font-family: inherit;
@@ -43,14 +43,14 @@
   width: 100%;
   height: 8px;
   background: rgb(var(--pet-green-100));
-  border-radius: 999px;
+  border-radius: var(--pet-radius-pill);
   overflow: hidden;
 }
 
 .cro-shipping-fill {
   height: 100%;
   background: linear-gradient(90deg, rgb(var(--pet-accent-bright)) 0%, rgb(var(--pet-accent-light)) 100%);
-  border-radius: 999px;
+  border-radius: var(--pet-radius-pill);
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -79,7 +79,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--pet-shadow-sm);
 }
 
 .cro-shipping-milestone.is-reached .cro-milestone-dot {
@@ -110,7 +110,7 @@
   margin-top: 1rem;
   padding: 1rem 1.2rem;
   border: 1px solid rgb(var(--pet-sky-200));
-  border-radius: 10px;
+  border-radius: var(--pet-radius-md);
   background: rgb(var(--pet-sky-50));
   color: rgb(var(--pet-sky-900));
   font-size: 1.3rem;
@@ -159,7 +159,7 @@
   align-items: center;
   background: rgba(var(--color-foreground, 15, 23, 42), 0.05);
   border: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.16);
-  border-radius: 999px;
+  border-radius: var(--pet-radius-pill);
   padding: 2px;
   gap: 4px;
 }
@@ -180,7 +180,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 999px;
+  border-radius: var(--pet-radius-pill);
   cursor: pointer;
   letter-spacing: 0.04em;
   text-decoration: none;
@@ -368,13 +368,13 @@
   align-items: center;
   padding: 2.4rem;
   border: 1px solid rgba(var(--color-foreground), 0.1);
-  border-radius: 2rem;
+  border-radius: var(--pet-radius-xl);
   background: rgb(var(--pet-blush));
 }
 
 .pack-banner__media {
   display: block;
-  border-radius: 1.4rem;
+  border-radius: var(--pet-radius-md);
   overflow: hidden;
 }
 

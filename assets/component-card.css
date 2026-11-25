@@ -609,7 +609,7 @@
   align-items: center;
   gap: 0.4rem;
   padding: 0.32rem 0.88rem;
-  border-radius: 9999px;
+  border-radius: var(--pet-radius-pill);
   font-size: 1.2rem;
   font-weight: 600;
   line-height: 1.2;

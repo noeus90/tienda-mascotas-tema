@@ -25,7 +25,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 | Colores fijos (hex y `rgb()`) fuera de la reserva | ~~227 hex y 64 `rgb()`~~ ✅ 61 variables `--pet-*` (quedan blanco, negro y el aviso de desarrollo) | Variables de marca en un solo sitio (CSS-01) |
 | `!important` | 61 (29 en `component-list-menu.css`, 19 en `component-menu-drawer.css`, 11 en `component-mega-menu.css`) | Casi ninguno (CSS-12) |
 | Tamaños de letra distintos | 42 (1,2 · 1,25 · 1,28 · 1,3 · 1,32 · 1,34 · 1,35 · 1,36 rem…) | 6 o 7 de una escala (CSS-10) |
-| Radios distintos | Más de 15 (`9999px`, `999px`, `99rem`, `14px`, `12px`, `10px`, `8px`, `1,2rem`…) | 4 variables (CSS-11) |
+| Radios distintos | ~~22~~ ✅ 6 variables `--pet-radius-*` (más los círculos) | 4 variables (CSS-11) |
 | `transition: all` | 36 | 0 (CSS-14) |
 | Animaciones propias con alternativa sin movimiento | ~~1 de 8~~ ✅ todas (regla común) | Todas (CSS-13) |
 | Puntos de corte fuera de los de Dawn | 750, 480, 1150 y 1200 px | 749 y 989 px (CSS-16) |
@@ -183,10 +183,20 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
   - Hay 42 tamaños de letra distintos en el CSS propio, muchos casi iguales: 1,3 · 1,32 · 1,34 · 1,35 · 1,36 rem.
   - El precio por kilo sale a 11 px y la etiqueta del buscador a 10 px.
   - Propuesta: 6 o 7 variables (`--pet-text-xs`, `-sm`, `-base`, `-lg`…), con 12 px como mínimo.
-- [ ] 🟢 **CSS-11 · Radios y sombras.** S
+- [x] 🟢 **CSS-11 · Radios y sombras.** S *(hecho el 25/11/2026)*
   - Más de 15 radios distintos, incluidos tres formas de decir «píldora»: `9999px`, `999px` y `99rem`.
   - Sombras con valores sueltos en cada fichero.
   - Propuesta: `--pet-radius-sm/md/lg/pill` y dos sombras.
+  - Hecho, con las variables en `pet-tokens.liquid`:
+    - **Radios:** `--pet-radius-xs` 4 px, `-sm` 8, `-md` 12, `-lg` 16, `-xl` 20 y `-pill`.
+      - Los 22 valores distintos pasan a esos seis: 5→4; 6, 7 y 8 px (0,6 y 0,8 rem)→8; 10, 12 y 14 px (1 a 1,4 rem)→12; 16→16; 20→20.
+      - `9999px`, `999px` y `99rem` pasan a la píldora.
+      - En total son 123 radios. Siguen igual los círculos (`50%`), los `0` y los radios de Dawn.
+    - **Sombras:** `--pet-shadow-sm`, `-md` y `-lg` (tinta de la marca al 6, 8 y 12 %) y `-overlay` para los menús desplegables.
+      - Pasan a ellas las 17 sombras de elevación neutras, que eran 16 casi iguales con negro o tinta del 3 al 18 %.
+      - Se dejan como estaban los anillos de foco y de error, los pulsos animados, los brillos de color de los botones al pasar el ratón y las sombras interiores. Tienen su propio sentido.
+    - El cambio máximo es de 2 px en un radio. Las sombras muy suaves (3–5 %) quedan algo más visibles y las de 16–18 %, algo más suaves.
+  - Comprobado: capturas del inicio (categorías, bloque de peluquería) y de la reserva (tarjetas de servicio y tamaño) antes y después, sin diferencia apreciable. Los valores calculados confirman el cambio: tarjetas de la reserva de 10→12 px, caja de la reserva con `--pet-shadow-lg`, botón de la cabecera en píldora. Las líneas de Dawn no se tocan. Theme Check sin avisos.
 - [ ] 🟢 **CSS-14 · `transition: all`.** S
   - 36 transiciones `all`: animan cualquier propiedad que cambie, también el ancho o el relleno, y obligan al navegador a recalcular la maquetación.
   - Propuesta: poner las propiedades concretas (`color`, `background-color`, `border-color`, `transform`, `box-shadow`).

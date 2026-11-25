@@ -55,7 +55,7 @@
   align-items: center;
   gap: 0.56rem;
   padding: 0.56rem 1.36rem;
-  border-radius: 9999px;
+  border-radius: var(--pet-radius-pill);
   font-size: 1.2rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -178,9 +178,9 @@
    ========================================================================== */
 .grooming-booking-card {
   background: rgb(var(--color-background));
-  border-radius: 20px;
+  border-radius: var(--pet-radius-xl);
   border: 1px solid rgba(var(--color-foreground), 0.1);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--pet-shadow-lg);
   padding: 3.6rem;
   overflow: hidden;
 }
@@ -236,7 +236,7 @@
   background: rgb(var(--booking-accent));
   color: rgb(var(--booking-on-accent));
   border: none;
-  border-radius: 10px;
+  border-radius: var(--pet-radius-md);
   font-size: 1.52rem;
   font-weight: 700;
   cursor: pointer;
@@ -258,7 +258,7 @@
   background: rgb(var(--color-background));
   color: inherit;
   border: 1px solid rgba(var(--color-foreground), 0.2);
-  border-radius: 10px;
+  border-radius: var(--pet-radius-md);
   font-size: 1.44rem;
   font-weight: 600;
   cursor: pointer;
@@ -292,7 +292,7 @@
   width: 100%;
   padding: 1.04rem 1.36rem;
   font-size: 1.6rem; /* 16px: iOS does not zoom when the field gets focus */
-  border-radius: 8px;
+  border-radius: var(--pet-radius-sm);
   border: 1px solid rgba(var(--color-foreground), 0.2);
   background: rgb(var(--color-background));
   color: inherit;
@@ -333,7 +333,7 @@
   margin: 0 0 2rem;
   padding: 1.4rem 1.6rem;
   border: 1px solid rgba(var(--booking-accent-light), 0.35);
-  border-radius: 12px;
+  border-radius: var(--pet-radius-md);
   background: rgba(var(--booking-accent-light), 0.05);
 }
 
@@ -341,7 +341,7 @@
   margin: 0 0 2rem;
   padding: 1.4rem 1.6rem;
   border: 1px solid rgba(var(--color-foreground), 0.12);
-  border-radius: 12px;
+  border-radius: var(--pet-radius-md);
 }
 
 .booking-fav-label {
@@ -364,7 +364,7 @@
 .booking-my-dog {
   min-height: 44px;
   padding: 0.8rem 1.6rem;
-  border-radius: 9999px;
+  border-radius: var(--pet-radius-pill);
   border: 1px solid rgba(var(--color-foreground), 0.2);
   background: rgb(var(--color-background));
   color: inherit;

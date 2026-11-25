@@ -24,9 +24,9 @@
 .booking-calendar-widget {
   background: rgb(var(--color-background));
   border: 1px solid rgba(var(--color-foreground), 0.12);
-  border-radius: 16px;
+  border-radius: var(--pet-radius-lg);
   padding: 2rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  box-shadow: var(--pet-shadow-md);
 }
 
 .booking-calendar-header {
@@ -46,7 +46,7 @@
   color: rgb(var(--booking-text-accent));
   background: rgba(var(--booking-accent-bright), 0.12);
   padding: 0.4rem 1.04rem;
-  border-radius: 9999px;
+  border-radius: var(--pet-radius-pill);
 }
 
 .booking-calendar-nav {
@@ -58,7 +58,7 @@
 .booking-cal-nav-btn {
   width: 32px;
   height: 32px;
-  border-radius: 8px;
+  border-radius: var(--pet-radius-sm);
   border: 1px solid rgba(var(--color-foreground), 0.15);
   background: rgb(var(--color-background));
   display: inline-flex;
@@ -111,7 +111,7 @@
   position: relative;
   aspect-ratio: 1;
   border: 1px solid transparent;
-  border-radius: 10px;
+  border-radius: var(--pet-radius-md);
   background: transparent;
   font-size: 1.36rem;
   font-weight: 600;
@@ -186,7 +186,7 @@
   padding: 1.04rem 1.36rem;
   background: rgba(var(--booking-accent-light), 0.06);
   border: 1px solid rgba(var(--booking-accent-light), 0.2);
-  border-radius: 10px;
+  border-radius: var(--pet-radius-md);
   font-size: 1.36rem;
 }
 
@@ -210,7 +210,7 @@
   font-size: 1.2rem;
   font-weight: 600;
   padding: 0.4rem 0.96rem;
-  border-radius: 9999px;
+  border-radius: var(--pet-radius-pill);
   background: rgba(var(--color-foreground), 0.04);
   color: rgba(var(--color-foreground), 0.75);
 }
@@ -231,7 +231,7 @@
   gap: 0.96rem;
   margin-top: 2rem;
   padding: 1.2rem 1.44rem;
-  border-radius: 10px;
+  border-radius: var(--pet-radius-md);
   background: rgba(var(--color-foreground), 0.03);
   border: 1px solid rgba(var(--color-foreground), 0.08);
 }
@@ -275,7 +275,7 @@
 .booking-slot-card {
   padding: 0.96rem 0.8rem;
   text-align: center;
-  border-radius: 8px;
+  border-radius: var(--pet-radius-sm);
   border: 1px solid rgba(var(--color-foreground), 0.15);
   background: rgb(var(--color-background));
   cursor: pointer;
@@ -319,7 +319,7 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
   padding: 0.16rem 0.56rem;
-  border-radius: 4px;
+  border-radius: var(--pet-radius-xs);
   background: rgba(var(--booking-error), 0.12);
   color: rgb(var(--booking-text-error));
   line-height: 1.1;
@@ -331,7 +331,7 @@
   gap: 1.2rem;
   margin-top: 1.6rem;
   padding: 1.36rem 1.76rem;
-  border-radius: 12px;
+  border-radius: var(--pet-radius-md);
   background: rgba(var(--booking-warning), 0.12);
   border: 1px solid rgba(var(--booking-warning), 0.35);
   color: rgb(var(--booking-warning-text));
@@ -352,7 +352,7 @@
   gap: 1.2rem;
   margin-top: 1.6rem;
   padding: 1.36rem 1.76rem;
-  border-radius: 12px;
+  border-radius: var(--pet-radius-md);
   background: rgba(var(--booking-error), 0.1);
   border: 1px solid rgba(var(--booking-error), 0.3);
   color: rgb(var(--booking-error-text));
@@ -372,7 +372,7 @@
   margin-top: 1.6rem;
   padding: 1.6rem;
   border: 1px solid rgb(var(--booking-warning-border));
-  border-radius: 1.2rem;
+  border-radius: var(--pet-radius-md);
   background: rgb(var(--booking-warning-soft));
 }
 
@@ -407,7 +407,7 @@
   min-height: 4.4rem;
   padding: 0 1rem;
   border: 1px solid rgba(var(--color-foreground), 0.3);
-  border-radius: 0.8rem;
+  border-radius: var(--pet-radius-sm);
   background: rgb(var(--color-background));
   font: inherit;
   font-size: 1.6rem;

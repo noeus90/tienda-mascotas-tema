@@ -11,7 +11,7 @@
 .booking-confirmation-card {
   background: rgba(var(--color-foreground), 0.015);
   border: 1px solid rgba(var(--color-foreground), 0.1);
-  border-radius: 16px;
+  border-radius: var(--pet-radius-lg);
   padding: 2.8rem;
 }
 
@@ -120,7 +120,7 @@
   padding: 0.48rem 1.04rem;
   background: rgb(var(--booking-accent-soft));
   border: 1px solid rgb(var(--booking-accent-border));
-  border-radius: 9999px;
+  border-radius: var(--pet-radius-pill);
   font-size: 1.28rem;
   color: rgb(var(--booking-text-accent-dark));
   font-weight: 600;
@@ -150,7 +150,7 @@
   padding: 1.44rem 2.8rem;
   background: rgb(var(--booking-whatsapp));
   color: rgb(var(--booking-on-accent));
-  border-radius: 12px;
+  border-radius: var(--pet-radius-md);
   font-size: 1.68rem;
   font-weight: 800;
   text-decoration: none;
@@ -186,7 +186,7 @@
   align-items: center;
   justify-content: center;
   padding: 0.88rem 1.52rem;
-  border-radius: 8px;
+  border-radius: var(--pet-radius-sm);
   font-size: 1.32rem;
   font-weight: 600;
   text-decoration: none;
@@ -223,7 +223,7 @@
   padding: 1.6rem 2rem;
   background: rgb(var(--booking-accent-soft));
   border: 1px solid rgb(var(--booking-accent-border));
-  border-radius: 12px;
+  border-radius: var(--pet-radius-md);
   width: 100%;
   max-width: 500px;
   text-align: left;
@@ -280,7 +280,7 @@
 .booking-submit-status {
   margin: 0 0 1.92rem;
   padding: 1.92rem 2.24rem;
-  border-radius: 1.6rem;
+  border-radius: var(--pet-radius-lg);
   font-size: 2.24rem;
   line-height: 1.5;
   /* Line breaks of the copied booking details when the clipboard is blocked (CODE-11). */
@@ -302,7 +302,7 @@
   margin: 1.6rem 0;
   padding: 1.6rem;
   border: 1px solid rgba(var(--booking-accent-light), 0.35);
-  border-radius: 12px;
+  border-radius: var(--pet-radius-md);
   background: rgba(var(--booking-accent-light), 0.06);
   text-align: center;
 }
@@ -319,7 +319,7 @@
   justify-content: center;
   min-height: 44px;
   padding: 1rem 2.4rem;
-  border-radius: 9999px;
+  border-radius: var(--pet-radius-pill);
   background: rgb(var(--booking-accent));
   color: rgb(var(--booking-on-accent));
   font-size: 1.5rem;
