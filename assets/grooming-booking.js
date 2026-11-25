@@ -1,96 +1,25 @@
 /**
  * Native Dog Grooming Appointment Booking Controller
  * File: assets/grooming-booking.js
- * Architecture: Clean Vanilla JS, 30-Day Mini-Calendar, Dynamic Pricing & WhatsApp Direct Booking
+ * The wizard: steps, calendar, slots, price and summary. It needs, loaded before it (CODE-09):
+ * grooming-booking-api.js (app calls), grooming-breeds.js (breed catalogue) and
+ * grooming-booking-share.js (messages, calendar event and maps, the base class).
  */
 
 (function () {
   'use strict';
 
-  // Same time zone the booking app uses for the salon schedule.
-  const SALON_TIME_ZONE = 'Europe/Madrid';
+  // Parts loaded before this file (CODE-09): app calls, breed catalogue and sharing.
+  const ns = window.GroomingBooking || {};
+  const { api, breeds, BookingShare, SALON_TIME_ZONE } = ns;
+  if (!api || !breeds || !BookingShare) {
+    console.error('grooming-booking.js: load grooming-booking-api.js, grooming-breeds.js and grooming-booking-share.js first.');
+    return;
+  }
 
-  /**
-   * Catálogo Inteligente de Razas Caninas y Mestizos
-   * Los perros mestizos/cruces tienen size: null porque su peso no puede inferirse automáticamente.
-   */
-  const DOG_BREEDS_CATALOG = [
-    // Mestizos, Cruces y Sin raza (Requieren selección manual de tamaño)
-    {
-      name: 'Mestizo / Sin raza',
-      size: null,
-      isMixed: true,
-      keywords: ['mestizo', 'mestiza', 'sin raza', 'chucho', 'cruce', 'mix', 'cruzado', 'cruzada', 'mil leches', 'comun', 'callejero', 'callejera']
-    },
-    {
-      name: 'Cruce / Mezcla',
-      size: null,
-      isMixed: true,
-      keywords: ['cruce', 'mezcla', 'cruza', 'cruzado', 'cruzada']
-    },
-
-    // Mini / Toy (<5 kg)
-    { name: 'Chihuahua', size: 'mini', keywords: ['chihuahua', 'chiguagua'] },
-    { name: 'Yorkshire Terrier', size: 'mini', keywords: ['yorkshire', 'yorki', 'yorkie', 'terrier yorkshire'] },
-    { name: 'Bichón Maltés', size: 'mini', keywords: ['bichon maltes', 'maltes', 'bichon'] },
-    { name: 'Caniche Toy / Enano', size: 'mini', keywords: ['caniche toy', 'poodle toy', 'caniche enano', 'toy poodle'] },
-    { name: 'Pomerania (Lulú)', size: 'mini', keywords: ['pomerania', 'pomeranian', 'lulu de pomerania', 'spitz enano'] },
-    { name: 'Teckel Miniatura (Dachshund)', size: 'mini', keywords: ['teckel', 'dachshund', 'teckel mini', 'perro salchicha'] },
-    { name: 'Pinscher Miniatura', size: 'mini', keywords: ['pinscher', 'miniature pinscher', 'pincher'] },
-    { name: 'Shih Tzu', size: 'mini', keywords: ['shih tzu', 'shi tzu', 'shitzu'] },
-    { name: 'Bichón Frisé', size: 'mini', keywords: ['bichon frise', 'frise'] },
-    { name: 'Papillón', size: 'mini', keywords: ['papillon', 'mariposa'] },
-    { name: 'Pekinés', size: 'mini', keywords: ['pekines', 'pequines'] },
-    { name: 'Bichón Habanero', size: 'mini', keywords: ['bichon habanero', 'habanero'] },
-
-    // Mediano (5 - 15 kg)
-    { name: 'Beagle', size: 'medium', keywords: ['beagle'] },
-    { name: 'Bulldog Francés', size: 'medium', keywords: ['bulldog frances', 'frenchie', 'french bulldog'] },
-    { name: 'Cocker Spaniel', size: 'medium', keywords: ['cocker', 'cocker spaniel', 'spaniel'] },
-    { name: 'Border Collie', size: 'medium', keywords: ['border collie', 'collie'] },
-    { name: 'Schnauzer Miniatura / Mediano', size: 'medium', keywords: ['schnauzer', 'schnauzer mini', 'schnauzer mediano'] },
-    { name: 'Bodeguero Andaluz', size: 'medium', keywords: ['bodeguero', 'bodeguero andaluz', 'ratonero bodeguero'] },
-    { name: 'Carlino (Pug)', size: 'medium', keywords: ['pug', 'carlino'] },
-    { name: 'Jack Russell Terrier', size: 'medium', keywords: ['jack russell', 'russell terrier', 'jack russel'] },
-    { name: 'West Highland White Terrier (Westie)', size: 'medium', keywords: ['westie', 'west highland'] },
-    { name: 'Bulldog Inglés', size: 'medium', keywords: ['bulldog ingles', 'english bulldog'] },
-    { name: 'Bull Terrier', size: 'medium', keywords: ['bull terrier'] },
-    { name: 'Caniche Mediano', size: 'medium', keywords: ['caniche mediano', 'caniche', 'poodle'] },
-    { name: 'Basset Hound', size: 'medium', keywords: ['basset hound', 'basset'] },
-    { name: 'Shiba Inu', size: 'medium', keywords: ['shiba', 'shiba inu'] },
-    { name: 'Corgi (Pembroke / Cardigan)', size: 'medium', keywords: ['corgi', 'welsh corgi'] },
-    { name: 'Perro de Agua Español', size: 'medium', keywords: ['perro de agua', 'turco andaluz', 'spanish water dog'] },
-    { name: 'Podenco (Pequeño / Mediano)', size: 'medium', keywords: ['podenco', 'podenco andaluz', 'podenco ibicenco', 'podenco canario'] },
-    { name: 'Whippet', size: 'medium', keywords: ['whippet'] },
-    { name: 'Boston Terrier', size: 'medium', keywords: ['boston terrier'] },
-    { name: 'Staffordshire Bull Terrier', size: 'medium', keywords: ['staffy', 'staffordshire bull terrier', 'stafford'] },
-
-    // Grande (>15 kg)
-    { name: 'Labrador Retriever', size: 'large', keywords: ['labrador', 'labrador retriever'] },
-    { name: 'Golden Retriever', size: 'large', keywords: ['golden', 'golden retriever'] },
-    { name: 'Pastor Alemán', size: 'large', keywords: ['pastor aleman', 'ovejero aleman', 'german shepherd'] },
-    { name: 'Pastor Belga (Malinois)', size: 'large', keywords: ['pastor belga', 'malinois', 'groenendael'] },
-    { name: 'Pastor Australiano (Aussie)', size: 'large', keywords: ['pastor australiano', 'aussie', 'australian shepherd'] },
-    { name: 'Boxer', size: 'large', keywords: ['boxer'] },
-    { name: 'Husky Siberiano', size: 'large', keywords: ['husky', 'husky siberiano', 'siberian husky'] },
-    { name: 'Dóberman', size: 'large', keywords: ['doberman', 'dobermann'] },
-    { name: 'Rottweiler', size: 'large', keywords: ['rottweiler', 'rotweiler'] },
-    { name: 'Boyero de Berna', size: 'large', keywords: ['boyero de berna', 'bernese mountain dog', 'bernes'] },
-    { name: 'Galgo Español / Lebrel', size: 'large', keywords: ['galgo', 'galgo espanol', 'greyhound'] },
-    { name: 'Mastín Español / Pirineo', size: 'large', keywords: ['mastin', 'mastin espanol', 'mastin del pirineo'] },
-    { name: 'Gran Danés (Dogo Alemán)', size: 'large', keywords: ['gran danes', 'dogo aleman', 'great dane'] },
-    { name: 'San Bernardo', size: 'large', keywords: ['san bernardo', 'saint bernard'] },
-    { name: 'Terranova', size: 'large', keywords: ['terranova', 'newfoundland'] },
-    { name: 'Samoyedo', size: 'large', keywords: ['samoyedo', 'samoyed'] },
-    { name: 'Weimaraner (Braco de Weimar)', size: 'large', keywords: ['weimaraner', 'braco de weimar', 'braco'] },
-    { name: 'Dálmata', size: 'large', keywords: ['dalmata', 'dalmatian'] },
-    { name: 'Akita Inu', size: 'large', keywords: ['akita', 'akita inu', 'akita americano'] },
-    { name: 'Cane Corso', size: 'large', keywords: ['cane corso', 'mastin italiano'] },
-    { name: 'Setter Irlandés / Inglés', size: 'large', keywords: ['setter', 'setter irlandes', 'setter ingles'] }
-  ];
-
-  class GroomingBookingWizard {
+  class GroomingBookingWizard extends BookingShare {
     constructor(section) {
+      super();
       this.section = section;
       this.sectionId = section.dataset.sectionId;
       this.currentStep = 1;
@@ -273,10 +202,8 @@
       }
       const petInput = this.section.querySelector('[data-booking-input="petName"]');
       button.disabled = true;
-      fetch('/apps/reservas/lista-espera', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
+      api
+        .joinWaitlist({
           date: this.bookingData.date,
           shift: value('shift') || 'any',
           name: value('name'),
@@ -287,10 +214,8 @@
           dogSize: this.bookingData.dogSize,
           petName: petInput ? petInput.value.trim() : '',
           website: value('website'),
-          locale: document.documentElement.lang || 'es',
-        }),
-      })
-        .then((response) => response.json().catch(() => ({ ok: false })))
+          locale: this.locale,
+        })
         .then((result) => {
           button.disabled = false;
           if (result && result.ok) {
@@ -364,8 +289,8 @@
      * app, /apps/reservas/mis-perros). Logged-out visitors or an app that does not answer: nothing changes.
      */
     loadMyDogs() {
-      return fetch('/apps/reservas/mis-perros', { headers: { Accept: 'application/json' } })
-        .then((response) => (response.ok ? response.json() : null))
+      return api
+        .myDogs()
         .then((result) => {
           if (!result || !result.ok || !result.loggedIn) return;
           this.prefillContact(result.customer);
@@ -566,9 +491,8 @@
       const from = this.formatDateKey(this.today);
       const to = this.formatDateKey(this.maxDate);
       // Several groomers: busy times of the chosen one, or of nobody free for "any".
-      const groomer = encodeURIComponent(this.bookingData.groomer || 'any');
-      return fetch(`/apps/reservas/disponibilidad?from=${from}&to=${to}&groomer=${groomer}`, { headers: { Accept: 'application/json' } })
-        .then((response) => (response.ok ? response.json() : null))
+      return api
+        .availability({ from, to, groomer: this.bookingData.groomer || 'any' })
         .then((result) => {
           if (!result || !result.ok) return;
           this.busy = result.busy || {};
@@ -645,98 +569,15 @@
       return minutes ? this.t('hours_minutes', { hours, minutes }) : this.t('hours', { hours });
     }
 
-    /**
-     * Normalizador de texto para búsquedas tolerantes a acentos, diacríticos y mayúsculas
-     */
-    normalizeBreedText(str) {
-      if (!str) return '';
-      return String(str)
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .trim();
-    }
-
-    /**
-     * Motor de Inferencia de Raza y Tamaño
-     * Distingue explícitamente entre:
-     * - Mestizos / Cruces: size: null (el usuario debe elegir manualmente por peso)
-     * - Razas Conocidas: size: 'mini' | 'medium' | 'large' (sugiere y auto-selecciona)
-     * - Razas no catalogadas: size: null (permite continuar con elección manual)
-     */
+    /** Breed lookup (assets/grooming-breeds.js) plus the notice in the page language. */
     resolveBreedInfo(rawInput) {
-      if (!rawInput || typeof rawInput !== 'string') {
-        return { isRecognized: false, isMixed: false, size: null, breedName: '', feedbackType: 'empty', feedbackText: '' };
-      }
-
-      const clean = rawInput.trim();
-      const normalized = this.normalizeBreedText(clean);
-
-      if (!normalized) {
-        return { isRecognized: false, isMixed: false, size: null, breedName: '', feedbackType: 'empty', feedbackText: '' };
-      }
-
-      // 1. Detección explícita de Mestizo / Cruce / Chucho / Sin raza
-      const mixedKeywords = ['mestiz', 'cruc', 'mix', 'chuch', 'sin raza', 'comun', 'callejer', 'mil lech'];
-      const isExplicitMixed = mixedKeywords.some((k) => normalized.includes(k));
-
-      if (isExplicitMixed) {
-        return {
-          isRecognized: true,
-          isMixed: true,
-          size: null, // NO inferimos tamaño en perros mestizos
-          breedName: clean,
-          matchedEntry: DOG_BREEDS_CATALOG[0],
-          feedbackType: 'mixed',
-          feedbackText: this.t('breed_mixed')
-        };
-      }
-
-      // 2. Búsqueda exacta en catálogo
-      for (const entry of DOG_BREEDS_CATALOG) {
-        if (entry.isMixed) continue;
-        if (this.normalizeBreedText(entry.name) === normalized) {
-          return {
-            isRecognized: true,
-            isMixed: false,
-            size: entry.size,
-            breedName: entry.name,
-            matchedEntry: entry,
-            feedbackType: 'recognized',
-            feedbackText: this.t('breed_suggested', { size: this.sizeLabel(entry.size), breed: entry.name })
-          };
-        }
-      }
-
-      // 3. Búsqueda por palabras clave o alias
-      for (const entry of DOG_BREEDS_CATALOG) {
-        if (entry.isMixed) continue;
-        for (const kw of entry.keywords) {
-          const normKw = this.normalizeBreedText(kw);
-          if (normalized === normKw || normalized.includes(normKw)) {
-            return {
-              isRecognized: true,
-              isMixed: false,
-              size: entry.size,
-              breedName: entry.name,
-              matchedEntry: entry,
-              feedbackType: 'recognized',
-              feedbackText: this.t('breed_suggested', { size: this.sizeLabel(entry.size), breed: entry.name })
-            };
-          }
-        }
-      }
-
-      // 4. Raza personalizada o no catalogada
-      return {
-        isRecognized: false,
-        isMixed: false,
-        size: null,
-        breedName: clean,
-        matchedEntry: null,
-        feedbackType: 'unknown',
-        feedbackText: this.t('breed_unknown')
+      const info = breeds.resolve(rawInput);
+      const texts = {
+        mixed: () => this.t('breed_mixed'),
+        recognized: () => this.t('breed_suggested', { size: this.sizeLabel(info.size), breed: info.breedName }),
+        unknown: () => this.t('breed_unknown'),
       };
+      return { ...info, feedbackText: texts[info.feedbackType] ? texts[info.feedbackType]() : '' };
     }
 
     /**
@@ -1751,7 +1592,7 @@
         saveFavoriteGroomer: !!(this.section.querySelector('[data-booking-fav]') || {}).checked,
         website: websiteInput ? websiteInput.value : '',
         marketingOptIn: !!(marketingInput && marketingInput.checked),
-        locale: document.documentElement.lang || 'es',
+        locale: this.locale,
       };
 
       this.submitting = true;
@@ -1760,12 +1601,8 @@
       label.textContent = this.t('sending');
       this.showSubmitStatus('', '');
 
-      fetch('/apps/reservas/citas', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(payload),
-      })
-        .then((response) => response.json().catch(() => ({ ok: false, error: 'invalid_response' })))
+      api
+        .saveBooking(payload)
         .then((result) => {
           if (result && result.ok) {
             this.bookingData.savedReference = result.reference || result.id;
@@ -1890,66 +1727,6 @@
       this.submitStatus.hidden = false;
     }
 
-    copyBookingDetails() {
-      if (!this.copyBtn) return;
-      const summaryText = this.bookingMessage('copy');
-      // Clipboard blocked: the details are shown on the page instead (no alert()).
-      const showText = () => this.showSubmitStatus('is-error', `${this.t('copy_failed')}\n\n${summaryText}`);
-      if (!navigator.clipboard || !navigator.clipboard.writeText) {
-        showText();
-        return;
-      }
-      navigator.clipboard
-        .writeText(summaryText)
-        .then(() => {
-          const orig = this.copyBtn.textContent;
-          this.copyBtn.textContent = this.t('copied');
-          setTimeout(() => {
-            this.copyBtn.textContent = orig;
-          }, 2000);
-        })
-        .catch(showText);
-    }
-
-    /**
-     * Booking details shared by the messages to the salon, the copied text and the calendar event,
-     * as [label, value] pairs in the page language. Empty values are left out.
-     */
-    bookingDetails({ owner = true, address = false } = {}) {
-      const d = this.bookingData;
-      const breed = [d.petBreed || this.t('mixed_breed'), this.sizeLabel(d.dogSize)].filter(Boolean).join(' · ');
-      const rows = [
-        ['label_dog', `${d.petName || this.t('your_dog')} (${breed})`],
-        ['label_age', d.petAge],
-        ['label_service', d.serviceName],
-        ['label_extras', (d.addons || []).map((a) => `${a.name} (+${this.money(a.price)})`).join(', ')],
-        ['label_date', this.formatHumanDate(d.date)],
-        ['label_time', `${d.slot} - ${this.calculateEndTime(d.slot)} h (${d.duration || this.t('one_hour')})`],
-        ['label_groomer', this.groomerName()],
-        ['label_price', d.price],
-        ['label_special', (d.specialNeeds || []).join(', ')],
-        ['label_notes', d.notes],
-        ['label_owner', owner ? [d.customerName, d.customerPhone, d.customerEmail].filter(Boolean).join(' · ') : ''],
-        ['label_address', address ? this.salonAddress : ''],
-      ];
-      return rows.filter(([, value]) => value).map(([key, value]) => [this.t(key), value]);
-    }
-
-    /** Text of the booking: 'whatsapp' (bold labels), 'email', 'sms' (one paragraph) or 'copy'. */
-    bookingMessage(kind) {
-      if (kind === 'sms') {
-        const rows = this.bookingDetails();
-        return [this.t('message_intro'), ...rows.map(([label, value]) => `${label}: ${value}.`)].join(' ');
-      }
-      if (kind === 'copy') {
-        const rows = this.bookingDetails({ address: true });
-        return [this.t('message_title'), ...rows.map(([label, value]) => `${label}: ${value}`)].join('\n');
-      }
-      const rows = this.bookingDetails();
-      const lines = rows.map(([label, value]) => (kind === 'whatsapp' ? `*${label}:* ${value}` : `• ${label}: ${value}`));
-      return [this.t('message_intro'), '', ...lines, '', this.t('message_outro')].join('\n');
-    }
-
     /**
      * Calculate appointment end time based on slot duration (default 60 mins) and selected extras
      * e.g. 10:00 -> 11:00, or 10:00 + 15 min extras -> 11:15
@@ -1970,241 +1747,6 @@
       return `${endH}:${endM}`;
     }
 
-    /**
-     * Paso 1 (Funcionalidad 2): Generador iCalendar (.ics / RFC 5545)
-     * Compatible con Apple Calendar (iOS / macOS), Microsoft Outlook y Android nativo.
-     * Incorpora dos alarmas automáticas (VALARM): 2 horas antes y 1 día antes para evitar no-shows.
-     */
-    /**
-     * Shared event data for Google Calendar and the .ics file, in the page language.
-     * start/end are local salon times (YYYYMMDDTHHMMSS) to be read in SALON_TIME_ZONE.
-     */
-    calendarEventData() {
-      const d = this.bookingData;
-      const dateClean = d.date.replace(/-/g, '');
-      const toStamp = (time) => {
-        const [h, m] = time.split(':');
-        return `${dateClean}T${h.padStart(2, '0')}${m.padStart(2, '0')}00`;
-      };
-      const endSlot = this.calculateEndTime(d.slot);
-      const petName = d.petName || this.t('your_dog');
-      const location = this.salonAddress || this.t('salon');
-      const lines = this.bookingDetails({ owner: false, address: true }).map(([label, value]) => `${label}: ${value}`);
-      return {
-        petName,
-        title: this.t('event_title', { service: d.serviceName, dog: petName }),
-        details: lines.join('\n'),
-        location,
-        start: toStamp(d.slot),
-        end: toStamp(endSlot),
-      };
-    }
-
-    /**
-     * iCalendar file (RFC 5545) for Apple Calendar, Outlook and Android, with the salon time zone
-     * and two reminders (1 day and 2 hours before).
-     */
-    generateIcsContent() {
-      if (!this.bookingData.date || !this.bookingData.slot) return null;
-      const ev = this.calendarEventData();
-      // Escape TEXT values: backslash, comma, semicolon and line breaks.
-      const esc = (value) =>
-        String(value)
-          .replace(/\\/g, '\\\\')
-          .replace(/;/g, '\\;')
-          .replace(/,/g, '\\,')
-          .replace(/\r?\n/g, '\\n');
-      // Fold lines longer than 75 bytes (continuation lines start with a space).
-      const encoder = new TextEncoder();
-      const fold = (line) => {
-        const out = [];
-        let current = '';
-        let bytes = 0;
-        for (const ch of line) {
-          const size = encoder.encode(ch).length;
-          if (bytes + size > (out.length ? 74 : 75)) {
-            out.push(current);
-            current = '';
-            bytes = 0;
-          }
-          current += ch;
-          bytes += size;
-        }
-        out.push(current);
-        return out.join('\r\n ');
-      };
-
-      const dtStamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-      const domain = window.location.hostname || 'shopify-store';
-      const uid = (this.bookingData.savedReference || 'grooming-' + Date.now()) + '@' + domain;
-      const reminder = this.t('event_reminder', { dog: ev.petName });
-
-      return [
-        'BEGIN:VCALENDAR',
-        'VERSION:2.0',
-        'PRODID:-//Shopify Grooming Booking//ES',
-        'CALSCALE:GREGORIAN',
-        'METHOD:PUBLISH',
-        // Europe/Madrid rules (CET/CEST), so the event keeps its time in any device time zone.
-        'BEGIN:VTIMEZONE',
-        `TZID:${SALON_TIME_ZONE}`,
-        'BEGIN:DAYLIGHT',
-        'TZOFFSETFROM:+0100',
-        'TZOFFSETTO:+0200',
-        'TZNAME:CEST',
-        'DTSTART:19700329T020000',
-        'RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU',
-        'END:DAYLIGHT',
-        'BEGIN:STANDARD',
-        'TZOFFSETFROM:+0200',
-        'TZOFFSETTO:+0100',
-        'TZNAME:CET',
-        'DTSTART:19701025T030000',
-        'RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU',
-        'END:STANDARD',
-        'END:VTIMEZONE',
-        'BEGIN:VEVENT',
-        `UID:${uid}`,
-        `DTSTAMP:${dtStamp}`,
-        `DTSTART;TZID=${SALON_TIME_ZONE}:${ev.start}`,
-        `DTEND;TZID=${SALON_TIME_ZONE}:${ev.end}`,
-        `SUMMARY:${esc(ev.title)}`,
-        `DESCRIPTION:${esc(ev.details)}`,
-        `LOCATION:${esc(ev.location)}`,
-        'STATUS:CONFIRMED',
-        'BEGIN:VALARM',
-        'TRIGGER:-PT2H',
-        'ACTION:DISPLAY',
-        `DESCRIPTION:${esc(reminder)}`,
-        'END:VALARM',
-        'BEGIN:VALARM',
-        'TRIGGER:-P1D',
-        'ACTION:DISPLAY',
-        `DESCRIPTION:${esc(reminder)}`,
-        'END:VALARM',
-        'END:VEVENT',
-        'END:VCALENDAR',
-      ]
-        .map(fold)
-        .join('\r\n') + '\r\n';
-    }
-
-    /**
-     * Paso 3 (Funcionalidad 2): Descarga reactiva del archivo .ics con feedback visual y compatibilidad móvil
-     */
-    downloadIcsFile() {
-      const icsData = this.generateIcsContent();
-      if (!icsData) return;
-
-      const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
-      const petNameClean = (this.bookingData.petName || 'mascota')
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/[^a-z0-9]/g, '-')
-        .replace(/-+/g, '-')
-        .replace(/^-|-$/g, '');
-      const filename = `cita-peluqueria-${petNameClean}.ics`;
-
-      const url = URL.createObjectURL(blob);
-      const tempLink = document.createElement('a');
-      tempLink.href = url;
-      tempLink.setAttribute('download', filename);
-      tempLink.setAttribute('target', '_blank');
-      document.body.appendChild(tempLink);
-      tempLink.click();
-
-      setTimeout(() => {
-        document.body.removeChild(tempLink);
-        URL.revokeObjectURL(url);
-      }, 500);
-
-      // Feedback visual temporal en el botón
-      if (this.appleCalendarBtn) {
-        const origText = this.appleCalendarBtn.textContent;
-        this.appleCalendarBtn.textContent = this.t('downloaded');
-        this.appleCalendarBtn.classList.add('is-active');
-        setTimeout(() => {
-          this.appleCalendarBtn.textContent = origText;
-          this.appleCalendarBtn.classList.remove('is-active');
-        }, 2000);
-      }
-    }
-
-    /**
-     * Paso 1 (Funcionalidad 5): Generador de Enlace de Confirmación por Correo (mailto:)
-     * Formatea asunto y cuerpo con desglose completo del servicio, extras y mascota.
-     */
-    buildEmailConfirmationLink() {
-      const subject = this.t('message_subject', {
-        dog: this.bookingData.petName || this.t('your_dog'),
-        date: this.formatHumanDate(this.bookingData.date),
-        time: this.bookingData.slot,
-      });
-      const body = this.bookingMessage('email');
-      const targetEmail = this.salonEmail || '';
-
-      let mailtoUrl = `mailto:${encodeURIComponent(targetEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      if (this.bookingData.customerEmail && this.bookingData.customerEmail.includes('@')) {
-        mailtoUrl += `&cc=${encodeURIComponent(this.bookingData.customerEmail)}`;
-      }
-      return mailtoUrl;
-    }
-
-    /**
-     * Paso 1 (Funcionalidad 5): Generador de Enlace de Confirmación por SMS (sms:)
-     * Compatible con iOS (&body=) y Android (?body=)
-     */
-    buildSmsConfirmationLink() {
-      let cleanPhone = (this.whatsappNumber || '').replace(/\D/g, '');
-      if (cleanPhone.length === 9 && (cleanPhone.startsWith('6') || cleanPhone.startsWith('7'))) {
-        cleanPhone = '+34' + cleanPhone;
-      } else if (!cleanPhone.startsWith('+') && cleanPhone.length > 9) {
-        cleanPhone = '+' + cleanPhone;
-      }
-
-      const smsText = this.bookingMessage('sms');
-
-      // Detección de dispositivo iOS vs Android / Otros
-      const isIos = typeof navigator !== 'undefined' && /iPad|iPhone|iPod|Macintosh/i.test(navigator.userAgent) && !window.MSStream;
-      const separator = isIos ? '&body=' : '?body=';
-
-      return `sms:${cleanPhone}${separator}${encodeURIComponent(smsText)}`;
-    }
-
-    /**
-     * Paso 1 (Funcionalidad 4): Generador de URL de navegación para Google Maps
-     * Compatible con escritorio (cálculo de ruta en navegador) y móviles (app nativa Google Maps)
-     */
-    buildGoogleMapsUrl() {
-      const address = this.salonAddress;
-      return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`;
-    }
-
-    /**
-     * Paso 1 (Funcionalidad 4): Generador de URL de navegación para Apple Maps
-     * Optimizado para macOS y dispositivos iOS
-     */
-    buildAppleMapsUrl() {
-      const address = this.salonAddress;
-      return `https://maps.apple.com/?daddr=${encodeURIComponent(address)}`;
-    }
-
-    /**
-     * Paso 1 (Funcionalidad 4): Selector inteligente de proveedor de mapas según dispositivo o preferencia
-     * @param {'auto'|'google'|'apple'} preference
-     */
-    buildMapsNavigationUrl(preference = 'auto') {
-      if (preference === 'apple') return this.buildAppleMapsUrl();
-      if (preference === 'google') return this.buildGoogleMapsUrl();
-
-      // Detección de ecosistema Apple (iOS / macOS)
-      const isApple = typeof navigator !== 'undefined' && /iPad|iPhone|iPod|Macintosh/i.test(navigator.userAgent) && !window.MSStream;
-      if (isApple) {
-        return this.buildAppleMapsUrl();
-      }
-      return this.buildGoogleMapsUrl();
-    }
   }
 
   function initGroomingBookingWizards() {

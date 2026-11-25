@@ -11,7 +11,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 
 | Fichero | Líneas | Propuesta |
 |---|---|---|
-| tema `assets/grooming-booking.js` | 2461 | Separar razas, API de la app, compartir/calendario y núcleo del asistente (CODE-09) |
+| tema `assets/grooming-booking.js` | ~~2461~~ 1770 | ✅ Partido en razas, API de la app, compartir y asistente (CODE-09) |
 | tema `assets/section-grooming-booking.css` | 1952 | Un archivo por paso y repartir el bloque de parches del final (CODE-14) |
 | tema `assets/component-pet-cro.css` | 1540 | Hoy se carga en **todas** las páginas; dividir en global, ficha y carrito (CODE-05) |
 | tema `snippets/grooming-booking-step-1.liquid` | 471 | Servicios, tamaño/raza y extras en snippets propios (CODE-12) |
@@ -96,12 +96,24 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 - [ ] 🟠 **CODE-08 · Tipos y etiquetas de producto escritos a mano.** M
   - «Comida húmeda», «Snack», «perro», «gato»… aparecen en 9 ficheros: mega menú, cart-upsell, barra de catálogo, cajón del menú, categorías, relacionados, búsqueda, subnav y `pet-catalog-bar.js`.
   - Propuesta: una sola lista en un snippet o en ajustes.
-- [ ] 🟠 **CODE-09 · Partir `grooming-booking.js`.** L
+- [x] 🟠 **CODE-09 · Partir `grooming-booking.js`.** L *(hecho el 25/11/2026)*
   - `grooming-breeds.js`: razas (l.17-89) y `resolveBreedInfo`.
   - `grooming-booking-api.js`: llamadas a `/apps/reservas/*`.
   - `grooming-booking-share.js`: ICS, Google Calendar, WhatsApp, SMS, mapas y copiar (l.2056-2430).
   - Núcleo: pasos, calendario y precio.
   - Hacerlo después de CODE-10 y CODE-11.
+  - Hecho: 2227 líneas → cuatro archivos, que la sección carga con `defer` y en este orden:
+    - `grooming-booking-api.js` (55 líneas): `availability`, `myDogs`, `joinWaitlist` y `saveBooking`, además de `SALON_TIME_ZONE`.
+    - `grooming-breeds.js` (180): el catálogo y la búsqueda (`normalize`, `resolve`), sin textos. El asistente añade el aviso traducido.
+    - `grooming-booking-share.js` (308): la clase `BookingShare`, con el texto copiado, los mensajes, el evento de calendario y los mapas. `GroomingBookingWizard` la extiende, así que los métodos siguen usando `this`.
+    - `grooming-booking.js` (1770): el asistente. Si falta alguna de las piezas, avisa en la consola y no arranca.
+  - Todo se comparte en `window.GroomingBooking`.
+  - Probado en CLAUDIA en inglés y en español:
+    - disponibilidad, perros guardados y avisos de raza;
+    - `.ics` con zona horaria y dos avisos;
+    - Google Calendar, correo, SMS y mapas;
+    - resumen del paso 4;
+    - sin errores en la consola.
 - [x] 🟠 **CODE-10 · Código muerto en `grooming-booking.js`.** S *(hecho el 24/11/2026)*
   - `prepareCustomerPayload` (l.1788), `getAddonPrice` (l.1460), `getBreedsCatalog` (l.622) y `window.refreshAllGroomingBookings` (l.2435) no se usan.
   - `bookingId` es de la agenda antigua; el UID del ICS debería usar `savedReference`.
