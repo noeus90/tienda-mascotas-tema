@@ -1,0 +1,429 @@
+/* Sizes in Dawn scale (1rem = 10px). */
+/**
+ * Grooming booking: step 2, calendar, times and the waiting list of a full day.
+ * File: assets/grooming-booking-step-2.css. Loaded by sections/grooming-booking.liquid after section-grooming-booking.css,
+ * which holds the shared palette (--booking-*), the wizard frame and the shared controls (CODE-14).
+ */
+
+/* ==========================================================================
+   PASO 2: FECHA & TURNO
+   ========================================================================== */
+.booking-datetime-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 2.8rem;
+}
+
+@media screen and (max-width: 989px) {
+  .booking-datetime-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mini-Calendar 30-Day Widget */
+.booking-calendar-widget {
+  background: rgb(var(--color-background));
+  border: 1px solid rgba(var(--color-foreground), 0.12);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+.booking-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.6rem;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.booking-calendar-badge {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgb(var(--booking-accent));
+  background: rgba(var(--booking-accent-bright), 0.12);
+  padding: 0.4rem 1.04rem;
+  border-radius: 9999px;
+}
+
+.booking-calendar-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.booking-cal-nav-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(var(--color-foreground), 0.15);
+  background: rgb(var(--color-background));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: inherit;
+  transition: all 0.15s ease;
+}
+
+.booking-cal-nav-btn:hover:not(:disabled) {
+  border-color: rgb(var(--booking-accent-light));
+  background: rgba(var(--booking-accent-light), 0.08);
+  color: rgb(var(--booking-accent));
+}
+
+.booking-cal-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.booking-cal-month-label {
+  font-size: 1.52rem;
+  font-weight: 800;
+  margin: 0;
+  min-width: 130px;
+  text-align: center;
+}
+
+.booking-cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: rgba(var(--color-foreground), 0.55);
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.06);
+  padding-bottom: 0.64rem;
+}
+
+.booking-cal-days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.cal-day-cell {
+  position: relative;
+  aspect-ratio: 1;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  font-size: 1.36rem;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: inherit;
+  transition: all 0.15s ease;
+  padding: 2px;
+}
+
+.cal-day-cell:hover:not(.is-disabled):not(.is-empty) {
+  background: rgba(var(--booking-accent-light), 0.1);
+  border-color: rgba(var(--booking-accent-light), 0.3);
+  color: rgb(var(--booking-accent));
+}
+
+/* Same weight as the hover rule above, so it wins over hover, closed and full days. */
+.cal-day-cell.is-selected:not(.is-disabled):not(.is-empty) {
+  background: rgb(var(--booking-accent));
+  color: rgb(var(--booking-on-accent));
+  font-weight: 800;
+  box-shadow: 0 4px 10px rgba(var(--booking-accent-light), 0.35);
+}
+
+.cal-day-cell.is-today::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.cal-day-cell.is-disabled {
+  opacity: 0.28;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.cal-day-cell.is-closed {
+  opacity: 0.35;
+  cursor: not-allowed;
+  background: rgba(var(--color-foreground), 0.02);
+  color: rgba(var(--color-foreground), 0.4);
+}
+
+.cal-day-cell.is-fully-booked {
+  opacity: 0.6;
+  cursor: pointer;
+  background: rgba(var(--booking-error), 0.05);
+  color: rgb(var(--booking-error-text));
+  text-decoration: line-through;
+}
+
+.cal-day-cell.is-empty {
+  cursor: default;
+  pointer-events: none;
+  visibility: hidden;
+  min-height: 38px;
+  min-width: 100%;
+}
+
+.booking-cal-selected-notice {
+  display: flex;
+  align-items: center;
+  gap: 1.04rem;
+  margin-top: 1.6rem;
+  padding: 1.04rem 1.36rem;
+  background: rgba(var(--booking-accent-light), 0.06);
+  border: 1px solid rgba(var(--booking-accent-light), 0.2);
+  border-radius: 10px;
+  font-size: 1.36rem;
+}
+
+.cal-notice-icon {
+  font-size: 1.76rem;
+}
+
+.cal-notice-text strong {
+  color: rgb(var(--booking-accent));
+}
+
+.booking-cal-legend {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.cal-legend-pill {
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.4rem 0.96rem;
+  border-radius: 9999px;
+  background: rgba(var(--color-foreground), 0.04);
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.cal-legend-pill.is-open {
+  background: rgba(var(--booking-accent-light), 0.08);
+  color: rgb(var(--booking-accent));
+}
+
+.cal-legend-pill.is-closed {
+  background: rgba(var(--booking-error), 0.08);
+  color: rgb(var(--booking-error-text));
+}
+
+.booking-shift-info-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.96rem;
+  margin-top: 2rem;
+  padding: 1.2rem 1.44rem;
+  border-radius: 10px;
+  background: rgba(var(--color-foreground), 0.03);
+  border: 1px solid rgba(var(--color-foreground), 0.08);
+}
+
+.shift-info-icon {
+  font-size: 1.6rem;
+  line-height: 1.3;
+}
+
+.shift-info-text {
+  margin: 0;
+  font-size: 1.248rem;
+  line-height: 1.4;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+.shift-group {
+  margin-bottom: 2rem;
+}
+
+.shift-group-title {
+  display: block;
+  font-size: 1.28rem;
+  font-weight: 700;
+  color: rgba(var(--color-foreground), 0.7);
+  margin-bottom: 0.64rem;
+}
+
+.shift-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.8rem;
+}
+
+@media screen and (max-width: 749px) {
+  .shift-slots-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.booking-slot-card {
+  padding: 0.96rem 0.8rem;
+  text-align: center;
+  border-radius: 8px;
+  border: 1px solid rgba(var(--color-foreground), 0.15);
+  background: rgb(var(--color-background));
+  cursor: pointer;
+  font-size: 1.36rem;
+  font-weight: 700;
+  transition: all 0.15s ease;
+}
+
+.booking-slot-card:hover {
+  border-color: rgb(var(--booking-accent-light));
+}
+
+.booking-slot-card.is-selected {
+  border-color: rgb(var(--booking-accent-light));
+  background: rgb(var(--booking-accent));
+  color: rgb(var(--booking-on-accent));
+}
+
+.booking-slot-card.is-booked,
+.booking-slot-card.is-disabled {
+  background: rgba(var(--color-foreground), 0.03);
+  border-color: rgba(var(--color-foreground), 0.1);
+  color: rgba(var(--color-foreground), 0.35);
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.65;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.32rem;
+}
+
+.booking-slot-card.is-booked .slot-time {
+  text-decoration: line-through;
+}
+
+.slot-booked-badge {
+  font-size: 1.04rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.16rem 0.56rem;
+  border-radius: 4px;
+  background: rgba(var(--booking-error), 0.12);
+  color: rgb(var(--booking-error));
+  line-height: 1.1;
+}
+
+.booking-shift-special-notice {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 1.6rem;
+  padding: 1.36rem 1.76rem;
+  border-radius: 12px;
+  background: rgba(var(--booking-warning), 0.12);
+  border: 1px solid rgba(var(--booking-warning), 0.35);
+  color: rgb(var(--booking-warning-text));
+  font-size: 1.36rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.booking-shift-special-notice .notice-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.booking-shift-fully-booked-notice {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 1.6rem;
+  padding: 1.36rem 1.76rem;
+  border-radius: 12px;
+  background: rgba(var(--booking-error), 0.1);
+  border: 1px solid rgba(var(--booking-error), 0.3);
+  color: rgb(var(--booking-error-text));
+  font-size: 1.36rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.booking-shift-fully-booked-notice .notice-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* Waiting list of a full day */
+.booking-waitlist {
+  margin-top: 1.6rem;
+  padding: 1.6rem;
+  border: 1px solid rgb(var(--booking-warning-border));
+  border-radius: 1.2rem;
+  background: rgb(var(--booking-warning-soft));
+}
+
+.booking-waitlist__title {
+  margin: 0 0 1.2rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.booking-waitlist__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+@media screen and (max-width: 749px) {
+  .booking-waitlist__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.booking-waitlist__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 1.3rem;
+}
+
+.booking-waitlist__field input,
+.booking-waitlist__field select {
+  min-height: 4.4rem;
+  padding: 0 1rem;
+  border: 1px solid rgba(var(--color-foreground), 0.3);
+  border-radius: 0.8rem;
+  background: rgb(var(--color-background));
+  font: inherit;
+  font-size: 1.6rem;
+}
+
+.booking-waitlist__button {
+  margin-bottom: 0.8rem;
+}
+
+.booking-waitlist__status {
+  margin: 0;
+  font-size: 1.5rem;
+  color: rgb(var(--booking-error-text));
+}
+
+.booking-waitlist__status.is-success {
+  color: rgb(var(--booking-accent));
+  font-weight: 600;
+}

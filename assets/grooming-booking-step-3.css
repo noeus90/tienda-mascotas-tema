@@ -1,0 +1,226 @@
+/* Sizes in Dawn scale (1rem = 10px). */
+/**
+ * Grooming booking: step 3, the dog and owner form, special needs and privacy.
+ * File: assets/grooming-booking-step-3.css. Loaded by sections/grooming-booking.liquid after section-grooming-booking.css,
+ * which holds the shared palette (--booking-*), the wizard frame and the shared controls (CODE-14).
+ */
+
+/* ==========================================================================
+   PASO 3: FICHA DEL PELUDO & FORMULARIO
+   ========================================================================== */
+.booking-fieldset {
+  border: 1px solid rgba(var(--color-foreground), 0.1);
+  border-radius: 14px;
+  padding: 2.4rem;
+  margin-bottom: 2.4rem;
+  background: rgba(var(--color-foreground), 0.01);
+}
+
+.booking-legend {
+  font-size: 1.52rem;
+  font-weight: 800;
+  padding: 0 0.8rem;
+  color: rgb(var(--booking-accent));
+}
+
+.booking-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.6rem;
+}
+
+@media screen and (max-width: 749px) {
+  .booking-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.booking-form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-special-needs {
+  margin-top: 1.6rem;
+  padding-top: 1.6rem;
+  border-top: 1px dashed rgba(var(--color-foreground), 0.1);
+}
+
+.booking-tags-grid {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.booking-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.56rem;
+  padding: 0.56rem 1.2rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(var(--color-foreground), 0.15);
+  background: rgb(var(--color-background));
+  font-size: 1.28rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.booking-tag-pill:hover {
+  border-color: rgb(var(--booking-accent-light));
+}
+
+.booking-tag-pill input:checked + span {
+  color: rgb(var(--booking-accent));
+  font-weight: 700;
+}
+
+.booking-tag-pill:has(input:checked) {
+  border-color: rgb(var(--booking-accent-light));
+  background: rgba(var(--booking-accent-light), 0.08);
+}
+
+/* RGPD / LOPD-GDD Privacy Protection Card */
+.booking-privacy-card {
+  margin-top: 2rem;
+  padding: 1.6rem 1.84rem;
+  background: rgba(var(--color-foreground), 0.02);
+  border: 1px solid rgba(var(--color-foreground), 0.12);
+  border-radius: 10px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.booking-privacy-card.has-error {
+  border-color: rgb(var(--booking-error-light));
+  background: rgb(var(--booking-error-soft));
+  box-shadow: 0 0 0 3px rgba(var(--booking-error-light), 0.15);
+  animation: bookingFieldShake 0.35s ease-in-out;
+}
+
+.booking-privacy-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.04rem;
+  cursor: pointer;
+  font-size: 1.4rem;
+  line-height: 1.45;
+  color: rgba(var(--color-foreground), 0.85);
+  user-select: none;
+}
+
+.booking-privacy-checkbox {
+  margin-top: 0.32rem;
+  width: 1.84rem;
+  height: 1.84rem;
+  accent-color: rgb(var(--booking-accent-light));
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.booking-privacy-text-wrap {
+  flex: 1;
+}
+
+.booking-privacy-link {
+  color: rgb(var(--booking-accent));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+  transition: color 0.15s ease;
+}
+
+.booking-privacy-link:hover {
+  color: rgb(var(--booking-accent));
+}
+
+.booking-rgpd-accordion {
+  margin-top: 1.2rem;
+  border-top: 1px dashed rgba(var(--color-foreground), 0.12);
+  padding-top: 0.96rem;
+}
+
+.booking-rgpd-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.64rem;
+  font-size: 1.24rem;
+  color: rgba(var(--color-foreground), 0.65);
+  cursor: pointer;
+  user-select: none;
+  font-weight: 500;
+}
+
+.booking-rgpd-summary:hover {
+  color: rgb(var(--booking-accent));
+}
+
+.booking-rgpd-summary svg {
+  flex-shrink: 0;
+}
+
+.booking-rgpd-content {
+  margin-top: 0.96rem;
+  padding: 1.04rem 1.36rem;
+  background: rgb(var(--color-background));
+  border-radius: 6px;
+  border: 1px solid rgba(var(--color-foreground), 0.08);
+}
+
+.booking-rgpd-dl {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.72rem;
+  font-size: 1.2rem;
+  line-height: 1.4;
+}
+
+.booking-rgpd-row {
+  display: grid;
+  grid-template-columns: 95px 1fr;
+  gap: 0.8rem;
+}
+
+@media screen and (max-width: 749px) {
+  .booking-rgpd-row {
+    grid-template-columns: 1fr;
+    gap: 0.24rem;
+  }
+}
+
+.booking-rgpd-row dt {
+  font-weight: 700;
+  color: rgba(var(--color-foreground), 0.8);
+}
+
+.booking-rgpd-row dd {
+  margin: 0;
+  color: rgba(var(--color-foreground), 0.65);
+}
+
+.booking-privacy-error {
+  margin-top: 0.96rem;
+  font-size: 1.32rem;
+  font-weight: 600;
+  color: rgb(var(--booking-error-text));
+}
+
+/* Hidden field for bots: people never see it */
+.booking-hp-field {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Optional newsletter box, under the privacy checkbox */
+.booking-marketing-label {
+  margin-top: 1.6rem;
+}
+
+@media screen and (max-width: 749px) {
+  .booking-fieldset {
+    padding: 1.6rem 1.4rem;
+  }
+}

@@ -1,0 +1,339 @@
+/* Sizes in Dawn scale (1rem = 10px). */
+/**
+ * Grooming booking: step 4, summary, sending the booking, deposit and sharing.
+ * File: assets/grooming-booking-step-4.css. Loaded by sections/grooming-booking.liquid after section-grooming-booking.css,
+ * which holds the shared palette (--booking-*), the wizard frame and the shared controls (CODE-14).
+ */
+
+/* ==========================================================================
+   PASO 4: CONFIRMACIÓN & WHATSAPP
+   ========================================================================== */
+.booking-confirmation-card {
+  background: rgba(var(--color-foreground), 0.015);
+  border: 1px solid rgba(var(--color-foreground), 0.1);
+  border-radius: 16px;
+  padding: 2.8rem;
+}
+
+.confirmation-summary-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+}
+
+.confirmation-pet-badge {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.confirmation-pet-badge .pet-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(var(--booking-accent-light), 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+}
+
+.pet-summary-name {
+  display: block;
+  font-size: 1.92rem;
+  font-weight: 800;
+}
+
+.pet-summary-breed {
+  font-size: 1.36rem;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+.confirmation-price-tag {
+  text-align: right;
+}
+
+.price-label {
+  display: block;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.6);
+  font-weight: 700;
+}
+
+.price-amount {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: rgb(var(--booking-accent));
+}
+
+.confirmation-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.6rem;
+  margin-bottom: 2.8rem;
+}
+
+@media screen and (max-width: 749px) {
+  .confirmation-details-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.conf-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.32rem;
+}
+
+.conf-label {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.6);
+}
+
+.conf-value {
+  font-size: 1.52rem;
+}
+
+.conf-item-addons {
+  grid-column: 1 / -1;
+}
+
+.conf-addons-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.64rem;
+  margin-top: 0.4rem;
+}
+
+.conf-addon-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.56rem;
+  padding: 0.48rem 1.04rem;
+  background: rgb(var(--booking-accent-soft));
+  border: 1px solid rgb(var(--booking-accent-border));
+  border-radius: 9999px;
+  font-size: 1.28rem;
+  color: rgb(var(--booking-accent-dark));
+  font-weight: 600;
+}
+
+.conf-addon-pill strong {
+  color: rgb(var(--booking-accent));
+  font-weight: 800;
+}
+
+.confirmation-cta-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+  padding-top: 2rem;
+  border-top: 1px dashed rgba(var(--color-foreground), 0.15);
+}
+
+.grooming-booking-btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.04rem;
+  width: 100%;
+  max-width: 360px;
+  padding: 1.44rem 2.8rem;
+  background: rgb(var(--booking-whatsapp));
+  color: rgb(var(--booking-on-accent));
+  border-radius: 12px;
+  font-size: 1.68rem;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(var(--booking-whatsapp), 0.3);
+  transition: all 0.2s ease;
+}
+
+.grooming-booking-btn-whatsapp:hover,
+.grooming-booking-btn-whatsapp:focus-visible {
+  background: rgb(var(--booking-whatsapp-dark));
+  color: rgb(var(--booking-on-accent));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(var(--booking-whatsapp), 0.4);
+}
+
+.booking-secondary-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.04rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.grooming-booking-btn-secondary-action,
+.grooming-booking-btn-email,
+.grooming-booking-btn-sms,
+.grooming-booking-btn-ics,
+.grooming-booking-btn-gcal,
+.grooming-booking-btn-maps,
+.grooming-booking-btn-copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.88rem 1.52rem;
+  border-radius: 8px;
+  font-size: 1.32rem;
+  font-weight: 600;
+  text-decoration: none;
+  background: rgb(var(--color-background));
+  color: inherit;
+  border: 1px solid rgba(var(--color-foreground), 0.18);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1.3;
+}
+
+.grooming-booking-btn-secondary-action:hover,
+.grooming-booking-btn-email:hover,
+.grooming-booking-btn-sms:hover,
+.grooming-booking-btn-ics:hover,
+.grooming-booking-btn-gcal:hover,
+.grooming-booking-btn-maps:hover,
+.grooming-booking-btn-copy:hover {
+  background: rgba(var(--color-foreground), 0.05);
+  border-color: rgba(var(--color-foreground), 0.35);
+  transform: translateY(-1px);
+}
+
+.grooming-booking-btn-secondary-action.is-active {
+  background: rgb(var(--booking-accent-soft));
+  color: rgb(var(--booking-accent));
+  border-color: rgb(var(--booking-accent-light));
+}
+
+.booking-success-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  padding: 1.6rem 2rem;
+  background: rgb(var(--booking-accent-soft));
+  border: 1px solid rgb(var(--booking-accent-border));
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  text-align: left;
+  animation: bookingSuccessPulse 0.3s ease-out;
+}
+
+@keyframes bookingSuccessPulse {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.success-icon {
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.success-text strong {
+  display: block;
+  color: rgb(var(--booking-accent-dark));
+  font-size: 1.52rem;
+  margin-bottom: 0.32rem;
+}
+
+.success-text p {
+  margin: 0;
+  color: rgb(var(--booking-accent));
+  font-size: 1.32rem;
+  line-height: 1.4;
+}
+
+.booking-trust-points {
+  display: flex;
+  gap: 1.6rem;
+  font-size: 1.28rem;
+  color: rgba(var(--color-foreground), 0.7);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.trust-point {
+  font-weight: 600;
+}
+
+/* Booking app submission (step 4) */
+.booking-submit-btn {
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 1.92rem;
+}
+.booking-submit-btn[aria-busy="true"] {
+  opacity: 0.7;
+  cursor: progress;
+}
+.booking-submit-status {
+  margin: 0 0 1.92rem;
+  padding: 1.92rem 2.24rem;
+  border-radius: 1.6rem;
+  font-size: 2.24rem;
+  line-height: 1.5;
+  /* Line breaks of the copied booking details when the clipboard is blocked (CODE-11). */
+  white-space: pre-line;
+}
+.booking-submit-status.is-success {
+  background: rgb(var(--booking-accent-soft));
+  color: rgb(var(--booking-accent-dark));
+  border: 1px solid rgb(var(--booking-accent-border));
+}
+.booking-submit-status.is-error {
+  background: rgb(var(--booking-error-soft));
+  color: rgb(var(--booking-error-dark));
+  border: 1px solid rgb(var(--booking-error-border));
+}
+
+/* Deposit offered after booking */
+.booking-deposit {
+  margin: 1.6rem 0;
+  padding: 1.6rem;
+  border: 1px solid rgba(var(--booking-accent-light), 0.35);
+  border-radius: 12px;
+  background: rgba(var(--booking-accent-light), 0.06);
+  text-align: center;
+}
+
+.booking-deposit-text {
+  margin: 0 0 1.2rem;
+  font-size: 1.5rem;
+  line-height: 1.45;
+}
+
+.booking-deposit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 1rem 2.4rem;
+  border-radius: 9999px;
+  background: rgb(var(--booking-accent));
+  color: rgb(var(--booking-on-accent));
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.booking-deposit-btn:hover {
+  background: rgb(var(--booking-accent-dark));
+}
+
+@media screen and (max-width: 749px) {
+  /* Summary: the estimated total sits on the left, under the dog. */
+  .confirmation-price-tag {
+    text-align: left;
+  }
+}

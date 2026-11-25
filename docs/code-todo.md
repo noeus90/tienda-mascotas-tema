@@ -12,7 +12,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 | Fichero | Líneas | Propuesta |
 |---|---|---|
 | tema `assets/grooming-booking.js` | ~~2461~~ 1769 | ✅ Partido en razas, API de la app, compartir y asistente (CODE-09) |
-| tema `assets/section-grooming-booking.css` | 1952 | Un archivo por paso y repartir el bloque de parches del final (CODE-14) |
+| tema `assets/section-grooming-booking.css` | ~~1952~~ 436 | ✅ Un archivo por paso, sin bloque de parches (CODE-14) |
 | tema `assets/component-pet-cro.css` | 1540 | Hoy se carga en **todas** las páginas; dividir en global, ficha y carrito (CODE-05) |
 | tema `snippets/grooming-booking-step-1.liquid` | 471 | Servicios, tamaño/raza y extras en snippets propios (CODE-12) |
 | app `app/routes/app.citas.$id.jsx` | 669 | Una función por `intent` en `lib/appointment-actions.server.js` y componentes aparte (CODE-24) |
@@ -161,11 +161,28 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 - [ ] 🟠 **CODE-13 · Textos por defecto comparados con literales.** L
   - Hay unas 40 comparaciones del tipo `raw == 'Texto' or raw == 'Text'` (footer, cajón del menú, relacionados, aviso superior, colecciones…). Basta un espacio o una tilde cambiada en el editor para que deje de traducirse, y cada texto nuevo obliga a tocar el código.
   - Propuesta: ajustes vacíos por defecto, con la nota «vacío = texto traducido», y `section.settings.x | default: ('clave' | t)`. Después, vaciar esos valores en las plantillas.
-- [ ] 🟠 **CODE-14 · Ordenar `section-grooming-booking.css`.** M
+- [x] 🟠 **CODE-14 · Ordenar `section-grooming-booking.css`.** M *(hecho el 25/11/2026)*
   - Hay 18 `!important`, de los que unos 10 son `[hidden]{display:none!important}` repetidos; basta una sola regla. Hay además una regla vacía (l.1799-1801).
   - Tiene 120 colores fijos; pasarlos a las variables del esquema de color.
   - Los puntos de corte van por libre (480, 520, 600, 680, 800); unificarlos con los de Dawn: 750 y 990.
   - Partir el fichero por pasos.
+  - Hecho: 1958 líneas → cinco archivos, que la sección carga en este orden:
+    - `section-grooming-booking.css` (436): paleta, cabecera, pasos, tarjeta, botones y lo que comparten los pasos (campos, avisos, elegir perro o peluquera);
+    - `grooming-booking-step-1.css` a `-step-4.css` (520, 429, 226 y 339): cada paso con sus arreglos para móvil. El bloque de parches del final ya no existe.
+  - `!important`: de 18 queda uno, en una sola regla `.grooming-booking-section [hidden]`.
+    - El día elegido del calendario gana por peso del selector.
+    - El campo con error y el botón activo ya ganaban por orden.
+  - Colores:
+    - el blanco pasa a `--color-background` (el del esquema);
+    - los verdes, rojos, ámbar, azul y WhatsApp pasan a variables `--booking-*` definidas en un solo sitio;
+    - solo quedan fijas tres sombras negras.
+    - Los verdes no se toman del botón del esquema porque es negro y la reserva cambiaría de aspecto.
+  - Puntos de corte: 480, 520, 600, 680 y 750 pasan a 749, y 800 a 989.
+  - Comprobado con una huella de los estilos calculados de los 545 elementos, a 390 y a 1280 px, antes y después. Sale idéntico salvo tres cambios buscados:
+    - el buscador de raza deja sitio a la ×;
+    - la × ya no sale con el campo vacío: antes `display: flex` ganaba a `hidden`;
+    - el fondo del aviso de privacidad, `#f8fafc` → 2 % del texto, una diferencia imperceptible.
+  - El día elegido, el campo con error y el botón activo dan los mismos colores. A 700 px la reserva se ve bien.
 
 ## Tema · 🟢 limpieza
 

@@ -15,6 +15,10 @@
 
 {%- if show_booking -%}
 {{ 'section-grooming-booking.css' | asset_url | stylesheet_tag }}
+{{ 'grooming-booking-step-1.css' | asset_url | stylesheet_tag }}
+{{ 'grooming-booking-step-2.css' | asset_url | stylesheet_tag }}
+{{ 'grooming-booking-step-3.css' | asset_url | stylesheet_tag }}
+{{ 'grooming-booking-step-4.css' | asset_url | stylesheet_tag }}
 {%- comment -%} Order matters: the last file uses the other three (CODE-09). {%- endcomment -%}
 <script src="{{ 'grooming-booking-api.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'grooming-breeds.js' | asset_url }}" defer="defer"></script>
