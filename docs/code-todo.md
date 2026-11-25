@@ -418,10 +418,21 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - el formulario pidió confirmar, el aviso salió «Sin confirmar», llegó el email y, con el enlace y «Sí, avisadme», pasó a «Esperando»;
     - mientras la tienda tenga contraseña, el enlace solo funciona si antes se ha entrado con la contraseña en ese navegador. Si no, Shopify enseña la página de contraseña y la petición no llega a la app. Con la tienda abierta no pasa.
   - Sin probar con datos reales: dos reservas a la vez (lo cubre el test del candado).
-- [ ] 🟠 **CODE-27 · Emails de marketing y entregabilidad.** S
+- [x] 🟠 **CODE-27 · Emails de marketing y entregabilidad.** S *(hecho el 25/11/2026, app `b6deabc`)*
   - Faltan las cabeceras `List-Unsubscribe` y `List-Unsubscribe-Post` en bienvenida, rebook y reorder (Gmail y Yahoo las piden).
   - Faltan `<title>` y texto de previsualización.
   - Los grises `#888`/`#666` tienen poco contraste.
+  - Hecho:
+    - **Cabeceras de baja.** `sendEmail` acepta `headers`, y bienvenida, rebook y reposición envían `List-Unsubscribe: <enlace de baja>` y `List-Unsubscribe-Post: List-Unsubscribe=One-Click`.
+      - El botón de baja de Gmail o Yahoo hace un POST al mismo enlace. `proxy.sin-recordatorios.jsx` ya lo acepta: lee los ids de la URL y da de baja sin preguntar, como pide el estándar.
+      - Los emails de cita (confirmación, recordatorio…) no las llevan, porque no son marketing.
+    - **Plantilla.** `emailLayout` añade `<head>` con charset, viewport y `<title>` (el asunto), y el texto de previsualización oculto: la primera frase del email, de 140 caracteres como mucho. Lo usan todos los emails con plantilla.
+    - **Contraste.** El enlace de baja pasa de `#888` (3,5:1) a `#666` (5,7:1). `#666` ya cumplía AA en las notas, así que no se ha tocado.
+  - Comprobado:
+    - 70 tests (6 nuevos: título, previsualización, contraste, cabeceras hasta Brevo, y que solo el rebook las lleva), lint, build y CI en verde.
+    - En CLAUDIA, un email de rebook de muestra se ve igual que antes, con el título en la pestaña y la previsualización oculta.
+    - El POST de un clic a la página de baja (cliente, suscriptor y perro) llega por el proxy de Shopify y rechaza las firmas falsas.
+  - Sin probar: que Gmail muestre su botón «Darse de baja». Gmail decide cuándo enseñarlo según el remitente, y necesita la tienda abierta y SPF/DKIM/DMARC del dominio en Brevo.
 - [ ] 🟠 **CODE-28 · Producción.** M
   - SQLite en un fichero: con varias instancias no se comparten sesiones ni candados. Propuesta: Postgres.
   - El `Dockerfile` instala con `--omit=dev`, pero compila con `vite`, que está en devDependencies; comprobar si la build funciona.
