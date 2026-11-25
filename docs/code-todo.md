@@ -476,8 +476,18 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - Un fichero con fallos a propósito da 6 errores: hook condicional, variable sin definir, `process` en un componente y tres de accesibilidad.
     - Los 29 emails generan el mismo HTML byte a byte antes y después del formato.
     - `npm run check` (lint, formato, 74 tests y build) y el CI en verde. La app en desarrollo sigue cargando.
-- [ ] 🟢 **CODE-30 · Logs.** M
+- [x] 🟢 **CODE-30 · Logs.** M *(hecho el 25/11/2026, app `c866235`)*
   - Hay 51 `console.*` sueltos. Propuesta: un logger mínimo con `shop` y `job`, que guarde la pila del error.
+  - Hecho: `app/lib/log.server.js`, sin dependencias.
+    - Uso: `log.info/warn/error(mensaje, campos)` y `log.with(campos)`.
+    - `withLogContext({ shop, job }, fn)`, con AsyncLocalStorage, añade esos campos a todo lo que se registre dentro, aunque sea en módulos que no conocen la tienda.
+    - En producción escribe una línea JSON por evento (`time`, `level`, `msg`, campos y `error`); en local, texto legible con la pila debajo.
+    - El `error` va entero: nombre, mensaje, pila, `userErrors` y `errors` de Shopify. Antes muchos registraban solo `error.message`.
+  - Los 52 `console.*` (51 más el del arranque de CODE-28) pasan al logger, con campos en vez de texto montado (cita, alerta, pedido…).
+    - Las tareas del programador (recordatorios, rebook, reposición, stock, señales, lista de espera, resúmenes) y el webhook `orders/paid` corren con su `shop` y `job`.
+    - Los emails salen enmascarados (`a***@dominio`): antes se registraba la dirección entera.
+  - Comprobado: 78 tests (4 nuevos: JSON con contexto y error entero, texto local, contexto anidado y que no se escapa, y enmascarado), `npm run check` y CI en verde.
+  - Sin ver en el servidor: no ha saltado ningún registro desde el cambio, porque nada ha fallado ni se ha enviado. El formato lo cubren los tests con el módulo real.
 - [ ] 🟢 **CODE-31 · Baja de emails repetida.** S
   - `proxy.sin-recordatorios.jsx`: tres lectores de id y token y tres páginas casi iguales. Propuesta: una tabla de casos.
 
