@@ -27,7 +27,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 | Tamaños de letra distintos | 42 (1,2 · 1,25 · 1,28 · 1,3 · 1,32 · 1,34 · 1,35 · 1,36 rem…) | 6 o 7 de una escala (CSS-10) |
 | Radios distintos | Más de 15 (`9999px`, `999px`, `99rem`, `14px`, `12px`, `10px`, `8px`, `1,2rem`…) | 4 variables (CSS-11) |
 | `transition: all` | 36 | 0 (CSS-14) |
-| Animaciones propias con alternativa sin movimiento | 1 de 8 (la barra fija de compra) | Todas (CSS-13) |
+| Animaciones propias con alternativa sin movimiento | ~~1 de 8~~ ✅ todas (regla común) | Todas (CSS-13) |
 | Puntos de corte fuera de los de Dawn | 750, 480, 1150 y 1200 px | 749 y 989 px (CSS-16) |
 
 ## 🔴 Se ve mal o falla para alguien
@@ -62,13 +62,24 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - **Esquema oscuro**, con las plantillas cambiadas solo en el tema de desarrollo y restauradas después: cero textos con poco contraste en inicio, ficha, colección y reserva, a 1280 y 390 px. Solo quedan blancos los botones de Dawn, que en el esquema 4 lo son a propósito.
     - **Esquema claro:** huella de colores calculados con el código anterior y el nuevo en 12 vistas (inicio, ficha, colección, carrito, reserva, contacto, búsqueda). Sale idéntica salvo la etiqueta «online».
     - Theme Check sin avisos.
-- [ ] 🔴 **CSS-13 · Movimiento reducido.** S
+- [x] 🔴 **CSS-13 · Movimiento reducido.** S *(hecho el 25/11/2026)*
   - Hay animaciones sin alternativa para quien pide menos movimiento en el sistema:
     - la entrada de cada paso y la sacudida del campo con error (`section-grooming-booking.css`);
     - las de `grooming-booking-step-1.css` y `-step-4.css`;
     - 3 de las 4 de `component-pet-product.css`, entre ellas los dos puntos que laten sin parar junto al stock (`croPulseGreen`, `croPulseAmber`).
   - Solo tres ficheros tienen `prefers-reduced-motion`. En `component-pet-product.css` solo cubre la barra fija de compra; en `section-pet-categories.css` y `section-pet-grooming-steps.css`, sus transiciones.
   - Propuesta: una regla común en `@media (prefers-reduced-motion: reduce)` que quite animaciones y transformaciones del CSS propio, como hace `base.css` con lo de Dawn.
+  - Hecho:
+    - `component-pet-cro.css` (sección 12), que se carga en todas las páginas, tiene una regla en `@media (prefers-reduced-motion: reduce)`. Cubre los componentes propios y todo lo que llevan dentro, incluidos `::before` y `::after`.
+      - Los reconoce por los fragmentos de clase `pet-`, `cro-`, `booking-`, `grooming-`, `cta-booking`, `mega-menu-pet`, `header__species`, `sticky-atc`, `trust-badge`, `gift-card-promo`…; se comprobó que ninguna clase de Dawn los contiene.
+      - Las animaciones y transiciones pasan a durar 0,01 ms, y los puntos que laten se paran tras un ciclo.
+      - No se usa `animation: none` por dos motivos: los fundidos terminarían ocultos, y el JS de Dawn (cajones del carrito) espera el evento `transitionend`, que con `none` no llega.
+    - `grooming-booking.js`: los dos `scrollIntoView` de la reserva usan desplazamiento suave solo si el sistema no pide menos movimiento.
+  - Comprobado en CLAUDIA en el inicio, la ficha y la reserva:
+    - El navegador acepta la regla: aparece en el CSSOM. Un primer intento con un pseudoelemento dentro de `:is()` era inválido y se habría ignorado entero.
+    - Aplicada sin la condición de media, detiene los 96 a 192 elementos animados propios de cada página; no queda ninguno moviéndose.
+    - En 5 páginas, lo animado que queda fuera son piezas de Dawn (botones, campos, filtros) con transiciones de color cortas.
+    - No se pudo activar «reducir movimiento» del sistema desde la extensión: la comprobación es sobre la regla, no con la preferencia real.
 - [ ] 🔴 **CSS-15 · Foco visible en la reserva y en las píldoras.** S
   - Los pasos 1 a 3 de la reserva no tienen ningún `:focus-visible` propio: tarjetas de servicio, tamaños, extras, días, horas y peluqueras.
   - Muchas píldoras tienen `:hover` pero no foco: «Perro / Gato», categorías, importes de la tarjeta regalo y «Añadir» de la rutina.

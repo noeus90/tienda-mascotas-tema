@@ -465,3 +465,145 @@
   font-weight: 600;
   color: rgb(var(--pet-text-accent));
 }
+
+/* 12. Reduced motion (CSS-13): with "reduce motion" on in the system, the store's own components (classes
+   pet-, cro-, booking-, grooming-… none of Dawn's has them) and everything inside them do not move.
+   Durations go to 0.01 ms instead of "none" so fade-ins end visible and transitionend still fires (Dawn's
+   drawers wait for it); pulsing dots stop after one cycle. Dawn's own parts follow base.css. */
+@media (prefers-reduced-motion: reduce) {
+  :is(
+    [class*='pet-'],
+    [class*='cro-'],
+    [class*='booking-'],
+    [class*='grooming-'],
+    [class*='cta-booking'],
+    [class*='mega-menu-pet'],
+    [class*='menu-drawer__species'],
+    [class*='menu-drawer__subfilter'],
+    [class*='menu-drawer__cta'],
+    [class*='menu-drawer__whatsapp'],
+    [class*='header__species'],
+    [class*='header-lang'],
+    [class*='header__menu-item--cta-booking'],
+    [class*='header__submenu-item--highlight'],
+    [class*='sticky-atc'],
+    [class*='trust-badge'],
+    [class*='gift-card-promo'],
+    [class*='service-card'],
+    [class*='search-pet']
+  ),
+  :is(
+      [class*='pet-'],
+      [class*='cro-'],
+      [class*='booking-'],
+      [class*='grooming-'],
+      [class*='cta-booking'],
+      [class*='mega-menu-pet'],
+      [class*='menu-drawer__species'],
+      [class*='menu-drawer__subfilter'],
+      [class*='menu-drawer__cta'],
+      [class*='menu-drawer__whatsapp'],
+      [class*='header__species'],
+      [class*='header-lang'],
+      [class*='header__menu-item--cta-booking'],
+      [class*='header__submenu-item--highlight'],
+      [class*='sticky-atc'],
+      [class*='trust-badge'],
+      [class*='gift-card-promo'],
+      [class*='service-card'],
+      [class*='search-pet']
+    )
+    *,
+  :is(
+    [class*='pet-'],
+    [class*='cro-'],
+    [class*='booking-'],
+    [class*='grooming-'],
+    [class*='cta-booking'],
+    [class*='mega-menu-pet'],
+    [class*='menu-drawer__species'],
+    [class*='menu-drawer__subfilter'],
+    [class*='menu-drawer__cta'],
+    [class*='menu-drawer__whatsapp'],
+    [class*='header__species'],
+    [class*='header-lang'],
+    [class*='header__menu-item--cta-booking'],
+    [class*='header__submenu-item--highlight'],
+    [class*='sticky-atc'],
+    [class*='trust-badge'],
+    [class*='gift-card-promo'],
+    [class*='service-card'],
+    [class*='search-pet']
+  )::before,
+  :is(
+    [class*='pet-'],
+    [class*='cro-'],
+    [class*='booking-'],
+    [class*='grooming-'],
+    [class*='cta-booking'],
+    [class*='mega-menu-pet'],
+    [class*='menu-drawer__species'],
+    [class*='menu-drawer__subfilter'],
+    [class*='menu-drawer__cta'],
+    [class*='menu-drawer__whatsapp'],
+    [class*='header__species'],
+    [class*='header-lang'],
+    [class*='header__menu-item--cta-booking'],
+    [class*='header__submenu-item--highlight'],
+    [class*='sticky-atc'],
+    [class*='trust-badge'],
+    [class*='gift-card-promo'],
+    [class*='service-card'],
+    [class*='search-pet']
+  )::after,
+  :is(
+      [class*='pet-'],
+      [class*='cro-'],
+      [class*='booking-'],
+      [class*='grooming-'],
+      [class*='cta-booking'],
+      [class*='mega-menu-pet'],
+      [class*='menu-drawer__species'],
+      [class*='menu-drawer__subfilter'],
+      [class*='menu-drawer__cta'],
+      [class*='menu-drawer__whatsapp'],
+      [class*='header__species'],
+      [class*='header-lang'],
+      [class*='header__menu-item--cta-booking'],
+      [class*='header__submenu-item--highlight'],
+      [class*='sticky-atc'],
+      [class*='trust-badge'],
+      [class*='gift-card-promo'],
+      [class*='service-card'],
+      [class*='search-pet']
+    )
+    *::before,
+  :is(
+      [class*='pet-'],
+      [class*='cro-'],
+      [class*='booking-'],
+      [class*='grooming-'],
+      [class*='cta-booking'],
+      [class*='mega-menu-pet'],
+      [class*='menu-drawer__species'],
+      [class*='menu-drawer__subfilter'],
+      [class*='menu-drawer__cta'],
+      [class*='menu-drawer__whatsapp'],
+      [class*='header__species'],
+      [class*='header-lang'],
+      [class*='header__menu-item--cta-booking'],
+      [class*='header__submenu-item--highlight'],
+      [class*='sticky-atc'],
+      [class*='trust-badge'],
+      [class*='gift-card-promo'],
+      [class*='service-card'],
+      [class*='search-pet']
+    )
+    *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+}

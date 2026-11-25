@@ -12,6 +12,10 @@
   // Parts loaded before this file (CODE-09): app calls, breed catalogue and sharing.
   const ns = window.GroomingBooking || {};
   const { api, breeds, BookingShare, SALON_TIME_ZONE } = ns;
+
+  /** Smooth scrolling, unless the system asks for less motion (CSS-13). */
+  const scrollBehavior = () =>
+    window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
   if (!api || !breeds || !BookingShare) {
     console.error('grooming-booking.js: load grooming-booking-api.js, grooming-breeds.js and grooming-booking-share.js first.');
     return;
@@ -1276,7 +1280,7 @@
           const grid = this.section.querySelector(missing[1]);
           if (grid) {
             grid.classList.add('is-invalid');
-            grid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            grid.scrollIntoView({ behavior: scrollBehavior(), block: 'center' });
             setTimeout(() => grid.classList.remove('is-invalid'), 1600);
           }
           if (this.durationEstimateEl) this.durationEstimateEl.classList.add('is-warning');
@@ -1456,8 +1460,8 @@
         }
       }
 
-      // Smooth scroll into view
-      this.section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Scroll to the top of the booking (smoothly unless the visitor asks for less motion).
+      this.section.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
     }
 
     populateSummary() {
