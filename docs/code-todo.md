@@ -414,9 +414,10 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - 10 reservas vacías dan 422 y la 11.ª da 429 con `Retry-After: 600`;
     - la página de confirmación con un enlace falso dice «Enlace no válido», en español y en inglés;
     - en un producto agotado, con la respuesta de la app simulada, el formulario muestra el mensaje nuevo.
-  - Sin probar con datos reales:
-    - un «Avísame» de verdad, porque enviaría un email;
-    - dos reservas reales a la vez.
+  - Probado de verdad (25/11), con el email de la dueña y la pelota mordedora agotada:
+    - el formulario pidió confirmar, el aviso salió «Sin confirmar», llegó el email y, con el enlace y «Sí, avisadme», pasó a «Esperando»;
+    - mientras la tienda tenga contraseña, el enlace solo funciona si antes se ha entrado con la contraseña en ese navegador. Si no, Shopify enseña la página de contraseña y la petición no llega a la app. Con la tienda abierta no pasa.
+  - Sin probar con datos reales: dos reservas a la vez (lo cubre el test del candado).
 - [ ] 🟠 **CODE-27 · Emails de marketing y entregabilidad.** S
   - Faltan las cabeceras `List-Unsubscribe` y `List-Unsubscribe-Post` en bienvenida, rebook y reorder (Gmail y Yahoo las piden).
   - Faltan `<title>` y texto de previsualización.
