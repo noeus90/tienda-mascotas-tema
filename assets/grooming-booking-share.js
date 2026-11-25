@@ -11,6 +11,19 @@
   const ns = (window.GroomingBooking = window.GroomingBooking || {});
   const { SALON_TIME_ZONE } = ns;
 
+  const userAgent = typeof navigator !== 'undefined' ? navigator.userAgent : '';
+
+  /** iPhone or iPad. iPadOS says "Macintosh", but a Mac has no touch screen. */
+  function isIosDevice() {
+    if (/iPad|iPhone|iPod/.test(userAgent)) return true;
+    return /Macintosh/.test(userAgent) && navigator.maxTouchPoints > 1;
+  }
+
+  /** iPhone, iPad or Mac. */
+  function isAppleDevice() {
+    return isIosDevice() || /Macintosh/.test(userAgent);
+  }
+
   class BookingShare {
     copyBookingDetails() {
       if (!this.copyBtn) return;
@@ -262,9 +275,8 @@
 
       const smsText = this.bookingMessage('sms');
 
-      // Detección de dispositivo iOS vs Android / Otros
-      const isIos = typeof navigator !== 'undefined' && /iPad|iPhone|iPod|Macintosh/i.test(navigator.userAgent) && !window.MSStream;
-      const separator = isIos ? '&body=' : '?body=';
+      // Apple's Messages (iPhone, iPad and Mac) reads the text after '&body='; the rest, after '?body='.
+      const separator = isAppleDevice() ? '&body=' : '?body=';
 
       return `sms:${cleanPhone}${separator}${encodeURIComponent(smsText)}`;
     }
@@ -295,12 +307,9 @@
       if (preference === 'apple') return this.buildAppleMapsUrl();
       if (preference === 'google') return this.buildGoogleMapsUrl();
 
-      // Detección de ecosistema Apple (iOS / macOS)
-      const isApple = typeof navigator !== 'undefined' && /iPad|iPhone|iPod|Macintosh/i.test(navigator.userAgent) && !window.MSStream;
-      if (isApple) {
-        return this.buildAppleMapsUrl();
-      }
-      return this.buildGoogleMapsUrl();
+      // Apple Maps only on iPhone and iPad, where it is the system app. A Mac may not use it, and
+      // Google Maps opens in any browser (CODE-17).
+      return isIosDevice() ? this.buildAppleMapsUrl() : this.buildGoogleMapsUrl();
     }
   }
 

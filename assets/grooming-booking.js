@@ -1749,8 +1749,8 @@
 
   }
 
-  function initGroomingBookingWizards() {
-    document.querySelectorAll('.grooming-booking-section').forEach((section) => {
+  function initGroomingBookingWizards(root = document) {
+    root.querySelectorAll('.grooming-booking-section').forEach((section) => {
       // Without bookable services the section shows a notice instead of the form (CODE-02).
       if (!section.querySelector('[data-step-panel]')) return;
       if (!section.__groomingBookingWizard) {
@@ -1761,9 +1761,12 @@
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initGroomingBookingWizards);
+    document.addEventListener('DOMContentLoaded', () => initGroomingBookingWizards());
   } else {
     initGroomingBookingWizards();
   }
+
+  // Theme editor: a re-rendered section is new HTML, so it gets its own wizard (CODE-17).
+  document.addEventListener('shopify:section:load', (event) => initGroomingBookingWizards(event.target));
 })();
 

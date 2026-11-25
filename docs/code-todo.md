@@ -244,10 +244,20 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - pestañas y suscripción, con un HTML de prueba (ahora no salen en ninguna página): clic, flechas y cambio de frecuencia;
     - en la ficha: precio de la barra fija al cambiar de variante, plazo de entrega y barra de envío gratis al añadir al carrito;
     - precios de la reserva.
-- [ ] 🟢 **CODE-17 · Detalles de la reserva.** S
+- [x] 🟢 **CODE-17 · Detalles de la reserva.** S *(hecho el 25/11/2026)*
   - ~~Los nombres de los extras se pintan con `innerHTML`~~: hecho en CODE-11.
   - No escucha `shopify:section:load`, así que en el editor no se reinicia.
   - Detectar Mac por el user agent manda a Apple Maps a todos los Mac.
+  - Hecho:
+    - `grooming-booking.js` escucha `shopify:section:load` y arranca el asistente en la sección recargada. El anterior no deja listeners globales, así que no hay que desmontarlo.
+    - `grooming-booking-share.js` tiene `isIosDevice()`: iPhone, iPod o iPad, incluido el iPad que dice «Macintosh» pero tiene pantalla táctil.
+      - Apple Maps solo sale en iPhone y iPad. En Mac y en el resto, Google Maps.
+      - El SMS sigue usando `&body=` en todos los Apple, Mac incluido, porque es lo que lee Mensajes. Ahora usa `isAppleDevice()`.
+      - Se quitó `!window.MSStream`, un apaño para Internet Explorer.
+  - Comprobado en CLAUDIA (Mac sin pantalla táctil):
+    - el mapa va a Google Maps;
+    - al recargar la sección como lo hace el editor, sale un asistente nuevo que avanza al paso 2 y carga el calendario;
+    - sin errores en la consola y sin enviar ninguna reserva.
 
 ## App · 🔴 fallos
 
