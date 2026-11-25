@@ -38,49 +38,78 @@
 -%}
 
 {%- if tabs.size > 0 -%}
-  <div class="cro-tabs-wrapper {{ extra_class }}">
-    <!-- Tab Buttons (WAI-ARIA Tablist) -->
-    <div
-      class="cro-tabs-nav"
-      role="tablist"
-      aria-label="{{ 'pet_cro.tabs.aria_label' | t }}"
-    >
-      {%- for tab in tabs -%}
-        <button
-          type="button"
-          class="cro-tab-btn{% if forloop.first %} is-active{% endif %}"
-          role="tab"
-          aria-selected="{{ forloop.first }}"
-          tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
-          aria-controls="tab-panel-{{ tab }}-{{ tab_uid }}"
-          id="tab-btn-{{ tab }}-{{ tab_uid }}"
-          data-tab-target="tab-panel-{{ tab }}-{{ tab_uid }}"
-        >
-          {%- case tab -%}
-            {%- when 'benefits' -%}
-              <!-- Heart / Health Icon -->
-              <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
-              </svg>
-              <span>{{ 'pet_cro.tabs.tab_benefits' | t }}</span>
-            {%- when 'ingredients' -%}
-              <!-- Natural Leaf / Nutrition Icon -->
-              <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
-                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
-              </svg>
-              <span>{{ 'pet_cro.tabs.tab_ingredients' | t }}</span>
-            {%- when 'usage' -%}
-              <!-- Guide / Clock Icon -->
-              <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <polyline points="12 6 12 12 16 14"/>
-              </svg>
-              <span>{{ 'pet_cro.tabs.tab_usage' | t }}</span>
-          {%- endcase -%}
-        </button>
-      {%- endfor -%}
-    </div>
+  <div class="cro-tabs-wrapper pet-panel{% if tabs.size == 1 %} cro-tabs-wrapper--single{% endif %} {{ extra_class }}">
+    {%- if tabs.size == 1 -%}
+      {%- comment -%} One tab: a titled box, not a tab bar with a single tab (CSS-07). {%- endcomment -%}
+      {%- assign tab = tabs.first -%}
+      <h3 class="cro-tabs-single-title">
+        {%- case tab -%}
+          {%- when 'benefits' -%}
+            <!-- Heart / Health Icon -->
+            <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+            </svg>
+            <span>{{ 'pet_cro.tabs.tab_benefits' | t }}</span>
+          {%- when 'ingredients' -%}
+            <!-- Natural Leaf / Nutrition Icon -->
+            <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+            </svg>
+            <span>{{ 'pet_cro.tabs.tab_ingredients' | t }}</span>
+          {%- when 'usage' -%}
+            <!-- Guide / Clock Icon -->
+            <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <span>{{ 'pet_cro.tabs.tab_usage' | t }}</span>
+        {%- endcase -%}
+      </h3>
+    {%- else -%}
+      <!-- Tab Buttons (WAI-ARIA Tablist) -->
+      <div
+        class="cro-tabs-nav"
+        role="tablist"
+        aria-label="{{ 'pet_cro.tabs.aria_label' | t }}"
+      >
+        {%- for tab in tabs -%}
+          <button
+            type="button"
+            class="cro-tab-btn{% if forloop.first %} is-active{% endif %}"
+            role="tab"
+            aria-selected="{{ forloop.first }}"
+            tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
+            aria-controls="tab-panel-{{ tab }}-{{ tab_uid }}"
+            id="tab-btn-{{ tab }}-{{ tab_uid }}"
+            data-tab-target="tab-panel-{{ tab }}-{{ tab_uid }}"
+          >
+            {%- case tab -%}
+              {%- when 'benefits' -%}
+                <!-- Heart / Health Icon -->
+                <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                </svg>
+                <span>{{ 'pet_cro.tabs.tab_benefits' | t }}</span>
+              {%- when 'ingredients' -%}
+                <!-- Natural Leaf / Nutrition Icon -->
+                <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+                  <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+                </svg>
+                <span>{{ 'pet_cro.tabs.tab_ingredients' | t }}</span>
+              {%- when 'usage' -%}
+                <!-- Guide / Clock Icon -->
+                <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+                <span>{{ 'pet_cro.tabs.tab_usage' | t }}</span>
+            {%- endcase -%}
+          </button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
 
     <!-- Tab Panels -->
     <div class="cro-tabs-content">
@@ -88,9 +117,9 @@
         <div
           class="cro-tab-panel{% if forloop.first %} is-active{% endif %}"
           id="tab-panel-{{ tab }}-{{ tab_uid }}"
-          role="tabpanel"
-          tabindex="0"
-          aria-labelledby="tab-btn-{{ tab }}-{{ tab_uid }}"
+          {% if tabs.size > 1 %}
+            role="tabpanel" tabindex="0" aria-labelledby="tab-btn-{{ tab }}-{{ tab_uid }}"
+          {% endif %}
           {% unless forloop.first %}
             hidden
           {% endunless %}

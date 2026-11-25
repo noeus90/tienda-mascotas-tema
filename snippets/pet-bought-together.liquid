@@ -71,7 +71,7 @@
   {{ 'component-pet-bought-together.css' | asset_url | stylesheet_tag }}
   <script src="{{ 'pet-bought-together.js' | asset_url }}" defer="defer"></script>
   <bought-together
-    class="bought-together"
+    class="bought-together pet-panel"
     data-url="{{ routes.product_recommendations_url }}?limit={{ fetch_limit }}&intent=complementary&product_id={{ product.id }}&section_id={{ section.id }}"
     data-block-id="{{ block.id }}"
     data-section-id="{{ section.id }}"

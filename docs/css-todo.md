@@ -185,7 +185,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - El título de la reserva deja su tamaño fluido de 28–36 px y peso 800, y pasa al `h1` de Dawn (40 px, peso normal), como la ficha y el contacto.
   - Comprobado a ojo en CLAUDIA, en el inicio (rutina y promesas) y en la reserva. Theme Check sin avisos.
   - Se ve que la sección de promesas empieza más a la izquierda que el resto: es el ancho de más de CSS-08.
-- [ ] 🟠 **CSS-07 · Paneles de la ficha de producto.** M
+- [x] 🟠 **CSS-07 · Paneles de la ficha de producto.** M *(hecho el 25/11/2026)*
   - En móvil se apilan siete cajas, cada una con un estilo:
     - stock y envío: blanca con borde;
     - barra de envío gratis: verde;
@@ -198,6 +198,21 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - un `.pet-panel` común, con un radio, un borde, un relleno y dos tintes (neutro y acento);
     - «Beneficios» sin pestañas cuando solo hay una;
     - las casillas de «Comprar juntos» con `accent-color` de la marca (hoy salen negras).
+  - Hecho:
+    - `.pet-panel` en `component-pet-cro.css` (sección 17): fondo de tarjeta, borde de 1 px del color de texto al 12 %, radio `--pet-radius-md`, relleno de 1,6 × 2 rem y 1,6 rem de margen arriba y abajo.
+      - `--accent` (fondo y borde verdes) solo para la barra de envío gratis.
+      - Las casillas y radios de dentro llevan `accent-color` verde.
+    - Se aplica a los siete paneles: stock y envío, barra de envío gratis (`--accent`), calculadora de ración, garantías, «Se suelen comprar juntos», «Conservación y cuidado» y las pestañas de producto.
+    - Se quitan de sus reglas propias el fondo, el borde, el radio, el relleno y los márgenes, que eran distintos en cada una.
+      - La calculadora deja el amarillo y las garantías el gris translúcido.
+      - «Conservación» deja su barra negra a la izquierda.
+      - La barra de envío conserva el espacio inferior para las etiquetas.
+    - **Una sola pestaña:** `pet-product-tabs.liquid` pinta un título con icono («♡ Beneficios») en vez de una barra con una pestaña, y el contenido no lleva los roles de pestaña. Con dos o más pestañas todo sigue igual.
+  - Comprobado en CLAUDIA a 390 px:
+    - los siete paneles con el mismo radio (12 px), relleno (16 × 20 px) y fondo blanco, y la barra de envío en verde;
+    - «Beneficios» sin barra de pestañas y sin espacio sobrante;
+    - las casillas de «Comprar juntos» en verde.
+  - Theme Check sin avisos. La barra de envío del carrito también usa el panel, así que gana 1,6 rem de margen arriba.
 - [ ] 🟠 **CSS-08 · Ancho y separación de las secciones.** S
   - «Lo que te prometemos» va de 40 a 1240 px en una pantalla de 1280, y el resto del contenido, de 90 a 1190 (`.page-width`): las tarjetas sobresalen 50 px por cada lado.
   - En móvil, «Packs con un 10 % de descuento» tiene 30 px de margen lateral y las demás secciones, 15.

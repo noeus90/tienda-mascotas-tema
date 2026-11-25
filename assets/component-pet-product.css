@@ -19,14 +19,6 @@
 }
 
 /* 3. Product Care Instructions Metafield (snippets/product-care-metafield.liquid) */
-.product-care-box {
-  margin-top: 2.4rem;
-  padding: 1.6rem 2rem;
-  background-color: rgba(var(--color-foreground, 15, 23, 42), 0.04);
-  border-left: 4px solid rgb(var(--color-foreground, 15, 23, 42));
-  border-radius: var(--pet-radius-xs);
-}
-
 .product-care-header {
   display: flex;
   align-items: center;
@@ -49,14 +41,37 @@
 }
 
 /* 4. Product tabs (snippets/pet-product-tabs.liquid) */
+/* Box look: .pet-panel (CSS-07). With several tabs the tab bar goes edge to edge. */
 .cro-tabs-wrapper {
-  margin-top: 2.8rem;
-  margin-bottom: 2.4rem;
-  border: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.14);
-  border-radius: var(--pet-radius-md);
-  background: rgb(var(--color-background, 255, 255, 255));
   overflow: hidden;
   font-family: inherit;
+}
+
+.cro-tabs-wrapper:not(.cro-tabs-wrapper--single) {
+  padding: 0;
+}
+
+/* A single tab is a titled box, not a tab bar with one tab (CSS-07). */
+.cro-tabs-single-title {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0 0 1.2rem;
+  font-size: var(--pet-text-md);
+  font-weight: 700;
+  color: rgb(var(--color-foreground));
+}
+
+.cro-tabs-single-title svg {
+  stroke: rgb(var(--pet-text-accent));
+}
+
+.cro-tabs-wrapper--single .cro-tabs-content {
+  padding: 0;
+}
+
+.cro-tabs-wrapper--single .cro-tab-panel > :last-child {
+  margin-bottom: 0;
 }
 
 .cro-tabs-nav {
@@ -187,12 +202,6 @@
 
 /* 5. Product Trust Seals & Reviews (snippets/pet-product-trust.liquid) */
 .cro-product-trust-box {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  padding: 1.6rem;
-  background: rgba(var(--color-foreground, 15, 23, 42), 0.03);
-  border: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.12);
-  border-radius: var(--pet-radius-md);
   font-family: inherit;
 }
 
@@ -458,13 +467,8 @@
 }
 
 /* 8. Widget de Stock en Tiempo Real y Entrega 24h (snippets/stock-urgency-widget.liquid) */
+/* Box look: .pet-panel (component-pet-cro.css, CSS-07). */
 .cro-stock-widget {
-  margin-top: 1.44rem;
-  margin-bottom: 1.6rem;
-  padding: 1.36rem 1.6rem;
-  background: rgb(var(--color-background, 255, 255, 255));
-  border: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.14);
-  border-radius: var(--pet-radius-md);
   font-family: inherit;
   display: flex;
   flex-direction: column;
@@ -567,14 +571,6 @@
 }
 
 /* 8d. Ration calculator on dry food (snippets/ration-calculator.liquid) */
-.ration-calc {
-  margin-top: 1.6rem;
-  padding: 1.6rem 2rem;
-  border: 1px solid rgba(var(--color-foreground, 15, 23, 42), 0.14);
-  border-radius: var(--pet-radius-md);
-  background: rgb(var(--pet-warning-soft));
-}
-
 .ration-calc__title {
   margin: 0 0 1.2rem;
   font-size: var(--pet-text-md);

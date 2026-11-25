@@ -7,12 +7,8 @@
    ========================================================================== */
 
 /* 7. Barra de Progreso Envío Gratis + Regalo (snippets/free-shipping-bar.liquid) */
+/* Box look: .pet-panel--accent (CSS-07); extra room at the bottom for the milestone labels. */
 .cro-shipping-bar {
-  background: rgb(var(--pet-green-50));
-  border: 1px solid rgb(var(--pet-green-200));
-  border-radius: var(--pet-radius-md);
-  padding: 1.44rem 1.76rem 2.96rem 1.76rem;
-  margin-bottom: 2rem;
   font-family: inherit;
 }
 
@@ -513,6 +509,31 @@
   margin-right: auto;
   text-align: center;
   align-items: center;
+}
+
+/* 17. Panel (CSS-07): the boxes of the product page (stock, ration, guarantees, bought together, care,
+   benefits) and the free-shipping bar share one look: card background, thin border, same radius,
+   padding and spacing. --accent (green) is only for the free-shipping bar. */
+.pet-panel {
+  margin-block: 1.6rem;
+  padding: 1.6rem 2rem;
+  border: 1px solid rgba(var(--color-foreground), 0.12);
+  border-radius: var(--pet-radius-md);
+  background: rgb(var(--pet-card));
+}
+
+.pet-panel--accent {
+  border-color: rgb(var(--pet-green-200));
+  background: rgb(var(--pet-green-50));
+}
+
+/* The free-shipping bar needs room under the track for the milestone labels. */
+.cro-shipping-bar.pet-panel {
+  padding-bottom: 2.96rem;
+}
+
+.pet-panel :is(input[type='checkbox'], input[type='radio']) {
+  accent-color: rgb(var(--pet-accent));
 }
 
 /* 12. Reduced motion (CSS-13): with "reduce motion" on in the system, the store's own components (classes
