@@ -488,8 +488,18 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - Los emails salen enmascarados (`a***@dominio`): antes se registraba la dirección entera.
   - Comprobado: 78 tests (4 nuevos: JSON con contexto y error entero, texto local, contexto anidado y que no se escapa, y enmascarado), `npm run check` y CI en verde.
   - Sin ver en el servidor: no ha saltado ningún registro desde el cambio, porque nada ha fallado ni se ha enviado. El formato lo cubren los tests con el módulo real.
-- [ ] 🟢 **CODE-31 · Baja de emails repetida.** S
+- [x] 🟢 **CODE-31 · Baja de emails repetida.** S *(hecho el 25/11/2026, app `1b64841`)*
   - `proxy.sin-recordatorios.jsx`: tres lectores de id y token y tres páginas casi iguales. Propuesta: una tabla de casos.
+  - Hecho: `CASES` tiene una entrada por tipo de enlace (`suscriptor`, `cliente`, `perro`) con:
+    - su parámetro y su firma;
+    - qué cargar (el perro) y la página de «ya estás de baja»;
+    - cómo dar de baja;
+    - sus textos.
+  - Un solo `readLink` lee el caso, el id y el token, del formulario o de la URL para el POST de un clic. Una sola función responde al GET (pregunta y botón) y al POST (baja). De 132 a 126 líneas, y un tipo nuevo de email es una entrada más.
+  - Comprobado:
+    - Antes y después responde igual (HTML, estado y llamadas) en 31 casos: GET, POST, un clic, firma mala, id no numérico, perro que no existe o ya de baja, sin app instalada y sin parámetros.
+    - Test nuevo con 8 casos; `npm run check` (86 tests) y CI en verde.
+    - En CLAUDIA, los tres tipos de enlace por la tienda rechazan las firmas falsas, también con el POST de un clic.
 
 ## Orden propuesto
 
