@@ -74,7 +74,7 @@
 }
 
 .service-card-icon {
-  font-size: 3.2rem;
+  font-size: var(--pet-text-4xl);
   line-height: 1;
 }
 
@@ -84,13 +84,13 @@
 
 .service-card-name {
   margin: 0 0 0.56rem 0;
-  font-size: 1.6rem;
+  font-size: var(--pet-text-lg);
   font-weight: 700;
   padding-right: 2.4rem;
 }
 
 .service-card-desc {
-  font-size: 1.32rem;
+  font-size: var(--pet-text-sm);
   color: rgba(var(--color-foreground), 0.7);
   margin: 0 0 1.2rem 0;
   line-height: 1.4;
@@ -100,7 +100,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 1.28rem;
+  font-size: var(--pet-text-sm);
 }
 
 .service-duration {
@@ -121,7 +121,7 @@
 }
 
 .booking-breed-help {
-  font-size: 1.36rem;
+  font-size: var(--pet-text-sm);
   color: rgba(var(--color-foreground), 0.7);
   margin: -0.8rem 0 1.6rem 0;
   line-height: 1.4;
@@ -137,7 +137,7 @@
 
 .booking-breed-search-label {
   display: block;
-  font-size: 1.36rem;
+  font-size: var(--pet-text-sm);
   font-weight: 700;
   margin-bottom: 0.72rem;
   color: rgba(var(--color-foreground), 0.85);
@@ -165,7 +165,7 @@
   border: none;
   background: rgba(var(--color-foreground), 0.08);
   color: rgba(var(--color-foreground), 0.6);
-  font-size: 1.84rem;
+  font-size: var(--pet-text-xl);
   line-height: 1;
   cursor: pointer;
   display: flex;
@@ -185,7 +185,7 @@
   margin-top: 1.2rem;
   padding: 1.04rem 1.44rem;
   border-radius: var(--pet-radius-sm);
-  font-size: 1.36rem;
+  font-size: var(--pet-text-sm);
   line-height: 1.45;
   display: flex;
   align-items: flex-start;
@@ -219,7 +219,7 @@
 }
 
 .step-section-subtitle {
-  font-size: 1.6rem;
+  font-size: var(--pet-text-lg);
   font-weight: 700;
   margin: 0 0 1.6rem 0;
 }
@@ -260,7 +260,7 @@
 .size-badge {
   display: inline-block;
   align-self: flex-start;
-  font-size: 1.2rem;
+  font-size: var(--pet-text-xs);
   font-weight: 800;
   text-transform: uppercase;
   color: rgb(var(--booking-text-accent));
@@ -268,12 +268,12 @@
 }
 
 .size-name {
-  font-size: 1.52rem;
+  font-size: var(--pet-text-md);
   font-weight: 700;
 }
 
 .size-hint {
-  font-size: 1.2rem;
+  font-size: var(--pet-text-xs);
   color: rgba(var(--color-foreground), 0.6);
 }
 
@@ -298,7 +298,7 @@
 
 .booking-addons-subtitle {
   margin: 0;
-  font-size: 1.32rem;
+  font-size: var(--pet-text-sm);
   color: rgba(var(--color-foreground), 0.65);
   line-height: 1.4;
 }
@@ -307,7 +307,7 @@
   display: inline-flex;
   align-items: center;
   padding: 0.4rem 1.04rem;
-  font-size: 1.2rem;
+  font-size: var(--pet-text-xs);
   font-weight: 700;
   background: rgb(var(--booking-accent-soft));
   color: rgb(var(--booking-text-accent-dark));
@@ -385,7 +385,7 @@
 }
 
 .booking-addon-icon {
-  font-size: 2.4rem;
+  font-size: var(--pet-text-3xl);
   line-height: 1;
   flex-shrink: 0;
   margin-top: 0.16rem;
@@ -407,14 +407,14 @@
 }
 
 .booking-addon-name {
-  font-size: 1.48rem;
+  font-size: var(--pet-text-base);
   font-weight: 700;
   color: rgba(var(--color-foreground), 0.9);
   line-height: 1.3;
 }
 
 .booking-addon-price {
-  font-size: 1.4rem;
+  font-size: var(--pet-text-base);
   font-weight: 800;
   color: rgb(var(--booking-text-accent));
   white-space: nowrap;
@@ -433,14 +433,14 @@
 
 .booking-addon-desc {
   margin: 0;
-  font-size: 1.24rem;
+  font-size: var(--pet-text-xs);
   color: rgba(var(--color-foreground), 0.65);
   line-height: 1.35;
 }
 
 .booking-addon-duration {
   margin-top: 0.32rem;
-  font-size: 1.2rem;
+  font-size: var(--pet-text-xs);
   font-weight: 600;
   color: rgba(var(--color-foreground), 0.7);
   display: inline-flex;
@@ -464,7 +464,7 @@
 
 .estimate-label {
   display: block;
-  font-size: 1.28rem;
+  font-size: var(--pet-text-sm);
   font-weight: 600;
   color: rgba(var(--color-foreground), 0.7);
   margin-bottom: 0.32rem;
@@ -477,13 +477,13 @@
 }
 
 .estimate-price {
-  font-size: 2.4rem;
+  font-size: var(--pet-text-3xl);
   font-weight: 900;
   color: rgb(var(--booking-text-accent));
 }
 
 .estimate-duration {
-  font-size: 1.36rem;
+  font-size: var(--pet-text-sm);
   font-weight: 600;
   color: rgba(var(--color-foreground), 0.65);
 }
@@ -496,7 +496,7 @@
   }
 
   .booking-addon-icon {
-    font-size: 2rem;
+    font-size: var(--pet-text-2xl);
   }
 
   .booking-addon-top {

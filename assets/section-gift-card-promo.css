@@ -35,7 +35,7 @@
   border-radius: var(--pet-radius-pill);
   background: rgb(var(--pet-card));
   color: rgb(var(--pet-text-accent));
-  font-size: 1.2rem;
+  font-size: var(--pet-text-xs);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -48,7 +48,7 @@
 
 .gift-card-promo__text {
   margin: 0 0 1.6rem;
-  font-size: 1.6rem;
+  font-size: var(--pet-text-lg);
   line-height: 1.55;
   color: rgb(var(--pet-teal-900));
 }
@@ -66,7 +66,7 @@
   background: rgb(var(--pet-card));
   border: 1px solid rgb(var(--pet-accent-300));
   color: rgb(var(--pet-text-accent-dark));
-  font-size: 1.4rem;
+  font-size: var(--pet-text-base);
   font-weight: 700;
 }
 
@@ -86,7 +86,7 @@
 
 .gift-card-how__title {
   margin: 0 0 1rem;
-  font-size: 1.5rem;
+  font-size: var(--pet-text-md);
   font-weight: 700;
   color: rgb(var(--pet-text-accent-dark));
 }
@@ -94,7 +94,7 @@
 .gift-card-how__steps {
   margin: 0;
   padding-left: 2rem;
-  font-size: 1.4rem;
+  font-size: var(--pet-text-base);
   line-height: 1.5;
   color: rgb(var(--pet-teal-900));
 }
@@ -113,7 +113,7 @@
   border-radius: var(--pet-radius-pill);
   background: rgb(var(--pet-warning-100));
   color: rgb(var(--pet-warning-dark));
-  font-size: 1.4rem;
+  font-size: var(--pet-text-base);
   font-weight: 600;
   text-decoration: none;
 }

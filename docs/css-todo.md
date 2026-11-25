@@ -24,7 +24,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 |---|---|---|
 | Colores fijos (hex y `rgb()`) fuera de la reserva | ~~227 hex y 64 `rgb()`~~ ✅ 61 variables `--pet-*` (quedan blanco, negro y el aviso de desarrollo) | Variables de marca en un solo sitio (CSS-01) |
 | `!important` | 61 (29 en `component-list-menu.css`, 19 en `component-menu-drawer.css`, 11 en `component-mega-menu.css`) | Casi ninguno (CSS-12) |
-| Tamaños de letra distintos | 42 (1,2 · 1,25 · 1,28 · 1,3 · 1,32 · 1,34 · 1,35 · 1,36 rem…) | 6 o 7 de una escala (CSS-10) |
+| Tamaños de letra distintos | ~~42~~ ✅ 9 variables `--pet-text-*`, 12 px como mínimo | 6 o 7 de una escala (CSS-10) |
 | Radios distintos | ~~22~~ ✅ 6 variables `--pet-radius-*` (más los círculos) | 4 variables (CSS-11) |
 | `transition: all` | 36 | 0 (CSS-14) |
 | Animaciones propias con alternativa sin movimiento | ~~1 de 8~~ ✅ todas (regla común) | Todas (CSS-13) |
@@ -179,10 +179,25 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 
 ## 🟢 Mantenimiento
 
-- [ ] 🟢 **CSS-10 · Escala tipográfica.** M
+- [x] 🟢 **CSS-10 · Escala tipográfica.** M *(hecho el 25/11/2026)*
   - Hay 42 tamaños de letra distintos en el CSS propio, muchos casi iguales: 1,3 · 1,32 · 1,34 · 1,35 · 1,36 rem.
   - El precio por kilo sale a 11 px y la etiqueta del buscador a 10 px.
   - Propuesta: 6 o 7 variables (`--pet-text-xs`, `-sm`, `-base`, `-lg`…), con 12 px como mínimo.
+  - Hecho:
+    - `--pet-text-*` en `pet-tokens.liquid`, con nueve tamaños: cinco de texto (`xs` 12, `sm` 13, `base` 14, `md` 15, `lg` 16 px) y cuatro de título (`xl` 18, `2xl` 22, `3xl` 24, `4xl` 32 px). Son más de los 6–7 previstos, porque los cinco de texto se usan mucho y juntarlos cambiaría bastante el aspecto.
+    - 237 `font-size` de 42 valores pasan al más cercano. Casi todos cambian 0,5 px o menos.
+      - Los que estaban por debajo de 12 px (de 10 a 11,5) suben a 12: «Más vendido», «-10 %», «Más popular», «Ocupada» y subtítulos del menú.
+      - Se dejan como estaban los que no son texto (el emoji del camión en su círculo, la barra entre ES y EN, iconos de 3 y 4 rem), los títulos fluidos con `clamp()`, los `em` y los que dependen de la escala de títulos de Dawn.
+    - En los ficheros de Dawn con añadidos propios solo se tocan las líneas propias. Un primer intento cambió también líneas de Dawn, se vio al comparar con Dawn y se deshizo.
+    - Mínimo de 12 px también en tres textos de Dawn que se ven en toda la tienda (`component-pet-cro.css`, sección 13):
+      - el precio por kilo (11 px);
+      - la etiqueta flotante de los campos rellenos, como «Búsqueda» (10 px);
+      - el copyright y los enlaces legales del pie (11 px).
+  - Comprobado en CLAUDIA en inicio, colección, búsqueda, ficha y reserva, a 1280 y 390 px:
+    - no queda ningún texto de menos de 12 px, salvo el emoji del camión;
+    - el CSS propio usa 12, 13, 14, 15, 16, 18, 22 y 24 px, más los títulos fluidos y los botones de Dawn;
+    - a ojo, la etiqueta «Búsqueda» no pisa el texto y el pie se lee bien.
+  - Theme Check sin avisos.
 - [x] 🟢 **CSS-11 · Radios y sombras.** S *(hecho el 25/11/2026)*
   - Más de 15 radios distintos, incluidos tres formas de decir «píldora»: `9999px`, `999px` y `99rem`.
   - Sombras con valores sueltos en cada fichero.

@@ -41,7 +41,7 @@
 
   .header__menu-item--cta-booking {
     padding: 0.65rem 1rem !important;
-    font-size: 1.25rem;
+    font-size: var(--pet-text-xs);
     gap: 0.45rem;
   }
 
@@ -59,7 +59,7 @@
   border-radius: var(--pet-radius-pill);
   background: linear-gradient(135deg, rgb(var(--pet-ink)) 0%, rgb(var(--pet-ink-2)) 100%);
   color: #ffffff !important;
-  font-size: 1.35rem;
+  font-size: var(--pet-text-sm);
   font-weight: 600;
   line-height: 1;
   letter-spacing: 0.02em;
@@ -141,7 +141,7 @@
   border-radius: var(--pet-radius-pill);
   background-color: rgba(255, 255, 255, 0.18);
   color: rgb(var(--pet-text-accent-border));
-  font-size: 1.2rem;
+  font-size: var(--pet-text-xs);
   font-weight: 700;
   line-height: 1;
   letter-spacing: 0.04em;
@@ -190,7 +190,7 @@
   height: 2.6rem;
   border-radius: var(--pet-radius-sm);
   background-color: rgba(var(--color-foreground), 0.04);
-  font-size: 1.35rem;
+  font-size: var(--pet-text-sm);
   margin-right: 0.85rem;
   flex-shrink: 0;
   transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
@@ -199,7 +199,7 @@
 .header__species-title {
   flex-grow: 1;
   font-weight: 500;
-  font-size: 1.35rem;
+  font-size: var(--pet-text-sm);
   line-height: 1.2;
   transition: color 0.18s ease;
 }
@@ -210,7 +210,7 @@
   transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
   color: rgb(var(--pet-text-accent));
   font-weight: 700;
-  font-size: 1.35rem;
+  font-size: var(--pet-text-sm);
   margin-left: 0.4rem;
 }
 

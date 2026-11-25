@@ -39,7 +39,7 @@
 }
 
 .booking-calendar-badge {
-  font-size: 1.2rem;
+  font-size: var(--pet-text-xs);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -81,7 +81,7 @@
 }
 
 .booking-cal-month-label {
-  font-size: 1.52rem;
+  font-size: var(--pet-text-md);
   font-weight: 800;
   margin: 0;
   min-width: 130px;
@@ -92,7 +92,7 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   text-align: center;
-  font-size: 1.2rem;
+  font-size: var(--pet-text-xs);
   font-weight: 700;
   color: rgba(var(--color-foreground), 0.55);
   text-transform: uppercase;
@@ -113,7 +113,7 @@
   border: 1px solid transparent;
   border-radius: var(--pet-radius-md);
   background: transparent;
-  font-size: 1.36rem;
+  font-size: var(--pet-text-sm);
   font-weight: 600;
   display: flex;
   flex-direction: column;
@@ -187,11 +187,11 @@
   background: rgba(var(--booking-accent-light), 0.06);
   border: 1px solid rgba(var(--booking-accent-light), 0.2);
   border-radius: var(--pet-radius-md);
-  font-size: 1.36rem;
+  font-size: var(--pet-text-sm);
 }
 
 .cal-notice-icon {
-  font-size: 1.76rem;
+  font-size: var(--pet-text-xl);
 }
 
 .cal-notice-text strong {
@@ -207,7 +207,7 @@
 }
 
 .cal-legend-pill {
-  font-size: 1.2rem;
+  font-size: var(--pet-text-xs);
   font-weight: 600;
   padding: 0.4rem 0.96rem;
   border-radius: var(--pet-radius-pill);
@@ -237,13 +237,13 @@
 }
 
 .shift-info-icon {
-  font-size: 1.6rem;
+  font-size: var(--pet-text-lg);
   line-height: 1.3;
 }
 
 .shift-info-text {
   margin: 0;
-  font-size: 1.248rem;
+  font-size: var(--pet-text-xs);
   line-height: 1.4;
   color: rgba(var(--color-foreground), 0.7);
 }
@@ -254,7 +254,7 @@
 
 .shift-group-title {
   display: block;
-  font-size: 1.28rem;
+  font-size: var(--pet-text-sm);
   font-weight: 700;
   color: rgba(var(--color-foreground), 0.7);
   margin-bottom: 0.64rem;
@@ -279,7 +279,7 @@
   border: 1px solid rgba(var(--color-foreground), 0.15);
   background: rgb(var(--color-background));
   cursor: pointer;
-  font-size: 1.36rem;
+  font-size: var(--pet-text-sm);
   font-weight: 700;
   transition: all 0.15s ease;
 }
@@ -314,7 +314,7 @@
 }
 
 .slot-booked-badge {
-  font-size: 1.04rem;
+  font-size: var(--pet-text-xs);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -335,13 +335,13 @@
   background: rgba(var(--booking-warning), 0.12);
   border: 1px solid rgba(var(--booking-warning), 0.35);
   color: rgb(var(--booking-warning-text));
-  font-size: 1.36rem;
+  font-size: var(--pet-text-sm);
   font-weight: 600;
   line-height: 1.4;
 }
 
 .booking-shift-special-notice .notice-icon {
-  font-size: 2rem;
+  font-size: var(--pet-text-2xl);
   flex-shrink: 0;
   line-height: 1;
 }
@@ -356,13 +356,13 @@
   background: rgba(var(--booking-error), 0.1);
   border: 1px solid rgba(var(--booking-error), 0.3);
   color: rgb(var(--booking-error-text));
-  font-size: 1.36rem;
+  font-size: var(--pet-text-sm);
   font-weight: 600;
   line-height: 1.4;
 }
 
 .booking-shift-fully-booked-notice .notice-icon {
-  font-size: 2rem;
+  font-size: var(--pet-text-2xl);
   flex-shrink: 0;
   line-height: 1;
 }
@@ -378,7 +378,7 @@
 
 .booking-waitlist__title {
   margin: 0 0 1.2rem;
-  font-size: 1.6rem;
+  font-size: var(--pet-text-lg);
   font-weight: 700;
 }
 
@@ -399,7 +399,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
-  font-size: 1.3rem;
+  font-size: var(--pet-text-sm);
 }
 
 .booking-waitlist__field input,
@@ -410,7 +410,7 @@
   border-radius: var(--pet-radius-sm);
   background: rgb(var(--color-background));
   font: inherit;
-  font-size: 1.6rem;
+  font-size: var(--pet-text-lg);
 }
 
 .booking-waitlist__button {
@@ -419,7 +419,7 @@
 
 .booking-waitlist__status {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: var(--pet-text-md);
   color: rgb(var(--booking-error-text));
 }
 

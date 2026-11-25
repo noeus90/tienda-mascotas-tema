@@ -32,7 +32,7 @@
   background: transparent;
   color: rgb(var(--color-foreground));
   font: inherit;
-  font-size: 1.5rem;
+  font-size: var(--pet-text-md);
   font-weight: 600;
   cursor: pointer;
 }
@@ -49,7 +49,7 @@
 
 .pet-categories__pet-title {
   margin: 2rem 0 1rem;
-  font-size: 1.8rem;
+  font-size: var(--pet-text-xl);
 }
 
 .pet-categories__panel[hidden] {
@@ -112,13 +112,13 @@
 
 .pet-categories__label {
   margin-top: 0.4rem;
-  font-size: 1.5rem;
+  font-size: var(--pet-text-md);
   font-weight: 700;
   line-height: 1.25;
 }
 
 .pet-categories__count {
-  font-size: 1.3rem;
+  font-size: var(--pet-text-sm);
   color: rgba(var(--color-foreground), 0.65);
 }
 
@@ -162,11 +162,11 @@
   }
 
   .pet-categories__label {
-    font-size: 1.3rem;
+    font-size: var(--pet-text-sm);
   }
 
   .pet-categories__count {
-    font-size: 1.2rem;
+    font-size: var(--pet-text-xs);
   }
 }
 

@@ -14,7 +14,7 @@
 .cart-upsell__error {
   margin: 1rem 0 0;
   color: rgb(var(--color-foreground));
-  font-size: 1.4rem;
+  font-size: var(--pet-text-base);
 }
 
 .cart-upsell__error::before {
@@ -23,7 +23,7 @@
 
 .cart-upsell__title {
   margin: 0 0 1.4rem;
-  font-size: 1.6rem;
+  font-size: var(--pet-text-lg);
   font-weight: 700;
   letter-spacing: 0;
 }
@@ -59,7 +59,7 @@
   flex: 1;
   flex-direction: column;
   min-width: 0;
-  font-size: 1.4rem;
+  font-size: var(--pet-text-base);
 }
 
 .cart-upsell__name {
@@ -80,7 +80,7 @@
   background: transparent;
   color: rgb(var(--pet-text-accent));
   font: inherit;
-  font-size: 1.4rem;
+  font-size: var(--pet-text-base);
   font-weight: 700;
   line-height: 4rem;
   text-decoration: none;
@@ -95,7 +95,7 @@
 /* UX-22: delivery dates and discount code in the cart footer (snippets/cart-extras.liquid) */
 .cart-extras {
   margin-bottom: 1.6rem;
-  font-size: 1.4rem;
+  font-size: var(--pet-text-base);
 }
 
 .cart-extras__delivery {
@@ -142,7 +142,7 @@
 
 .cart-extras__code-note {
   margin: 0.6rem 0 0;
-  font-size: 1.3rem;
+  font-size: var(--pet-text-sm);
   text-align: right;
   color: rgba(var(--color-foreground), 0.65);
 }

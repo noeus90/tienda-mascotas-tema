@@ -56,7 +56,7 @@
   gap: 0.56rem;
   padding: 0.56rem 1.36rem;
   border-radius: var(--pet-radius-pill);
-  font-size: 1.2rem;
+  font-size: var(--pet-text-xs);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -74,7 +74,7 @@
 
 .grooming-booking-subtitle {
   margin: 0 auto;
-  font-size: 1.52rem;
+  font-size: var(--pet-text-md);
   color: rgba(var(--color-foreground), 0.75);
   max-width: 580px;
   line-height: 1.5;
@@ -90,7 +90,7 @@
   padding: 0;
   max-width: 72rem;
   list-style: none;
-  font-size: 1.4rem;
+  font-size: var(--pet-text-base);
   color: rgba(var(--color-foreground), 0.8);
 }
 
@@ -127,12 +127,12 @@
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 1.44rem;
+  font-size: var(--pet-text-base);
   transition: all 0.2s ease;
 }
 
 .booking-step-indicator .step-label {
-  font-size: 1.2rem;
+  font-size: var(--pet-text-xs);
   font-weight: 600;
   color: rgba(var(--color-foreground), 0.6);
   white-space: nowrap;
@@ -216,13 +216,13 @@
 }
 
 .step-panel-title {
-  font-size: 2.16rem;
+  font-size: var(--pet-text-2xl);
   font-weight: 800;
   margin: 0 0 0.56rem 0;
 }
 
 .step-panel-desc {
-  font-size: 1.44rem;
+  font-size: var(--pet-text-base);
   color: rgba(var(--color-foreground), 0.7);
   margin: 0;
 }
@@ -237,7 +237,7 @@
   color: rgb(var(--booking-on-accent));
   border: none;
   border-radius: var(--pet-radius-md);
-  font-size: 1.52rem;
+  font-size: var(--pet-text-md);
   font-weight: 700;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -259,7 +259,7 @@
   color: inherit;
   border: 1px solid rgba(var(--color-foreground), 0.2);
   border-radius: var(--pet-radius-md);
-  font-size: 1.44rem;
+  font-size: var(--pet-text-base);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -291,7 +291,7 @@
 .booking-form-textarea {
   width: 100%;
   padding: 1.04rem 1.36rem;
-  font-size: 1.6rem; /* 16px: iOS does not zoom when the field gets focus */
+  font-size: var(--pet-text-lg); /* 16px: iOS does not zoom when the field gets focus */
   border-radius: var(--pet-radius-sm);
   border: 1px solid rgba(var(--color-foreground), 0.2);
   background: rgb(var(--color-background));
@@ -323,7 +323,7 @@
 
 .booking-field-hint {
   margin: 0.6rem 0 0;
-  font-size: 1.3rem;
+  font-size: var(--pet-text-sm);
   line-height: 1.4;
   color: rgb(var(--booking-text-accent));
 }
@@ -346,12 +346,12 @@
 
 .booking-fav-label {
   margin-top: 1rem;
-  font-size: 1.4rem;
+  font-size: var(--pet-text-base);
 }
 
 .booking-my-dogs-title {
   margin: 0 0 1rem;
-  font-size: 1.5rem;
+  font-size: var(--pet-text-md);
   font-weight: 700;
 }
 
@@ -369,7 +369,7 @@
   background: rgb(var(--color-background));
   color: inherit;
   font: inherit;
-  font-size: 1.4rem;
+  font-size: var(--pet-text-base);
   font-weight: 600;
   cursor: pointer;
 }
@@ -386,7 +386,7 @@
 
 .booking-my-dog small {
   display: block;
-  font-size: 1.2rem;
+  font-size: var(--pet-text-xs);
   font-weight: 400;
   opacity: 0.75;
 }
@@ -406,7 +406,7 @@
     flex: 1 1 auto;
     justify-content: center;
     padding: 1.2rem 1.6rem;
-    font-size: 1.5rem;
+    font-size: var(--pet-text-md);
     text-align: center;
     line-height: 1.25;
   }

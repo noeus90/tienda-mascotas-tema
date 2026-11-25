@@ -6,7 +6,7 @@
 
 .pet-contact__intro {
   margin: 0 0 2.4rem;
-  font-size: 1.6rem;
+  font-size: var(--pet-text-lg);
   line-height: 1.55;
   color: rgba(var(--color-foreground), 0.8);
 }
@@ -24,7 +24,7 @@
   padding: 1.8rem;
   border: 1px solid rgba(var(--color-foreground), 0.12);
   border-radius: var(--pet-radius-md);
-  font-size: 1.5rem;
+  font-size: var(--pet-text-md);
   line-height: 1.5;
 }
 
@@ -40,13 +40,13 @@
 .pet-contact__icon {
   display: block;
   margin-bottom: 0.6rem;
-  font-size: 2.4rem;
+  font-size: var(--pet-text-3xl);
   line-height: 1;
 }
 
 .pet-contact__card-title {
   margin: 0 0 0.6rem;
-  font-size: 1.6rem;
+  font-size: var(--pet-text-lg);
   font-weight: 700;
   letter-spacing: 0;
 }
@@ -65,7 +65,7 @@
 
 .pet-contact__booking p {
   margin: 0;
-  font-size: 1.6rem;
+  font-size: var(--pet-text-lg);
   font-weight: 600;
 }
 
@@ -91,7 +91,7 @@
   position: relative;
   display: block;
   padding: 1.6rem 3.6rem 1.6rem 0;
-  font-size: 1.6rem;
+  font-size: var(--pet-text-lg);
   font-weight: 600;
   cursor: pointer;
   list-style: none;
@@ -107,7 +107,7 @@
   top: 50%;
   right: 0.4rem;
   transform: translateY(-50%);
-  font-size: 2.2rem;
+  font-size: var(--pet-text-2xl);
   font-weight: 400;
   color: rgb(var(--pet-text-accent));
 }
@@ -118,14 +118,14 @@
 
 .pet-contact__faq details p {
   margin: 0 0 1.6rem;
-  font-size: 1.5rem;
+  font-size: var(--pet-text-md);
   line-height: 1.6;
   color: rgba(var(--color-foreground), 0.8);
 }
 
 .pet-contact__form-intro {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: var(--pet-text-md);
   color: rgba(var(--color-foreground), 0.8);
 }
 

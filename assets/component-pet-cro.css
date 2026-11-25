@@ -17,7 +17,7 @@
 }
 
 .cro-shipping-msg {
-  font-size: 1.34rem;
+  font-size: var(--pet-text-sm);
   color: rgb(var(--pet-text-ink-2));
   text-align: center;
   margin-bottom: 1.36rem;
@@ -92,7 +92,7 @@
   position: absolute;
   top: 26px;
   white-space: nowrap;
-  font-size: 1.2rem;
+  font-size: var(--pet-text-xs);
   font-weight: 600;
   color: rgb(var(--pet-muted));
 }
@@ -113,7 +113,7 @@
   border-radius: var(--pet-radius-md);
   background: rgb(var(--pet-sky-50));
   color: rgb(var(--pet-sky-900));
-  font-size: 1.3rem;
+  font-size: var(--pet-text-sm);
   line-height: 1.45;
 }
 
@@ -126,7 +126,7 @@
 }
 
 .cro-frozen-note__icon {
-  font-size: 1.8rem;
+  font-size: var(--pet-text-xl);
   line-height: 1.2;
 }
 
@@ -137,7 +137,7 @@
 /* 8c. Mainland-only shipping notice (snippets/shipping-zone-note.liquid) */
 .cro-zone-note {
   margin: 1rem 0 0;
-  font-size: 1.25rem;
+  font-size: var(--pet-text-xs);
   line-height: 1.45;
   color: rgba(var(--color-foreground, 15, 23, 42), 0.75);
 }
@@ -170,7 +170,7 @@
   background: transparent;
   color: rgba(var(--color-foreground, 15, 23, 42), 0.7);
   font-family: inherit;
-  font-size: 1.2rem;
+  font-size: var(--pet-text-xs);
   font-weight: 700;
   line-height: 1;
   padding: 0.45rem 0.7rem;
@@ -241,7 +241,7 @@
   text-align: center;
   padding: 10px;
   font-weight: bold;
-  font-size: 14px;
+  font-size: var(--pet-text-base);
 }
 
 /* 11. Last shipping milestone anchored to the end of the track */
@@ -253,7 +253,7 @@
 .price__pack-savings {
   flex-basis: 100%;
   margin: 0.4rem 0 0;
-  font-size: 1.3rem;
+  font-size: var(--pet-text-sm);
   font-weight: 600;
   color: rgb(var(--pet-text-accent));
 }
@@ -264,7 +264,7 @@
 /* Newsletter in the footer: consent note (sections/footer.liquid) */
 .newsletter-form__note {
   margin: 1rem 0 0;
-  font-size: 1.3rem;
+  font-size: var(--pet-text-sm);
   line-height: 1.5;
   color: rgba(var(--color-foreground), 0.75);
   text-align: center;
@@ -306,7 +306,7 @@
 
 .footer-pet__title {
   margin: 0 0 1.2rem;
-  font-size: 1.6rem;
+  font-size: var(--pet-text-lg);
   font-weight: 700;
   letter-spacing: 0;
 }
@@ -318,7 +318,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: 1.4rem;
+  font-size: var(--pet-text-base);
   line-height: 1.5;
 }
 
@@ -386,7 +386,7 @@
 
 .pack-banner__kicker {
   margin: 0 0 0.6rem;
-  font-size: 1.3rem;
+  font-size: var(--pet-text-sm);
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -404,7 +404,7 @@
 
 .pack-banner__summary {
   margin-bottom: 1.6rem;
-  font-size: 1.5rem;
+  font-size: var(--pet-text-md);
 }
 
 .pack-banner__summary p {
@@ -418,7 +418,7 @@
 
 .pack-banner .price {
   margin-bottom: 2rem;
-  font-size: 2rem;
+  font-size: var(--pet-text-2xl);
 }
 
 .pack-banner__buttons {
@@ -454,7 +454,7 @@
   flex-wrap: wrap;
   gap: 0.4rem 1.2rem;
   margin: 1.2rem 0 0;
-  font-size: 1.4rem;
+  font-size: var(--pet-text-base);
 }
 
 .search-pet-scope[hidden] {
@@ -464,6 +464,24 @@
 .search-pet-scope a {
   font-weight: 600;
   color: rgb(var(--pet-text-accent));
+}
+
+/* 13. Minimum text size (CSS-10): Dawn shows the price per kilo at 11 px and the floating label of a
+   filled field at 10 px, and the footer's legal links at 11 px. The store's text is never under 12 px.
+   (Two classes: Dawn's CSS loads later.) */
+.unit-price.caption {
+  font-size: var(--pet-text-xs);
+}
+
+.field .field__input:focus ~ .field__label,
+.field .field__input:not(:placeholder-shown) ~ .field__label,
+.field .field__input:-webkit-autofill ~ .field__label {
+  font-size: var(--pet-text-xs);
+}
+
+/* Copyright and legal links of the footer (privacy, cookie preferences), 11 px in Dawn. */
+.footer .copyright__content {
+  font-size: var(--pet-text-xs);
 }
 
 /* 12. Reduced motion (CSS-13): with "reduce motion" on in the system, the store's own components (classes
