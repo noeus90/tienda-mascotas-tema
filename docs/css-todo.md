@@ -213,11 +213,25 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - «Beneficios» sin barra de pestañas y sin espacio sobrante;
     - las casillas de «Comprar juntos» en verde.
   - Theme Check sin avisos. La barra de envío del carrito también usa el panel, así que gana 1,6 rem de margen arriba.
-- [ ] 🟠 **CSS-08 · Ancho y separación de las secciones.** S
+- [x] 🟠 **CSS-08 · Ancho y separación de las secciones.** S *(hecho el 25/11/2026)*
   - «Lo que te prometemos» va de 40 a 1240 px en una pantalla de 1280, y el resto del contenido, de 90 a 1190 (`.page-width`): las tarjetas sobresalen 50 px por cada lado.
   - En móvil, «Packs con un 10 % de descuento» tiene 30 px de margen lateral y las demás secciones, 15.
   - El espacio vertical entre secciones varía mucho en el inicio: hay un hueco grande después de la rutina de peluquería y antes de los packs.
   - Propuesta: todas dentro de `.page-width`, y la separación con los ajustes de relleno superior e inferior de cada sección (los mismos valores por defecto).
+  - Medido antes, en el inicio:
+    - el relleno vertical de cada sección era 40/24, 32/32, 60/60, 44/36, 44/44, 36/36 y 52/52 px;
+    - las promesas usaban su propio contenedor, con 1200 px de ancho máximo y 2,4 rem de relleno;
+    - «Packs», en móvil, llevaba `title-wrapper--self-padded-mobile`, que suma 15 px de margen.
+  - Hecho:
+    - **Relleno:** 36/36 px (el de Dawn) como valor por defecto en las seis secciones propias. En `templates/index.json`, categorías, bloque de peluquería y favoritos pasan también a 36/36. Sigue siendo un ajuste de cada sección.
+    - **Promesas:** su contenedor pasa a `.page-width`. Se quitan el ancho máximo y el relleno propios.
+    - **«Packs»:** fuera la clase del margen extra en móvil.
+  - Comprobado en CLAUDIA, inicio:
+    - las siete secciones bajo el banner con relleno 36/36 en escritorio y 27/27 en móvil;
+    - contenido entre 90 y 1190 px a 1280 (15–375 a 390);
+    - los títulos de promesas y packs empiezan en el mismo borde que los demás;
+    - a ojo, las tarjetas de las promesas se alinean con las columnas del pie.
+  - Theme Check sin avisos.
 - [ ] 🟠 **CSS-09 · Botones alineados en las tarjetas de producto.** S
   - En «Nuestros favoritos» y en las colecciones, el botón «Añadir al carrito» queda a alturas distintas en una misma fila, según el título ocupe una o dos líneas y haya o no precio por kilo.
   - Propuesta: la tarjeta como columna flexible, con el botón empujado abajo (`margin-top: auto`).

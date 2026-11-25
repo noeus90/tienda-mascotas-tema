@@ -48,7 +48,7 @@
 -%}
 
 <section class="trust-badges-section trust-badges-section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient">
-  <div class="trust-badges-container">
+  <div class="trust-badges-container page-width">
     <div class="trust-badges-review-header pet-section-header--{{ section.settings.heading_alignment }}">
       {%- if heading != blank -%}
         <h2 class="{{ section.settings.heading_size }}">{{ heading }}</h2>
@@ -172,7 +172,7 @@
       "step": 4,
       "unit": "px",
       "label": "t:sections.pet_trust_badges.settings.padding_top.label",
-      "default": 52
+      "default": 36
     },
     {
       "type": "range",
@@ -182,7 +182,7 @@
       "step": 4,
       "unit": "px",
       "label": "t:sections.pet_trust_badges.settings.padding_bottom.label",
-      "default": 52
+      "default": 36
     }
   ],
   "blocks": [
