@@ -1074,12 +1074,13 @@
       "text": "Esta opción está agotada ahora mismo. Déjanos tu email y te escribimos en cuanto vuelva a estar disponible.",
       "email": "Tu email",
       "button": "Avísame",
-      "note": "Solo te enviaremos un email, cuando vuelva. Nada de publicidad.",
+      "note": "Te pediremos que confirmes tu email y te escribiremos una sola vez, cuando vuelva. Nada de publicidad.",
       "done": "¡Hecho! Te escribiremos en cuanto vuelva a estar disponible.",
       "error": "No hemos podido guardar el aviso. Inténtalo de nuevo en un momento.",
       "error_email": "Escribe un email válido.",
       "error_many": "Ya tienes muchos avisos pendientes con este email.",
-      "available": "¡Buenas noticias! Ya vuelve a estar disponible: recarga la página para comprarlo."
+      "available": "¡Buenas noticias! Ya vuelve a estar disponible: recarga la página para comprarlo.",
+      "done_confirm": "¡Casi está! Te hemos enviado un email: pulsa el enlace para confirmar el aviso."
     },
     "promises": {
       "heading": "Lo que te prometemos",

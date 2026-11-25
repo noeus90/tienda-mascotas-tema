@@ -391,10 +391,32 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
       - una reserva incompleta da 422;
       - la página de baja con un enlace no válido;
       - Avisos de stock e Imprimir, por día y por semana.
-- [ ] 🟠 **CODE-26 · Abusos en los formularios públicos.** M
+- [x] 🟠 **CODE-26 · Abusos en los formularios públicos.** M *(hecho el 25/11/2026, app `af6710f`)*
   - No hay límite de peticiones por IP en ningún endpoint del proxy.
   - El aviso de stock no confirma el email, así que se pueden apuntar direcciones ajenas.
   - `proxy.citas.jsx:66`: dos reservas a la vez pueden pisarse. Propuesta: un candado por tienda y día.
+  - Hecho:
+    - **Límite por visitante** (`lib/rate-limit.server.js`), por cada 10 minutos. Al pasarse responde 429 `rate_limited` con `Retry-After`.
+      - Topes: reservar, lista de espera y «Avísame», 10; confirmar aviso y página de baja, 30; «Mis perros», 120; disponibilidad, 300.
+      - El visitante es la primera IP de `X-Forwarded-For`, como llega por el proxy de Shopify (comprobado en local).
+      - Se cuenta en memoria de cada proceso: con varias instancias cada una cuenta por su lado (ver CODE-28).
+    - **Candado por tienda y día** (`withDayLock`, sobre la tabla JobLock): «¿está libre la hora?» y «guardar» van en un solo paso.
+      - Se usa en la reserva web, el alta y la edición en el admin y al reabrir una cita cancelada.
+      - Si el día sigue ocupado tras 8 s, la web recibe `busy` y el tema muestra «vuelve a intentarlo»; el admin, un aviso en el campo de la hora.
+    - **Aviso de stock con doble confirmación:**
+      - el aviso nace «sin confirmar» y se envía un email con un enlace firmado a `/apps/reservas/confirmar-aviso`;
+      - esa página pide pulsar un botón, para que los escáneres de correo no confirmen solos;
+      - solo los confirmados reciben el «ya ha vuelto», y los que no se confirman se borran a los 3 días;
+      - si se vuelve a pedir pasada una hora, se reenvía el email; si el email no sale, el aviso se deshace y la web muestra error;
+      - los avisos que ya estaban esperando siguen igual.
+      - En el admin aparecen como «Sin confirmar». En el tema, el formulario dice «Te hemos enviado un email: pulsa el enlace para confirmar el aviso», y la nota avisa de la confirmación.
+  - Comprobado: 64 tests (8 nuevos: límite, enlace de confirmación y candado con dos reservas a la vez), lint, build, Theme Check y CI en verde. En CLAUDIA:
+    - 10 reservas vacías dan 422 y la 11.ª da 429 con `Retry-After: 600`;
+    - la página de confirmación con un enlace falso dice «Enlace no válido», en español y en inglés;
+    - en un producto agotado, con la respuesta de la app simulada, el formulario muestra el mensaje nuevo.
+  - Sin probar con datos reales:
+    - un «Avísame» de verdad, porque enviaría un email;
+    - dos reservas reales a la vez.
 - [ ] 🟠 **CODE-27 · Emails de marketing y entregabilidad.** S
   - Faltan las cabeceras `List-Unsubscribe` y `List-Unsubscribe-Post` en bienvenida, rebook y reorder (Gmail y Yahoo las piden).
   - Faltan `<title>` y texto de previsualización.

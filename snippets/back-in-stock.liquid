@@ -28,6 +28,7 @@
     data-error-email="{{ 'pet_cro.back_in_stock.error_email' | t | escape }}"
     data-error-many="{{ 'pet_cro.back_in_stock.error_many' | t | escape }}"
     data-available="{{ 'pet_cro.back_in_stock.available' | t | escape }}"
+    data-done-confirm="{{ 'pet_cro.back_in_stock.done_confirm' | t | escape }}"
     {% if current.available %}
       hidden
     {% endif %}
@@ -71,12 +72,14 @@
       const done = root.querySelector('[data-back-in-stock-done]');
       const message = root.querySelector('[data-back-in-stock-message]');
       const button = form.querySelector('button');
-      // Variants already requested on this page view.
-      const requested = new Set();
+      // Variants already requested on this page view, with the message to show for each.
+      const requested = new Map();
+      const doneText = done.textContent;
 
       const show = () => {
         root.hidden = availability[variantId] !== false;
         const isDone = requested.has(variantId);
+        if (isDone) done.textContent = requested.get(variantId);
         form.hidden = isDone;
         done.hidden = !isDone;
         message.textContent = '';
@@ -105,7 +108,8 @@
           .then((response) => response.json().catch(() => ({})))
           .then((result) => {
             if (result.ok) {
-              requested.add(variantId);
+              // New alerts are confirmed from an email (app CODE-26): say so.
+              requested.set(variantId, result.confirm ? `✅ ${root.dataset.doneConfirm}` : doneText);
               show();
             } else if (result.error === 'too_many') {
               message.textContent = root.dataset.errorMany;

@@ -1074,12 +1074,13 @@
       "text": "This option is sold out right now. Leave your email and we'll write as soon as it's available again.",
       "email": "Your email",
       "button": "Notify me",
-      "note": "We'll only send one email, when it's back. No marketing.",
+      "note": "We'll ask you to confirm your email and write once, when it's back. No marketing.",
       "done": "Done! We'll email you as soon as it's available again.",
       "error": "We couldn't save your request. Please try again in a moment.",
       "error_email": "Please enter a valid email.",
       "error_many": "You already have many pending requests with this email.",
-      "available": "Good news! It's available again: reload the page to buy it."
+      "available": "Good news! It's available again: reload the page to buy it.",
+      "done_confirm": "Almost there! We've sent you an email: click the link to confirm the alert."
     },
     "promises": {
       "heading": "What we promise",
