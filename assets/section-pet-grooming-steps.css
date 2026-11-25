@@ -12,8 +12,8 @@
   margin: 0 0 1.2rem;
   padding: 0.5rem 1.4rem;
   border-radius: 99rem;
-  background: #ecfdf5;
-  color: #047857;
+  background: rgb(var(--pet-accent-soft));
+  color: rgb(var(--pet-accent));
   font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -56,7 +56,7 @@
   left: 5.6rem;
   right: -2.4rem;
   height: 2px;
-  background: repeating-linear-gradient(90deg, #a7f3d0 0 0.8rem, transparent 0.8rem 1.4rem);
+  background: repeating-linear-gradient(90deg, rgb(var(--pet-accent-border)) 0 0.8rem, transparent 0.8rem 1.4rem);
 }
 
 .grooming-steps__top {
@@ -77,7 +77,7 @@
   width: 4.2rem;
   height: 4.2rem;
   border-radius: 50%;
-  background: #047857;
+  background: rgb(var(--pet-accent));
   color: #fff;
   font-size: 1.8rem;
   font-weight: 700;
@@ -100,7 +100,7 @@
   margin: 0.2rem 0 0;
   font-size: 1.3rem;
   font-weight: 600;
-  color: #047857;
+  color: rgb(var(--pet-accent));
 }
 
 .grooming-steps__media {
@@ -157,7 +157,7 @@
 }
 
 .grooming-steps__product-name:hover {
-  color: #047857;
+  color: rgb(var(--pet-accent));
   text-decoration: underline;
 }
 
@@ -176,10 +176,10 @@
 .grooming-steps__add {
   min-height: 4.4rem;
   padding: 0 1.8rem;
-  border: 2px solid #047857;
+  border: 2px solid rgb(var(--pet-accent));
   border-radius: 99rem;
   background: transparent;
-  color: #047857;
+  color: rgb(var(--pet-accent));
   font: inherit;
   font-size: 1.4rem;
   font-weight: 700;
@@ -189,7 +189,7 @@
 
 .grooming-steps__add:hover,
 .grooming-steps__add:focus-visible {
-  background: #047857;
+  background: rgb(var(--pet-accent));
   color: #fff;
 }
 
@@ -217,7 +217,7 @@
   gap: 1.2rem 2rem;
   padding: 2rem 2.4rem;
   border-radius: 1.6rem;
-  background: #ecfdf5;
+  background: rgb(var(--pet-accent-soft));
 }
 
 .grooming-steps__all-text {
@@ -237,7 +237,7 @@
 }
 
 .grooming-steps__salon a {
-  color: #047857;
+  color: rgb(var(--pet-accent));
   font-weight: 700;
 }
 
@@ -249,7 +249,7 @@
   margin: 1.2rem 0 0;
   font-size: 1.4rem;
   font-weight: 600;
-  color: #047857;
+  color: rgb(var(--pet-accent));
 }
 
 /* Tablet: two per row, no joining line. */

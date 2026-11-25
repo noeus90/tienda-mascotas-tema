@@ -6,27 +6,27 @@
  */
 
 .grooming-booking-section {
-  /* Booking palette (CODE-14): change the greens here. Backgrounds and text follow the color scheme. */
-  --booking-accent: 4, 120, 87;
-  --booking-accent-light: 5, 150, 105;
-  --booking-accent-bright: 16, 185, 129;
-  --booking-accent-dark: 6, 95, 70;
-  --booking-accent-soft: 236, 253, 245;
-  --booking-accent-border: 167, 243, 208;
+  /* Booking palette: the store's colors (snippets/pet-tokens.liquid, CSS-01) under the booking's names. */
+  --booking-accent: var(--pet-accent);
+  --booking-accent-light: var(--pet-accent-light);
+  --booking-accent-bright: var(--pet-accent-bright);
+  --booking-accent-dark: var(--pet-accent-dark);
+  --booking-accent-soft: var(--pet-accent-soft);
+  --booking-accent-border: var(--pet-accent-border);
   --booking-on-accent: 255, 255, 255;
-  --booking-error: 220, 38, 38;
-  --booking-error-light: 239, 68, 68;
-  --booking-error-text: 185, 28, 28;
-  --booking-error-dark: 153, 27, 27;
-  --booking-error-soft: 254, 242, 242;
-  --booking-error-border: 254, 202, 202;
-  --booking-warning: 245, 158, 11;
-  --booking-warning-text: 146, 64, 14;
-  --booking-warning-soft: 255, 251, 235;
-  --booking-warning-border: 252, 211, 77;
-  --booking-info: 14, 116, 144;
-  --booking-whatsapp: 37, 211, 102;
-  --booking-whatsapp-dark: 18, 140, 126;
+  --booking-error: var(--pet-error);
+  --booking-error-light: var(--pet-error-light);
+  --booking-error-text: var(--pet-error-text);
+  --booking-error-dark: var(--pet-error-dark);
+  --booking-error-soft: var(--pet-error-soft);
+  --booking-error-border: var(--pet-error-border);
+  --booking-warning: var(--pet-warning);
+  --booking-warning-text: var(--pet-warning-dark);
+  --booking-warning-soft: var(--pet-warning-soft);
+  --booking-warning-border: var(--pet-warning-border-2);
+  --booking-info: var(--pet-info);
+  --booking-whatsapp: var(--pet-whatsapp);
+  --booking-whatsapp-dark: var(--pet-whatsapp-dark);
 
   position: relative;
   width: 100%;

@@ -22,7 +22,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 
 | Medida | Ahora | Objetivo |
 |---|---|---|
-| Colores fijos (hex y `rgb()`) fuera de la reserva | 227 hex y 64 `rgb()` | Variables de marca en un solo sitio (CSS-01) |
+| Colores fijos (hex y `rgb()`) fuera de la reserva | ~~227 hex y 64 `rgb()`~~ ✅ 61 variables `--pet-*` (quedan blanco, negro y el aviso de desarrollo) | Variables de marca en un solo sitio (CSS-01) |
 | `!important` | 61 (29 en `component-list-menu.css`, 19 en `component-menu-drawer.css`, 11 en `component-mega-menu.css`) | Casi ninguno (CSS-12) |
 | Tamaños de letra distintos | 42 (1,2 · 1,25 · 1,28 · 1,3 · 1,32 · 1,34 · 1,35 · 1,36 rem…) | 6 o 7 de una escala (CSS-10) |
 | Radios distintos | Más de 15 (`9999px`, `999px`, `99rem`, `14px`, `12px`, `10px`, `8px`, `1,2rem`…) | 4 variables (CSS-11) |
@@ -56,7 +56,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 
 ## 🟠 Incoherencias que se notan
 
-- [ ] 🟠 **CSS-01 · Paleta de marca en un solo sitio.** M · *base de CSS-02 a CSS-07*
+- [x] 🟠 **CSS-01 · Paleta de marca en un solo sitio.** M · *base de CSS-02 a CSS-07* *(hecho el 25/11/2026)*
   - El verde de la marca está escrito a mano 53 veces (`#047857`), junto con otros 10 tonos de verde y `rgba(4, 120, 87, …)` en 8 opacidades.
   - Las variables `--booking-*` de CODE-14 solo existen dentro de la reserva.
   - El chip «Ver todo» del catálogo usa un azul (`#0369a1`) que no aparece en ningún otro sitio.
@@ -64,6 +64,18 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - subir la paleta a `:root`, en un fichero propio que cargue `theme.liquid` (por ejemplo `pet-tokens.css`), con acento, acento suave, aviso, error, información y los tintes de las tarjetas;
     - hacer que la reserva use esas variables;
     - cambiar los hex de `component-pet-product.css` (48), `component-pet-cro.css` (29), `component-mega-menu.css` (25), `component-list-menu.css` (24), `component-card.css` (24), `section-gift-card-promo.css` (19), `section-pet-grooming-steps.css` (14), `component-menu-drawer.css` (12) y `section-pet-catalog-bar.css` (10).
+  - Hecho:
+    - `snippets/pet-tokens.liquid` define en `:root` 61 variables `--pet-*`, en formato `r, g, b` para usarlas con `rgb()` y `rgba(…, opacidad)`.
+      - Se agrupan en marca (verdes), texto y neutros, aviso, error, información, etiquetas de las tarjetas y otros (crema del bloque de peluquería, WhatsApp).
+      - `theme.liquid` lo carga antes de `base.css`, sin petición extra.
+    - En 14 ficheros, los 227 hex y 64 `rgb()`/`rgba()` de color pasan a 224 usos de esas variables. Las líneas de Dawn no se tocan.
+    - La reserva conserva sus nombres `--booking-*`, que ahora apuntan a las globales: el verde se cambia en un solo sitio para toda la tienda.
+    - Se dejan fijos el blanco y el negro puros (fondos y sombras), que cambia CSS-02 por los del esquema, y el rosa del aviso «Modo desarrollo», que se quita al publicar.
+    - Los tonos se mantienen exactos: juntar los parecidos (hay 14 verdes) cambiaría el aspecto y queda para cuando se decida CSS-03 y CSS-04.
+  - Comprobado:
+    - Huella de los colores calculados de todos los elementos y sus `::before`/`::after` en 8 páginas a 1280 y 390 px (inicio, colecciones de perros y gatos, ficha, carrito con un producto, reserva, búsqueda y contacto) y una en inglés. Son 15 vistas y salen idénticas antes y después; solo se descartan los dos puntos que laten, porque su sombra está animada.
+    - Los menús y el cajón cuentan aunque estén cerrados.
+    - Las 61 variables usadas están definidas y no sobra ninguna, así que los `:hover` también resuelven. Theme Check sin avisos.
 - [ ] 🟠 **CSS-03 · Una sola familia de botones.** M · *necesita una decisión*
   - Hoy conviven cuatro:
     - **negro rectangular** de Dawn: «Ver la tienda», «Reservar cita», «Añadir la rutina al carrito», «Añadir al carrito» del pack;

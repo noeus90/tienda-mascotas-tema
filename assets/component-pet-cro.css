@@ -8,8 +8,8 @@
 
 /* 7. Barra de Progreso Envío Gratis + Regalo (snippets/free-shipping-bar.liquid) */
 .cro-shipping-bar {
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
+  background: rgb(var(--pet-green-50));
+  border: 1px solid rgb(var(--pet-green-200));
   border-radius: 12px;
   padding: 1.44rem 1.76rem 2.96rem 1.76rem;
   margin-bottom: 2rem;
@@ -18,19 +18,19 @@
 
 .cro-shipping-msg {
   font-size: 1.34rem;
-  color: #1e293b;
+  color: rgb(var(--pet-ink-2));
   text-align: center;
   margin-bottom: 1.36rem;
   line-height: 1.4;
 }
 
 .cro-shipping-msg strong {
-  color: #065f46;
+  color: rgb(var(--pet-accent-dark));
   font-weight: 700;
 }
 
 .cro-shipping-msg .is-complete {
-  color: #065f46;
+  color: rgb(var(--pet-accent-dark));
   font-weight: 600;
 }
 
@@ -42,14 +42,14 @@
 .cro-shipping-track {
   width: 100%;
   height: 8px;
-  background: #dcfce7;
+  background: rgb(var(--pet-green-100));
   border-radius: 999px;
   overflow: hidden;
 }
 
 .cro-shipping-fill {
   height: 100%;
-  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+  background: linear-gradient(90deg, rgb(var(--pet-accent-bright)) 0%, rgb(var(--pet-accent-light)) 100%);
   border-radius: 999px;
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -72,8 +72,8 @@
   height: 24px;
   border-radius: 50%;
   background: #ffffff;
-  border: 2px solid #86efac;
-  color: #065f46;
+  border: 2px solid rgb(var(--pet-green-300));
+  color: rgb(var(--pet-accent-dark));
   font-size: 1.12rem;
   font-weight: 700;
   display: flex;
@@ -83,8 +83,8 @@
 }
 
 .cro-shipping-milestone.is-reached .cro-milestone-dot {
-  background: #047857;
-  border-color: #059669;
+  background: rgb(var(--pet-accent));
+  border-color: rgb(var(--pet-accent-light));
   color: #ffffff;
 }
 
@@ -94,11 +94,11 @@
   white-space: nowrap;
   font-size: 1.2rem;
   font-weight: 600;
-  color: #475569;
+  color: rgb(var(--pet-muted));
 }
 
 .cro-shipping-milestone.is-reached .cro-milestone-label {
-  color: #065f46;
+  color: rgb(var(--pet-accent-dark));
   font-weight: 700;
 }
 
@@ -109,10 +109,10 @@
   align-items: flex-start;
   margin-top: 1rem;
   padding: 1rem 1.2rem;
-  border: 1px solid #bae6fd;
+  border: 1px solid rgb(var(--pet-sky-200));
   border-radius: 10px;
-  background: #f0f9ff;
-  color: #0c4a6e;
+  background: rgb(var(--pet-sky-50));
+  color: rgb(var(--pet-sky-900));
   font-size: 1.3rem;
   line-height: 1.45;
 }
@@ -122,7 +122,7 @@
 }
 
 .cro-frozen-note strong {
-  color: #075985;
+  color: rgb(var(--pet-sky-800));
 }
 
 .cro-frozen-note__icon {
@@ -196,13 +196,13 @@
 }
 
 .header-lang-btn.is-active {
-  background: #047857;
+  background: rgb(var(--pet-accent));
   color: #ffffff;
-  box-shadow: 0 1px 2px rgba(5, 150, 105, 0.25);
+  box-shadow: 0 1px 2px rgba(var(--pet-accent-light), 0.25);
 }
 
 .header-lang-btn:focus-visible {
-  outline: 2px solid #059669;
+  outline: 2px solid rgb(var(--pet-accent-light));
   outline-offset: 2px;
 }
 
@@ -237,7 +237,7 @@
 /* 10. Dev Mode Banner (layout/theme.liquid) */
 .dev-mode-banner {
   background-color: #ffc0cb;
-  color: #1f2937;
+  color: rgb(var(--pet-ink-gray));
   text-align: center;
   padding: 10px;
   font-weight: bold;
@@ -255,7 +255,7 @@
   margin: 0.4rem 0 0;
   font-size: 1.3rem;
   font-weight: 600;
-  color: #047857;
+  color: rgb(var(--pet-accent));
 }
 .price:has(.price__pack-savings) {
   flex-wrap: wrap;
@@ -369,7 +369,7 @@
   padding: 2.4rem;
   border: 1px solid rgba(var(--color-foreground), 0.1);
   border-radius: 2rem;
-  background: #fff7f7;
+  background: rgb(var(--pet-blush));
 }
 
 .pack-banner__media {
@@ -390,7 +390,7 @@
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #b91c1c;
+  color: rgb(var(--pet-error-text));
 }
 
 .pack-banner__title {
@@ -463,5 +463,5 @@
 
 .search-pet-scope a {
   font-weight: 600;
-  color: #047857;
+  color: rgb(var(--pet-accent));
 }

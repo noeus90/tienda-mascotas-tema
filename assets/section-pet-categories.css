@@ -38,7 +38,7 @@
 }
 
 .pet-categories__pet.is-active {
-  background: #047857;
+  background: rgb(var(--pet-accent));
   color: #fff;
 }
 
@@ -82,8 +82,8 @@
 
 .pet-categories__tile:hover,
 .pet-categories__tile:focus-visible {
-  border-color: #6ee7b7;
-  box-shadow: 0 8px 18px -8px rgba(4, 120, 87, 0.35);
+  border-color: rgb(var(--pet-accent-300));
+  box-shadow: 0 8px 18px -8px rgba(var(--pet-accent), 0.35);
   transform: translateY(-2px);
 }
 
@@ -96,7 +96,7 @@
   aspect-ratio: 1 / 1;
   border-radius: 1rem;
   overflow: hidden;
-  background: #ecfdf5;
+  background: rgb(var(--pet-accent-soft));
 }
 
 .pet-categories__media img {

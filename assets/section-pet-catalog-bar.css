@@ -61,10 +61,10 @@
 }
 
 .pet-mascot-btn.is-active {
-  background: #0f172a;
+  background: rgb(var(--pet-ink));
   color: #ffffff;
-  border-color: #0f172a;
-  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.18);
+  border-color: rgb(var(--pet-ink));
+  box-shadow: 0 4px 10px rgba(var(--pet-ink), 0.18);
 }
 
 .pet-mascot-icon {
@@ -121,10 +121,10 @@
 }
 
 .pet-category-pill.is-active {
-  background: #0369a1;
+  background: rgb(var(--pet-sky-700));
   color: #ffffff;
-  border-color: #0369a1;
-  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+  border-color: rgb(var(--pet-sky-700));
+  box-shadow: 0 2px 6px rgba(var(--pet-sky-600), 0.25);
 }
 
 .pet-category-pill.is-active .pet-category-icon {
@@ -138,7 +138,7 @@
   gap: 0.56rem;
   background: transparent;
   border: none;
-  color: #dc2626;
+  color: rgb(var(--pet-error));
   font-size: 1.28rem;
   font-weight: 600;
   cursor: pointer;
@@ -149,7 +149,7 @@
 
 .pet-catalog-reset-btn:hover,
 .pet-catalog-reset-btn:focus-visible {
-  background: #fef2f2;
+  background: rgb(var(--pet-error-soft));
 }
 
 .pet-catalog-reset-btn[hidden] {
@@ -184,7 +184,7 @@
 }
 
 .pet-needs__active {
-  color: #047857;
+  color: rgb(var(--pet-accent));
 }
 
 .pet-needs-pills {

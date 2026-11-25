@@ -1,0 +1,77 @@
+{%- comment -%}
+  Brand palette of the pet store (CSS-01), as "r, g, b" so it works in rgb() and in rgba(…, alpha).
+  Rendered in layout/theme.liquid before base.css. Pure white and black are not here: CSS-02 moves
+  them to the color scheme. The booking keeps its --booking-* names, pointing at these.
+{%- endcomment -%}
+{% style %}
+  :root {
+    /* Marca: verde esmeralda */
+    --pet-accent: 4, 120, 87; /* #047857: botones, enlaces y detalles de la marca */
+    --pet-accent-dark: 6, 95, 70; /* #065f46: hover y texto sobre fondo verde claro */
+    --pet-accent-darker: 6, 78, 59; /* #064e3b */
+    --pet-accent-light: 5, 150, 105; /* #059669 */
+    --pet-accent-bright: 16, 185, 129; /* #10b981: puntos de estado, completado */
+    --pet-accent-400: 52, 211, 153; /* #34d399 */
+    --pet-accent-300: 110, 231, 183; /* #6ee7b7 */
+    --pet-accent-border: 167, 243, 208; /* #a7f3d0: bordes verdes suaves */
+    --pet-accent-100: 209, 250, 229; /* #d1fae5 */
+    --pet-accent-soft: 236, 253, 245; /* #ecfdf5: fondos verdes muy claros */
+    --pet-green-50: 240, 253, 244; /* #f0fdf4 */
+    --pet-green-100: 220, 252, 231; /* #dcfce7 */
+    --pet-green-200: 187, 247, 208; /* #bbf7d0 */
+    --pet-green-300: 134, 239, 172; /* #86efac */
+    /* Texto y neutros (pizarra) */
+    --pet-ink: 15, 23, 42; /* #0f172a: texto principal propio */
+    --pet-ink-2: 30, 41, 59; /* #1e293b */
+    --pet-ink-gray: 31, 41, 55; /* #1f2937 */
+    --pet-muted: 71, 85, 105; /* #475569: texto secundario */
+    --pet-muted-2: 100, 116, 139; /* #64748b */
+    --pet-subtle: 148, 163, 184; /* #94a3b8 */
+    --pet-line: 203, 213, 225; /* #cbd5e1 */
+    --pet-surface: 248, 250, 252; /* #f8fafc */
+    /* Aviso (ámbar) */
+    --pet-warning: 245, 158, 11; /* #f59e0b */
+    --pet-warning-text: 180, 83, 9; /* #b45309 */
+    --pet-warning-dark: 146, 64, 14; /* #92400e */
+    --pet-warning-soft: 255, 251, 235; /* #fffbeb */
+    --pet-warning-100: 254, 243, 199; /* #fef3c7 */
+    --pet-warning-border: 253, 230, 138; /* #fde68a */
+    --pet-warning-border-2: 252, 211, 77; /* #fcd34d */
+    /* Error (rojo) */
+    --pet-error: 220, 38, 38; /* #dc2626 */
+    --pet-error-light: 239, 68, 68; /* #ef4444 */
+    --pet-error-text: 185, 28, 28; /* #b91c1c */
+    --pet-error-dark: 153, 27, 27; /* #991b1b */
+    --pet-error-soft: 254, 242, 242; /* #fef2f2 */
+    --pet-error-100: 254, 226, 226; /* #fee2e2 */
+    --pet-error-border: 254, 202, 202; /* #fecaca */
+    /* Información (azul) */
+    --pet-info: 14, 116, 144; /* #0e7490 */
+    --pet-sky-50: 240, 249, 255; /* #f0f9ff */
+    --pet-sky-200: 186, 230, 253; /* #bae6fd */
+    --pet-sky-600: 2, 132, 199; /* #0284c7 */
+    --pet-sky-700: 3, 105, 161; /* #0369a1 */
+    --pet-sky-800: 7, 89, 133; /* #075985 */
+    --pet-sky-900: 12, 74, 110; /* #0c4a6e */
+    --pet-blue-500: 59, 130, 246; /* #3b82f6 */
+    /* Etiquetas de las tarjetas (morado, verde azulado, rosa, violeta) */
+    --pet-purple-50: 250, 245, 255; /* #faf5ff */
+    --pet-purple-200: 233, 213, 255; /* #e9d5ff */
+    --pet-purple-700: 126, 34, 206; /* #7e22ce */
+    --pet-teal-50: 240, 253, 250; /* #f0fdfa */
+    --pet-teal-200: 153, 246, 228; /* #99f6e4 */
+    --pet-teal-700: 15, 118, 110; /* #0f766e */
+    --pet-teal-900: 19, 78, 74; /* #134e4a */
+    --pet-rose-50: 255, 241, 242; /* #fff1f2 */
+    --pet-rose-200: 254, 205, 211; /* #fecdd3 */
+    --pet-rose-700: 190, 18, 60; /* #be123c */
+    --pet-violet-50: 245, 243, 255; /* #f5f3ff */
+    --pet-violet-200: 221, 214, 254; /* #ddd6fe */
+    --pet-violet-700: 109, 40, 217; /* #6d28d9 */
+    /* Otros */
+    --pet-cream: 253, 246, 236; /* #fdf6ec: degradado del bloque de peluquería */
+    --pet-blush: 255, 247, 247; /* #fff7f7 */
+    --pet-whatsapp: 37, 211, 102; /* #25d366 */
+    --pet-whatsapp-dark: 18, 140, 126; /* #128c7e */
+  }
+{% endstyle %}

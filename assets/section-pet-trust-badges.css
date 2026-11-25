@@ -68,20 +68,20 @@
 .trust-badge-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 20px -5px rgba(var(--color-shadow, 15, 23, 42), 0.06);
-  border-color: #a7f3d0;
+  border-color: rgb(var(--pet-accent-border));
 }
 
 .trust-badge-icon-circle {
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: #ecfdf5;
-  color: #047857;
+  background: rgb(var(--pet-accent-soft));
+  color: rgb(var(--pet-accent));
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 1.6rem;
-  border: 1px solid #a7f3d0;
+  border: 1px solid rgb(var(--pet-accent-border));
 }
 
 

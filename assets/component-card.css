@@ -621,50 +621,50 @@
 }
 
 .pet-card-badge--dog {
-  background: #f0f9ff;
-  color: #0369a1;
-  border-color: #bae6fd;
+  background: rgb(var(--pet-sky-50));
+  color: rgb(var(--pet-sky-700));
+  border-color: rgb(var(--pet-sky-200));
 }
 
 .pet-card-badge--cat {
-  background: #faf5ff;
-  color: #7e22ce;
-  border-color: #e9d5ff;
+  background: rgb(var(--pet-purple-50));
+  color: rgb(var(--pet-purple-700));
+  border-color: rgb(var(--pet-purple-200));
 }
 
 .pet-card-badge--grain-free {
-  background: #fffbeb;
-  color: #b45309;
-  border-color: #fde68a;
+  background: rgb(var(--pet-warning-soft));
+  color: rgb(var(--pet-warning-text));
+  border-color: rgb(var(--pet-warning-border));
 }
 
 .pet-card-badge--natural {
-  background: #ecfdf5;
-  color: #047857;
-  border-color: #a7f3d0;
+  background: rgb(var(--pet-accent-soft));
+  color: rgb(var(--pet-accent));
+  border-color: rgb(var(--pet-accent-border));
 }
 
 .pet-card-badge--dental {
-  background: #f0fdfa;
-  color: #0f766e;
-  border-color: #99f6e4;
+  background: rgb(var(--pet-teal-50));
+  color: rgb(var(--pet-teal-700));
+  border-color: rgb(var(--pet-teal-200));
 }
 
 .pet-card-badge--puppy {
-  background: #fff1f2;
-  color: #be123c;
-  border-color: #fecdd3;
+  background: rgb(var(--pet-rose-50));
+  color: rgb(var(--pet-rose-700));
+  border-color: rgb(var(--pet-rose-200));
 }
 
 .pet-card-badge--senior {
-  background: #f8fafc;
-  color: #475569;
-  border-color: #cbd5e1;
+  background: rgb(var(--pet-surface));
+  color: rgb(var(--pet-muted));
+  border-color: rgb(var(--pet-line));
 }
 
 .pet-card-badge--hypo {
-  background: #f5f3ff;
-  color: #6d28d9;
-  border-color: #ddd6fe;
+  background: rgb(var(--pet-violet-50));
+  color: rgb(var(--pet-violet-700));
+  border-color: rgb(var(--pet-violet-200));
 }
 

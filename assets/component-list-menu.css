@@ -57,7 +57,7 @@
   padding: 0.75rem 1.4rem !important;
   margin: 0.35rem 0.25rem;
   border-radius: 9999px;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  background: linear-gradient(135deg, rgb(var(--pet-ink)) 0%, rgb(var(--pet-ink-2)) 100%);
   color: #ffffff !important;
   font-size: 1.35rem;
   font-weight: 600;
@@ -65,29 +65,29 @@
   letter-spacing: 0.02em;
   text-decoration: none !important;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  box-shadow: 0 3px 10px rgba(var(--pet-ink), 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.12);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
 }
 
 .header__menu-item--cta-booking:hover {
-  background: linear-gradient(135deg, #047857 0%, #059669 100%);
+  background: linear-gradient(135deg, rgb(var(--pet-accent)) 0%, rgb(var(--pet-accent-light)) 100%);
   color: #ffffff !important;
   transform: translateY(-2px);
   border-color: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 6px 18px rgba(4, 120, 87, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: 0 6px 18px rgba(var(--pet-accent), 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .header__menu-item--cta-booking.is-active,
 .header__menu-item--cta-booking[aria-current="page"] {
-  background: linear-gradient(135deg, #047857 0%, #065f46 100%);
+  background: linear-gradient(135deg, rgb(var(--pet-accent)) 0%, rgb(var(--pet-accent-dark)) 100%);
   color: #ffffff !important;
   box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
   border-color: rgba(255, 255, 255, 0.2);
 }
 
 .header__menu-item--cta-booking:focus-visible {
-  outline: 3px solid #10b981;
+  outline: 3px solid rgb(var(--pet-accent-bright));
   outline-offset: 3px;
 }
 
@@ -116,21 +116,21 @@
 .cta-booking-pulse-dot {
   width: 7px;
   height: 7px;
-  background-color: #10b981;
+  background-color: rgb(var(--pet-accent-bright));
   border-radius: 50%;
-  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  box-shadow: 0 0 0 0 rgba(var(--pet-accent-bright), 0.7);
   animation: ctaPulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
 }
 
 @keyframes ctaPulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    box-shadow: 0 0 0 0 rgba(var(--pet-accent-bright), 0.7);
   }
   70% {
-    box-shadow: 0 0 0 7px rgba(16, 185, 129, 0);
+    box-shadow: 0 0 0 7px rgba(var(--pet-accent-bright), 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    box-shadow: 0 0 0 0 rgba(var(--pet-accent-bright), 0);
   }
 }
 
@@ -140,7 +140,7 @@
   padding: 0.15rem 0.45rem;
   border-radius: 9999px;
   background-color: rgba(255, 255, 255, 0.18);
-  color: #a7f3d0;
+  color: rgb(var(--pet-accent-border));
   font-size: 1.2rem;
   font-weight: 700;
   line-height: 1;
@@ -152,7 +152,7 @@
 
 .header__menu-item--cta-booking:hover .cta-booking-microbadge {
   background-color: #ffffff;
-  color: #047857;
+  color: rgb(var(--pet-accent));
 }
 
 /* Species Submenu Enhancements */
@@ -161,7 +161,7 @@
   padding: 0.65rem !important;
   width: 25.5rem !important;
   border: 1px solid rgba(var(--color-foreground), 0.08) !important;
-  box-shadow: 0 14px 34px -4px rgba(15, 23, 42, 0.14), 0 4px 10px -2px rgba(15, 23, 42, 0.05) !important;
+  box-shadow: 0 14px 34px -4px rgba(var(--pet-ink), 0.14), 0 4px 10px -2px rgba(var(--pet-ink), 0.05) !important;
 }
 
 .header__species-link {
@@ -202,14 +202,14 @@
   opacity: 0;
   transform: translateX(-4px);
   transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
-  color: #047857;
+  color: rgb(var(--pet-accent));
   font-weight: 700;
   font-size: 1.35rem;
   margin-left: 0.4rem;
 }
 
 .header__species-link:hover {
-  background-color: rgba(4, 120, 87, 0.07) !important;
+  background-color: rgba(var(--pet-accent), 0.07) !important;
 }
 
 .header__species-link:hover .header__species-icon {
@@ -219,7 +219,7 @@
 }
 
 .header__species-link:hover .header__species-title {
-  color: #047857;
+  color: rgb(var(--pet-accent));
   font-weight: 600;
 }
 
@@ -235,9 +235,9 @@
 }
 
 .header__submenu-item--highlight {
-  background-color: rgba(4, 120, 87, 0.09) !important;
-  color: #047857 !important;
-  border: 1px dashed rgba(4, 120, 87, 0.35);
+  background-color: rgba(var(--pet-accent), 0.09) !important;
+  color: rgb(var(--pet-accent)) !important;
+  border: 1px dashed rgba(var(--pet-accent), 0.35);
   border-radius: 8px;
   margin: 0.35rem 0 0.15rem 0 !important;
   padding: 0.85rem 0.9rem !important;
@@ -245,16 +245,16 @@
 }
 
 .header__submenu-item--highlight .header__species-title {
-  color: #047857 !important;
+  color: rgb(var(--pet-accent)) !important;
   font-weight: 700 !important;
 }
 
 .header__submenu-item--highlight:hover {
-  background-color: #047857 !important;
+  background-color: rgb(var(--pet-accent)) !important;
   color: #ffffff !important;
   border-style: solid;
-  border-color: #047857;
-  box-shadow: 0 4px 12px rgba(4, 120, 87, 0.25);
+  border-color: rgb(var(--pet-accent));
+  box-shadow: 0 4px 12px rgba(var(--pet-accent), 0.25);
 }
 
 .header__submenu-item--highlight:hover .header__species-title {
