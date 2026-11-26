@@ -238,15 +238,12 @@
   padding: 0;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* Always a 2 × 2 grid. With 4 columns each seal was 70 px wide in the narrow box of the desktop
+     product page, its text wrapped to three lines; an auto-fit grid left the fourth seal alone in
+     a row at some widths. */
+  grid-template-columns: repeat(2, 1fr);
   gap: 0.8rem;
   text-align: center;
-}
-
-@media screen and (max-width: 749px) {
-  .cro-seals-mini-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 .cro-seal-mini-item {

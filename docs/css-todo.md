@@ -324,6 +324,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - 1150 px (botón «Reservar» compacto) y 1200 px (mega menú a dos columnas) se quedan a propósito, con un comentario en el CSS que lo explica. Son tramos que empiezan en el 990 de Dawn y cubren solo los anchos en que el menú completo no cabe; 1200 es además el límite que usa Dawn en `component-complementary-products.css`.
   - Comprobado en CLAUDIA en la ficha de producto: 2 columnas a 390, 600 y 749 px (a 600 px, de 258 px cada una y con los textos en una sola línea), y 4 columnas en ordenador, como antes. Theme Check sin avisos.
   - Visto de paso: en ordenador, esas 4 columnas de sellos miden solo 70 px cada una. Queda pendiente de valorar.
+  - Arreglado después, el mismo día (aprobado aparte): los sellos van siempre en una cuadrícula de 2 × 2 y desaparece la media query. En ordenador la caja solo mide unos 300 px, y las 4 columnas partían los textos en tres líneas. Se probó primero con columnas automáticas (`auto-fit`, de 14rem como mínimo), pero a 600 px salían 3 columnas y el cuarto sello quedaba solo en otra fila. Comprobado en CLAUDIA a 390, 600, 750, 990 y 1280 px: siempre 2 columnas, de 147 a 333 px, y los textos en una o dos líneas.
 - [x] 🟢 **CSS-17 · Bloque de relleno repetido.** S *(hecho el 26/11/2026)*
   - 7 secciones propias repiten el mismo `{% style %}` de 11 líneas para el relleno superior e inferior.
   - Es el patrón de Dawn, pero aquí está copiado: un snippet `section-padding-style` lo deja en una línea por sección.
