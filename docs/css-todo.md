@@ -324,9 +324,15 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - 1150 px (botón «Reservar» compacto) y 1200 px (mega menú a dos columnas) se quedan a propósito, con un comentario en el CSS que lo explica. Son tramos que empiezan en el 990 de Dawn y cubren solo los anchos en que el menú completo no cabe; 1200 es además el límite que usa Dawn en `component-complementary-products.css`.
   - Comprobado en CLAUDIA en la ficha de producto: 2 columnas a 390, 600 y 749 px (a 600 px, de 258 px cada una y con los textos en una sola línea), y 4 columnas en ordenador, como antes. Theme Check sin avisos.
   - Visto de paso: en ordenador, esas 4 columnas de sellos miden solo 70 px cada una. Queda pendiente de valorar.
-- [ ] 🟢 **CSS-17 · Bloque de relleno repetido.** S
+- [x] 🟢 **CSS-17 · Bloque de relleno repetido.** S *(hecho el 26/11/2026)*
   - 7 secciones propias repiten el mismo `{% style %}` de 11 líneas para el relleno superior e inferior.
   - Es el patrón de Dawn, pero aquí está copiado: un snippet `section-padding-style` lo deja en una línea por sección.
+  - Hecho:
+    - Nuevo `snippets/section-padding-style.liquid`, con `{% doc %}`. Recibe `prefix`, `suffix` (opcional) y `section`, y escribe la clase `.<prefix><id><suffix>` con el 75 % del relleno en móvil y el valor completo desde 750 px.
+    - Lo usan las siete secciones: categorías, contacto, CTA de peluquería, pasos de peluquería, packs, promesas y tarjeta regalo. Salen 84 líneas.
+    - La barra del catálogo no entra, porque su relleno no se reduce en móvil.
+    - El selector no se pasa como texto: Liquid no sustituye `{{ section.id }}` dentro de un texto entre comillas que se pasa a `render`.
+  - Comprobado: el CSS que se genera en el inicio y en Contacto es idéntico, carácter a carácter, al de antes. Una marca temporal en el snippet confirmó que las siete secciones lo usan de verdad (6 en el inicio y 1 en Contacto). Theme Check sin avisos.
 - [ ] 🟢 **CSS-20 · `:hover` en pantallas táctiles.** S
   - Hay 64 `:hover` propios y ninguno va dentro de `@media (hover: hover)`. En el móvil, el estado de hover se queda pegado tras tocar: píldoras resaltadas, tarjetas levantadas.
   - Propuesta: envolver los cambios de color y `transform` de hover en esa media query.

@@ -1,0 +1,31 @@
+{%- doc -%}
+  Vertical padding of a section, from its "Top padding" and "Bottom padding" settings (CSS-17).
+  Same rule as Dawn's sections: 75 % on mobile, the full value from 750 px up.
+  The rule goes on the class `<prefix><section id><suffix>`.
+
+  @param {string} prefix - Start of the wrapper's class name, without the dot, e.g. `pet-contact-`.
+  @param {string} [suffix] - End of the class name after the section id, e.g. `-padding`.
+  @param {object} section - The section (its id and its padding_top and padding_bottom settings).
+
+  @example
+  {% render 'section-padding-style', prefix: 'section-', suffix: '-padding', section: section %}
+{%- enddoc -%}
+
+{%- liquid
+  assign selector = '.' | append: prefix | append: section.id | append: suffix
+  assign padding_top = section.settings.padding_top
+  assign padding_bottom = section.settings.padding_bottom
+-%}
+
+{%- style -%}
+  {{ selector }} {
+    padding-top: {{ padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    {{ selector }} {
+      padding-top: {{ padding_top }}px;
+      padding-bottom: {{ padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
