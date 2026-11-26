@@ -915,6 +915,7 @@
         "waitlist_invalid": "Please enter your name and a valid email.",
         "waitlist_already": "You were already on the waiting list for this day. We will email you if a time frees up.",
         "waitlist_joined": "Done! You're on the waiting list. If a time frees up, we'll email you straight away.",
+        "waitlist_confirm": "Almost done: we've sent you an email. Open the link to confirm your place on the waiting list.",
         "waitlist_too_many": "You are already waiting for several days. Write to us on WhatsApp and we will help you.",
         "waitlist_failed": "We could not add you. Please try again or write to us on WhatsApp.",
         "no_connection": "No connection. Please try again.",

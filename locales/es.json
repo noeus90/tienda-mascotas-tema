@@ -915,6 +915,7 @@
         "waitlist_invalid": "Escribe tu nombre y un email válido.",
         "waitlist_already": "Ya estabas en la lista de espera de este día. Te escribiremos si se libera una hora.",
         "waitlist_joined": "¡Listo! Estás en la lista de espera. Si se libera una hora, te escribiremos enseguida.",
+        "waitlist_confirm": "Casi listo: te hemos enviado un email. Abre el enlace para confirmar tu plaza en la lista de espera.",
         "waitlist_too_many": "Ya estás esperando en varios días. Escríbenos por WhatsApp y te ayudamos.",
         "waitlist_failed": "No hemos podido apuntarte. Vuelve a intentarlo o escríbenos por WhatsApp.",
         "no_connection": "Sin conexión. Vuelve a intentarlo.",

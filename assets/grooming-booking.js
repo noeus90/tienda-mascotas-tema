@@ -226,7 +226,8 @@
             const form = box.querySelector('[data-waitlist-form]');
             if (form) form.hidden = true;
             say(
-              this.t(result.already ? 'waitlist_already' : 'waitlist_joined'),
+              // New entries wait for the link of the confirmation email (SEC-04).
+              this.t(result.already ? 'waitlist_already' : result.confirm ? 'waitlist_confirm' : 'waitlist_joined'),
               true
             );
           } else if (result && result.error === 'too_many') {
