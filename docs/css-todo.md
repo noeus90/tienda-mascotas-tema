@@ -28,7 +28,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 | Radios distintos | ~~22~~ ✅ 6 variables `--pet-radius-*` (más los círculos) | 4 variables (CSS-11) |
 | `transition: all` | ~~36~~ ✅ 0 | 0 (CSS-14) |
 | Animaciones propias con alternativa sin movimiento | ~~1 de 8~~ ✅ todas (regla común) | Todas (CSS-13) |
-| Puntos de corte fuera de los de Dawn | 750, 480, 1150 y 1200 px | 749 y 989 px (CSS-16) |
+| Puntos de corte fuera de los de Dawn | ~~750, 480, 1150 y 1200 px~~ ✅ solo 1150 y 1200 en la cabecera, a propósito | 749 y 989 px (CSS-16) |
 
 ## 🔴 Se ve mal o falla para alguien
 
@@ -315,9 +315,15 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - La regla de movimiento reducido (CSS-13) sigue funcionando, porque cambia la duración, no la propiedad.
     - En los archivos de Dawn solo cambian líneas propias: el diff desde `258f00f6` sigue sin borrar nada.
   - Comprobado en CLAUDIA: en el inicio, la colección, una ficha de producto y la reserva, ningún elemento tiene ya una transición `all`. Al seleccionar las tarjetas de tamaño, servicio y extra de la reserva, se animan el fondo, el borde y la sombra (con `getAnimations()`). Theme Check sin avisos.
-- [ ] 🟢 **CSS-16 · Puntos de corte rezagados.** S
+- [x] 🟢 **CSS-16 · Puntos de corte rezagados.** S *(hecho el 26/11/2026)*
   - Aún quedan 750 px (×2), 480, 1150 y 1200 px.
   - Propuesta: 749 y 989 px, como Dawn y la reserva (CODE-14).
+  - Hecho:
+    - Los dos `max-width: 750px` ya no estaban: se habían ido en tareas anteriores.
+    - Los sellos de la ficha de producto (`.cro-seals-mini-grid`, en `component-pet-product.css`) pasan de 2 columnas hasta 480 px a 2 columnas hasta 749 px. Entre 481 y 749 px, las 4 columnas quedaban de 125 px y los textos ocupaban tres líneas.
+    - 1150 px (botón «Reservar» compacto) y 1200 px (mega menú a dos columnas) se quedan a propósito, con un comentario en el CSS que lo explica. Son tramos que empiezan en el 990 de Dawn y cubren solo los anchos en que el menú completo no cabe; 1200 es además el límite que usa Dawn en `component-complementary-products.css`.
+  - Comprobado en CLAUDIA en la ficha de producto: 2 columnas a 390, 600 y 749 px (a 600 px, de 258 px cada una y con los textos en una sola línea), y 4 columnas en ordenador, como antes. Theme Check sin avisos.
+  - Visto de paso: en ordenador, esas 4 columnas de sellos miden solo 70 px cada una. Queda pendiente de valorar.
 - [ ] 🟢 **CSS-17 · Bloque de relleno repetido.** S
   - 7 secciones propias repiten el mismo `{% style %}` de 11 líneas para el relleno superior e inferior.
   - Es el patrón de Dawn, pero aquí está copiado: un snippet `section-padding-style` lo deja en una línea por sección.

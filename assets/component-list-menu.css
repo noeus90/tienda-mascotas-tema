@@ -146,7 +146,9 @@
 }
 
 /* Responsive breakpoint for intermediate laptop screens (990px to 1150px). After the general rules
-   of the button and the badge, or they win and this never applies. */
+   of the button and the badge, or they win and this never applies. 1150 is not one of Dawn's
+   breakpoints on purpose (CSS-16): the range starts at Dawn's 990 and only covers the widths where
+   the full menu does not fit next to the button. */
 @media screen and (max-width: 1150px) and (min-width: 990px) {
   .header .header__menu-item-cta-wrap {
     margin-left: 0.5rem;

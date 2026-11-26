@@ -97,6 +97,8 @@
   align-items: start;
 }
 
+/* Narrow desktops: two columns instead of four. 1200 is Dawn's own upper limit for this kind of
+   range (component-complementary-products.css), kept on purpose (CSS-16). */
 @media screen and (max-width: 1200px) and (min-width: 990px) {
   .header .mega-menu-pet__layout {
     grid-template-columns: repeat(2, 1fr);
