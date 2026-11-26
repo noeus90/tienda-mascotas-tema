@@ -54,10 +54,12 @@
   box-shadow: var(--pet-shadow-sm);
 }
 
-.pet-mascot-btn:hover {
-  border-color: rgba(var(--color-foreground), 0.4);
-  transform: translateY(-1px);
-  box-shadow: var(--pet-shadow-sm);
+@media (hover: hover) {
+  .pet-mascot-btn:hover {
+    border-color: rgba(var(--color-foreground), 0.4);
+    transform: translateY(-1px);
+    box-shadow: var(--pet-shadow-sm);
+  }
 }
 
 /* Selected chip (CSS-04): brand green with white text, like every chosen option in the store. */
@@ -117,9 +119,11 @@
   user-select: none;
 }
 
-.pet-category-pill:hover {
-  background: rgba(var(--color-foreground), 0.08);
-  border-color: rgba(var(--color-foreground), 0.25);
+@media (hover: hover) {
+  .pet-category-pill:hover {
+    background: rgba(var(--color-foreground), 0.08);
+    border-color: rgba(var(--color-foreground), 0.25);
+  }
 }
 
 .pet-category-pill.is-active {
@@ -149,9 +153,14 @@
   border-radius: var(--pet-radius-xs);
 }
 
-.pet-catalog-reset-btn:hover,
 .pet-catalog-reset-btn:focus-visible {
   background: rgb(var(--pet-error-soft));
+}
+
+@media (hover: hover) {
+  .pet-catalog-reset-btn:hover {
+    background: rgb(var(--pet-error-soft));
+  }
 }
 
 .pet-catalog-reset-btn[hidden] {

@@ -114,9 +114,11 @@
   }
 }
 
-.cro-tab-btn:hover {
-  color: rgb(var(--color-foreground, 15, 23, 42));
-  background-color: rgba(var(--color-foreground, 15, 23, 42), 0.06);
+@media (hover: hover) {
+  .cro-tab-btn:hover {
+    color: rgb(var(--color-foreground, 15, 23, 42));
+    background-color: rgba(var(--color-foreground, 15, 23, 42), 0.06);
+  }
 }
 
 .cro-tab-btn.is-active {
@@ -175,8 +177,10 @@
   cursor: pointer;
 }
 
-.cro-inci-accordion summary:hover {
-  color: rgb(var(--color-foreground, 15, 23, 42));
+@media (hover: hover) {
+  .cro-inci-accordion summary:hover {
+    color: rgb(var(--color-foreground, 15, 23, 42));
+  }
 }
 
 .cro-inci-text {
@@ -302,8 +306,10 @@
   transition-property: background-color, border-color, box-shadow, color;
 }
 
-.cro-sub-option:hover {
-  border-color: rgba(var(--color-foreground, 15, 23, 42), 0.38);
+@media (hover: hover) {
+  .cro-sub-option:hover {
+    border-color: rgba(var(--color-foreground, 15, 23, 42), 0.38);
+  }
 }
 
 .cro-sub-option.is-selected {
@@ -718,8 +724,10 @@
   box-shadow: inset 0 0 0 0.1rem rgba(var(--color-foreground), 0.75);
 }
 
-.product-form__buttons .shopify-payment-button__button--unbranded:hover:not([disabled]) {
-  background-color: rgba(var(--color-foreground), 0.06);
+@media (hover: hover) {
+  .product-form__buttons .shopify-payment-button__button--unbranded:hover:not([disabled]) {
+    background-color: rgba(var(--color-foreground), 0.06);
+  }
 }
 
 /* UX-10: sticky "Add to cart" bar on mobile (snippets/sticky-add-to-cart.liquid) */

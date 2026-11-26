@@ -34,10 +34,12 @@
   transition-property: background-color, border-color, box-shadow, transform;
 }
 
-.booking-service-card:hover {
-  border-color: rgba(var(--booking-accent-light), 0.4);
-  transform: translateY(-2px);
-  box-shadow: var(--pet-shadow-md);
+@media (hover: hover) {
+  .booking-service-card:hover {
+    border-color: rgba(var(--booking-accent-light), 0.4);
+    transform: translateY(-2px);
+    box-shadow: var(--pet-shadow-md);
+  }
 }
 
 .booking-service-card.is-selected {
@@ -177,9 +179,11 @@
   transition: background 0.15s ease, color 0.15s ease;
 }
 
-.booking-breed-clear-btn:hover {
-  background: rgba(var(--color-foreground), 0.18);
-  color: rgba(var(--color-foreground), 0.95);
+@media (hover: hover) {
+  .booking-breed-clear-btn:hover {
+    background: rgba(var(--color-foreground), 0.18);
+    color: rgba(var(--color-foreground), 0.95);
+  }
 }
 
 /* Feedback Contextual Inteligente */
@@ -251,8 +255,10 @@
   transition-property: background-color, border-color;
 }
 
-.booking-size-card:hover {
-  border-color: rgba(var(--booking-accent-light), 0.4);
+@media (hover: hover) {
+  .booking-size-card:hover {
+    border-color: rgba(var(--booking-accent-light), 0.4);
+  }
 }
 
 .booking-size-card.is-selected {
@@ -347,10 +353,12 @@
   transition-property: background-color, border-color, box-shadow, color, transform;
 }
 
-.booking-addon-card:hover {
-  border-color: rgba(var(--booking-accent-light), 0.4);
-  transform: translateY(-2px);
-  box-shadow: var(--pet-shadow-md);
+@media (hover: hover) {
+  .booking-addon-card:hover {
+    border-color: rgba(var(--booking-accent-light), 0.4);
+    transform: translateY(-2px);
+    box-shadow: var(--pet-shadow-md);
+  }
 }
 
 .booking-addon-card.is-selected {

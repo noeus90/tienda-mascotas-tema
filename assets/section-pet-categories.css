@@ -80,11 +80,18 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.pet-categories__tile:hover,
 .pet-categories__tile:focus-visible {
   border-color: rgb(var(--pet-accent-300));
   box-shadow: 0 8px 18px -8px rgba(var(--pet-accent), 0.35);
   transform: translateY(-2px);
+}
+
+@media (hover: hover) {
+  .pet-categories__tile:hover {
+    border-color: rgb(var(--pet-accent-300));
+    box-shadow: 0 8px 18px -8px rgba(var(--pet-accent), 0.35);
+    transform: translateY(-2px);
+  }
 }
 
 .pet-categories__media {
@@ -175,7 +182,9 @@
     transition: none;
   }
 
-  .pet-categories__tile:hover {
-    transform: none;
+  @media (hover: hover) {
+    .pet-categories__tile:hover {
+      transform: none;
+    }
   }
 }

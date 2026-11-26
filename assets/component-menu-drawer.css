@@ -231,11 +231,18 @@ details[open].menu-opening > .menu-drawer__submenu {
   transition-property: background-color, border-color, transform;
 }
 
-.header .menu-drawer__species-tab:hover,
 .header .menu-drawer__species-tab:focus-visible {
   background-color: rgba(var(--pet-accent), 0.08);
   border-color: rgba(var(--pet-accent), 0.3);
   transform: translateY(-1px);
+}
+
+@media (hover: hover) {
+  .header .menu-drawer__species-tab:hover {
+    background-color: rgba(var(--pet-accent), 0.08);
+    border-color: rgba(var(--pet-accent), 0.3);
+    transform: translateY(-1px);
+  }
 }
 
 .header .menu-drawer__species-tab-emoji {
@@ -292,11 +299,18 @@ details[open].menu-opening > .menu-drawer__submenu {
   box-shadow: var(--pet-shadow-md);
 }
 
-.header .menu-drawer__cta-btn:hover,
 .header .menu-drawer__cta-btn:focus-visible {
   background-color: rgb(var(--pet-accent));
   color: #ffffff;
   transform: translateY(-1px);
+}
+
+@media (hover: hover) {
+  .header .menu-drawer__cta-btn:hover {
+    background-color: rgb(var(--pet-accent));
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
 }
 
 .header .menu-drawer__cta-btn.is-active {
@@ -329,9 +343,11 @@ details[open].menu-opening > .menu-drawer__submenu {
   box-shadow: 0 2px 6px rgba(var(--pet-whatsapp), 0.25);
 }
 
-.header .menu-drawer__whatsapp-btn:hover {
-  background-color: rgb(var(--pet-whatsapp-dark));
-  transform: translateY(-1px);
+@media (hover: hover) {
+  .header .menu-drawer__whatsapp-btn:hover {
+    background-color: rgb(var(--pet-whatsapp-dark));
+    transform: translateY(-1px);
+  }
 }
 
 .header .menu-drawer__menu-item--highlight {
@@ -343,9 +359,11 @@ details[open].menu-opening > .menu-drawer__submenu {
   padding: 1rem 1.5rem;
 }
 
-.header .menu-drawer__menu-item--highlight:hover {
-  background-color: rgba(var(--pet-accent), 0.15);
-  color: rgb(var(--pet-text-accent-dark));
+@media (hover: hover) {
+  .header .menu-drawer__menu-item--highlight:hover {
+    background-color: rgba(var(--pet-accent), 0.15);
+    color: rgb(var(--pet-text-accent-dark));
+  }
 }
 
 /* Subfiltros por Etapa y Necesidad en Cajón Móvil */
@@ -397,10 +415,18 @@ details[open].menu-opening > .menu-drawer__submenu {
   flex-shrink: 0;
 }
 
-.header .menu-drawer__subfilter-pill:hover,
 .header .menu-drawer__subfilter-pill:focus-visible {
   background-color: rgba(var(--pet-accent), 0.08);
   border-color: rgba(var(--pet-accent), 0.3);
   color: rgb(var(--pet-text-accent));
   transform: translateY(-1px);
+}
+
+@media (hover: hover) {
+  .header .menu-drawer__subfilter-pill:hover {
+    background-color: rgba(var(--pet-accent), 0.08);
+    border-color: rgba(var(--pet-accent), 0.3);
+    color: rgb(var(--pet-text-accent));
+    transform: translateY(-1px);
+  }
 }

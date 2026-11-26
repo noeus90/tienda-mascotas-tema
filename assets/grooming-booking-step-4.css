@@ -159,12 +159,20 @@
   transition-property: background-color, box-shadow, color, transform;
 }
 
-.grooming-booking-btn-whatsapp:hover,
 .grooming-booking-btn-whatsapp:focus-visible {
   background: rgb(var(--booking-whatsapp-dark));
   color: rgb(var(--booking-on-accent));
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(var(--booking-whatsapp), 0.4);
+}
+
+@media (hover: hover) {
+  .grooming-booking-btn-whatsapp:hover {
+    background: rgb(var(--booking-whatsapp-dark));
+    color: rgb(var(--booking-on-accent));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(var(--booking-whatsapp), 0.4);
+  }
 }
 
 .booking-secondary-actions {
@@ -200,16 +208,18 @@
   line-height: 1.3;
 }
 
-.grooming-booking-btn-secondary-action:hover,
-.grooming-booking-btn-email:hover,
-.grooming-booking-btn-sms:hover,
-.grooming-booking-btn-ics:hover,
-.grooming-booking-btn-gcal:hover,
-.grooming-booking-btn-maps:hover,
-.grooming-booking-btn-copy:hover {
-  background: rgba(var(--color-foreground), 0.05);
-  border-color: rgba(var(--color-foreground), 0.35);
-  transform: translateY(-1px);
+@media (hover: hover) {
+  .grooming-booking-btn-secondary-action:hover,
+  .grooming-booking-btn-email:hover,
+  .grooming-booking-btn-sms:hover,
+  .grooming-booking-btn-ics:hover,
+  .grooming-booking-btn-gcal:hover,
+  .grooming-booking-btn-maps:hover,
+  .grooming-booking-btn-copy:hover {
+    background: rgba(var(--color-foreground), 0.05);
+    border-color: rgba(var(--color-foreground), 0.35);
+    transform: translateY(-1px);
+  }
 }
 
 .grooming-booking-btn-secondary-action.is-active {
@@ -329,8 +339,10 @@
   text-decoration: none;
 }
 
-.booking-deposit-btn:hover {
-  background: rgb(var(--booking-accent-dark));
+@media (hover: hover) {
+  .booking-deposit-btn:hover {
+    background: rgb(var(--booking-accent-dark));
+  }
 }
 
 @media screen and (max-width: 749px) {

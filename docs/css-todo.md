@@ -333,9 +333,19 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - La barra del catálogo no entra, porque su relleno no se reduce en móvil.
     - El selector no se pasa como texto: Liquid no sustituye `{{ section.id }}` dentro de un texto entre comillas que se pasa a `render`.
   - Comprobado: el CSS que se genera en el inicio y en Contacto es idéntico, carácter a carácter, al de antes. Una marca temporal en el snippet confirmó que las siete secciones lo usan de verdad (6 en el inicio y 1 en Contacto). Theme Check sin avisos.
-- [ ] 🟢 **CSS-20 · `:hover` en pantallas táctiles.** S
+- [x] 🟢 **CSS-20 · `:hover` en pantallas táctiles.** S *(hecho el 26/11/2026)*
   - Hay 64 `:hover` propios y ninguno va dentro de `@media (hover: hover)`. En el móvil, el estado de hover se queda pegado tras tocar: píldoras resaltadas, tarjetas levantadas.
   - Propuesta: envolver los cambios de color y `transform` de hover en esa media query.
+  - Hecho:
+    - Las 57 reglas propias con `:hover`, repartidas en 16 archivos, van ahora dentro de `@media (hover: hover)`. Juntas suman los 64 selectores.
+    - Cuando una regla compartía selectores con `:focus-visible` u otros estados, se parte en dos: lo que no es hover se queda fuera, para que el foco del teclado funcione en cualquier dispositivo, y la parte de hover entra en la media query con las mismas declaraciones.
+    - Dos reglas ya estaban dentro de `prefers-reduced-motion` y quedan anidadas, que es CSS válido.
+    - En los archivos de Dawn solo se tocan líneas propias: el diff desde `258f00f6` sigue sin borrar nada.
+  - Comprobado:
+    - Un script compara los 16 archivos antes y después, regla a regla, por selector y declaraciones: salen idénticos, y solo cambia el envoltorio.
+    - En CLAUDIA, con ratón, `(hover: hover)` se cumple y el botón «Reservar» se pone verde y sube 2 px al pasar el ratón, como antes.
+    - Theme Check sin avisos.
+  - Visto de paso: al pasar el ratón por «Reservar», el texto se subraya. Es la regla de Dawn `.header__menu-item:hover span`, y ya pasaba antes de este cambio.
 
 ## Orden propuesto
 

@@ -67,8 +67,10 @@
   transition-property: background-color, border-color;
 }
 
-.booking-tag-pill:hover {
-  border-color: rgb(var(--booking-accent-light));
+@media (hover: hover) {
+  .booking-tag-pill:hover {
+    border-color: rgb(var(--booking-accent-light));
+  }
 }
 
 .booking-tag-pill input:checked + span {
@@ -130,8 +132,10 @@
   transition: color 0.15s ease;
 }
 
-.booking-privacy-link:hover {
-  color: rgb(var(--booking-text-accent));
+@media (hover: hover) {
+  .booking-privacy-link:hover {
+    color: rgb(var(--booking-text-accent));
+  }
 }
 
 .booking-rgpd-accordion {
@@ -151,8 +155,10 @@
   font-weight: 500;
 }
 
-.booking-rgpd-summary:hover {
-  color: rgb(var(--booking-text-accent));
+@media (hover: hover) {
+  .booking-rgpd-summary:hover {
+    color: rgb(var(--booking-text-accent));
+  }
 }
 
 .booking-rgpd-summary svg {

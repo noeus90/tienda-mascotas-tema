@@ -155,15 +155,19 @@
   transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-.header .mega-menu-pet__link:hover {
-  background-color: rgba(var(--pet-accent), 0.06);
-  color: rgb(var(--pet-text-accent));
-  transform: translateX(3px);
+@media (hover: hover) {
+  .header .mega-menu-pet__link:hover {
+    background-color: rgba(var(--pet-accent), 0.06);
+    color: rgb(var(--pet-text-accent));
+    transform: translateX(3px);
+  }
 }
 
-.header .mega-menu-pet__link:hover .mega-menu-pet__icon {
-  transform: scale(1.15);
-  background-color: rgb(var(--pet-card));
+@media (hover: hover) {
+  .header .mega-menu-pet__link:hover .mega-menu-pet__icon {
+    transform: scale(1.15);
+    background-color: rgb(var(--pet-card));
+  }
 }
 
 .header .mega-menu-pet__view-all {
@@ -185,10 +189,12 @@
   transition-property: background-color, color, transform;
 }
 
-.header .mega-menu-pet__btn-view-all:hover {
-  background-color: rgb(var(--pet-accent));
-  color: #ffffff;
-  transform: translateX(3px);
+@media (hover: hover) {
+  .header .mega-menu-pet__btn-view-all:hover {
+    background-color: rgb(var(--pet-accent));
+    color: #ffffff;
+    transform: translateX(3px);
+  }
 }
 
 /* Microfiltros por Etapa y Necesidad */
@@ -230,11 +236,13 @@
   transition-property: background-color, border-color, color, transform;
 }
 
-.header .mega-menu-pet__pill:hover {
-  background-color: rgba(var(--pet-accent), 0.08);
-  color: rgb(var(--pet-text-accent));
-  border-color: rgba(var(--pet-accent), 0.3);
-  transform: translateY(-1px);
+@media (hover: hover) {
+  .header .mega-menu-pet__pill:hover {
+    background-color: rgba(var(--pet-accent), 0.08);
+    color: rgb(var(--pet-text-accent));
+    border-color: rgba(var(--pet-accent), 0.3);
+    transform: translateY(-1px);
+  }
 }
 
 /* Columna 3: Tarjeta Destacada de Peluquería */
@@ -293,10 +301,12 @@
   align-self: flex-start;
 }
 
-.header .mega-menu-pet__promo-btn:hover {
-  background: rgb(var(--pet-accent-400));
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(var(--pet-accent-bright), 0.45);
+@media (hover: hover) {
+  .header .mega-menu-pet__promo-btn:hover {
+    background: rgb(var(--pet-accent-400));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(var(--pet-accent-bright), 0.45);
+  }
 }
 
 /* Columna 4: Tarjeta de Producto Destacado / Pack Ahorro */
@@ -319,10 +329,12 @@
   flex-direction: column;
 }
 
-.header .mega-menu-pet__product-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--pet-shadow-lg);
-  border-color: rgba(var(--pet-accent), 0.3);
+@media (hover: hover) {
+  .header .mega-menu-pet__product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--pet-shadow-lg);
+    border-color: rgba(var(--pet-accent), 0.3);
+  }
 }
 
 .header .mega-menu-pet__product-badge-wrap {
@@ -370,8 +382,10 @@
   transition: transform 0.3s ease;
 }
 
-.header .mega-menu-pet__product-card:hover .mega-menu-pet__product-img {
-  transform: scale(1.04);
+@media (hover: hover) {
+  .header .mega-menu-pet__product-card:hover .mega-menu-pet__product-img {
+    transform: scale(1.04);
+  }
 }
 
 .header .mega-menu-pet__product-placeholder {
@@ -439,8 +453,10 @@
   transition-property: background-color;
 }
 
-.header .mega-menu-pet__product-card:hover .mega-menu-pet__product-cta {
-  background-color: rgb(var(--pet-accent));
+@media (hover: hover) {
+  .header .mega-menu-pet__product-card:hover .mega-menu-pet__product-cta {
+    background-color: rgb(var(--pet-accent));
+  }
 }
 
 /* Tira de confianza compacta */

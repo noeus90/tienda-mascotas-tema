@@ -105,8 +105,10 @@
   transition: transform 0.3s ease;
 }
 
-.grooming-steps__step:hover .grooming-steps__media img {
-  transform: scale(1.04);
+@media (hover: hover) {
+  .grooming-steps__step:hover .grooming-steps__media img {
+    transform: scale(1.04);
+  }
 }
 
 .grooming-steps__placeholder {
@@ -142,9 +144,11 @@
   text-decoration: none;
 }
 
-.grooming-steps__product-name:hover {
-  color: rgb(var(--pet-text-accent));
-  text-decoration: underline;
+@media (hover: hover) {
+  .grooming-steps__product-name:hover {
+    color: rgb(var(--pet-text-accent));
+    text-decoration: underline;
+  }
 }
 
 .grooming-steps__buy {
@@ -279,7 +283,9 @@
     transition: none;
   }
 
-  .grooming-steps__step:hover .grooming-steps__media img {
-    transform: none;
+  @media (hover: hover) {
+    .grooming-steps__step:hover .grooming-steps__media img {
+      transform: none;
+    }
   }
 }

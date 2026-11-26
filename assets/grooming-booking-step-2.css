@@ -70,10 +70,12 @@
   transition-property: background-color, border-color, color, opacity;
 }
 
-.booking-cal-nav-btn:hover:not(:disabled) {
-  border-color: rgb(var(--booking-accent-light));
-  background: rgba(var(--booking-accent-light), 0.08);
-  color: rgb(var(--booking-text-accent));
+@media (hover: hover) {
+  .booking-cal-nav-btn:hover:not(:disabled) {
+    border-color: rgb(var(--booking-accent-light));
+    background: rgba(var(--booking-accent-light), 0.08);
+    color: rgb(var(--booking-text-accent));
+  }
 }
 
 .booking-cal-nav-btn:disabled {
@@ -127,10 +129,12 @@
   padding: 2px;
 }
 
-.cal-day-cell:hover:not(.is-disabled):not(.is-empty) {
-  background: rgba(var(--booking-accent-light), 0.1);
-  border-color: rgba(var(--booking-accent-light), 0.3);
-  color: rgb(var(--booking-text-accent));
+@media (hover: hover) {
+  .cal-day-cell:hover:not(.is-disabled):not(.is-empty) {
+    background: rgba(var(--booking-accent-light), 0.1);
+    border-color: rgba(var(--booking-accent-light), 0.3);
+    color: rgb(var(--booking-text-accent));
+  }
 }
 
 /* Same weight as the hover rule above, so it wins over hover, closed and full days. */
@@ -287,8 +291,10 @@
   transition-property: background-color, border-color, color, opacity;
 }
 
-.booking-slot-card:hover {
-  border-color: rgb(var(--booking-accent-light));
+@media (hover: hover) {
+  .booking-slot-card:hover {
+    border-color: rgb(var(--booking-accent-light));
+  }
 }
 
 .booking-slot-card.is-selected {

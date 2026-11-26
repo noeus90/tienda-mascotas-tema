@@ -87,9 +87,11 @@
   cursor: pointer;
 }
 
-.cart-upsell__add:hover {
-  background: rgb(var(--pet-accent));
-  color: #fff;
+@media (hover: hover) {
+  .cart-upsell__add:hover {
+    background: rgb(var(--pet-accent));
+    color: #fff;
+  }
 }
 
 /* UX-22: delivery dates and discount code in the cart footer (snippets/cart-extras.liquid) */

@@ -100,8 +100,10 @@
   text-decoration: none;
 }
 
-.booking-gift-link:hover {
-  background: rgb(var(--pet-warning-border));
+@media (hover: hover) {
+  .booking-gift-link:hover {
+    background: rgb(var(--pet-warning-border));
+  }
 }
 
 /* Mobile: full width, like the other main buttons on the home page (CSS-18). */

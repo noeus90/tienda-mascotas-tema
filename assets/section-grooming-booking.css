@@ -229,10 +229,16 @@
   text-decoration: none;
 }
 
-.grooming-booking-btn-primary:hover,
 .grooming-booking-btn-primary:focus-visible {
   background: rgb(var(--booking-accent));
   transform: translateY(-1px);
+}
+
+@media (hover: hover) {
+  .grooming-booking-btn-primary:hover {
+    background: rgb(var(--booking-accent));
+    transform: translateY(-1px);
+  }
 }
 
 .grooming-booking-btn-secondary {
@@ -251,8 +257,10 @@
   transition-property: background-color, border-color, color, transform;
 }
 
-.grooming-booking-btn-secondary:hover {
-  background: rgba(var(--color-foreground), 0.05);
+@media (hover: hover) {
+  .grooming-booking-btn-secondary:hover {
+    background: rgba(var(--color-foreground), 0.05);
+  }
 }
 
 .booking-panel-nav {
@@ -361,8 +369,10 @@
   cursor: pointer;
 }
 
-.booking-my-dog:hover {
-  border-color: rgb(var(--booking-accent-light));
+@media (hover: hover) {
+  .booking-my-dog:hover {
+    border-color: rgb(var(--booking-accent-light));
+  }
 }
 
 .booking-my-dog.is-selected {

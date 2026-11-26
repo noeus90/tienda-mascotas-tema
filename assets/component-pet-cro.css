@@ -188,8 +188,10 @@
   cursor: default;
 }
 
-.header-lang-btn:hover {
-  color: rgb(var(--color-foreground, 15, 23, 42));
+@media (hover: hover) {
+  .header-lang-btn:hover {
+    color: rgb(var(--color-foreground, 15, 23, 42));
+  }
 }
 
 .header-lang-btn.is-active {
@@ -325,9 +327,11 @@
   text-decoration: none;
 }
 
-.footer-pet__list a:hover {
-  color: rgb(var(--color-foreground));
-  text-decoration: underline;
+@media (hover: hover) {
+  .footer-pet__list a:hover {
+    color: rgb(var(--color-foreground));
+    text-decoration: underline;
+  }
 }
 
 .footer-pet__info {
