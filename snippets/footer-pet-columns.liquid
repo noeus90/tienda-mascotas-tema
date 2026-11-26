@@ -52,7 +52,7 @@
       {%- if whatsapp != blank -%}
         <li class="footer-pet__info">
           <span aria-hidden="true">💬</span>
-          <a href="https://wa.me/{{ whatsapp }}" target="_blank" rel="noopener">{{ 'pet_cro.footer_cols.whatsapp' | t }}</a>
+          <a href="https://wa.me/{{ whatsapp | escape }}" target="_blank" rel="noopener noreferrer">{{ 'pet_cro.footer_cols.whatsapp' | t }}</a>
         </li>
       {%- endif -%}
       {%- if settings.salon_email != blank -%}

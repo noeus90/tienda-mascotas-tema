@@ -471,20 +471,27 @@
             </ul>
           </nav>
           <div class="menu-drawer__utility-links">
-            <div class="menu-drawer__contact-box">
-              <a
-                href="https://wa.me/34600000000"
-                class="menu-drawer__whatsapp-btn link focus-inset"
-                target="_blank"
-                rel="noopener"
-                aria-label="WhatsApp"
-              >
-                <span aria-hidden="true">💬</span>
-                <span>
-                  {{- 'pet_cro.nav.whatsapp_help' | t -}}
-                </span>
-              </a>
-            </div>
+            {%- comment -%}
+              The salon's WhatsApp from the theme settings ("Datos del salón"), like the footer and the
+              contact page; no button while it is empty (SEC-03: this used to be a sample number).
+            {%- endcomment -%}
+            {%- assign drawer_whatsapp = settings.salon_whatsapp | remove: ' ' | remove: '+' | remove: '-' -%}
+            {%- if drawer_whatsapp != blank -%}
+              <div class="menu-drawer__contact-box">
+                <a
+                  href="https://wa.me/{{ drawer_whatsapp | escape }}"
+                  class="menu-drawer__whatsapp-btn link focus-inset"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="WhatsApp"
+                >
+                  <span aria-hidden="true">💬</span>
+                  <span>
+                    {{- 'pet_cro.nav.whatsapp_help' | t -}}
+                  </span>
+                </a>
+              </div>
+            {%- endif -%}
             {%- if show_country_selector or show_language_selector -%}
               <div class="menu-drawer__localization header-localization">
                 {%- if show_country_selector -%}

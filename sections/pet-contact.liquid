@@ -64,7 +64,7 @@
             <p><a href="tel:{{ phone_link }}">{{ phone }}</a></p>
           {%- endif -%}
           {%- if whatsapp != blank -%}
-            <a href="https://wa.me/{{ whatsapp }}" target="_blank" rel="noopener">{{ 'pet_cro.footer_cols.whatsapp' | t }}</a>
+            <a href="https://wa.me/{{ whatsapp | escape }}" target="_blank" rel="noopener noreferrer">{{ 'pet_cro.footer_cols.whatsapp' | t }}</a>
           {%- endif -%}
         </li>
       {%- endif -%}
