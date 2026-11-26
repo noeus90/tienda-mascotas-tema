@@ -668,3 +668,11 @@
   border-color: rgb(var(--pet-violet-200));
 }
 
+
+/* CSS-09: Shopify wraps each product card in <product-component> (its view-event tracking), a block
+   with auto height that breaks Dawn's height: 100% chain. Without this, the cards in a row end at
+   different heights and "Add to cart" sits lower in the cards with a longer title. */
+.grid__item > product-component {
+  display: block;
+  height: 100%;
+}

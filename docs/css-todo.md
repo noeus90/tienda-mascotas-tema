@@ -232,9 +232,11 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - los títulos de promesas y packs empiezan en el mismo borde que los demás;
     - a ojo, las tarjetas de las promesas se alinean con las columnas del pie.
   - Theme Check sin avisos.
-- [ ] 🟠 **CSS-09 · Botones alineados en las tarjetas de producto.** S
+- [x] 🟠 **CSS-09 · Botones alineados en las tarjetas de producto.** S *(hecho el 26/11/2026)*
   - En «Nuestros favoritos» y en las colecciones, el botón «Añadir al carrito» queda a alturas distintas en una misma fila, según el título ocupe una o dos líneas y haya o no precio por kilo.
   - Propuesta: la tarjeta como columna flexible, con el botón empujado abajo (`margin-top: auto`).
+  - Hecho: no hacía falta cambiar la tarjeta. Dawn ya la estira hasta el fondo y deja el botón abajo, pero Shopify envuelve cada tarjeta en `<product-component>` (su seguimiento de vistas), un bloque de altura automática que cortaba la cadena de `height: 100%`. En `component-card.css`, `.grid__item > product-component { display: block; height: 100% }`. Son solo líneas añadidas: el archivo sigue sin borrar nada de Dawn.
+  - Comprobado en CLAUDIA: en el inicio, la primera fila tenía el botón a 381, 397 y 414 px del borde superior de la tarjeta, y ahora está a 414 en las cuatro. En `/collections/all`, todas las filas tienen el botón a la misma altura, tanto a 1920 px (4 columnas) como a 390 px (2 columnas). Theme Check sin avisos.
 - [ ] 🟠 **CSS-12 · `!important` en los menús.** M
   - `component-list-menu.css` (29), `component-menu-drawer.css` (19) y `component-mega-menu.css` (11) pisan a Dawn a base de `!important`. Por ejemplo: relleno, `display`, colores blancos y `color: #0f172a !important`.
   - Propuesta: selectores con una clase propia de la cabecera, y orden de carga, igual que se hizo en la reserva con CODE-14. Comprobar con huella de estilos calculados en escritorio y en el cajón de móvil.
