@@ -1662,10 +1662,20 @@
       if (prevBtn) prevBtn.hidden = true;
     }
 
+    /** Only an https link may become an href (SEC-11): never javascript: or data: from a response. */
+    isSafeLink(url) {
+      if (!url || typeof url !== 'string') return false;
+      try {
+        return new URL(url, window.location.origin).protocol === 'https:';
+      } catch (e) {
+        return false;
+      }
+    }
+
     /** Deposit link from the booking app (Shopify checkout of a draft order), when deposits are on. */
     showDeposit(deposit) {
       const box = this.section.querySelector('[data-booking-deposit]');
-      if (!box || !deposit || !deposit.url) return;
+      if (!box || !deposit || !this.isSafeLink(deposit.url)) return;
       const amount = this.money(deposit.amount);
       const text = box.querySelector('[data-booking-deposit-text]');
       const link = box.querySelector('[data-booking-deposit-link]');

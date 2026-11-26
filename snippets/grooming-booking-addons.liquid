@@ -45,14 +45,14 @@
               data-duration-mins="{{ a_dur }}"
             >
             <span class="booking-addon-toggle" aria-hidden="true"></span>
-            <div class="booking-addon-icon">{{ a_icon }}</div>
+            <div class="booking-addon-icon">{{ a_icon | escape }}</div>
             <div class="booking-addon-content">
               <div class="booking-addon-top">
-                <span class="booking-addon-name">{{ a_name }}</span>
+                <span class="booking-addon-name">{{ a_name | escape }}</span>
                 <span class="booking-addon-price" data-addon-price-display>+{{ a_mini | times: 100 | money }}</span>
               </div>
               {%- if a_desc != blank -%}
-                <p class="booking-addon-desc">{{ a_desc }}</p>
+                <p class="booking-addon-desc">{{ a_desc | escape }}</p>
               {%- endif -%}
               {%- if a_dur > 0 -%}
                 <span class="booking-addon-duration">+{{ a_dur }} min</span>

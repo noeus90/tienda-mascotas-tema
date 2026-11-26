@@ -59,7 +59,7 @@
                 assign from_money = from | times: 100 | money_without_trailing_zeros
               -%}
               <li class="grooming-cta__service">
-                <span>{{ service.name.value }}</span>
+                <span>{{ service.name.value | escape }}</span>
                 {%- if from > 0 -%}
                   <span class="grooming-cta__price">{{ 'pet_cro.grooming_cta.from' | t: price: from_money }}</span>
                 {%- endif -%}

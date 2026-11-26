@@ -38,11 +38,11 @@
         <label class="booking-service-card">
           <input type="radio" name="grooming_service" value="{{ s_id }}" class="visually-hidden">
           <span class="service-card-check" aria-hidden="true"></span>
-          <div class="service-card-icon">{{ s_icon }}</div>
+          <div class="service-card-icon">{{ s_icon | escape }}</div>
           <div class="service-card-content">
-            <h4 class="service-card-name">{{ s_name }}</h4>
+            <h4 class="service-card-name">{{ s_name | escape }}</h4>
             {%- if s_desc != blank -%}
-              <p class="service-card-desc">{{ s_desc }}</p>
+              <p class="service-card-desc">{{ s_desc | escape }}</p>
             {%- endif -%}
             <div class="service-card-meta">
               {%- comment -%} Durations saved as minutes ("60") read as "1 hora" / "45 min". {%- endcomment -%}
