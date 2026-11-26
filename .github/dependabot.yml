@@ -1,0 +1,8 @@
+# Keeps the GitHub Actions of the CI up to date (SEC-19): they are pinned to a commit (SEC-09), so
+# Dependabot opens a pull request with the new commit when an action releases a version.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

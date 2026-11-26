@@ -17,6 +17,9 @@ jobs:
         run: npm install -g @shopify/cli@4.9.4
       - name: Theme Check
         run: shopify theme check --fail-level error
+      # innerHTML, Liquid in <script>, target=_blank, sample data and pinned actions (SEC-19).
+      - name: Security checks
+        run: node scripts/security-lint.mjs
 
   lhci:
     name: Lighthouse
