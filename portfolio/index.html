@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>brudabrey · Tienda de mascotas con peluquería canina en Shopify</title>
+  <meta name="description" content="Tema de Shopify a medida y app de reservas propia para una tienda de mascotas con peluquería canina: tienda, reserva online, agenda del salón, emails, pruebas y seguridad.">
+  <meta property="og:title" content="brudabrey · Tienda de mascotas con peluquería canina en Shopify">
+  <meta property="og:description" content="Tema de Shopify a medida y app de reservas propia: de la idea al código.">
+  <meta property="og:image" content="img/home.jpg">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <header class="top">
+    <div class="wrap top__inner">
+      <a class="brand" href="#">brudabrey<span class="brand__dot" aria-hidden="true"></span></a>
+      <nav aria-label="Secciones">
+        <ul class="nav">
+          <li><a href="#tienda">Tienda</a></li>
+          <li><a href="#reservas">Reservas</a></li>
+          <li><a href="#app">App</a></li>
+          <li><a href="#calidad">Calidad</a></li>
+          <li><a href="#tecnologia">Tecnología</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div class="hero__text">
+          <p class="kicker">Proyecto Shopify · tema a medida + app propia</p>
+          <h1>Tienda online de mascotas con peluquería canina</h1>
+          <p class="lead">Una tienda de pienso, BARF, snacks e higiene para perro y gato, y un salón de peluquería que se reserva online. Diseñé y programé el tema de Shopify y una app de reservas que gestiona la agenda, los emails y los pagos de la señal.</p>
+          <div class="actions">
+            <a class="btn btn--primary" id="demo-link" href="#demo">Ver la tienda en vivo</a>
+            <a class="btn btn--ghost" href="https://github.com/noeus90/tienda-mascotas-tema">Código del tema en GitHub</a>
+          </div>
+          <ul class="facts" aria-label="El proyecto en cifras">
+            <li><strong>2</strong> idiomas (ES · EN)</li>
+            <li><strong>173</strong> tests en la app</li>
+            <li><strong>4</strong> pasos para reservar</li>
+          </ul>
+        </div>
+        <figure class="shot shot--browser hero__shot">
+          <div class="shot__bar" aria-hidden="true"><span></span><span></span><span></span></div>
+          <img src="img/home.jpg" width="1400" height="830" alt="Portada de la tienda: «Su comida, sus cuidados y su peluquería», con una ilustración de un perro y un gato.">
+        </figure>
+      </div>
+    </section>
+
+    <section id="tienda" class="section">
+      <div class="wrap">
+        <p class="kicker">La tienda</p>
+        <h2>Comprar es rápido, y cada ficha responde a las dudas de verdad</h2>
+        <p class="intro">Tema basado en Dawn 16, ampliado con secciones y componentes propios. Todo se edita desde el editor de temas de Shopify, sin tocar código.</p>
+        <div class="split">
+          <ul class="features">
+            <li><strong>Catálogo por especie.</strong> Barra para elegir perro o gato, categorías con contador y filtros por etapa o necesidad: cachorro, senior, piel sensible…</li>
+            <li><strong>Calculadora de ración.</strong> Con el peso, la edad y la actividad del perro, dice cuántos gramos al día le tocan y cuánto le dura el saco.</li>
+            <li><strong>Stock y entrega.</strong> Disponibilidad y plazo de entrega estimado en la ficha, y aviso de la zona de envío antes de comprar.</li>
+            <li><strong>Precio por kilo o por litro</strong>, sellos de confianza y «se suelen comprar juntos» con un solo botón.</li>
+            <li><strong>Avisos de vuelta de stock</strong> con doble confirmación por email, tarjeta regalo de peluquería y barra de envío gratis.</li>
+          </ul>
+          <div class="gallery">
+            <figure class="shot shot--browser"><div class="shot__bar" aria-hidden="true"><span></span><span></span><span></span></div><img src="img/collection.jpg" width="1400" height="830" loading="lazy" alt="Colección con la barra Perro / Gato, categorías con contador y tarjetas de producto con etiquetas por especie."></figure>
+            <figure class="shot shot--browser"><div class="shot__bar" aria-hidden="true"><span></span><span></span><span></span></div><img src="img/product.jpg" width="1400" height="830" loading="lazy" alt="Ficha de producto con precio por kilo, stock, plazo de entrega y tamaños del saco."></figure>
+            <figure class="shot shot--browser"><div class="shot__bar" aria-hidden="true"><span></span><span></span><span></span></div><img src="img/ration.jpg" width="1400" height="830" loading="lazy" alt="Calculadora: un perro senior de 12 kg come unos 185 g al día, y el saco de 3 kg le dura unos 16 días."></figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reservas" class="section section--tint">
+      <div class="wrap">
+        <p class="kicker">Reserva de peluquería</p>
+        <h2>Cita en cuatro pasos, con la disponibilidad real del salón</h2>
+        <p class="intro">El formulario está en el tema y habla con la app a través del proxy de aplicaciones de Shopify, que firma cada petición.</p>
+        <ol class="steps">
+          <li><span>1</span><strong>Servicio y tamaño.</strong> El precio cambia con el tamaño del perro, y se pueden añadir extras.</li>
+          <li><span>2</span><strong>Día y hora.</strong> Solo los huecos libres, con peluquera a elegir o la que esté libre. Si el día está completo, lista de espera.</li>
+          <li><span>3</span><strong>Ficha del perro.</strong> Raza, edad y cuidados especiales. Con cuenta, sus perros salen ya rellenos.</li>
+          <li><span>4</span><strong>Confirmación.</strong> Señal opcional pagada con el checkout de Shopify, y botones para añadirla al calendario o escribir por WhatsApp.</li>
+        </ol>
+        <div class="gallery gallery--booking">
+          <figure class="shot shot--browser"><div class="shot__bar" aria-hidden="true"><span></span><span></span><span></span></div><img src="img/booking1.jpg" width="1400" height="830" loading="lazy" alt="Paso 1 de la reserva: servicios de baño, corte a tijera, deslanado y stripping con su precio desde."></figure>
+          <figure class="shot shot--browser"><div class="shot__bar" aria-hidden="true"><span></span><span></span><span></span></div><img src="img/booking2.jpg" width="1400" height="830" loading="lazy" alt="Paso 2: elección de peluquera, calendario de diciembre con los días disponibles y turnos de mañana y tarde."></figure>
+          <figure class="shot shot--phone"><img src="img/m-booking.jpg" width="600" height="1234" loading="lazy" alt="La reserva en un móvil: los servicios en una columna."></figure>
+          <figure class="shot shot--phone"><img src="img/m-home.jpg" width="600" height="1234" loading="lazy" alt="La portada en un móvil."></figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="app" class="section">
+      <div class="wrap">
+        <p class="kicker">La app del salón</p>
+        <h2>Una app de Shopify propia para llevar la peluquería</h2>
+        <p class="intro">Se usa dentro del admin de Shopify. Las citas, los perros y las listas se guardan en metaobjetos de Shopify, así que no hace falta una base de datos de clientes aparte.</p>
+        <figure class="shot shot--browser shot--wide"><div class="shot__bar" aria-hidden="true"><span></span><span></span><span></span></div><img src="img/agenda.jpg" width="1400" height="697" loading="lazy" alt="Agenda de peluquería en el admin de Shopify: calendario mensual con las citas por peluquera y la lista de citas pendientes de confirmar."></figure>
+        <div class="cards">
+          <article class="card">
+            <h3>Agenda</h3>
+            <p>Vista de mes y semana por peluquera, citas nuevas desde el salón, impresión del día y cobro con tarjeta regalo en el mostrador.</p>
+          </article>
+          <article class="card">
+            <h3>Fichas de perros</h3>
+            <p>Raza, tamaño, cuidados especiales y notas del salón. La clienta ve y edita sus perros en «Mis perros», una extensión de la cuenta de cliente.</p>
+          </article>
+          <article class="card">
+            <h3>Emails automáticos</h3>
+            <p>Reserva recibida, confirmada, recordatorio del día antes, gracias con código de descuento, «le toca volver» y aviso de que se acaba el pienso. Se envían con Brevo.</p>
+          </article>
+          <article class="card">
+            <h3>Pagos y fidelidad</h3>
+            <p>Señal con un pedido borrador de Shopify y un webhook que la marca pagada (una sola vez aunque llegue repetido), devoluciones y premio por visitas.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="calidad" class="section section--tint">
+      <div class="wrap">
+        <p class="kicker">Calidad</p>
+        <h2>Revisado a fondo: código, diseño, accesibilidad y seguridad</h2>
+        <ul class="stats">
+          <li><strong>173</strong><span>tests de la app (Vitest)</span></li>
+          <li><strong>32</strong><span>tareas de revisión de código</span></li>
+          <li><strong>20</strong><span>tareas de CSS y diseño</span></li>
+          <li><strong>19</strong><span>tareas de seguridad</span></li>
+        </ul>
+        <div class="cards cards--3">
+          <article class="card">
+            <h3>Seguridad</h3>
+            <p>Cada petición del proxy, firmada y comprobada; nadie puede ver ni tocar los datos de otra clienta; enlaces de email firmados con HMAC; doble confirmación y límite de emails por dirección; webhooks de privacidad (RGPD); contenedor sin root.</p>
+          </article>
+          <article class="card">
+            <h3>Accesibilidad</h3>
+            <p>Foco visible con teclado en todos los controles, animaciones desactivadas con «reducir movimiento», texto de 12 px como mínimo, contraste revisado y efectos de hover solo con ratón.</p>
+          </article>
+          <article class="card">
+            <h3>Integración continua</h3>
+            <p>En cada cambio: Theme Check y una comprobación de seguridad propia en el tema, y en la app lint, formato, tests, build y arranque de la imagen Docker. Acciones fijadas por commit y Dependabot.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="tecnologia" class="section">
+      <div class="wrap">
+        <p class="kicker">Tecnología</p>
+        <h2>Con qué está hecho</h2>
+        <div class="split split--even">
+          <div>
+            <h3>Tema</h3>
+            <ul class="chips">
+              <li>Shopify Liquid</li><li>Dawn 16</li><li>JavaScript sin frameworks</li><li>CSS con tokens</li><li>Metaobjetos</li><li>Theme Check</li>
+            </ul>
+          </div>
+          <div>
+            <h3>App</h3>
+            <ul class="chips">
+              <li>React Router 7</li><li>Shopify Admin GraphQL</li><li>App proxy</li><li>Customer account UI extensions</li><li>Prisma + SQLite</li><li>Brevo</li><li>Vitest</li><li>Docker</li><li>GitHub Actions</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="demo" class="section section--cta">
+      <div class="wrap cta">
+        <h2>Pruébala tú</h2>
+        <p class="demo-off" id="demo-text">La demo en vivo estará disponible muy pronto. Mientras tanto, el código del tema está en GitHub.</p>
+        <div class="actions actions--center">
+          <a class="btn btn--light" href="https://github.com/noeus90/tienda-mascotas-tema">Ver el código del tema</a>
+        </div>
+        <p class="small">El código de la app es privado; está disponible bajo petición.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <p>brudabrey · proyecto de portfolio. Los productos, precios y datos de la tienda son de prueba.</p>
+    </div>
+  </footer>
+</body>
+</html>
