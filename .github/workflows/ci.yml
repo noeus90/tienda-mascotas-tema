@@ -1,12 +1,16 @@
 name: CI
 on: [push]
+# Only reading the code (SEC-09): the GITHUB_TOKEN of the jobs can't write to the repo.
+permissions:
+  contents: read
+# Third-party actions are pinned to a commit (the tag can be moved), with the version in a comment.
 jobs:
   theme-check:
     name: Theme Check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 22
       - name: Instalar Shopify CLI
@@ -20,6 +24,7 @@ jobs:
     # Se salta hasta que existan los secretos de la tienda en
     # GitHub → Settings → Secrets and variables → Actions:
     # SHOP_STORE_OS2, SHOP_PASSWORD_OS2, SHOP_ACCESS_TOKEN y LHCI_GITHUB_TOKEN.
+    # SHOP_ACCESS_TOKEN: token de la app Theme Access, que solo da acceso a los temas (SEC-09).
     env:
       SHOP_STORE: ${{ secrets.SHOP_STORE_OS2 }}
     steps:
@@ -30,7 +35,7 @@ jobs:
         if: env.SHOP_STORE != ''
       - name: Lighthouse
         if: env.SHOP_STORE != ''
-        uses: shopify/lighthouse-ci-action@v1
+        uses: shopify/lighthouse-ci-action@988f0eeb44ad5f298bd47150e5b9b01c27ead975 # v1.4.0
         with:
           store: ${{ secrets.SHOP_STORE_OS2 }}
           password: ${{ secrets.SHOP_PASSWORD_OS2 }}
