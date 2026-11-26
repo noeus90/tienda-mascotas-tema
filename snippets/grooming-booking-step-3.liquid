@@ -115,18 +115,24 @@
               </span>
             </label>
 
-            <!-- Optional and unticked: only people who tick it are subscribed to marketing emails -->
-            <label class="booking-privacy-checkbox-label booking-marketing-label" for="booking-marketing-{{ section.id }}">
-              <input
-                type="checkbox"
-                id="booking-marketing-{{ section.id }}"
-                class="booking-privacy-checkbox"
-                data-booking-input="marketingOptIn"
-              >
-              <span class="booking-privacy-text-wrap">
-                <span>{{ 'pet_cro.booking.step_3.marketing' | t }}</span>
-              </span>
-            </label>
+            {%- comment -%}
+              Optional and unticked: only people who tick it are subscribed to marketing emails. Only
+              offered to a signed-in customer (SEC-05): without signing in, anyone could subscribe
+              someone else's email; the app ignores it then too. Others can subscribe in the footer.
+            {%- endcomment -%}
+            {%- if customer -%}
+              <label class="booking-privacy-checkbox-label booking-marketing-label" for="booking-marketing-{{ section.id }}">
+                <input
+                  type="checkbox"
+                  id="booking-marketing-{{ section.id }}"
+                  class="booking-privacy-checkbox"
+                  data-booking-input="marketingOptIn"
+                >
+                <span class="booking-privacy-text-wrap">
+                  <span>{{ 'pet_cro.booking.step_3.marketing' | t }}</span>
+                </span>
+              </label>
+            {%- endif -%}
 
             <!-- Información básica por capas (AEPD) -->
             <details class="booking-rgpd-accordion">
