@@ -253,6 +253,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - también con el mega menú puesto un momento en la cabecera (después se devolvió al desplegable).
     - Resultado: 0 diferencias en las 12 combinaciones. Theme Check sin avisos. Las clases afectadas solo se usan dentro de la cabecera.
   - Visto de paso: en el tramo de 990 a 1150 px, el relleno más pequeño del botón «Reservar» no se aplicaba nunca, porque la regla general va después en el archivo. Se ha dejado igual para no cambiar el aspecto en esta tarea.
+  - Arreglado después, el mismo día (aprobado aparte): el bloque `@media (990–1150 px)` de `component-list-menu.css` va ahora detrás de las reglas generales del botón y de la etiqueta. A 1100 px, el botón pasa de 220 a 140 px de ancho, con relleno de 6,5 × 10 px y texto de 12 px, y la etiqueta «ONLINE» se oculta, como estaba pensado. La huella a 1280 px y en la reserva sigue idéntica.
 - [x] 🟠 **CSS-18 · Detalles en móvil.** S *(hecho el 26/11/2026)*
   - En el banner principal, la ilustración se recorta a 390 px y el gato queda cortado por la derecha. Hay que ajustar `object-position` o usar una imagen para móvil.
   - En el carrusel de pasos de peluquería, la línea discontinua entre los números queda colgando, porque une pasos que no se ven a la vez.
