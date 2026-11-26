@@ -90,7 +90,7 @@
    Pet CRO Species Mega Menu Styling
    ========================================================================== */
 
-.mega-menu-pet__layout {
+.header .mega-menu-pet__layout {
   display: grid;
   grid-template-columns: 1.15fr 1.15fr 1.4fr 1.1fr;
   gap: 2.5rem;
@@ -98,22 +98,22 @@
 }
 
 @media screen and (max-width: 1200px) and (min-width: 990px) {
-  .mega-menu-pet__layout {
+  .header .mega-menu-pet__layout {
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
   }
 
-  .mega-menu-pet__promo-card {
+  .header .mega-menu-pet__promo-card {
     padding: 1.6rem;
   }
 }
 
-.mega-menu-pet__col {
+.header .mega-menu-pet__col {
   display: flex;
   flex-direction: column;
 }
 
-.mega-menu-pet__badge {
+.header .mega-menu-pet__badge {
   display: inline-block;
   font-size: var(--pet-text-md);
   font-weight: 700;
@@ -123,11 +123,11 @@
   border-bottom: 2px solid rgba(var(--color-foreground), 0.08);
 }
 
-.mega-menu-pet__links li {
+.header .mega-menu-pet__links li {
   margin-bottom: 0.25rem;
 }
 
-.mega-menu-pet__link {
+.header .mega-menu-pet__link {
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -136,11 +136,11 @@
   font-size: var(--pet-text-sm);
   font-weight: 500;
   color: rgba(var(--color-foreground), 0.8);
-  text-decoration: none !important;
+  text-decoration: none;
   transition: all 0.2s ease;
 }
 
-.mega-menu-pet__icon {
+.header .mega-menu-pet__icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -152,49 +152,49 @@
   transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-.mega-menu-pet__link:hover {
+.header .mega-menu-pet__link:hover {
   background-color: rgba(var(--pet-accent), 0.06);
   color: rgb(var(--pet-text-accent));
   transform: translateX(3px);
 }
 
-.mega-menu-pet__link:hover .mega-menu-pet__icon {
+.header .mega-menu-pet__link:hover .mega-menu-pet__icon {
   transform: scale(1.15);
   background-color: rgb(var(--pet-card));
 }
 
-.mega-menu-pet__view-all {
+.header .mega-menu-pet__view-all {
   margin-top: 0.6rem;
 }
 
-.mega-menu-pet__btn-view-all {
+.header .mega-menu-pet__btn-view-all {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.65rem 0.9rem;
   border-radius: var(--pet-radius-sm);
   font-size: var(--pet-text-sm);
-  color: rgb(var(--pet-text-accent)) !important;
+  color: rgb(var(--pet-text-accent));
   background-color: rgba(var(--pet-accent), 0.08);
-  text-decoration: none !important;
+  text-decoration: none;
   font-weight: 600;
   transition: all 0.2s ease;
 }
 
-.mega-menu-pet__btn-view-all:hover {
+.header .mega-menu-pet__btn-view-all:hover {
   background-color: rgb(var(--pet-accent));
-  color: #ffffff !important;
+  color: #ffffff;
   transform: translateX(3px);
 }
 
 /* Microfiltros por Etapa y Necesidad */
-.mega-menu-pet__subfilters {
+.header .mega-menu-pet__subfilters {
   margin-top: 1.4rem;
   padding-top: 1.2rem;
   border-top: 1px dashed rgba(var(--color-foreground), 0.1);
 }
 
-.mega-menu-pet__subfilters-title {
+.header .mega-menu-pet__subfilters-title {
   display: block;
   font-size: var(--pet-text-xs);
   font-weight: 700;
@@ -204,36 +204,36 @@
   margin-bottom: 0.75rem;
 }
 
-.mega-menu-pet__pills {
+.header .mega-menu-pet__pills {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
-.mega-menu-pet__pill {
+.header .mega-menu-pet__pill {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
   padding: 0.35rem 0.75rem;
   border-radius: var(--pet-radius-pill);
   background-color: rgba(var(--color-foreground), 0.04);
-  color: rgb(var(--color-foreground)) !important;
+  color: rgb(var(--color-foreground));
   font-size: var(--pet-text-xs);
   font-weight: 500;
-  text-decoration: none !important;
+  text-decoration: none;
   border: 1px solid rgba(var(--color-foreground), 0.08);
   transition: all 0.2s ease;
 }
 
-.mega-menu-pet__pill:hover {
+.header .mega-menu-pet__pill:hover {
   background-color: rgba(var(--pet-accent), 0.08);
-  color: rgb(var(--pet-text-accent)) !important;
+  color: rgb(var(--pet-text-accent));
   border-color: rgba(var(--pet-accent), 0.3);
   transform: translateY(-1px);
 }
 
 /* Columna 3: Tarjeta Destacada de Peluquería */
-.mega-menu-pet__promo-card {
+.header .mega-menu-pet__promo-card {
   padding: 2rem;
   border-radius: var(--pet-radius-md);
   background: linear-gradient(135deg, rgb(var(--pet-ink)) 0%, rgb(var(--pet-ink-2)) 100%);
@@ -244,7 +244,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.mega-menu-pet__promo-badge {
+.header .mega-menu-pet__promo-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -256,7 +256,7 @@
   margin-bottom: 0.8rem;
 }
 
-.mega-menu-pet__promo-title {
+.header .mega-menu-pet__promo-title {
   font-size: var(--pet-text-lg);
   font-weight: 700;
   margin: 0 0 0.6rem 0;
@@ -264,43 +264,43 @@
   line-height: 1.25;
 }
 
-.mega-menu-pet__promo-desc {
+.header .mega-menu-pet__promo-desc {
   font-size: var(--pet-text-sm);
   color: rgba(255, 255, 255, 0.8);
   line-height: 1.45;
   margin: 0 0 1.4rem 0;
 }
 
-.mega-menu-pet__promo-btn {
+.header .mega-menu-pet__promo-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0.85rem 1.4rem;
   border-radius: var(--pet-radius-pill);
   background: rgb(var(--pet-accent-bright));
-  color: rgb(var(--pet-text-ink)) !important;
+  color: rgb(var(--pet-text-ink));
   font-size: var(--pet-text-sm);
   font-weight: 700;
-  text-decoration: none !important;
+  text-decoration: none;
   box-shadow: 0 4px 12px rgba(var(--pet-accent-bright), 0.3);
   transition: all 0.2s ease;
   align-self: flex-start;
 }
 
-.mega-menu-pet__promo-btn:hover {
+.header .mega-menu-pet__promo-btn:hover {
   background: rgb(var(--pet-accent-400));
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(var(--pet-accent-bright), 0.45);
 }
 
 /* Columna 4: Tarjeta de Producto Destacado / Pack Ahorro */
-.mega-menu-pet__featured-col {
+.header .mega-menu-pet__featured-col {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
 }
 
-.mega-menu-pet__product-card {
+.header .mega-menu-pet__product-card {
   position: relative;
   border-radius: var(--pet-radius-md);
   background-color: rgb(var(--pet-card));
@@ -312,20 +312,20 @@
   flex-direction: column;
 }
 
-.mega-menu-pet__product-card:hover {
+.header .mega-menu-pet__product-card:hover {
   transform: translateY(-2px);
   box-shadow: var(--pet-shadow-lg);
   border-color: rgba(var(--pet-accent), 0.3);
 }
 
-.mega-menu-pet__product-badge-wrap {
+.header .mega-menu-pet__product-badge-wrap {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0.8rem;
 }
 
-.mega-menu-pet__badge-bestseller {
+.header .mega-menu-pet__badge-bestseller {
   font-size: var(--pet-text-xs);
   font-weight: 700;
   color: rgb(var(--pet-text-accent));
@@ -335,7 +335,7 @@
   letter-spacing: 0.02em;
 }
 
-.mega-menu-pet__badge-discount {
+.header .mega-menu-pet__badge-discount {
   font-size: var(--pet-text-xs);
   font-weight: 700;
   color: rgb(var(--pet-error-text));
@@ -344,7 +344,7 @@
   border-radius: var(--pet-radius-pill);
 }
 
-.mega-menu-pet__product-media {
+.header .mega-menu-pet__product-media {
   width: 100%;
   height: 120px;
   border-radius: var(--pet-radius-sm);
@@ -356,42 +356,42 @@
   margin-bottom: 0.9rem;
 }
 
-.mega-menu-pet__product-img {
+.header .mega-menu-pet__product-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
 
-.mega-menu-pet__product-card:hover .mega-menu-pet__product-img {
+.header .mega-menu-pet__product-card:hover .mega-menu-pet__product-img {
   transform: scale(1.04);
 }
 
-.mega-menu-pet__product-placeholder {
+.header .mega-menu-pet__product-placeholder {
   font-size: 3rem;
   user-select: none;
 }
 
-.mega-menu-pet__product-rating {
+.header .mega-menu-pet__product-rating {
   display: flex;
   align-items: center;
   gap: 0.4rem;
   margin-bottom: 0.4rem;
 }
 
-.mega-menu-pet__stars {
+.header .mega-menu-pet__stars {
   color: rgb(var(--pet-warning));
   font-size: var(--pet-text-xs);
   letter-spacing: 0.1em;
 }
 
-.mega-menu-pet__rating-score {
+.header .mega-menu-pet__rating-score {
   font-size: var(--pet-text-xs);
   color: rgba(var(--color-foreground), 0.65);
   font-weight: 600;
 }
 
-.mega-menu-pet__product-title {
+.header .mega-menu-pet__product-title {
   font-size: var(--pet-text-sm);
   font-weight: 700;
   color: rgb(var(--color-foreground));
@@ -403,20 +403,20 @@
   overflow: hidden;
 }
 
-.mega-menu-pet__product-pricing {
+.header .mega-menu-pet__product-pricing {
   display: flex;
   align-items: baseline;
   gap: 0.6rem;
   margin-bottom: 0.9rem;
 }
 
-.mega-menu-pet__price-sale {
+.header .mega-menu-pet__price-sale {
   font-size: var(--pet-text-md);
   font-weight: 800;
   color: rgb(var(--pet-text-accent));
 }
 
-.mega-menu-pet__product-cta {
+.header .mega-menu-pet__product-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -424,25 +424,25 @@
   padding: 0.75rem 1rem;
   border-radius: var(--pet-radius-sm);
   background-color: rgb(var(--pet-ink));
-  color: #ffffff !important;
+  color: #ffffff;
   font-size: var(--pet-text-xs);
   font-weight: 700;
-  text-decoration: none !important;
+  text-decoration: none;
   transition: all 0.2s ease;
 }
 
-.mega-menu-pet__product-card:hover .mega-menu-pet__product-cta {
+.header .mega-menu-pet__product-card:hover .mega-menu-pet__product-cta {
   background-color: rgb(var(--pet-accent));
 }
 
 /* Tira de confianza compacta */
-.mega-menu-pet__trust-strip {
+.header .mega-menu-pet__trust-strip {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.mega-menu-pet__trust-pill {
+.header .mega-menu-pet__trust-pill {
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -456,11 +456,11 @@
 }
 
 /* Accessibility: WCAG AAA High-Contrast Focus States */
-.mega-menu-pet__link:focus-visible,
-.mega-menu-pet__btn-view-all:focus-visible,
-.mega-menu-pet__pill:focus-visible,
-.mega-menu-pet__promo-btn:focus-visible,
-.mega-menu-pet__product-cta:focus-visible {
+.header .mega-menu-pet__link:focus-visible,
+.header .mega-menu-pet__btn-view-all:focus-visible,
+.header .mega-menu-pet__pill:focus-visible,
+.header .mega-menu-pet__promo-btn:focus-visible,
+.header .mega-menu-pet__product-cta:focus-visible {
   outline: var(--pet-focus-outline);
   outline-offset: var(--pet-focus-offset);
 }

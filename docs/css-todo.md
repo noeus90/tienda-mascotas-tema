@@ -237,9 +237,22 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
   - Propuesta: la tarjeta como columna flexible, con el botón empujado abajo (`margin-top: auto`).
   - Hecho: no hacía falta cambiar la tarjeta. Dawn ya la estira hasta el fondo y deja el botón abajo, pero Shopify envuelve cada tarjeta en `<product-component>` (su seguimiento de vistas), un bloque de altura automática que cortaba la cadena de `height: 100%`. En `component-card.css`, `.grid__item > product-component { display: block; height: 100% }`. Son solo líneas añadidas: el archivo sigue sin borrar nada de Dawn.
   - Comprobado en CLAUDIA: en el inicio, la primera fila tenía el botón a 381, 397 y 414 px del borde superior de la tarjeta, y ahora está a 414 en las cuatro. En `/collections/all`, todas las filas tienen el botón a la misma altura, tanto a 1920 px (4 columnas) como a 390 px (2 columnas). Theme Check sin avisos.
-- [ ] 🟠 **CSS-12 · `!important` en los menús.** M
+- [x] 🟠 **CSS-12 · `!important` en los menús.** M *(hecho el 26/11/2026)*
   - `component-list-menu.css` (29), `component-menu-drawer.css` (19) y `component-mega-menu.css` (11) pisan a Dawn a base de `!important`. Por ejemplo: relleno, `display`, colores blancos y `color: #0f172a !important`.
   - Propuesta: selectores con una clase propia de la cabecera, y orden de carga, igual que se hizo en la reserva con CODE-14. Comprobar con huella de estilos calculados en escritorio y en el cajón de móvil.
+  - Hecho:
+    - Se quitan los 59 `!important` propios. Los 3 originales de Dawn en el cajón (`.country-selector-open`) se quedan.
+    - Todas las reglas propias de los tres archivos llevan ahora delante `.header`, el mismo para todas, así que el orden entre ellas no cambia y ganan a Dawn por especificidad.
+    - Dos excepciones que salieron al medir:
+      - La sombra de los botones «Reservar» y WhatsApp del cajón va en una regla aparte sin `.header`, para que el anillo de foco de Dawn (`.focus-inset:focus-visible`) siga ganando.
+      - `.header .header__species-link:hover` lleva `text-decoration: none`, porque `.header__submenu .header__menu-item:hover` de Dawn (0,3,0) volvía a subrayar las especies.
+    - Las líneas de Dawn no se tocan: el diff desde `258f00f6` sigue sin borrar nada.
+  - Comprobado en CLAUDIA con huella de estilos calculados de toda la cabecera, contando el pseudoelemento antes y después de cada nodo. La huella tiene 44 propiedades por elemento y se tomó antes y después del cambio:
+    - inicio y reserva (con el botón activo), a 1280 px, a 1100 px (el tramo de 990 a 1150) y a 390 px con el cajón abierto;
+    - con los desplegables abiertos y con hover y foco simulados en todos los elementos;
+    - también con el mega menú puesto un momento en la cabecera (después se devolvió al desplegable).
+    - Resultado: 0 diferencias en las 12 combinaciones. Theme Check sin avisos. Las clases afectadas solo se usan dentro de la cabecera.
+  - Visto de paso: en el tramo de 990 a 1150 px, el relleno más pequeño del botón «Reservar» no se aplicaba nunca, porque la regla general va después en el archivo. Se ha dejado igual para no cambiar el aspecto en esta tarea.
 - [x] 🟠 **CSS-18 · Detalles en móvil.** S *(hecho el 26/11/2026)*
   - En el banner principal, la ilustración se recorta a 390 px y el gato queda cortado por la derecha. Hay que ajustar `object-position` o usar una imagen para móvil.
   - En el carrusel de pasos de peluquería, la línea discontinua entre los números queda colgando, porque une pasos que no se ven a la vez.
