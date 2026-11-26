@@ -103,3 +103,10 @@
 .booking-gift-link:hover {
   background: rgb(var(--pet-warning-border));
 }
+
+/* Mobile: full width, like the other main buttons on the home page (CSS-18). */
+@media screen and (max-width: 749px) {
+  .gift-card-promo__button {
+    width: 100%;
+  }
+}

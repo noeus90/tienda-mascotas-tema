@@ -240,10 +240,15 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 - [ ] 🟠 **CSS-12 · `!important` en los menús.** M
   - `component-list-menu.css` (29), `component-menu-drawer.css` (19) y `component-mega-menu.css` (11) pisan a Dawn a base de `!important`. Por ejemplo: relleno, `display`, colores blancos y `color: #0f172a !important`.
   - Propuesta: selectores con una clase propia de la cabecera, y orden de carga, igual que se hizo en la reserva con CODE-14. Comprobar con huella de estilos calculados en escritorio y en el cajón de móvil.
-- [ ] 🟠 **CSS-18 · Detalles en móvil.** S
+- [x] 🟠 **CSS-18 · Detalles en móvil.** S *(hecho el 26/11/2026)*
   - En el banner principal, la ilustración se recorta a 390 px y el gato queda cortado por la derecha. Hay que ajustar `object-position` o usar una imagen para móvil.
   - En el carrusel de pasos de peluquería, la línea discontinua entre los números queda colgando, porque une pasos que no se ven a la vez.
   - «Regalar una tarjeta» no ocupa todo el ancho, y los demás botones principales en móvil sí.
+  - Hecho:
+    - Banner (`component-pet-cro.css`): en móvil, la ilustración pasa de una proporción del 72 % a una del 66 %, y se encuadra al 96 % por la derecha en lugar del 84 %. Ahora se ven enteros el saco, el perro, el gato, las tijeras y el cepillo.
+    - Pasos de peluquería (`section-pet-grooming-steps.css`): en móvil ya no hay línea entre los números, igual que en tableta. En escritorio sigue.
+    - Tarjeta regalo (`section-gift-card-promo.css`): en móvil, el botón ocupa todo el ancho.
+  - Comprobado en CLAUDIA a 390 px: la ilustración mide 255 px de alto (antes 278) y se ve entera; el botón de la tarjeta regalo mide 306 px, todo el ancho de su caja (antes 191); en los pasos no se dibuja la línea. En escritorio, la línea de los pasos y el botón de la tarjeta regalo no cambian. Theme Check sin avisos.
 - [ ] 🟠 **CSS-19 · Fuente del botón «Compartir».** S
   - «Compartir este producto» sale en Arial, no en la fuente del tema: `.share-button__button` no hereda la fuente (comprobado con el estilo calculado).
   - Propuesta: `font-family: inherit` y revisar otros `<button>` propios.

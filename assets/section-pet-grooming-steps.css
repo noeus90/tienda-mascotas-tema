@@ -225,7 +225,8 @@
   color: rgb(var(--pet-text-accent));
 }
 
-/* Tablet: two per row, no joining line. */
+/* Tablet and mobile: no joining line. On mobile the steps are a swipe row, and the line hung loose
+   at the edge, joining to a step that is not in view (CSS-18). */
 @media screen and (max-width: 989px) {
   .grooming-steps__list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -261,13 +262,6 @@
   .grooming-steps__step {
     flex: 0 0 74%;
     scroll-snap-align: start;
-  }
-
-  .grooming-steps__step:not(:last-child)::after {
-    display: block;
-    top: 2.1rem;
-    left: 5.6rem;
-    right: -1.6rem;
   }
 
   .grooming-steps__all {

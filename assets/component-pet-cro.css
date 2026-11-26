@@ -278,15 +278,16 @@
   }
 }
 
-/* Mobile: the home illustration keeps its characters (right side) at a usable size. The aspect
-   padding is set inline by image-banner.liquid with an id selector, hence !important. */
+/* Mobile: the home illustration keeps its characters (right side) at a usable size, with the whole
+   scene in view, from the bag to the cat and the brush (CSS-18). The aspect padding is set inline by
+   image-banner.liquid with an id selector, hence !important. */
 @media screen and (max-width: 749px) {
   .banner.banner--adapt.banner--mobile-bottom .banner__media::before {
-    padding-bottom: 72% !important;
+    padding-bottom: 66% !important;
   }
 
   .banner.banner--adapt.banner--mobile-bottom .banner__media img {
-    object-position: 84% 60%;
+    object-position: 96% 60%;
   }
 }
 
