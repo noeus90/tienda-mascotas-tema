@@ -271,6 +271,9 @@ details[id^='Details-Mobile-filter.p.product_type'] {
 }
 
 .pet-needs__summary .icon-caret {
+  /* After the text, in the flex row: Dawn's `summary .icon-caret` places it absolutely at the right
+     edge, where it covered the last letter of «Por etapa o necesidad». */
+  position: static;
   width: 1rem;
   height: 0.6rem;
 }
