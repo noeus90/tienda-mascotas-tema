@@ -155,7 +155,8 @@
   font-weight: 800;
   text-decoration: none;
   box-shadow: 0 4px 14px rgba(var(--booking-whatsapp), 0.3);
-  transition: all 0.2s ease;
+  transition: 0.2s ease;
+  transition-property: background-color, box-shadow, color, transform;
 }
 
 .grooming-booking-btn-whatsapp:hover,
@@ -194,7 +195,8 @@
   color: inherit;
   border: 1px solid rgba(var(--color-foreground), 0.18);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: 0.15s ease;
+  transition-property: background-color, border-color, color, transform;
   line-height: 1.3;
 }
 

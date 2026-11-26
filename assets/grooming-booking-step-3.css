@@ -63,7 +63,8 @@
   font-size: var(--pet-text-sm);
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: 0.15s ease;
+  transition-property: background-color, border-color;
 }
 
 .booking-tag-pill:hover {

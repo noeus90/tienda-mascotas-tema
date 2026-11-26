@@ -227,7 +227,8 @@ details[open].menu-opening > .menu-drawer__submenu {
   border: 1px solid rgba(var(--color-foreground), 0.08);
   text-decoration: none;
   min-height: 52px;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-property: background-color, border-color, transform;
 }
 
 .header .menu-drawer__species-tab:hover,
@@ -282,7 +283,8 @@ details[open].menu-opening > .menu-drawer__submenu {
   font-weight: 700;
   line-height: 1.2;
   text-decoration: none;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-property: background-color, box-shadow, color, transform;
 }
 
 /* Unscoped on purpose: Dawn's keyboard focus ring (.focus-inset:focus-visible) must keep winning. */
@@ -390,7 +392,8 @@ details[open].menu-opening > .menu-drawer__submenu {
   border: 1px solid rgba(var(--color-foreground), 0.08);
   min-height: 44px; /* Touch target minimum WCAG compliant */
   text-decoration: none;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-property: background-color, border-color, color, transform;
   flex-shrink: 0;
 }
 

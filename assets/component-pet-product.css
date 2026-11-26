@@ -97,7 +97,8 @@
   color: rgba(var(--color-foreground, 15, 23, 42), 0.65);
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.2s ease;
+  transition: 0.2s ease;
+  transition-property: background-color, border-bottom-color, color;
 }
 
 /* Narrow screens: the three tabs share the width, icon above a label that may wrap. */
@@ -297,7 +298,8 @@
   padding: 1.6rem 1.84rem;
   background: rgb(var(--color-background, 255, 255, 255));
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: 0.2s ease;
+  transition-property: background-color, border-color, box-shadow, color;
 }
 
 .cro-sub-option:hover {
@@ -355,7 +357,8 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: all 0.2s ease;
+  transition: 0.2s ease;
+  transition-property: background-color, border-color, box-shadow;
 }
 
 .cro-sub-option.is-selected .cro-sub-radio-circle {

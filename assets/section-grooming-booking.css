@@ -111,7 +111,8 @@
   justify-content: center;
   font-weight: 700;
   font-size: var(--pet-text-base);
-  transition: all 0.2s ease;
+  transition: 0.2s ease;
+  transition-property: background-color, border-color, box-shadow, color;
 }
 
 .booking-step-indicator .step-label {
@@ -223,7 +224,8 @@
   font-size: var(--pet-text-md);
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: 0.15s ease;
+  transition-property: background-color, transform;
   text-decoration: none;
 }
 
@@ -245,7 +247,8 @@
   font-size: var(--pet-text-base);
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: 0.15s ease;
+  transition-property: background-color, border-color, color, transform;
 }
 
 .grooming-booking-btn-secondary:hover {
@@ -280,7 +283,8 @@
   background: rgb(var(--color-background));
   color: inherit;
   font-family: inherit;
-  transition: all 0.15s ease;
+  transition: 0.15s ease;
+  transition-property: background-color, border-color, box-shadow;
 }
 
 .booking-form-input:focus,

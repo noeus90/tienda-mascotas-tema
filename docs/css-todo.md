@@ -26,7 +26,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
 | `!important` | 61 (29 en `component-list-menu.css`, 19 en `component-menu-drawer.css`, 11 en `component-mega-menu.css`) | Casi ninguno (CSS-12) |
 | Tamaños de letra distintos | ~~42~~ ✅ 9 variables `--pet-text-*`, 12 px como mínimo | 6 o 7 de una escala (CSS-10) |
 | Radios distintos | ~~22~~ ✅ 6 variables `--pet-radius-*` (más los círculos) | 4 variables (CSS-11) |
-| `transition: all` | 36 | 0 (CSS-14) |
+| `transition: all` | ~~36~~ ✅ 0 | 0 (CSS-14) |
 | Animaciones propias con alternativa sin movimiento | ~~1 de 8~~ ✅ todas (regla común) | Todas (CSS-13) |
 | Puntos de corte fuera de los de Dawn | 750, 480, 1150 y 1200 px | 749 y 989 px (CSS-16) |
 
@@ -304,9 +304,17 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
       - Se dejan como estaban los anillos de foco y de error, los pulsos animados, los brillos de color de los botones al pasar el ratón y las sombras interiores. Tienen su propio sentido.
     - El cambio máximo es de 2 px en un radio. Las sombras muy suaves (3–5 %) quedan algo más visibles y las de 16–18 %, algo más suaves.
   - Comprobado: capturas del inicio (categorías, bloque de peluquería) y de la reserva (tarjetas de servicio y tamaño) antes y después, sin diferencia apreciable. Los valores calculados confirman el cambio: tarjetas de la reserva de 10→12 px, caja de la reserva con `--pet-shadow-lg`, botón de la cabecera en píldora. Las líneas de Dawn no se tocan. Theme Check sin avisos.
-- [ ] 🟢 **CSS-14 · `transition: all`.** S
+- [x] 🟢 **CSS-14 · `transition: all`.** S *(hecho el 26/11/2026)*
   - 36 transiciones `all`: animan cualquier propiedad que cambie, también el ancho o el relleno, y obligan al navegador a recalcular la maquetación.
   - Propuesta: poner las propiedades concretas (`color`, `background-color`, `border-color`, `transform`, `box-shadow`).
+  - Hecho:
+    - Las 36 en 12 archivos pasan a `transition: <tiempo>` más `transition-property` con lo que de verdad cambia en sus estados (hover, foco, seleccionado, activo). Normalmente son `background-color`, `border-color`, `box-shadow`, `color` y `transform`; en algunos casos, también `opacity` o `filter`.
+    - Se mantienen los tiempos y las curvas.
+    - Ya no se animan el ancho, el alto, el relleno, la posición ni el grosor del borde.
+    - Dos se quitan sin más, porque no tenían ningún estado que animar: `.pet-catalog-bar-section` (solo animaba el relleno al cambiar el tamaño de la ventana) y `.pet-card-badge`.
+    - La regla de movimiento reducido (CSS-13) sigue funcionando, porque cambia la duración, no la propiedad.
+    - En los archivos de Dawn solo cambian líneas propias: el diff desde `258f00f6` sigue sin borrar nada.
+  - Comprobado en CLAUDIA: en el inicio, la colección, una ficha de producto y la reserva, ningún elemento tiene ya una transición `all`. Al seleccionar las tarjetas de tamaño, servicio y extra de la reserva, se animan el fondo, el borde y la sombra (con `getAnimations()`). Theme Check sin avisos.
 - [ ] 🟢 **CSS-16 · Puntos de corte rezagados.** S
   - Aún quedan 750 px (×2), 480, 1150 y 1200 px.
   - Propuesta: 749 y 989 px, como Dawn y la reserva (CODE-14).

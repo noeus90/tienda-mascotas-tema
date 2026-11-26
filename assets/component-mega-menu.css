@@ -137,7 +137,8 @@
   font-weight: 500;
   color: rgba(var(--color-foreground), 0.8);
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: 0.2s ease;
+  transition-property: background-color, color, transform;
 }
 
 .header .mega-menu-pet__icon {
@@ -178,7 +179,8 @@
   background-color: rgba(var(--pet-accent), 0.08);
   text-decoration: none;
   font-weight: 600;
-  transition: all 0.2s ease;
+  transition: 0.2s ease;
+  transition-property: background-color, color, transform;
 }
 
 .header .mega-menu-pet__btn-view-all:hover {
@@ -222,7 +224,8 @@
   font-weight: 500;
   text-decoration: none;
   border: 1px solid rgba(var(--color-foreground), 0.08);
-  transition: all 0.2s ease;
+  transition: 0.2s ease;
+  transition-property: background-color, border-color, color, transform;
 }
 
 .header .mega-menu-pet__pill:hover {
@@ -283,7 +286,8 @@
   font-weight: 700;
   text-decoration: none;
   box-shadow: 0 4px 12px rgba(var(--pet-accent-bright), 0.3);
-  transition: all 0.2s ease;
+  transition: 0.2s ease;
+  transition-property: background-color, box-shadow, transform;
   align-self: flex-start;
 }
 
@@ -307,7 +311,8 @@
   border: 1px solid rgba(var(--color-foreground), 0.1);
   padding: 1.4rem;
   box-shadow: var(--pet-shadow-md);
-  transition: all 0.25s ease;
+  transition: 0.25s ease;
+  transition-property: background-color, border-color, box-shadow, transform;
   display: flex;
   flex-direction: column;
 }
@@ -428,7 +433,8 @@
   font-size: var(--pet-text-xs);
   font-weight: 700;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: 0.2s ease;
+  transition-property: background-color;
 }
 
 .header .mega-menu-pet__product-card:hover .mega-menu-pet__product-cta {
