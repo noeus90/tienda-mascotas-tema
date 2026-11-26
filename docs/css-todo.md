@@ -346,6 +346,7 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - En CLAUDIA, con ratón, `(hover: hover)` se cumple y el botón «Reservar» se pone verde y sube 2 px al pasar el ratón, como antes.
     - Theme Check sin avisos.
   - Visto de paso: al pasar el ratón por «Reservar», el texto se subraya. Es la regla de Dawn `.header__menu-item:hover span`, y ya pasaba antes de este cambio.
+  - Arreglado después, el mismo día (aprobado aparte): dentro del mismo `@media (hover: hover)`, `.header .header__menu-item--cta-booking:hover span { text-decoration: none }`. Comprobado con el ratón en CLAUDIA: ningún texto del botón se subraya y el botón sigue poniéndose verde. Los demás enlaces del menú siguen subrayándose como en Dawn.
 
 ## Orden propuesto
 
