@@ -678,3 +678,14 @@
     transition-delay: 0s !important;
   }
 }
+
+/* 18. Form controls in the theme font (CSS-19). Browsers give <button>, <input>, <select> and
+   <textarea> their own system font instead of inheriting it, so the buttons without a Dawn .button
+   class (Share, the booking calendar days) came out in Arial. Element selectors: any class that sets
+   a font-family still wins. */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}

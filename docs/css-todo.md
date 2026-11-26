@@ -249,9 +249,11 @@ Al terminar una tarea: marcarla con `[x]`, la fecha y una línea de qué se hizo
     - Pasos de peluquería (`section-pet-grooming-steps.css`): en móvil ya no hay línea entre los números, igual que en tableta. En escritorio sigue.
     - Tarjeta regalo (`section-gift-card-promo.css`): en móvil, el botón ocupa todo el ancho.
   - Comprobado en CLAUDIA a 390 px: la ilustración mide 255 px de alto (antes 278) y se ve entera; el botón de la tarjeta regalo mide 306 px, todo el ancho de su caja (antes 191); en los pasos no se dibuja la línea. En escritorio, la línea de los pasos y el botón de la tarjeta regalo no cambian. Theme Check sin avisos.
-- [ ] 🟠 **CSS-19 · Fuente del botón «Compartir».** S
+- [x] 🟠 **CSS-19 · Fuente del botón «Compartir».** S *(hecho el 26/11/2026)*
   - «Compartir este producto» sale en Arial, no en la fuente del tema: `.share-button__button` no hereda la fuente (comprobado con el estilo calculado).
   - Propuesta: `font-family: inherit` y revisar otros `<button>` propios.
+  - Hecho: al revisar todas las páginas salieron más casos en Arial con texto visible. En la ficha de producto, «Compartir», «Copiar enlace» y «Cerrar». En la reserva, los días del calendario, la «×» de borrar la raza y el botón secundario. Se arregla con una regla general en `component-pet-cro.css` (sección 18): `button, input, select, textarea { font-family: inherit }`. Los selectores son de elemento, así que cualquier clase que fije su propia fuente sigue mandando.
+  - Comprobado en CLAUDIA: en el inicio, la colección, una ficha de producto, la reserva, el carrito, la búsqueda y el contacto, ninguno de los 383 controles de formulario (botones, campos y desplegables) sale ya en una fuente distinta de Assistant. Antes, Arial salía en los iconos de Dawn y en los seis casos de arriba. Theme Check sin avisos.
 
 ## 🟢 Mantenimiento
 
